@@ -7,7 +7,6 @@
 #include "gui/Fonte.h"
 #include "gui/Retangulo.h"
 
-#include <boost/noncopyable.hpp>
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -16,7 +15,7 @@
 namespace grafico {
 
 /** Responsável por gerenciar a janela. */
-class Janela : private boost::noncopyable {
+class Janela {
     public:
         /** Cria a janela informando seu nome, seu canto superior esquerdo,
          * sua largura e sua altura em pixels
@@ -27,6 +26,8 @@ class Janela : private boost::noncopyable {
         Janela(const std::string & nome,
                uint16_t largura,
                uint16_t altura);
+        Janela(const Janela&) = delete;
+        Janela& operator=(const Janela&) = delete;
         /** Destrói a janela. */
         virtual ~Janela();
         /** @return a largura da janela. */

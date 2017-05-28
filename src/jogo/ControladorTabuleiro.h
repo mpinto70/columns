@@ -6,7 +6,6 @@
 #include "peca/Peca.h"
 #include "peca/PosicaoPeca.h"
 #include "peca/Tabuleiro.h"
-#include <boost/noncopyable.hpp>
 #include <memory>
 
 namespace jogo {
@@ -17,7 +16,7 @@ namespace jogo {
  * \li rolar a peça;
  * \li indicar e realizar a eliminação de peças.
  */
-class ControladorTabuleiro: public boost::noncopyable {
+class ControladorTabuleiro {
     public:
         /** Cria o controlador informando o tabuleiro.
          * @param tabuleiro o tabuleiro em que o controlador vai gerenciar a queda da peça
@@ -25,6 +24,8 @@ class ControladorTabuleiro: public boost::noncopyable {
          */
         ControladorTabuleiro(const peca::Tabuleiro & tabuleiro,
                              uint16_t maxSubLinha);
+        ControladorTabuleiro(const ControladorTabuleiro&) = delete;
+        ControladorTabuleiro& operator=(const ControladorTabuleiro&) = delete;
         /** @return o tabuleiro. */
         const peca::Tabuleiro & tabuleiro() const { return tabuleiro_; }
         /** @return uma peça com cores aleatórias. */

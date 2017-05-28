@@ -8,7 +8,6 @@
 #include "gui/Cor.h"
 #include "pontuacao/Placar.h"
 
-#include <boost/noncopyable.hpp>
 #include <mutex>
 #include <atomic>
 
@@ -18,7 +17,7 @@ namespace jogo {
  * \li controle do tabuleiro;
  * \li controle do placar.
  */
-class ControladorJogo: public boost::noncopyable {
+class ControladorJogo {
     public:
         /** Cria o controlador informando o tabuleiro.
          * @param tabuleiro o tabuleiro em que o controlador vai gerenciar a queda da peça
@@ -34,6 +33,8 @@ class ControladorJogo: public boost::noncopyable {
                         const std::vector<gui::Cor> & possiveis,
                         SituacaoObserverPtr && obs,
                         MensagemPtr & msg);
+        ControladorJogo(const ControladorJogo&) = delete;
+        ControladorJogo& operator=(const ControladorJogo&) = delete;
         /** entra no loop de execução. */
         void execute();
     private:

@@ -17,6 +17,7 @@ LIBS =	\
 		-lpontuacao \
 		-lutil \
 		$(GRAPHLIBS) \
+		-lpthread \
 
 SUBDIRS =
 

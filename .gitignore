@@ -1,4 +1,5 @@
 depend.mk
+teste_unitario*
 
 # Prerequisites
 *.d
