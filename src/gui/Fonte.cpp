@@ -20,4 +20,8 @@ bool operator == (const Fonte & lhs, const Fonte & rhs) {
            && lhs.tamanho() == rhs.tamanho();
 }
 
+bool operator != (const Fonte & lhs, const Fonte & rhs) {
+    return not (lhs == rhs);
+}
+
 }

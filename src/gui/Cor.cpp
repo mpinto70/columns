@@ -17,6 +17,10 @@ bool operator == (const Cor & lhs, const Cor & rhs) {
 
 }
 
+bool operator != (const Cor & lhs, const Cor & rhs) {
+    return not (lhs == rhs);
+}
+
 Cor escurece(Cor cor,
              const unsigned char percentual) {
     if (percentual > 100)

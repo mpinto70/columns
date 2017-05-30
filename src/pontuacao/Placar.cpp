@@ -32,4 +32,8 @@ bool operator == (const Placar & lhs, const Placar & rhs) {
            && lhs.pontuacao() == rhs.pontuacao();
 }
 
+bool operator != (const Placar & lhs, const Placar & rhs) {
+    return not (lhs == rhs);
+}
+
 }

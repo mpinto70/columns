@@ -1,5 +1,3 @@
-/** @file */
-
 #include "grafico/DesenhaTabuleiro.h"
 #include "grafico/SDL/JanelaSDL.h"
 #include "jogo/SituacaoObserver.h"
@@ -16,7 +14,6 @@
 #include <atomic>
 #include <thread>
 
-/// versão do software
 const std::string VERSAO = "0.5";
 
 /// cores possíveis
@@ -51,7 +48,7 @@ static void esperaPor(std::atomic<bool> & condicao) {
 /** Observador da situação do jogo. */
 class ColunasObs: public jogo::SituacaoObserver {
     public:
-        /** Cria o objeto.
+        /**
          * @param janela        a janela onde serão desenhadas os elementos
          * @param fonteNome     a fonte do nome da aplicação
          * @param fontePlacar   a fonte do placar
@@ -68,7 +65,6 @@ class ColunasObs: public jogo::SituacaoObserver {
             if (janela_.get() == nullptr)
                 throw std::invalid_argument("ColunasObs - janela nula");
         }
-        /** Destrói o objeto. */
         ~ColunasObs() override = default;
         /** Atualiza os gráficos da situação do jogo.
          * @param situacao a situação atual do jogo
@@ -134,11 +130,7 @@ void executa(jogo::MensagemPtr mensagens) {
         inicializado = true;
     }
 }
-/** função princial.
- * @param argc  quantidade de argumentos
- * @param argv  os argumentos
- * @return resultado da execução
- */
+
 int main(int argc, char **argv) {
     try {
         auto mensagens = std::make_shared<jogo::Mensagem>();

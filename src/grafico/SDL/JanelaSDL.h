@@ -1,6 +1,4 @@
-
-#ifndef JANELASDL_H_mhpa
-#define JANELASDL_H_mhpa
+#pragma once
 
 #include "grafico/Janela.h"
 #include <SDL2/SDL.h>
@@ -93,5 +91,3 @@ class JanelaSDL : public Janela {
 };
 
 }
-
-#endif

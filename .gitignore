@@ -1,5 +1,8 @@
-depend.mk
-teste_unitario*
+
+build/
+bin/
+lib/
+gtest/
 
 # Prerequisites
 *.d

@@ -14,4 +14,8 @@ bool operator == (const Ponto & lhs, const Ponto & rhs) {
            && lhs.Y == rhs.Y;
 }
 
+bool operator != (const Ponto & lhs, const Ponto & rhs) {
+    return not (lhs == rhs);
+}
+
 }

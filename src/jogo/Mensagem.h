@@ -1,6 +1,4 @@
-
-#ifndef MENSAGEM_H_mhpa
-#define MENSAGEM_H_mhpa
+#pragma once
 
 #include <memory>
 #include <mutex>
@@ -36,9 +34,6 @@ class Mensagem {
         Lista mensagens_;           ///< as mensagens
 };
 
-/** shared pointer para Mensagem. */
 typedef std::shared_ptr<Mensagem> MensagemPtr;
 
 }
-
-#endif

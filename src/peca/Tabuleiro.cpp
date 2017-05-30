@@ -63,4 +63,8 @@ bool operator == (const Tabuleiro & lhs, const Tabuleiro & rhs) {
     if (lhs.casas() != rhs.casas()) return false;
     return true;
 }
+
+bool operator != (const Tabuleiro & lhs, const Tabuleiro & rhs) {
+    return not (lhs == rhs);
+}
 }

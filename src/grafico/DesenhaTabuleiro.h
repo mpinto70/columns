@@ -1,6 +1,4 @@
-
-#ifndef DESENHATABULEIRO_H_mhpa
-#define DESENHATABULEIRO_H_mhpa
+#pragma once
 
 #include "jogo/Situacao.h"
 #include "grafico/Janela.h"
@@ -12,8 +10,7 @@ namespace grafico {
 /** Responsável por desenhar o tabuleiro. */
 class DesenhaTabuleiro {
     public:
-        /** Cria o objeto informando onde é o canto superior esquerdo e o tamanho
-         * de cada quadradinho em pixels
+        /**
          * @param left                  o X onde será mostrado o tabuleiro
          * @param top                   o Y onde será mostrado o tabuleiro
          * @param tamanhoQuadradinho    o tamanho do quadradinho em pixels
@@ -58,5 +55,3 @@ class DesenhaTabuleiro {
 };
 
 }
-
-#endif

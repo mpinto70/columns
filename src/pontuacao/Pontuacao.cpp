@@ -24,6 +24,10 @@ bool operator == (const Pontuacao & lhs, const Pontuacao & rhs) {
     return lhs.total() == rhs.total();
 }
 
+bool operator != (const Pontuacao & lhs, const Pontuacao & rhs) {
+    return not (lhs == rhs);
+}
+
 bool operator < (const Pontuacao & lhs, const Pontuacao & rhs) {
     return lhs.total() < rhs.total();
 }

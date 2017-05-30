@@ -1,22 +1,16 @@
-
-#ifndef ALEATORIO_H_mhpa
-#define ALEATORIO_H_mhpa
+#pragma once
 
 #include <map>
 #include <random>
 
 /** namespace das classes utilitárias genéricas do jogo. */
 namespace util {
-/** Responsável por gerar números aleatórios. */
+/** Responsável por gerar números aleatórios de [0,N]. */
 class Aleatorio {
     public:
-        /** distribuição uniforme. */
         typedef std::uniform_int_distribution<size_t> Distribuicao;
-        /** mapa de distribuições uniformes em N. */
         typedef std::map<size_t, Distribuicao> MapaDist;
-        /** construtor deletado. */
         Aleatorio() = delete;
-        /** destrutor deletado. */
         ~Aleatorio() = delete;
         /** @return número aleatório [0,N].
          * @param N     o limite do valor a ser gerado
@@ -28,5 +22,3 @@ class Aleatorio {
 };
 
 }
-
-#endif

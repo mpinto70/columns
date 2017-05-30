@@ -1,6 +1,4 @@
-
-#ifndef TABULEIRO_H_mhpa
-#define TABULEIRO_H_mhpa
+#pragma once
 
 #include "gui/Cor.h"
 #include "peca/Peca.h"
@@ -17,17 +15,11 @@ class Tabuleiro {
          * @param cor a cor do fundo do tabuleiro
          */
         Tabuleiro(uint16_t l, uint16_t h, const gui::Cor & cor);
-        /** Cria uma cópia do tabuleiro
-         * @param rhs o tabuleiro sendo copiado
-         */
         Tabuleiro(const Tabuleiro & rhs);
+        Tabuleiro & operator = (const Tabuleiro & rhs);
+
         /** @return as casas do tabuleiro. */
         const std::vector<gui::Cor> & casas() const { return casas_; }
-        /** Copia o tabuleiro desprezando
-         * @param rhs o tabuleiro sendo copiado
-         * @return uma referência ao novo objeto
-         */
-        Tabuleiro & operator = (const Tabuleiro & rhs);
         /** @return o elemento na posição (c, l).
          * @param c o índice da coluna a ser retornada
          * @param l o índice da linha a ser retornada
@@ -56,12 +48,7 @@ class Tabuleiro {
         uint16_t altura_;               ///< a altura do tabuleiro
 };
 
-/** @return se os dois tabuleiros são iguais.
- * @param lhs o tabuleiro à esquerda do sinal
- * @param rhs o tabuleiro à direita do sinal
- */
 bool operator == (const Tabuleiro & lhs, const Tabuleiro & rhs);
+bool operator != (const Tabuleiro & lhs, const Tabuleiro & rhs);
 
 }
-
-#endif

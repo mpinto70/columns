@@ -1,6 +1,4 @@
-
-#ifndef util_gui_h
-#define util_gui_h
+#pragma once
 
 #include "gui/Cor.h"
 #include <iosfwd>
@@ -14,4 +12,3 @@ void print(const std::string & file,
            const Cor & cor);
 }
 }
-#endif

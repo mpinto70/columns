@@ -75,4 +75,9 @@ bool operator == (const Situacao & lhs, const Situacao & rhs) {
 
     return true;
 }
+
+bool operator != (const Situacao & lhs, const Situacao & rhs) {
+    return not (lhs == rhs);
+}
+
 }

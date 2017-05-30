@@ -1,6 +1,4 @@
-
-#ifndef SITUACAO_H_mhpa
-#define SITUACAO_H_mhpa
+#pragma once
 
 #include "peca/Peca.h"
 #include "peca/PosicaoPeca.h"
@@ -13,8 +11,7 @@ namespace jogo {
 typedef std::pair<uint16_t, uint16_t> ItemEliminacao;
 /** tipo da lista de casas a serem eliminadas do tabuleiro. */
 typedef std::vector<ItemEliminacao> ListaEliminacao;
-/** Responsável por registrar a situação do jogo em um determinado ponto.
- */
+/** Responsável por registrar a situação do jogo em um determinado ponto. */
 class Situacao {
     public:
         /** Cria a situação em que não há nada a ser adicionado e não há peça caindo.
@@ -45,9 +42,7 @@ class Situacao {
                  const pontuacao::Placar & placar,
                  const ListaEliminacao & lista,
                  const peca::Peca & proxima);
-        /** @return o tabuleiro. */
         const peca::Tabuleiro & tabuleiro() const { return tabuleiro_; }
-        /** @return o placar. */
         const pontuacao::Placar & placar() const { return placar_; }
         /** @return se há uma peça caindo no tabuleiro. */
         bool temPeca() const { return peca_.get() != NULL; }
@@ -68,7 +63,6 @@ class Situacao {
          */
         const peca::Peca & proxima() const;
     private:
-        /** tipo de scoped pointer de PosicaoPeca. */
         typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
         peca::Tabuleiro tabuleiro_;     ///< o tabuleiro
         pontuacao::Placar placar_;      ///< o placar atual
@@ -78,11 +72,6 @@ class Situacao {
         peca::PecaPtr proxima_;         ///< a próxima peça a ser colocada no tabuleiro
 };
 
-/** @return se as situações são iguais.
- * @param lhs o objeto à esquerda da igualdade
- * @param rhs o objeto à direita da igualdade
- */
 bool operator == (const Situacao & lhs, const Situacao & rhs);
+bool operator != (const Situacao & lhs, const Situacao & rhs);
 }
-
-#endif

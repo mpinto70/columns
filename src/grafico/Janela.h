@@ -1,6 +1,4 @@
-
-#ifndef JANELA_H_mhpa
-#define JANELA_H_mhpa
+#pragma once
 
 #include "gui/Cor.h"
 #include "gui/Ponto.h"
@@ -11,13 +9,12 @@
 #include <memory>
 #include <string>
 
-/** namespace das entidades relacionadas à biblioteca gráfica. */
 namespace grafico {
 
 /** Responsável por gerenciar a janela. */
 class Janela {
     public:
-        /** Cria a janela informando seu nome, seu canto superior esquerdo,
+        /**
          * sua largura e sua altura em pixels
          * @param nome      o nome da janela
          * @param largura   a largura da janela
@@ -28,17 +25,11 @@ class Janela {
                uint16_t altura);
         Janela(const Janela&) = delete;
         Janela& operator=(const Janela&) = delete;
-        /** Destrói a janela. */
         virtual ~Janela();
-        /** @return a largura da janela. */
         const std::string & nome() const { return nome_; }
-        /** @return a largura da janela. */
         uint16_t largura() const { return largura_; }
-        /** @return a altura da janela. */
         uint16_t altura() const { return altura_; }
-        /** limpa a janela. */
         virtual void limpa() = 0;
-        /** mostra a janela. */
         virtual void atualiza() = 0;
         /** desenha uma linha.
          * @param ini   ponto inicial
@@ -142,9 +133,6 @@ class Janela {
                                         const gui::Cor & cor) = 0;
 };
 
-/// O ponteiro compartilhado de Janela
 typedef std::shared_ptr<Janela> SharedJanela;
 
 }
-
-#endif

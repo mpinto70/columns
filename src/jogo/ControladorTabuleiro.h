@@ -1,6 +1,4 @@
-
-#ifndef CONTROLADORTABULEIRO_H_mhpa
-#define CONTROLADORTABULEIRO_H_mhpa
+#pragma once
 
 #include "jogo/Situacao.h"
 #include "peca/Peca.h"
@@ -18,7 +16,7 @@ namespace jogo {
  */
 class ControladorTabuleiro {
     public:
-        /** Cria o controlador informando o tabuleiro.
+        /**
          * @param tabuleiro o tabuleiro em que o controlador vai gerenciar a queda da peça
          * @param maxSubLinha o máximo de subdivisão do passo da peça
          */
@@ -26,11 +24,10 @@ class ControladorTabuleiro {
                              uint16_t maxSubLinha);
         ControladorTabuleiro(const ControladorTabuleiro&) = delete;
         ControladorTabuleiro& operator=(const ControladorTabuleiro&) = delete;
-        /** @return o tabuleiro. */
         const peca::Tabuleiro & tabuleiro() const { return tabuleiro_; }
         /** @return uma peça com cores aleatórias. */
         peca::Peca criaPeca() const;
-        /** Cria uma nova peça para cair no tabuleiro
+        /** Adiciona a peca \p peca ao tabuleiro
          * @param peca a peça sendo adicionada ao tabuleiro
          * @return true se foi possível criar a peça
          * @return false se não foi possível criar a peça
@@ -69,17 +66,15 @@ class ControladorTabuleiro {
          * @param casas a lista de casas a serem eliminadas
          */
         void elimina(const ListaEliminacao & casas);
-        /** @return a situação atual. */
         Situacao situacao() const;
     private:
-        /** tipo de scoped pointer de PosicaoPeca. */
         typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
         peca::Tabuleiro tabuleiro_;             ///< o tabuleiro
         peca::PecaPtr peca_;                    ///< a peca caindo no tabuleiro
         PosicaoPtr posicaoPeca_;                ///< a posição em que está a peça caindo no tabuleiro
         const uint16_t maxSubLinha_;            ///< tamanho do quadradinho da peça
         const std::vector<gui::Cor> possiveis_; ///< cores possíveis para as peças
-        /** @return se é possível mover a peça para a \b coluna.
+        /** @return se é possível mover a peça para a \p coluna.
          * @param coluna o número da coluna de destino
          */
         bool podeMoverPara(uint16_t coluna) const;
@@ -87,13 +82,13 @@ class ControladorTabuleiro {
          * @attention se não houver coluna retorna a largura do tabuleiro
          */
         uint16_t determinaColuna() const;
-        /** @return se é possível coloar a peça na coluna \b coluna.
+        /** @return se é possível coloar a peça na coluna \p coluna.
          * @param coluna o número da coluna de destino
          */
         bool podeColocarPeca(uint16_t coluna) const;
-        /** @return se é a peça que está caindo chegou ao fim de seu trajeto. */
+        /** @return se a peça que está caindo chegou ao fim de seu trajeto. */
         bool atingiuFim() const;
-        /** @return se a peça colocada em (\b coluna, \b linha ) deve ser eliminada.
+        /** @return se a peça colocada em (\p coluna, \p linha ) deve ser eliminada.
          * @param coluna o número da coluna sendo verificada
          * @param linha o número da linha sendo verificada
          */
@@ -101,5 +96,3 @@ class ControladorTabuleiro {
 };
 
 }
-
-#endif

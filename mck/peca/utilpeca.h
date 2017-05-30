@@ -1,6 +1,4 @@
-
-#ifndef util_peca_h
-#define util_peca_h
+#pragma once
 
 #include "peca/Peca.h"
 #include "peca/Tabuleiro.h"
@@ -19,4 +17,3 @@ void printTabuleiro(const std::string & file,
 
 }
 }
-#endif

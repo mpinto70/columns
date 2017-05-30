@@ -1,6 +1,4 @@
-
-#ifndef CONTROLADORJOGO_H_mhpa
-#define CONTROLADORJOGO_H_mhpa
+#pragma once
 
 #include "jogo/ControladorTabuleiro.h"
 #include "jogo/Mensagem.h"
@@ -11,7 +9,6 @@
 #include <mutex>
 #include <atomic>
 
-/** Namespace das classes de controle de alto nível do jogo. */
 namespace jogo {
 /** Responsável controlar o jogo:
  * \li controle do tabuleiro;
@@ -19,7 +16,7 @@ namespace jogo {
  */
 class ControladorJogo {
     public:
-        /** Cria o controlador informando o tabuleiro.
+        /**
          * @param tabuleiro o tabuleiro em que o controlador vai gerenciar a queda da peça
          * @param maxSubLinha o máximo de subdivisão do passo da peça
          * @param recorde o recorde
@@ -35,10 +32,9 @@ class ControladorJogo {
                         MensagemPtr & msg);
         ControladorJogo(const ControladorJogo&) = delete;
         ControladorJogo& operator=(const ControladorJogo&) = delete;
-        /** entra no loop de execução. */
+        /** loop de execução. */
         void execute();
     private:
-        /** tipo de scoped pointer de PosicaoPeca. */
         ControladorTabuleiro tabuleiro_;            ///< o tabuleiro
         pontuacao::Placar placar_;                  ///< o placar
         peca::Peca proximaPeca_;                    ///< a próximaa peca a cair no tabuleiro
@@ -57,5 +53,3 @@ class ControladorJogo {
 };
 
 }
-
-#endif

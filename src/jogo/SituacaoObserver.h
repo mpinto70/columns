@@ -1,16 +1,12 @@
-
-#ifndef SITUACAOOBSERVER_H_mhpa
-#define SITUACAOOBSERVER_H_mhpa
+#pragma once
 
 #include "jogo/Situacao.h"
 #include <memory>
 
 namespace jogo {
-/** Interface dos observadores da situação do jogo.
- */
+/** Interface dos observadores da situação do jogo.  */
 class SituacaoObserver {
     public:
-        /** destrutor. */
         virtual ~SituacaoObserver() = default;
         /** será chamado quando houver nova situação.
          * @param situacao a situação atual do jogo.
@@ -18,8 +14,5 @@ class SituacaoObserver {
         virtual void atualiza(const Situacao & situacao) const = 0;
 };
 
-/** ponteiro para observador de situação. */
 typedef std::unique_ptr<SituacaoObserver> SituacaoObserverPtr;
 }
-
-#endif

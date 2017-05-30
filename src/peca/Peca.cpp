@@ -73,4 +73,8 @@ bool operator == (const Peca & lhs, const Peca & rhs) {
     return true;
 }
 
+bool operator != (const Peca & lhs, const Peca & rhs) {
+    return not (lhs == rhs);
+}
+
 }
