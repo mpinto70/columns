@@ -110,8 +110,8 @@ void executa(jogo::MensagemPtr mensagens) {
 
         grafico::SharedJanela janela(new grafico::JanelaSDL("Colunas " + VERSAO, 1000, 100, LARGURA_TELA, ALTURA_TELA, gui::Cinza));
         const grafico::DesenhaTabuleiro des(10, 15, TAMANHO_QUADRADINHO, STEPS_QUADRADINHO);
-        const gui::Fonte fntNome("/usr/share/fonts/truetype/msttcorefonts/Georgia_Bold.ttf", 25);
-        const gui::Fonte fntPlacar("/usr/share/fonts/truetype/msttcorefonts/Arial.ttf", 25);
+        const gui::Fonte fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
+        const gui::Fonte fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
         jogo::ControladorJogo cont(peca::Tabuleiro(LARGURA, ALTURA, gui::Preto),
                                    TAMANHO_QUADRADINHO / 2,
