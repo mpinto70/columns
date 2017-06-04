@@ -10,8 +10,8 @@ namespace grafico {
     @param y1 o Y no canvas do canto superior esquerdo do quadradinho
     @param tamanho o tamanho do quadradinho em pixels
  */
-static void pintaQuadrado(Janela & janela,
-                          const gui::Cor & cor,
+static void pintaQuadrado(Janela& janela,
+                          const gui::Cor& cor,
                           const uint16_t x1,
                           const uint16_t y1,
                           const uint16_t tamanho) {
@@ -41,26 +41,29 @@ DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,
       top_(top),
       tamanhoQuadradinho_(tamanhoQuadradinho),
       stepQuadradinho_(stepQuadradinho) {
-    if (tamanhoQuadradinho == 0)
+    if (tamanhoQuadradinho == 0) {
         throw std::invalid_argument("DesenhaTabuleiro - tamanho nulo");
-    if (stepQuadradinho == 0)
+    }
+    if (stepQuadradinho == 0) {
         throw std::invalid_argument("DesenhaTabuleiro - passo interno nulo");
-    if (tamanhoQuadradinho % stepQuadradinho != 0)
+    }
+    if (tamanhoQuadradinho % stepQuadradinho != 0) {
         throw std::invalid_argument("DesenhaTabuleiro - relação inválida entre os tamanhos do quadradinho e do step");
+    }
 }
 
-void DesenhaTabuleiro::desenha(Janela & janela,
-                               const jogo::Situacao & sit,
-                               const gui::Cor & corEliminacao) const {
+void DesenhaTabuleiro::desenha(Janela& janela,
+                               const jogo::Situacao& sit,
+                               const gui::Cor& corEliminacao) const {
     desenha(janela, sit.tabuleiro());
     if (sit.temPeca()) {
-        const auto & posic = sit.posicaoPeca();
-        const auto & peca = sit.peca();
+        const auto& posic = sit.posicaoPeca();
+        const auto& peca = sit.peca();
         for (uint16_t i = 0; i < peca::TAMANHO_PECA; ++i) {
             desenhaQuadrado(janela, peca[i], posic.coluna(), posic.linha() + i, posic.subLinha());
         }
     } else {
-        for (const auto & eliminada : sit.eliminacao()) {
+        for (const auto& eliminada : sit.eliminacao()) {
             const auto col = eliminada.first;
             const auto lin = eliminada.second;
             desenhaQuadrado(janela, corEliminacao, col, lin);
@@ -68,8 +71,8 @@ void DesenhaTabuleiro::desenha(Janela & janela,
     }
 }
 
-void DesenhaTabuleiro::desenha(Janela & janela,
-                               const peca::Tabuleiro & tab) const {
+void DesenhaTabuleiro::desenha(Janela& janela,
+                               const peca::Tabuleiro& tab) const {
     janela.preenche(gui::Retangulo(left_,
                                    top_,
                                    left_ + tab.largura() * tamanhoQuadradinho_,
@@ -78,16 +81,17 @@ void DesenhaTabuleiro::desenha(Janela & janela,
 
     for (uint16_t i = 0; i < tab.largura(); ++i) {
         for (uint16_t j = 0; j < tab.altura(); ++j) {
-            const auto & corCelula = tab.at(i, j);
-            if (corCelula == tab.cor())
-                continue; // é fundo
+            const auto& corCelula = tab.at(i, j);
+            if (corCelula == tab.cor()) {
+                continue;    // é fundo
+            }
             desenhaQuadrado(janela, corCelula, i, j);
         }
     }
 }
 
-void DesenhaTabuleiro::desenhaQuadrado(Janela & janela,
-                                       const gui::Cor & cor,
+void DesenhaTabuleiro::desenhaQuadrado(Janela& janela,
+                                       const gui::Cor& cor,
                                        const uint16_t coluna,
                                        const uint16_t linha,
                                        const uint16_t sublinha) const {

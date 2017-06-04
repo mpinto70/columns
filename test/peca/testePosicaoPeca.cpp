@@ -9,8 +9,8 @@ namespace peca {
 namespace tst {
 
 namespace {
-void confereCriacaoInvalida(const std::string & msg0,
-                            const Tabuleiro & tab) {
+void confereCriacaoInvalida(const std::string& msg0,
+                            const Tabuleiro& tab) {
     for (uint16_t i = 0; i < 2 * tab.largura(); ++i) {
         if (i < tab.largura()) {
             EXPECT_NO_THROW(PosicaoPeca(tab, i, 4)) << msg0;
@@ -18,7 +18,7 @@ void confereCriacaoInvalida(const std::string & msg0,
             try {
                 PosicaoPeca p(tab, i, 4);
                 FAIL() << msg0;
-            } catch (std::invalid_argument & e) {
+            } catch (std::invalid_argument& e) {
                 EXPECT_EQ(std::string(e.what()), "PosicaoPeca - coluna ultrapassa o largura do tabuleiro") << msg0;
             }
         }
@@ -28,13 +28,13 @@ void confereCriacaoInvalida(const std::string & msg0,
     try {
         PosicaoPeca p(tab, 0, 0);
         FAIL() << msg0;
-    } catch (std::invalid_argument & e) {
+    } catch (std::invalid_argument& e) {
         EXPECT_EQ(std::string(e.what()), "PosicaoPeca - máxima subdivisão da posição nula") << msg0;
     }
 }
 
-void confereCaiUmPassoInvalido(const std::string & msg0,
-                               const Tabuleiro & tab) {
+void confereCaiUmPassoInvalido(const std::string& msg0,
+                               const Tabuleiro& tab) {
     PosicaoPeca p(tab, tab.largura() - 1, 7);
     while (p.linha() != tab.altura() - TAMANHO_PECA) {
         EXPECT_TRUE(not p.chegouAoFundo()) << msg0;
@@ -48,13 +48,13 @@ void confereCaiUmPassoInvalido(const std::string & msg0,
     try {
         p.caiUmPasso();
         FAIL() << msg0;
-    } catch (std::logic_error & e) {
+    } catch (std::logic_error& e) {
         EXPECT_EQ(std::string(e.what()), "PosicaoPeca::caiUmPasso - já está na posição inferior") << msg0;
     }
 }
 
-void confereMoveInvalido(const std::string & msg0,
-                         const Tabuleiro & tab) {
+void confereMoveInvalido(const std::string& msg0,
+                         const Tabuleiro& tab) {
     PosicaoPeca p(tab, 0, 4);
     for (uint16_t i = 0; i < tab.largura() - 1; ++i) {
         EXPECT_EQ(p.coluna(), i) << msg0;

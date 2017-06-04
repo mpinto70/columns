@@ -18,20 +18,20 @@ enum class EMensagem {
 
 /** Responsável por controlar as mensagens de eventos. */
 class Mensagem {
-    public:
-        /** lista de mensagens. */
-        typedef std::vector<EMensagem> Lista;
-        /** registra uma nova mensagem.
-         * @param msg a mensagem a ser registrada
-         */
-        void registra(EMensagem msg);
-        /** limpa a lista de mensagens. */
-        void limpa();
-        /** @return a lista de mensagens e limpa a atual. */
-        Lista recupera();
-    private:
-        std::mutex mutexMensagem_;  ///< o mutex de mensagem
-        Lista mensagens_;           ///< as mensagens
+public:
+    /** lista de mensagens. */
+    typedef std::vector<EMensagem> Lista;
+    /** registra uma nova mensagem.
+     * @param msg a mensagem a ser registrada
+     */
+    void registra(EMensagem msg);
+    /** limpa a lista de mensagens. */
+    void limpa();
+    /** @return a lista de mensagens e limpa a atual. */
+    Lista recupera();
+private:
+    std::mutex mutexMensagem_;  ///< o mutex de mensagem
+    Lista mensagens_;           ///< as mensagens
 };
 
 typedef std::shared_ptr<Mensagem> MensagemPtr;

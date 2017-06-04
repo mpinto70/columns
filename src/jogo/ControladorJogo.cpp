@@ -7,12 +7,12 @@
 
 namespace jogo {
 
-ControladorJogo::ControladorJogo(const peca::Tabuleiro & tabuleiro,
+ControladorJogo::ControladorJogo(const peca::Tabuleiro& tabuleiro,
                                  const uint16_t maxSubLinha,
-                                 const pontuacao::Pontuacao & recorde,
-                                 const std::vector<gui::Cor> & possiveis,
-                                 SituacaoObserverPtr && obs,
-                                 MensagemPtr & msg)
+                                 const pontuacao::Pontuacao& recorde,
+                                 const std::vector<gui::Cor>& possiveis,
+                                 SituacaoObserverPtr&& obs,
+                                 MensagemPtr& msg)
     : tabuleiro_(tabuleiro, maxSubLinha),
       placar_(recorde),
       proximaPeca_(peca::Peca::cria(possiveis)),
@@ -20,12 +20,15 @@ ControladorJogo::ControladorJogo(const peca::Tabuleiro & tabuleiro,
       observer_(std::move(obs)),
       mensagens_(msg),
       parar_(false) {
-    if (observer_.get() == nullptr)
+    if (observer_.get() == nullptr) {
         throw std::invalid_argument("ControladorJogo - observer nulo");
-    if (possiveis_.empty())
+    }
+    if (possiveis_.empty()) {
         throw std::invalid_argument("ControladorJogo - sem cores possíveis");
-    if (mensagens_.get() == nullptr)
+    }
+    if (mensagens_.get() == nullptr) {
         throw std::invalid_argument("ControladorJogo - mensagem nula");
+    }
 }
 
 void ControladorJogo::execute() {
@@ -59,7 +62,7 @@ void ControladorJogo::execute() {
     }
 }
 
-Situacao ControladorJogo::montaSituacao(const jogo::ListaEliminacao & lista) const {
+Situacao ControladorJogo::montaSituacao(const jogo::ListaEliminacao& lista) const {
     if (tabuleiro_.temPeca()) {
         return Situacao(tabuleiro_.tabuleiro(),
                         placar_,
@@ -74,36 +77,36 @@ Situacao ControladorJogo::montaSituacao(const jogo::ListaEliminacao & lista) con
     }
 }
 
-void ControladorJogo::processa(const Mensagem::Lista & msgs) {
+void ControladorJogo::processa(const Mensagem::Lista& msgs) {
     for (const auto msg : msgs) {
         switch (msg) {
-            case EMensagem::moveEsquerda:
-                tabuleiro_.moveEsquerda();
-                break;
-            case EMensagem::moveDireita:
-                tabuleiro_.moveDireita();
-                break;
-            case EMensagem::moveBaixo:
-                while (tabuleiro_.temPeca()) {
-                    //printf("\n%s (%d) - PASSO(%d)\n", __FILE__, __LINE__, ++cont);
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    observer_->atualiza(montaSituacao());
-                }
-                break;
-            case EMensagem::rolaBaixo:
-                tabuleiro_.rolaParaBaixo();
-                break;
-            case EMensagem::rolaCima:
-                tabuleiro_.rolaParaCima();
-                break;
-            case EMensagem::parar:
-                parar_ = true;
-                break;
+        case EMensagem::moveEsquerda:
+            tabuleiro_.moveEsquerda();
+            break;
+        case EMensagem::moveDireita:
+            tabuleiro_.moveDireita();
+            break;
+        case EMensagem::moveBaixo:
+            while (tabuleiro_.temPeca()) {
+                //printf("\n%s (%d) - PASSO(%d)\n", __FILE__, __LINE__, ++cont);
+                tabuleiro_.passo();
+                tabuleiro_.passo();
+                tabuleiro_.passo();
+                tabuleiro_.passo();
+                tabuleiro_.passo();
+                tabuleiro_.passo();
+                observer_->atualiza(montaSituacao());
+            }
+            break;
+        case EMensagem::rolaBaixo:
+            tabuleiro_.rolaParaBaixo();
+            break;
+        case EMensagem::rolaCima:
+            tabuleiro_.rolaParaCima();
+            break;
+        case EMensagem::parar:
+            parar_ = true;
+            break;
         }
         observer_->atualiza(montaSituacao());
     }

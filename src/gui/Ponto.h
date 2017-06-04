@@ -22,12 +22,12 @@ struct Ponto {
         : X(x),
           Y(y) {
     }
-    void swap(Ponto & rhs);
+    void swap(Ponto& rhs);
     uint16_t X; ///< a posição x
     uint16_t Y; ///< a posição y
 };
 
-bool operator == (const Ponto & lhs, const Ponto & rhs);
-bool operator != (const Ponto & lhs, const Ponto & rhs);
+bool operator == (const Ponto& lhs, const Ponto& rhs);
+bool operator != (const Ponto& lhs, const Ponto& rhs);
 
 }

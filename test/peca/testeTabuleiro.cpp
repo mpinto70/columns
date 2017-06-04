@@ -11,10 +11,10 @@ namespace peca {
 namespace tst {
 namespace {
 
-static void confereTabuleiroVazio(const std::string & msg,
+static void confereTabuleiroVazio(const std::string& msg,
                                   uint16_t l,
                                   uint16_t h,
-                                  const gui::Cor & cor) {
+                                  const gui::Cor& cor) {
     EXPECT_TRUE(l > 0) << msg;
     EXPECT_TRUE(h > 0) << msg;
     const Tabuleiro tabuleiro(l, h, cor);

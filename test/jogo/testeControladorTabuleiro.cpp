@@ -10,13 +10,13 @@ namespace jogo {
 namespace tst {
 namespace {
 
-static void confereCriaPecaInvalida(ControladorTabuleiro & cont,
-                                    const std::string & msg) {
+static void confereCriaPecaInvalida(ControladorTabuleiro& cont,
+                                    const std::string& msg) {
     try {
         const auto peca = cont.criaPeca();
         cont.adicionaPeca(peca);
         FAIL() << "não ocorreu " + msg;
-    } catch (std::exception & e) {
+    } catch (std::exception& e) {
         EXPECT_EQ(e.what(), msg);
     }
 }
@@ -48,8 +48,9 @@ TEST(TesteControladorTabuleiro, CriaPeca) {
     }
     uint16_t iguais = 0;
     for (uint16_t i = 0; i < QTD - 1; ++i) {
-        if (pecas[i] == pecas[i + 1])
+        if (pecas[i] == pecas[i + 1]) {
             ++iguais;
+        }
     }
 
     EXPECT_LT(iguais, QTD - 1);
@@ -100,7 +101,7 @@ TEST(TesteControladorTabuleiro, Passo) {
     uint16_t linha = 0;
     uint16_t sublinha = 0;
     while (branco.temPeca()) {
-        const peca::PosicaoPeca & posic = branco.posicaoPeca();
+        const peca::PosicaoPeca& posic = branco.posicaoPeca();
         EXPECT_EQ(posic.coluna(), col);
         EXPECT_EQ(posic.linha(), linha);
         EXPECT_EQ(posic.subLinha(), sublinha);

@@ -75,7 +75,7 @@ TEST(TestePontuacao, AcrescentaInvalido) {
     EXPECT_NO_THROW(p.acrescenta(peca::TAMANHO_PECA));
 
     p = Pontuacao(-1); // o máximo valor suportado pelo tipo
-    EXPECT_THROW(p.acrescenta(peca::TAMANHO_PECA), std::invalid_argument );
+    EXPECT_THROW(p.acrescenta(peca::TAMANHO_PECA), std::invalid_argument);
     EXPECT_EQ(p.total(), size_t(-1)); // o valor não se alterou do máximo suportado
 }
 

@@ -6,22 +6,24 @@
 #include <stdexcept>
 
 namespace grafico {
-JanelaSDL::JanelaSDL(const std::string & nome,
+JanelaSDL::JanelaSDL(const std::string& nome,
                      const uint16_t left,
                      const uint16_t top,
                      const uint16_t width,
                      const uint16_t height,
-                     const gui::Cor & cor)
+                     const gui::Cor& cor)
     : Janela(nome, width, height),
       window_(nullptr),
       renderer_(nullptr),
       cor_(cor) {
     window_ = SDL_CreateWindow(nome.c_str(), left, top, width, height, SDL_WINDOW_SHOWN);
-    if (window_ == nullptr)
+    if (window_ == nullptr) {
         throw std::runtime_error("JanelaSDL - erro criando a janela: " + std::string(SDL_GetError()));
+    }
     renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer_ == nullptr)
+    if (renderer_ == nullptr) {
         throw std::runtime_error("JanelaSDL - erro criando o renderer: " + std::string(SDL_GetError()));
+    }
 }
 
 JanelaSDL::~JanelaSDL() {
@@ -30,10 +32,12 @@ JanelaSDL::~JanelaSDL() {
 }
 
 void JanelaSDL::limpa() {
-    if (SDL_SetRenderDrawColor(renderer_, cor_.R, cor_.G, cor_.B, SDL_ALPHA_OPAQUE) != 0)
+    if (SDL_SetRenderDrawColor(renderer_, cor_.R, cor_.G, cor_.B, SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("JanelaSDL::limpa - erro no SDL_SetRenderDrawColor");
-    if (SDL_RenderClear(renderer_) != 0)
+    }
+    if (SDL_RenderClear(renderer_) != 0) {
         throw std::runtime_error("JanelaSDL::limpa - erro no SDL_RenderClear");
+    }
 }
 
 void JanelaSDL::atualiza() {
@@ -44,48 +48,54 @@ void JanelaSDL::linha_(const uint16_t x1,
                        const uint16_t y1,
                        const uint16_t x2,
                        const uint16_t y2,
-                       const gui::Cor & cor) {
-    if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0)
+                       const gui::Cor& cor) {
+    if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("JanelaSDL::linha_ - erro no SDL_SetRenderDrawColor");
+    }
 
-    if (SDL_RenderDrawLine(renderer_, x1, y1, x2, y2) != 0)
+    if (SDL_RenderDrawLine(renderer_, x1, y1, x2, y2) != 0) {
         throw std::runtime_error("JanelaSDL::linha_ - erro no SDL_RenderDrawLine");
+    }
 }
 
 void JanelaSDL::retangulo_(const uint16_t x1,
                            const uint16_t y1,
                            const uint16_t x2,
                            const uint16_t y2,
-                           const gui::Cor & cor) {
+                           const gui::Cor& cor) {
     const SDL_Rect rect = {x1, y1, x2 - x1 + 1, y2 - y1 + 1};
-    if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0)
+    if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("JanelaSDL::retangulo_ - erro no SDL_SetRenderDrawColor");
-    if (SDL_RenderDrawRect(renderer_, &rect))
+    }
+    if (SDL_RenderDrawRect(renderer_, &rect)) {
         throw std::runtime_error("JanelaSDL::retangulo_ - erro no SDL_RenderDrawRect");
+    }
 }
 
 void JanelaSDL::preenche_(const uint16_t x1,
                           const uint16_t y1,
                           const uint16_t x2,
                           const uint16_t y2,
-                          const gui::Cor & cor) {
+                          const gui::Cor& cor) {
     const SDL_Rect rect = {x1, y1, x2 - x1 + 1, y2 - y1 + 1};
-    if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0)
+    if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("JanelaSDL::preenche_ - erro no SDL_SetRenderDrawColor");
-    if (SDL_RenderFillRect(renderer_, &rect) != 0)
+    }
+    if (SDL_RenderFillRect(renderer_, &rect) != 0) {
         throw std::runtime_error("JanelaSDL::preenche_ - erro no SDL_RenderFillRect");
+    }
 }
 
-gui::Retangulo JanelaSDL::escreve_(const std::string & texto,
+gui::Retangulo JanelaSDL::escreve_(const std::string& texto,
                                    const uint16_t x,
                                    const uint16_t y,
-                                   const gui::Fonte & fonte,
-                                   const gui::Cor & cor) {
+                                   const gui::Fonte& fonte,
+                                   const gui::Cor& cor) {
     //We'll render the string "TTF fonts are cool!" in white
     //Color is in RGB format
-    TTF_Font * font = nullptr;
-    SDL_Surface * surf = nullptr;
-    SDL_Texture * texture = nullptr;
+    TTF_Font* font = nullptr;
+    SDL_Surface* surf = nullptr;
+    SDL_Texture* texture = nullptr;
     gui::Retangulo res(0, 0, 0, 0);
     try {
         const SDL_Color color = { cor.R, cor.G, cor.B };
@@ -122,12 +132,15 @@ gui::Retangulo JanelaSDL::escreve_(const std::string & texto,
         }
     } catch (...) {
         //Clean up the surface and font
-        if (surf != nullptr)
+        if (surf != nullptr) {
             SDL_FreeSurface(surf);
-        if (font != nullptr)
+        }
+        if (font != nullptr) {
             TTF_CloseFont(font);
-        if (texture != nullptr)
+        }
+        if (texture != nullptr) {
             SDL_DestroyTexture(texture);
+        }
         throw;
     }
     SDL_FreeSurface(surf);

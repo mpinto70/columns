@@ -25,8 +25,8 @@ void Espera::zera() {
 bool Espera::expirou() const {
     timeval t;
     gettimeofday(&t, nullptr);
-    if (t.tv_sec > fim_.tv_sec) return true;
-    if (t.tv_sec < fim_.tv_sec) return false;
+    if (t.tv_sec > fim_.tv_sec) { return true; }
+    if (t.tv_sec < fim_.tv_sec) { return false; }
     return (t.tv_usec >= fim_.tv_usec);
 }
 

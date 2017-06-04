@@ -32,14 +32,14 @@ std::atomic<bool> quit;         ///< marcador de fim
 /** retorna a mensagem de erro da SDL
  * @param msg o preâmbulo da mensagem de erro
  */
-static std::string montaLogSDL(const std::string &msg) {
+static std::string montaLogSDL(const std::string& msg) {
     return msg + " error: " + SDL_GetError();
 }
 
 /** espera pela condição se tornar \b true
  * @param condicao a condição de guarda
  */
-static void esperaPor(std::atomic<bool> & condicao) {
+static void esperaPor(std::atomic<bool>& condicao) {
     while (not condicao) {
         usleep(200);
     }
@@ -47,50 +47,51 @@ static void esperaPor(std::atomic<bool> & condicao) {
 
 /** Observador da situação do jogo. */
 class ColunasObs: public jogo::SituacaoObserver {
-    public:
-        /**
-         * @param janela        a janela onde serão desenhadas os elementos
-         * @param fonteNome     a fonte do nome da aplicação
-         * @param fontePlacar   a fonte do placar
-         * @param desenhador    o desenhador de tabuleiro
-         */
-        ColunasObs(const grafico::SharedJanela & janela,
-                   const gui::Fonte & fonteNome,
-                   const gui::Fonte & fontePlacar,
-                   const grafico::DesenhaTabuleiro & desenhador)
-            : janela_(janela),
-              fonteNome_(fonteNome),
-              fontePlacar_(fontePlacar),
-              desenha_(desenhador) {
-            if (janela_.get() == nullptr)
-                throw std::invalid_argument("ColunasObs - janela nula");
+public:
+    /**
+     * @param janela        a janela onde serão desenhadas os elementos
+     * @param fonteNome     a fonte do nome da aplicação
+     * @param fontePlacar   a fonte do placar
+     * @param desenhador    o desenhador de tabuleiro
+     */
+    ColunasObs(const grafico::SharedJanela& janela,
+               const gui::Fonte& fonteNome,
+               const gui::Fonte& fontePlacar,
+               const grafico::DesenhaTabuleiro& desenhador)
+        : janela_(janela),
+          fonteNome_(fonteNome),
+          fontePlacar_(fontePlacar),
+          desenha_(desenhador) {
+        if (janela_.get() == nullptr) {
+            throw std::invalid_argument("ColunasObs - janela nula");
         }
-        ~ColunasObs() override = default;
-        /** Atualiza os gráficos da situação do jogo.
-         * @param situacao a situação atual do jogo
-         */
-        void atualiza(const jogo::Situacao & situacao) const override {
-            janela_->limpa();
-            janela_->escreve("Colunas!",
-                             gui::Ponto {10, ALTURA * TAMANHO_QUADRADINHO + 45},
-                             fonteNome_,
-                             gui::Azul);
-            janela_->escreve("Placar",
-                             gui::Ponto {10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50},
-                             fonteNome_,
-                             gui::Amarelo);
-            janela_->escreve(std::to_string(situacao.placar().pontuacao().total()),
-                             gui::Ponto {10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90},
-                             fontePlacar_,
-                             gui::Amarelo);
-            desenha_.desenha(*janela_, situacao, gui::Branco);
-            janela_->atualiza();
-        }
-    private:
-        grafico::SharedJanela janela_;      ///< a janela onde será mostrado o jogo
-        gui::Fonte fonteNome_;              ///< a fonte do nome do sistema
-        gui::Fonte fontePlacar_;            ///< a fonte do placar
-        grafico::DesenhaTabuleiro desenha_; ///< o desenhador do conteúdo do tabuleiro
+    }
+    ~ColunasObs() override = default;
+    /** Atualiza os gráficos da situação do jogo.
+     * @param situacao a situação atual do jogo
+     */
+    void atualiza(const jogo::Situacao& situacao) const override {
+        janela_->limpa();
+        janela_->escreve("Colunas!",
+                         gui::Ponto {10, ALTURA * TAMANHO_QUADRADINHO + 45},
+                         fonteNome_,
+                         gui::Azul);
+        janela_->escreve("Placar",
+                         gui::Ponto {10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50},
+                         fonteNome_,
+                         gui::Amarelo);
+        janela_->escreve(std::to_string(situacao.placar().pontuacao().total()),
+                         gui::Ponto {10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90},
+                         fontePlacar_,
+                         gui::Amarelo);
+        desenha_.desenha(*janela_, situacao, gui::Branco);
+        janela_->atualiza();
+    }
+private:
+    grafico::SharedJanela janela_;      ///< a janela onde será mostrado o jogo
+    gui::Fonte fonteNome_;              ///< a fonte do nome do sistema
+    gui::Fonte fontePlacar_;            ///< a fonte do placar
+    grafico::DesenhaTabuleiro desenha_; ///< o desenhador do conteúdo do tabuleiro
 };
 
 /** Inicializa a interface gráfica e executa o jogo.
@@ -124,14 +125,14 @@ void executa(jogo::MensagemPtr mensagens) {
 
         cont.execute();
         quit = true;
-    } catch (std::exception & e) {
+    } catch (std::exception& e) {
         std::cout << "Erro: " << e.what() << std::endl;
         quit = true;
         inicializado = true;
     }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     try {
         auto mensagens = std::make_shared<jogo::Mensagem>();
         std::thread executeThread(executa, mensagens);
@@ -144,32 +145,33 @@ int main(int argc, char **argv) {
             SDL_Event e;
             while (SDL_PollEvent(&e)) {
                 //If user closes the window
-                if (e.type == SDL_QUIT)
+                if (e.type == SDL_QUIT) {
                     quit = true;
+                }
                 //If user presses any key
                 if (e.type == SDL_KEYDOWN) {
                     /* Check the SDLKey values and move change the coords */
                     switch (e.key.keysym.sym) {
-                        case SDLK_LEFT:
-                            mensagens->registra(jogo::EMensagem::moveEsquerda);
-                            break;
-                        case SDLK_RIGHT:
-                            mensagens->registra(jogo::EMensagem::moveDireita);
-                            break;
-                        case SDLK_UP:
-                            mensagens->registra(jogo::EMensagem::rolaCima);
-                            break;
-                        case SDLK_DOWN:
-                            mensagens->registra(jogo::EMensagem::rolaBaixo);
-                            break;
-                        case SDLK_SPACE:
-                            mensagens->registra(jogo::EMensagem::moveBaixo);
-                            break;
-                        case SDLK_ESCAPE:
-                            quit = true;
-                            break;
-                        default:
-                            break;
+                    case SDLK_LEFT:
+                        mensagens->registra(jogo::EMensagem::moveEsquerda);
+                        break;
+                    case SDLK_RIGHT:
+                        mensagens->registra(jogo::EMensagem::moveDireita);
+                        break;
+                    case SDLK_UP:
+                        mensagens->registra(jogo::EMensagem::rolaCima);
+                        break;
+                    case SDLK_DOWN:
+                        mensagens->registra(jogo::EMensagem::rolaBaixo);
+                        break;
+                    case SDLK_SPACE:
+                        mensagens->registra(jogo::EMensagem::moveBaixo);
+                        break;
+                    case SDLK_ESCAPE:
+                        quit = true;
+                        break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -179,7 +181,7 @@ int main(int argc, char **argv) {
         mensagens->registra(jogo::EMensagem::parar);
         executeThread.join();
         return 0;
-    } catch (std::exception & e) {
+    } catch (std::exception& e) {
         std::cout << "Erro: %s\n" << e.what() << std::endl;
     }
     SDL_Quit();

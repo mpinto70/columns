@@ -6,9 +6,9 @@
 #include <sys/time.h>
 #include <utility>
 
-bool operator < (const timeval & lhs, const timeval & rhs) {
-    if (lhs.tv_sec < rhs.tv_sec) return true;
-    if (lhs.tv_sec > rhs.tv_sec) return false;
+bool operator < (const timeval& lhs, const timeval& rhs) {
+    if (lhs.tv_sec < rhs.tv_sec) { return true; }
+    if (lhs.tv_sec > rhs.tv_sec) { return false; }
     return lhs.tv_usec < rhs.tv_usec;
 }
 
@@ -22,7 +22,7 @@ timeval operator + (timeval lhs, const size_t mili) {
     return lhs;
 }
 
-double operator - (const timeval & lhs, const timeval & rhs) {
+double operator - (const timeval& lhs, const timeval& rhs) {
     const int dsec = (lhs.tv_sec - rhs.tv_sec) * (int) MILHAO;
     const int dusec = lhs.tv_usec - rhs.tv_usec;
     return (dsec + dusec) / 1000.0;
@@ -31,15 +31,15 @@ double operator - (const timeval & lhs, const timeval & rhs) {
 namespace util {
 namespace tst {
 
-static void print(const std::string & id,
-                  const timeval & val) {
+static void print(const std::string& id,
+                  const timeval& val) {
     printf("%15s = %8ld / %8ld\n", id.c_str(), val.tv_sec, val.tv_usec);
 }
 
 static void print(const int line,
                   const size_t mili,
-                  const timeval & depois,
-                  const timeval & fim) {
+                  const timeval& depois,
+                  const timeval& fim) {
     printf("\n");
     printf("da linha = %d\n", line);
     printf("tamanho da espera = %zu\n", mili);
@@ -61,8 +61,9 @@ static void confereEspera(const size_t mili) {
     EXPECT_TRUE(esp.expirou()) << mili;
     gettimeofday(&depois, nullptr);
     EXPECT_TRUE(fim <= depois) << mili;
-    if (fim > depois)
+    if (fim > depois) {
         print(__LINE__, mili, depois, fim);
+    }
 
     esp.zera();
     fim = esp.fim();
@@ -74,8 +75,9 @@ static void confereEspera(const size_t mili) {
     gettimeofday(&depois, nullptr);
 
     EXPECT_TRUE(fim <= depois) << mili;
-    if (fim > depois)
+    if (fim > depois) {
         print(__LINE__, mili, depois, fim);
+    }
 }
 
 TEST(TesteEspera, espera) {
