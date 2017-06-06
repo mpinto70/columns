@@ -48,7 +48,7 @@ elif [ "$1" = "test" ]; then
     done
 elif [ "$1" = "demo" ]; then
     do_build
-    echo "Nothing to demo yet"
+    bin/colunas
 elif [ "$1" = "check" ]; then
     cppcheck --enable=warning,style,unusedFunction src test
 else
