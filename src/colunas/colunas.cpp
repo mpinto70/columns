@@ -133,43 +133,47 @@ void executa(jogo::MensagemPtr mensagens) {
     }
 }
 
+void processa_input(jogo::MensagemPtr& mensagens) {
+    SDL_Event e;
+    while (SDL_PollEvent(&e)) {
+        //If user closes the window
+        if (e.type == SDL_QUIT) {
+            quit = true;
+        }
+        //If user presses any key
+        if (e.type == SDL_KEYDOWN) {
+            /* Check the SDLKey values and move change the coords */
+            switch (e.key.keysym.sym) {
+            case SDLK_LEFT:
+                mensagens->registra(jogo::EMensagem::moveEsquerda);
+                break;
+            case SDLK_RIGHT:
+                mensagens->registra(jogo::EMensagem::moveDireita);
+                break;
+            case SDLK_UP:
+                mensagens->registra(jogo::EMensagem::rolaCima);
+                break;
+            case SDLK_DOWN:
+                mensagens->registra(jogo::EMensagem::rolaBaixo);
+                break;
+            case SDLK_SPACE:
+                mensagens->registra(jogo::EMensagem::moveBaixo);
+                break;
+            case SDLK_ESCAPE:
+                quit = true;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
 void loop_input(jogo::MensagemPtr& mensagens) {
     util::Espera tempoInput(3);
     while (!quit) {
         tempoInput.zera();
-        SDL_Event e;
-        while (SDL_PollEvent(&e)) {
-            //If user closes the window
-            if (e.type == SDL_QUIT) {
-                quit = true;
-            }
-            //If user presses any key
-            if (e.type == SDL_KEYDOWN) {
-                /* Check the SDLKey values and move change the coords */
-                switch (e.key.keysym.sym) {
-                case SDLK_LEFT:
-                    mensagens->registra(jogo::EMensagem::moveEsquerda);
-                    break;
-                case SDLK_RIGHT:
-                    mensagens->registra(jogo::EMensagem::moveDireita);
-                    break;
-                case SDLK_UP:
-                    mensagens->registra(jogo::EMensagem::rolaCima);
-                    break;
-                case SDLK_DOWN:
-                    mensagens->registra(jogo::EMensagem::rolaBaixo);
-                    break;
-                case SDLK_SPACE:
-                    mensagens->registra(jogo::EMensagem::moveBaixo);
-                    break;
-                case SDLK_ESCAPE:
-                    quit = true;
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
+        processa_input(mensagens);
         tempoInput.espera();
         // colocar o código adicional aqui
     }
@@ -182,6 +186,7 @@ int run() {
 
         esperaPor(inicializado);
 
+        // quando sair do loop de input é porque deu quit
         loop_input(mensagens);
 
         mensagens->registra(jogo::EMensagem::parar);
