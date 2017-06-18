@@ -132,7 +132,7 @@ void executa(jogo::MensagemPtr mensagens) {
     }
 }
 
-int main(int argc, char** argv) {
+int main() {
     try {
         auto mensagens = std::make_shared<jogo::Mensagem>();
         std::thread executeThread(executa, mensagens);
