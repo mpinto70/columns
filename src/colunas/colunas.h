@@ -4,7 +4,10 @@
 
 namespace colunas {
 void init_grafico();
-grafico::SharedJanela cria_janela();
+void finaliza_grafico();
+grafico::SharedJanela cria_janela(const std::string& versao,
+                                  size_t largura_tela,
+                                  size_t altura_tela);
 
 enum class InputResult {
     QUIT,

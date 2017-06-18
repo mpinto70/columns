@@ -1,4 +1,4 @@
-
+add_subdirectory (SDL)
 add_executable (
     colunas
     colunas.cpp
@@ -20,6 +20,7 @@ include_directories(
 
 target_link_libraries (
     colunas
+    colunas_SDL
     ${SDL2IMAGE_LIBRARIES}
     ${SDL2TTF_LIBRARIES}
     ${SDL2_LIBRARIES}
