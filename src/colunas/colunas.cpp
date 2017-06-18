@@ -95,6 +95,18 @@ private:
     grafico::DesenhaTabuleiro desenha_; ///< o desenhador do conteúdo do tabuleiro
 };
 
+grafico::SharedJanela cria_janela() {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
+        throw std::runtime_error(montaLogSDL("SDL_Init"));
+    }
+
+    if (TTF_Init() != 0) {
+        throw std::runtime_error(montaLogSDL("TTF_Init"));
+    }
+
+    return std::make_shared<grafico::JanelaSDL>("Colunas " + VERSAO, 1000, 100, LARGURA_TELA, ALTURA_TELA, gui::Cinza);
+}
+
 /** Inicializa a interface gráfica e executa o jogo.
  * @param mensagens o gerenciador de mensagens
  */
@@ -102,15 +114,8 @@ void executa(jogo::MensagemPtr mensagens) {
     inicializado = false;
     quit = false;
     try {
-        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
-            throw std::runtime_error(montaLogSDL("SDL_Init"));
-        }
 
-        if (TTF_Init() != 0) {
-            throw std::runtime_error(montaLogSDL("TTF_Init"));
-        }
-
-        grafico::SharedJanela janela(new grafico::JanelaSDL("Colunas " + VERSAO, 1000, 100, LARGURA_TELA, ALTURA_TELA, gui::Cinza));
+        auto janela = cria_janela();
         const grafico::DesenhaTabuleiro des(10, 15, TAMANHO_QUADRADINHO, STEPS_QUADRADINHO);
         const gui::Fonte fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Fonte fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
