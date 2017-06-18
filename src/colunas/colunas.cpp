@@ -96,14 +96,6 @@ private:
 };
 
 grafico::SharedJanela cria_janela() {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
-        throw std::runtime_error(montaLogSDL("SDL_Init"));
-    }
-
-    if (TTF_Init() != 0) {
-        throw std::runtime_error(montaLogSDL("TTF_Init"));
-    }
-
     return std::make_shared<grafico::JanelaSDL>("Colunas " + VERSAO, 1000, 100, LARGURA_TELA, ALTURA_TELA, gui::Cinza);
 }
 
@@ -191,8 +183,20 @@ void loop_input(jogo::MensagemPtr& mensagens) {
     }
 }
 
+void init_grafico() {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
+        throw std::runtime_error(montaLogSDL("SDL_Init"));
+    }
+
+    if (TTF_Init() != 0) {
+        throw std::runtime_error(montaLogSDL("TTF_Init"));
+    }
+}
+
 int run() {
     try {
+        init_grafico();
+
         auto mensagens = std::make_shared<jogo::Mensagem>();
         std::thread executeThread(executa, mensagens);
 
