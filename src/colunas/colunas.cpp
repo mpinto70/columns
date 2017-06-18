@@ -1,3 +1,5 @@
+#include "colunas.h"
+
 #include "grafico/DesenhaTabuleiro.h"
 #include "grafico/SDL/JanelaSDL.h"
 #include "jogo/SituacaoObserver.h"
@@ -129,11 +131,6 @@ void executa(jogo::MensagemPtr mensagens) {
         inicializado = true;
     }
 }
-
-enum class InputResult {
-    QUIT,
-    CONTINUE,
-};
 
 InputResult processa_input(jogo::MensagemPtr& mensagens) {
     SDL_Event e;
