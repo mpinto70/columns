@@ -133,12 +133,12 @@ void executa(jogo::MensagemPtr mensagens) {
     }
 }
 
-void processa_input(jogo::MensagemPtr& mensagens) {
+bool processa_input(jogo::MensagemPtr& mensagens) {
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
         //If user closes the window
         if (e.type == SDL_QUIT) {
-            quit = true;
+            return true;
         }
         //If user presses any key
         if (e.type == SDL_KEYDOWN) {
@@ -160,20 +160,22 @@ void processa_input(jogo::MensagemPtr& mensagens) {
                 mensagens->registra(jogo::EMensagem::moveBaixo);
                 break;
             case SDLK_ESCAPE:
-                quit = true;
-                break;
+                return true;
             default:
                 break;
             }
         }
     }
+    return false;
 }
 
 void loop_input(jogo::MensagemPtr& mensagens) {
     util::Espera tempoInput(3);
     while (!quit) {
         tempoInput.zera();
-        processa_input(mensagens);
+        if (processa_input(mensagens)) {
+            quit = true;
+        }
         tempoInput.espera();
         // colocar o código adicional aqui
     }
