@@ -14,6 +14,7 @@
 #include <atomic>
 #include <thread>
 
+namespace colunas {
 const std::string VERSAO = "0.5";
 
 /// cores possíveis
@@ -132,52 +133,57 @@ void executa(jogo::MensagemPtr mensagens) {
     }
 }
 
-int main() {
+void loop_input(jogo::MensagemPtr& mensagens) {
+    util::Espera tempoInput(3);
+    while (!quit) {
+        tempoInput.zera();
+        SDL_Event e;
+        while (SDL_PollEvent(&e)) {
+            //If user closes the window
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+            //If user presses any key
+            if (e.type == SDL_KEYDOWN) {
+                /* Check the SDLKey values and move change the coords */
+                switch (e.key.keysym.sym) {
+                case SDLK_LEFT:
+                    mensagens->registra(jogo::EMensagem::moveEsquerda);
+                    break;
+                case SDLK_RIGHT:
+                    mensagens->registra(jogo::EMensagem::moveDireita);
+                    break;
+                case SDLK_UP:
+                    mensagens->registra(jogo::EMensagem::rolaCima);
+                    break;
+                case SDLK_DOWN:
+                    mensagens->registra(jogo::EMensagem::rolaBaixo);
+                    break;
+                case SDLK_SPACE:
+                    mensagens->registra(jogo::EMensagem::moveBaixo);
+                    break;
+                case SDLK_ESCAPE:
+                    quit = true;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        tempoInput.espera();
+        // colocar o código adicional aqui
+    }
+}
+
+int run() {
     try {
         auto mensagens = std::make_shared<jogo::Mensagem>();
         std::thread executeThread(executa, mensagens);
 
         esperaPor(inicializado);
 
-        util::Espera tempoInput(3);
-        while (!quit) {
-            tempoInput.zera();
-            SDL_Event e;
-            while (SDL_PollEvent(&e)) {
-                //If user closes the window
-                if (e.type == SDL_QUIT) {
-                    quit = true;
-                }
-                //If user presses any key
-                if (e.type == SDL_KEYDOWN) {
-                    /* Check the SDLKey values and move change the coords */
-                    switch (e.key.keysym.sym) {
-                    case SDLK_LEFT:
-                        mensagens->registra(jogo::EMensagem::moveEsquerda);
-                        break;
-                    case SDLK_RIGHT:
-                        mensagens->registra(jogo::EMensagem::moveDireita);
-                        break;
-                    case SDLK_UP:
-                        mensagens->registra(jogo::EMensagem::rolaCima);
-                        break;
-                    case SDLK_DOWN:
-                        mensagens->registra(jogo::EMensagem::rolaBaixo);
-                        break;
-                    case SDLK_SPACE:
-                        mensagens->registra(jogo::EMensagem::moveBaixo);
-                        break;
-                    case SDLK_ESCAPE:
-                        quit = true;
-                        break;
-                    default:
-                        break;
-                    }
-                }
-            }
-            tempoInput.espera();
-            // colocar o código adicional aqui
-        }
+        loop_input(mensagens);
+
         mensagens->registra(jogo::EMensagem::parar);
         executeThread.join();
         return 0;
@@ -188,4 +194,10 @@ int main() {
 
     std::cout << "FIM\n";
     return 0;
+}
+
+}
+
+int main() {
+    return colunas::run();
 }
