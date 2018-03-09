@@ -54,12 +54,6 @@ public:
     void rolaParaBaixo();
     /** @return a lista de casas a serem eliminadas. */
     ListaEliminacao determinaEliminacao() const;
-    /** Marca as casas a serem eliminadas.
-     * @param casas a lista de casas a serem marcadas
-     * @param cor a cor de marcação
-     */
-    void marcaEliminacao(const ListaEliminacao& casas,
-          const gui::Cor& cor);
     /** Elimina as casas.
      * @param casas a lista de casas a serem eliminadas
      */

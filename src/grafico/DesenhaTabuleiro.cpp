@@ -17,20 +17,9 @@ static void pintaQuadrado(Janela& janela,
       const uint16_t tamanho) {
     const int x2 = x1 + tamanho - 1;
     const int y2 = y1 + tamanho - 1;
-    janela.preenche(gui::Retangulo(x1, y1, x2, y2), cor);
-    /*
-    const auto corfundo = converteCor(gui::escurece(cor, 80));
-    canvas.draw_line(x2 - 0, y1 + 0, x2 - 0, y2 - 0, corfundo); // linha vertical em x2
-    canvas.draw_line(x2 - 1, y1 + 1, x2 - 1, y2 - 0, corfundo); // linha vertical em x2 - 1
-    canvas.draw_line(x1 + 1, y2 - 0, x2 - 2, y2 - 0, corfundo); // linha horizontal em y2
-    canvas.draw_line(x1 + 2, y2 - 1, x2 - 2, y2 - 1, corfundo); // linha horizontal em y2 - 1
-
-    const auto cortopo = converteCor(gui::escurece(cor, 40));
-    canvas.draw_line(x1 + 0, y1 + 0, x1 + 0, y2 - 0, cortopo); // linha vertical em x1
-    canvas.draw_line(x1 + 1, y1 + 0, x1 + 1, y2 - 1, cortopo); // linha vertical em x1 + 1
-    canvas.draw_line(x1 + 2, y1 + 0, x2 - 1, y1 + 0, cortopo); // linha horizontal em y1
-    canvas.draw_line(x1 + 2, y1 + 1, x2 - 2, y1 + 1, cortopo); // linha horizontal em y1 + 1
-    */
+    const gui::Retangulo rect(x1, y1, x2, y2);
+    janela.preenche(rect, cor);
+    janela.retangulo(rect, gui::escurece(cor, 20));
 }
 
 DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,

@@ -122,15 +122,6 @@ ListaEliminacao ControladorTabuleiro::determinaEliminacao() const {
     return eliminaveis;
 }
 
-void ControladorTabuleiro::marcaEliminacao(const ListaEliminacao& casas,
-      const gui::Cor& cor) {
-    for (uint16_t i = 0; i < casas.size(); ++i) {
-        const uint16_t col = casas[i].first;
-        const uint16_t lin = casas[i].second;
-        tabuleiro_.at(col, lin) = cor;
-    }
-}
-
 void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
     for (uint16_t i = 0; i < casas.size(); ++i) {
         const uint16_t col = casas[i].first;
