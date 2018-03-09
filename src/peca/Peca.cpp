@@ -7,8 +7,8 @@
 
 namespace peca {
 
-Peca::Peca(const gui::Cor(&cores)[TAMANHO_PECA])
-    : cores_(cores) {
+Peca::Peca(const gui::Cor (&cores)[TAMANHO_PECA])
+      : cores_(cores) {
 }
 
 Peca::Peca(const std::vector<gui::Cor>& cores) {
@@ -22,10 +22,10 @@ Peca::Peca(const std::vector<gui::Cor>& cores) {
 }
 
 Peca::Peca(const Peca& rhs)
-    : cores_(rhs.cores_) {
+      : cores_(rhs.cores_) {
 }
 
-Peca& Peca::operator = (const Peca& rhs) {
+Peca& Peca::operator=(const Peca& rhs) {
     Peca tmp(rhs);
     tmp.swap(*this);
     return *this;
@@ -72,7 +72,7 @@ Peca Peca::cria(const std::vector<gui::Cor>& coresPossiveis) {
     return peca::Peca(cores);
 }
 
-bool operator == (const Peca& lhs, const Peca& rhs) {
+bool operator==(const Peca& lhs, const Peca& rhs) {
     using namespace std::rel_ops;
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i)
         if (lhs[i] != rhs[i]) {
@@ -81,8 +81,7 @@ bool operator == (const Peca& lhs, const Peca& rhs) {
     return true;
 }
 
-bool operator != (const Peca& lhs, const Peca& rhs) {
+bool operator!=(const Peca& lhs, const Peca& rhs) {
     return not(lhs == rhs);
 }
-
 }

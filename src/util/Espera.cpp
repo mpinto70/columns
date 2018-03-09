@@ -6,8 +6,8 @@
 namespace util {
 
 Espera::Espera(const size_t milissegundos)
-    : microssegundos_(milissegundos * 1000),
-      fim_ {0, 0} {
+      : microssegundos_(milissegundos * 1000),
+        fim_{ 0, 0 } {
     zera();
 }
 
@@ -25,8 +25,12 @@ void Espera::zera() {
 bool Espera::expirou() const {
     timeval t;
     gettimeofday(&t, nullptr);
-    if (t.tv_sec > fim_.tv_sec) { return true; }
-    if (t.tv_sec < fim_.tv_sec) { return false; }
+    if (t.tv_sec > fim_.tv_sec) {
+        return true;
+    }
+    if (t.tv_sec < fim_.tv_sec) {
+        return false;
+    }
     return (t.tv_usec >= fim_.tv_usec);
 }
 
@@ -35,5 +39,4 @@ void Espera::espera() const {
         usleep(200);
     }
 }
-
 }

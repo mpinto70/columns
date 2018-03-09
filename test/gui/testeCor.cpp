@@ -12,10 +12,10 @@ namespace tst {
 TEST(TesteCor, OperatorIgual) {
     using namespace std::rel_ops;
     const std::vector<Cor> v = {
-        {1, 2, 3},
-        {4, 2, 3},
-        {4, 5, 3},
-        {4, 5, 6}
+        { 1, 2, 3 },
+        { 4, 2, 3 },
+        { 4, 5, 3 },
+        { 4, 5, 6 }
     };
     mck::confereComparacao(__FILE__, __LINE__, v);
 }
@@ -48,6 +48,5 @@ TEST(TesteCor, Escurece) {
     EXPECT_EQ(escurece(cor1, 0), cor1);
     EXPECT_EQ(escurece(cor1, 100), Preto);
 }
-
 }
 }

@@ -1,16 +1,16 @@
 #include "colunas.h"
 
 #include "grafico/DesenhaTabuleiro.h"
-#include "jogo/SituacaoObserver.h"
-#include "jogo/ControladorTabuleiro.h"
 #include "jogo/ControladorJogo.h"
+#include "jogo/ControladorTabuleiro.h"
+#include "jogo/SituacaoObserver.h"
 #include "peca/Tabuleiro.h"
 #include "util/Espera.h"
 
-#include <iostream>
-#include <unistd.h>
 #include <atomic>
+#include <iostream>
 #include <thread>
+#include <unistd.h>
 
 namespace {
 const std::string VERSAO = "0.5";
@@ -18,12 +18,12 @@ const std::string VERSAO = "0.5";
 /// cores possíveis
 const std::vector<gui::Cor> POSSIVEIS = { gui::Verde, gui::Vermelho, gui::Azul, gui::Amarelo, gui::Lavanda };
 
-constexpr size_t TAMANHO_QUADRADINHO = 30;                              ///< tamanho de cada quadradinho em pixels
-constexpr size_t STEPS_QUADRADINHO = 2;                                 ///< passos em pixels dentro de cada quadradinho
-constexpr size_t LARGURA = 8;                                           ///< largura do tabuleiro em quadradinhos
-constexpr size_t ALTURA = 16;                                           ///< altura do tabuleiro em quadradinhos
-constexpr size_t LARGURA_TELA = LARGURA * TAMANHO_QUADRADINHO + 200;    ///< largura da tela
-constexpr size_t ALTURA_TELA = ALTURA * TAMANHO_QUADRADINHO + 50;       ///< altura da tela
+constexpr size_t TAMANHO_QUADRADINHO = 30;                           ///< tamanho de cada quadradinho em pixels
+constexpr size_t STEPS_QUADRADINHO = 2;                              ///< passos em pixels dentro de cada quadradinho
+constexpr size_t LARGURA = 8;                                        ///< largura do tabuleiro em quadradinhos
+constexpr size_t ALTURA = 16;                                        ///< altura do tabuleiro em quadradinhos
+constexpr size_t LARGURA_TELA = LARGURA * TAMANHO_QUADRADINHO + 200; ///< largura da tela
+constexpr size_t ALTURA_TELA = ALTURA * TAMANHO_QUADRADINHO + 50;    ///< altura da tela
 
 std::atomic<bool> inicializado; ///< marcador de inicialização
 std::atomic<bool> quit;         ///< marcador de fim
@@ -38,7 +38,7 @@ static void esperaPor(std::atomic<bool>& condicao) {
 }
 
 /** Observador da situação do jogo. */
-class ColunasObs: public jogo::SituacaoObserver {
+class ColunasObs : public jogo::SituacaoObserver {
 public:
     /**
      * @param janela        a janela onde serão desenhadas os elementos
@@ -47,13 +47,13 @@ public:
      * @param desenhador    o desenhador de tabuleiro
      */
     ColunasObs(const grafico::SharedJanela& janela,
-               const gui::Fonte& fonteNome,
-               const gui::Fonte& fontePlacar,
-               const grafico::DesenhaTabuleiro& desenhador)
-        : janela_(janela),
-          fonteNome_(fonteNome),
-          fontePlacar_(fontePlacar),
-          desenha_(desenhador) {
+          const gui::Fonte& fonteNome,
+          const gui::Fonte& fontePlacar,
+          const grafico::DesenhaTabuleiro& desenhador)
+          : janela_(janela),
+            fonteNome_(fonteNome),
+            fontePlacar_(fontePlacar),
+            desenha_(desenhador) {
         if (janela_.get() == nullptr) {
             throw std::invalid_argument("ColunasObs - janela nula");
         }
@@ -65,20 +65,21 @@ public:
     void atualiza(const jogo::Situacao& situacao) const override {
         janela_->limpa();
         janela_->escreve("Colunas!",
-                         gui::Ponto {10, ALTURA * TAMANHO_QUADRADINHO + 45},
-                         fonteNome_,
-                         gui::Azul);
+              gui::Ponto{ 10, ALTURA * TAMANHO_QUADRADINHO + 45 },
+              fonteNome_,
+              gui::Azul);
         janela_->escreve("Placar",
-                         gui::Ponto {10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50},
-                         fonteNome_,
-                         gui::Amarelo);
+              gui::Ponto{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50 },
+              fonteNome_,
+              gui::Amarelo);
         janela_->escreve(std::to_string(situacao.placar().pontuacao().total()),
-                         gui::Ponto {10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90},
-                         fontePlacar_,
-                         gui::Amarelo);
+              gui::Ponto{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90 },
+              fontePlacar_,
+              gui::Amarelo);
         desenha_.desenha(*janela_, situacao, gui::Branco);
         janela_->atualiza();
     }
+
 private:
     grafico::SharedJanela janela_;      ///< a janela onde será mostrado o jogo
     gui::Fonte fonteNome_;              ///< a fonte do nome do sistema
@@ -93,18 +94,17 @@ void executa(jogo::MensagemPtr mensagens) {
     inicializado = false;
     quit = false;
     try {
-
         auto janela = colunas::cria_janela(VERSAO, LARGURA_TELA, ALTURA_TELA);
         const grafico::DesenhaTabuleiro des(10, 15, TAMANHO_QUADRADINHO, STEPS_QUADRADINHO);
         const gui::Fonte fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Fonte fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
         jogo::ControladorJogo cont(peca::Tabuleiro(LARGURA, ALTURA, gui::Preto),
-                                   TAMANHO_QUADRADINHO / 2,
-                                   pontuacao::Pontuacao(0),
-                                   POSSIVEIS,
-                                   jogo::SituacaoObserverPtr(new ColunasObs(janela, fntNome, fntPlacar, des)),
-                                   mensagens);
+              TAMANHO_QUADRADINHO / 2,
+              pontuacao::Pontuacao(0),
+              POSSIVEIS,
+              jogo::SituacaoObserverPtr(new ColunasObs(janela, fntNome, fntPlacar, des)),
+              mensagens);
 
         inicializado = true;
 
@@ -145,14 +145,14 @@ int run() {
         executeThread.join();
         return 0;
     } catch (std::exception& e) {
-        std::cout << "Erro: %s\n" << e.what() << std::endl;
+        std::cout << "Erro: %s\n"
+                  << e.what() << std::endl;
     }
     colunas::finaliza_grafico();
 
     std::cout << "FIM\n";
     return 0;
 }
-
 }
 
 int main() {

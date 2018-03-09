@@ -1,11 +1,11 @@
+#include "peca/Peca.h"
 #include "pontuacao/Placar.h"
 #include "pontuacao/Pontuacao.h"
-#include "peca/Peca.h"
 
 #include "gtest/gtest.h"
 
-#include <stdio.h>
 #include <stdexcept>
+#include <stdio.h>
 
 namespace pontuacao {
 namespace tst {
@@ -28,7 +28,6 @@ TEST(TestePlacar, Criacao) {
 }
 
 TEST(TestePlacar, CriacaoInvalida) {
-
     EXPECT_THROW(Placar p(Pontuacao(20), Pontuacao(30)), std::invalid_argument);
 }
 
@@ -83,6 +82,5 @@ TEST(TestePlacar, Zera) {
     EXPECT_EQ(pl.recorde(), Pontuacao(52));
     EXPECT_EQ(pl.pontuacao(), Pontuacao(0));
 }
-
 }
 }

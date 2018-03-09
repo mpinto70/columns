@@ -11,7 +11,7 @@ public:
      * @param pontos    a pontuação inicial
      */
     Placar(const Pontuacao& recorde = Pontuacao(0),
-           const Pontuacao& pontos = Pontuacao(0));
+          const Pontuacao& pontos = Pontuacao(0));
     const Pontuacao& recorde() const { return recorde_; }
     const Pontuacao& pontuacao() const { return pontuacao_; }
     /** Acrescenta pontos ao total da pontuação corrente.
@@ -19,11 +19,12 @@ public:
      */
     void acrescenta(size_t n);
     void zera();
+
 private:
-    Pontuacao recorde_;     ///< o recorde
-    Pontuacao pontuacao_;   ///< a pontuação
+    Pontuacao recorde_;   ///< o recorde
+    Pontuacao pontuacao_; ///< a pontuação
 };
 
-bool operator == (const Placar& lhs, const Placar& rhs);
-bool operator != (const Placar& lhs, const Placar& rhs);
+bool operator==(const Placar& lhs, const Placar& rhs);
+bool operator!=(const Placar& lhs, const Placar& rhs);
 }

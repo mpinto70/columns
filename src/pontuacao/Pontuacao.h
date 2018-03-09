@@ -16,11 +16,12 @@ public:
      */
     void acrescenta(size_t n);
     void zera() { total_ = 0; }
+
 private:
-    size_t total_;      ///< a pontuação
+    size_t total_; ///< a pontuação
 };
 
-bool operator == (const Pontuacao& lhs, const Pontuacao& rhs);
-bool operator != (const Pontuacao& lhs, const Pontuacao& rhs);
-bool operator < (const Pontuacao& lhs, const Pontuacao& rhs);
+bool operator==(const Pontuacao& lhs, const Pontuacao& rhs);
+bool operator!=(const Pontuacao& lhs, const Pontuacao& rhs);
+bool operator<(const Pontuacao& lhs, const Pontuacao& rhs);
 }

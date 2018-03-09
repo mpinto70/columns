@@ -3,7 +3,7 @@
 
 namespace util {
 
-std::mt19937 Aleatorio::engine_(std::random_device {}());
+std::mt19937 Aleatorio::engine_(std::random_device{}());
 Aleatorio::MapaDist Aleatorio::dists_;
 
 /** @return a distribuição associada a N, caso não exista, cria.
@@ -11,7 +11,7 @@ Aleatorio::MapaDist Aleatorio::dists_;
  * @param N     o limite dos valores
  */
 Aleatorio::Distribuicao& distribuicao(Aleatorio::MapaDist& mapa,
-                                      const size_t N) {
+      const size_t N) {
     const auto it = mapa.find(N);
     if (it != mapa.end()) {
         return it->second;
@@ -27,6 +27,4 @@ size_t Aleatorio::gera(const size_t N) {
     Distribuicao& dist = distribuicao(dists_, N);
     return dist(engine_);
 }
-
-
 }

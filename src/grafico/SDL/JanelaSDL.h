@@ -20,11 +20,11 @@ public:
      * @param cor       a cor de fundo da janela
      */
     JanelaSDL(const std::string& nome,
-              uint16_t left,
-              uint16_t top,
-              uint16_t width,
-              uint16_t height,
-              const gui::Cor& cor);
+          uint16_t left,
+          uint16_t top,
+          uint16_t width,
+          uint16_t height,
+          const gui::Cor& cor);
     /** Destrói a janela. */
     ~JanelaSDL() override;
     /** @return a janela para desenho. */
@@ -35,10 +35,11 @@ public:
     void limpa() override;
     /** mostra a janela. */
     void atualiza() override;
+
 private:
-    SDL_Window* window_;        ///< a janela
-    SDL_Renderer* renderer_;    ///< o renderer de imagens
-    gui::Cor cor_;              ///< a cor de fundo da janela
+    SDL_Window* window_;     ///< a janela
+    SDL_Renderer* renderer_; ///< o renderer de imagens
+    gui::Cor cor_;           ///< a cor de fundo da janela
     /** desenha uma linha.
      * @param x1    coordenada x do ponto inicial
      * @param y1    coordenada y do ponto inicial
@@ -47,10 +48,10 @@ private:
      * @param cor   cor
      */
     void linha_(uint16_t x1,
-                uint16_t y1,
-                uint16_t x2,
-                uint16_t y2,
-                const gui::Cor& cor) override;
+          uint16_t y1,
+          uint16_t x2,
+          uint16_t y2,
+          const gui::Cor& cor) override;
     /** desenha um retângulo.
      * @param x1    coordenada x do canto superior esquerdo
      * @param y1    coordenada y do canto superior esquerdo
@@ -59,10 +60,10 @@ private:
      * @param cor   cor
      */
     void retangulo_(uint16_t x1,
-                    uint16_t y1,
-                    uint16_t x2,
-                    uint16_t y2,
-                    const gui::Cor& cor) override;
+          uint16_t y1,
+          uint16_t x2,
+          uint16_t y2,
+          const gui::Cor& cor) override;
     /** preenche um retângulo.
      * @param x1    coordenada x do canto superior esquerdo
      * @param y1    coordenada y do canto superior esquerdo
@@ -71,10 +72,10 @@ private:
      * @param cor   cor
      */
     void preenche_(uint16_t x1,
-                   uint16_t y1,
-                   uint16_t x2,
-                   uint16_t y2,
-                   const gui::Cor& cor) override;
+          uint16_t y1,
+          uint16_t x2,
+          uint16_t y2,
+          const gui::Cor& cor) override;
     /** escreve um texto.
      * @param texto o texto a ser escrito
      * @param x     coordenada x do ponto de escrita
@@ -84,10 +85,9 @@ private:
      * @returns o retângulo que envolve o texto
      */
     gui::Retangulo escreve_(const std::string& texto,
-                            uint16_t x,
-                            uint16_t y,
-                            const gui::Fonte& fonte,
-                            const gui::Cor& cor) override;
+          uint16_t x,
+          uint16_t y,
+          const gui::Fonte& fonte,
+          const gui::Cor& cor) override;
 };
-
 }

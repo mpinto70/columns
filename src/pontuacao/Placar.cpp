@@ -6,9 +6,9 @@
 namespace pontuacao {
 
 Placar::Placar(const Pontuacao& recorde,
-               const Pontuacao& pontos)
-    : recorde_(recorde),
-      pontuacao_(pontos) {
+      const Pontuacao& pontos)
+      : recorde_(recorde),
+        pontuacao_(pontos) {
     if (recorde_ < pontuacao_)
         throw std::invalid_argument("Placar - recorde ("
                                     + std::to_string(recorde.total())
@@ -28,13 +28,12 @@ void Placar::zera() {
     pontuacao_.zera();
 }
 
-bool operator == (const Placar& lhs, const Placar& rhs) {
+bool operator==(const Placar& lhs, const Placar& rhs) {
     return lhs.recorde() == rhs.recorde()
            && lhs.pontuacao() == rhs.pontuacao();
 }
 
-bool operator != (const Placar& lhs, const Placar& rhs) {
+bool operator!=(const Placar& lhs, const Placar& rhs) {
     return not(lhs == rhs);
 }
-
 }

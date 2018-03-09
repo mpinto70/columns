@@ -6,14 +6,18 @@
 #include <sys/time.h>
 #include <utility>
 
-bool operator < (const timeval& lhs, const timeval& rhs) {
-    if (lhs.tv_sec < rhs.tv_sec) { return true; }
-    if (lhs.tv_sec > rhs.tv_sec) { return false; }
+bool operator<(const timeval& lhs, const timeval& rhs) {
+    if (lhs.tv_sec < rhs.tv_sec) {
+        return true;
+    }
+    if (lhs.tv_sec > rhs.tv_sec) {
+        return false;
+    }
     return lhs.tv_usec < rhs.tv_usec;
 }
 
 static constexpr suseconds_t MILHAO = 1000 * 1000;
-timeval operator + (timeval lhs, const size_t mili) {
+timeval operator+(timeval lhs, const size_t mili) {
     lhs.tv_usec += mili * 1000;
     if (lhs.tv_usec > MILHAO) {
         lhs.tv_sec += lhs.tv_usec / MILHAO;
@@ -22,7 +26,7 @@ timeval operator + (timeval lhs, const size_t mili) {
     return lhs;
 }
 
-double operator - (const timeval& lhs, const timeval& rhs) {
+double operator-(const timeval& lhs, const timeval& rhs) {
     const int dsec = (lhs.tv_sec - rhs.tv_sec) * (int) MILHAO;
     const int dusec = lhs.tv_usec - rhs.tv_usec;
     return (dsec + dusec) / 1000.0;
@@ -32,14 +36,14 @@ namespace util {
 namespace tst {
 
 static void print(const std::string& id,
-                  const timeval& val) {
+      const timeval& val) {
     printf("%15s = %8ld / %8ld\n", id.c_str(), val.tv_sec, val.tv_usec);
 }
 
 static void print(const int line,
-                  const size_t mili,
-                  const timeval& depois,
-                  const timeval& fim) {
+      const size_t mili,
+      const timeval& depois,
+      const timeval& fim) {
     printf("\n");
     printf("da linha = %d\n", line);
     printf("tamanho da espera = %zu\n", mili);
@@ -114,6 +118,5 @@ TEST(TesteEspera, fim) {
         confereFim(30);
     }
 }
-
 }
 }

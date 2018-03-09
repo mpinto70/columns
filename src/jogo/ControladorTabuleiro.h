@@ -21,7 +21,7 @@ public:
      * @param maxSubLinha o máximo de subdivisão do passo da peça
      */
     ControladorTabuleiro(const peca::Tabuleiro& tabuleiro,
-                         uint16_t maxSubLinha);
+          uint16_t maxSubLinha);
     ControladorTabuleiro(const ControladorTabuleiro&) = delete;
     ControladorTabuleiro& operator=(const ControladorTabuleiro&) = delete;
     const peca::Tabuleiro& tabuleiro() const { return tabuleiro_; }
@@ -61,12 +61,13 @@ public:
      * @param cor a cor de marcação
      */
     void marcaEliminacao(const ListaEliminacao& casas,
-                         const gui::Cor& cor);
+          const gui::Cor& cor);
     /** Elimina as casas.
      * @param casas a lista de casas a serem eliminadas
      */
     void elimina(const ListaEliminacao& casas);
     Situacao situacao() const;
+
 private:
     typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
     peca::Tabuleiro tabuleiro_;             ///< o tabuleiro
@@ -94,5 +95,4 @@ private:
      */
     bool deveEliminar(uint16_t coluna, uint16_t linha) const;
 };
-
 }

@@ -1,13 +1,13 @@
 #pragma once
 
+#include "gui/Cor.h"
 #include "jogo/ControladorTabuleiro.h"
 #include "jogo/Mensagem.h"
 #include "jogo/SituacaoObserver.h"
-#include "gui/Cor.h"
 #include "pontuacao/Placar.h"
 
-#include <mutex>
 #include <atomic>
+#include <mutex>
 
 namespace jogo {
 /** Responsável controlar o jogo:
@@ -25,23 +25,24 @@ public:
      * @param msg o gerenciador de mensagens
      */
     ControladorJogo(const peca::Tabuleiro& tabuleiro,
-                    uint16_t maxSubLinha,
-                    const pontuacao::Pontuacao& recorde,
-                    const std::vector<gui::Cor>& possiveis,
-                    SituacaoObserverPtr&& obs,
-                    MensagemPtr& msg);
+          uint16_t maxSubLinha,
+          const pontuacao::Pontuacao& recorde,
+          const std::vector<gui::Cor>& possiveis,
+          SituacaoObserverPtr&& obs,
+          MensagemPtr& msg);
     ControladorJogo(const ControladorJogo&) = delete;
     ControladorJogo& operator=(const ControladorJogo&) = delete;
     /** loop de execução. */
     void execute();
+
 private:
-    ControladorTabuleiro tabuleiro_;            ///< o tabuleiro
-    pontuacao::Placar placar_;                  ///< o placar
-    peca::Peca proximaPeca_;                    ///< a próximaa peca a cair no tabuleiro
-    std::vector<gui::Cor> possiveis_;           ///< as cores possíveis
-    SituacaoObserverPtr observer_;              ///< observadores do jogo
-    MensagemPtr mensagens_;                     ///< as mensagens
-    std::atomic<bool> parar_;                   ///< marca de interrupção de execução
+    ControladorTabuleiro tabuleiro_;  ///< o tabuleiro
+    pontuacao::Placar placar_;        ///< o placar
+    peca::Peca proximaPeca_;          ///< a próximaa peca a cair no tabuleiro
+    std::vector<gui::Cor> possiveis_; ///< as cores possíveis
+    SituacaoObserverPtr observer_;    ///< observadores do jogo
+    MensagemPtr mensagens_;           ///< as mensagens
+    std::atomic<bool> parar_;         ///< marca de interrupção de execução
     /** @return a situação atual do jogo.
      * @param lista a lista de quadradinhos a eliminar
      */
@@ -51,5 +52,4 @@ private:
      */
     void processa(const Mensagem::Lista& msgs);
 };
-
 }

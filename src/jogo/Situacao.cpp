@@ -6,38 +6,38 @@
 namespace jogo {
 
 Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
-                   const pontuacao::Placar& placar)
-    : tabuleiro_(tabuleiro),
-      placar_(placar),
-      peca_(nullptr),
-      posicaoPeca_(nullptr),
-      eliminacao_(),
-      proxima_(nullptr) {
+      const pontuacao::Placar& placar)
+      : tabuleiro_(tabuleiro),
+        placar_(placar),
+        peca_(nullptr),
+        posicaoPeca_(nullptr),
+        eliminacao_(),
+        proxima_(nullptr) {
 }
 
 Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
-                   const pontuacao::Placar& placar,
-                   const peca::Peca& caindo,
-                   const peca::PosicaoPeca& posicao,
-                   const peca::Peca& proxima)
-    : tabuleiro_(tabuleiro),
-      placar_(placar),
-      peca_(new peca::Peca(caindo)),
-      posicaoPeca_(new peca::PosicaoPeca(posicao)),
-      eliminacao_(),
-      proxima_(new peca::Peca(proxima)) {
+      const pontuacao::Placar& placar,
+      const peca::Peca& caindo,
+      const peca::PosicaoPeca& posicao,
+      const peca::Peca& proxima)
+      : tabuleiro_(tabuleiro),
+        placar_(placar),
+        peca_(new peca::Peca(caindo)),
+        posicaoPeca_(new peca::PosicaoPeca(posicao)),
+        eliminacao_(),
+        proxima_(new peca::Peca(proxima)) {
 }
 
 Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
-                   const pontuacao::Placar& placar,
-                   const ListaEliminacao& lista,
-                   const peca::Peca& proxima)
-    : tabuleiro_(tabuleiro),
-      placar_(placar),
-      peca_(nullptr),
-      posicaoPeca_(nullptr),
-      eliminacao_(lista),
-      proxima_(new peca::Peca(proxima)) {
+      const pontuacao::Placar& placar,
+      const ListaEliminacao& lista,
+      const peca::Peca& proxima)
+      : tabuleiro_(tabuleiro),
+        placar_(placar),
+        peca_(nullptr),
+        posicaoPeca_(nullptr),
+        eliminacao_(lista),
+        proxima_(new peca::Peca(proxima)) {
 }
 
 const peca::PosicaoPeca& Situacao::posicaoPeca() const {
@@ -61,26 +61,41 @@ const peca::Peca& Situacao::proxima() const {
     return *proxima_;
 }
 
-bool operator == (const Situacao& lhs, const Situacao& rhs) {
+bool operator==(const Situacao& lhs, const Situacao& rhs) {
     using namespace std::rel_ops;
-    if (lhs.tabuleiro()         != rhs.tabuleiro()) { return false; }
-    if (lhs.placar()            != rhs.placar()) { return false; }
-    if (lhs.temPeca()           != rhs.temPeca()) { return false; }
+    if (lhs.tabuleiro() != rhs.tabuleiro()) {
+        return false;
+    }
+    if (lhs.placar() != rhs.placar()) {
+        return false;
+    }
+    if (lhs.temPeca() != rhs.temPeca()) {
+        return false;
+    }
     if (lhs.temPeca()) {
-        if (lhs.peca()          != rhs.peca()) { return false; }
-        if (lhs.posicaoPeca()   != rhs.posicaoPeca()) { return false; }
+        if (lhs.peca() != rhs.peca()) {
+            return false;
+        }
+        if (lhs.posicaoPeca() != rhs.posicaoPeca()) {
+            return false;
+        }
     }
-    if (lhs.temProxima()        != rhs.temProxima()) { return false; }
+    if (lhs.temProxima() != rhs.temProxima()) {
+        return false;
+    }
     if (lhs.temProxima()) {
-        if (lhs.proxima()       != rhs.proxima()) { return false; }
+        if (lhs.proxima() != rhs.proxima()) {
+            return false;
+        }
     }
-    if (lhs.eliminacao()        != rhs.eliminacao()) { return false; }
+    if (lhs.eliminacao() != rhs.eliminacao()) {
+        return false;
+    }
 
     return true;
 }
 
-bool operator != (const Situacao& lhs, const Situacao& rhs) {
+bool operator!=(const Situacao& lhs, const Situacao& rhs) {
     return not(lhs == rhs);
 }
-
 }

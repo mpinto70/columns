@@ -16,7 +16,7 @@ public:
      */
     Tabuleiro(uint16_t l, uint16_t h, const gui::Cor& cor);
     Tabuleiro(const Tabuleiro& rhs);
-    Tabuleiro& operator = (const Tabuleiro& rhs);
+    Tabuleiro& operator=(const Tabuleiro& rhs);
 
     /** @return as casas do tabuleiro. */
     const std::vector<gui::Cor>& casas() const { return casas_; }
@@ -41,14 +41,14 @@ public:
      * @param l o índice da linha a ser eliminada
      */
     void elimina(uint16_t c, uint16_t l);
+
 private:
-    std::vector<gui::Cor> casas_;   ///< o tabuleiro
-    gui::Cor cor_;                  ///< cor de fundo do tabuleiro
-    uint16_t largura_;              ///< a largura do tabuleiro
-    uint16_t altura_;               ///< a altura do tabuleiro
+    std::vector<gui::Cor> casas_; ///< o tabuleiro
+    gui::Cor cor_;                ///< cor de fundo do tabuleiro
+    uint16_t largura_;            ///< a largura do tabuleiro
+    uint16_t altura_;             ///< a altura do tabuleiro
 };
 
-bool operator == (const Tabuleiro& lhs, const Tabuleiro& rhs);
-bool operator != (const Tabuleiro& lhs, const Tabuleiro& rhs);
-
+bool operator==(const Tabuleiro& lhs, const Tabuleiro& rhs);
+bool operator!=(const Tabuleiro& lhs, const Tabuleiro& rhs);
 }

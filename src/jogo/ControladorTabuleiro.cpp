@@ -3,17 +3,17 @@
 #include "pontuacao/Placar.h"
 #include "util/Aleatorio.h"
 
-#include <stdexcept>
 #include <map>
+#include <stdexcept>
 #include <utility>
 
 namespace jogo {
 
 ControladorTabuleiro::ControladorTabuleiro(const peca::Tabuleiro& tabuleiro,
-                                           const uint16_t maxSubLinha)
-    : tabuleiro_(tabuleiro),
-      maxSubLinha_(maxSubLinha),
-      possiveis_ {gui::Verde, gui::Vermelho, gui::Azul, gui::Amarelo, gui::Lavanda} {
+      const uint16_t maxSubLinha)
+      : tabuleiro_(tabuleiro),
+        maxSubLinha_(maxSubLinha),
+        possiveis_{ gui::Verde, gui::Vermelho, gui::Azul, gui::Amarelo, gui::Lavanda } {
     if (maxSubLinha_ == 0) {
         throw std::invalid_argument("ControladorTabuleiro - máximo de subdivisões do quadrado nulo");
     }
@@ -59,7 +59,7 @@ const peca::Peca& ControladorTabuleiro::peca() const {
 
 void ControladorTabuleiro::passo() {
     if (not temPeca()) {
-        return ;
+        return;
     }
 
     const uint16_t linhaPeca = posicaoPeca_->linha();
@@ -78,7 +78,7 @@ void ControladorTabuleiro::passo() {
 
 void ControladorTabuleiro::moveEsquerda() {
     if (not temPeca()) {
-        return ;
+        return;
     }
 
     const uint16_t colunaPeca = posicaoPeca_->coluna();
@@ -89,7 +89,7 @@ void ControladorTabuleiro::moveEsquerda() {
 
 void ControladorTabuleiro::moveDireita() {
     if (not temPeca()) {
-        return ;
+        return;
     }
 
     const uint16_t colunaPeca = posicaoPeca_->coluna();
@@ -100,7 +100,7 @@ void ControladorTabuleiro::moveDireita() {
 
 void ControladorTabuleiro::rolaParaCima() {
     if (not temPeca()) {
-        return ;
+        return;
     }
 
     peca_->rolaParaCima();
@@ -108,7 +108,7 @@ void ControladorTabuleiro::rolaParaCima() {
 
 void ControladorTabuleiro::rolaParaBaixo() {
     if (not temPeca()) {
-        return ;
+        return;
     }
 
     peca_->rolaParaBaixo();
@@ -127,7 +127,7 @@ ListaEliminacao ControladorTabuleiro::determinaEliminacao() const {
 }
 
 void ControladorTabuleiro::marcaEliminacao(const ListaEliminacao& casas,
-                                           const gui::Cor& cor) {
+      const gui::Cor& cor) {
     for (uint16_t i = 0; i < casas.size(); ++i) {
         const uint16_t col = casas[i].first;
         const uint16_t lin = casas[i].second;
@@ -145,9 +145,9 @@ void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
 
 Situacao ControladorTabuleiro::situacao() const {
     if (temPeca()) {
-        return Situacao(tabuleiro_, pontuacao::Placar(0), *peca_, *posicaoPeca_, peca::Peca({gui::Azul, gui::Azul, gui::Azul}));
+        return Situacao(tabuleiro_, pontuacao::Placar(0), *peca_, *posicaoPeca_, peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
     } else {
-        return Situacao(tabuleiro_, pontuacao::Placar(0), determinaEliminacao(), peca::Peca({gui::Azul, gui::Azul, gui::Azul}));
+        return Situacao(tabuleiro_, pontuacao::Placar(0), determinaEliminacao(), peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
     }
 }
 
@@ -229,7 +229,7 @@ bool ControladorTabuleiro::atingiuFim() const {
 }
 
 bool ControladorTabuleiro::deveEliminar(const uint16_t coluna,
-                                        const uint16_t linha) const {
+      const uint16_t linha) const {
     const gui::Cor cor = tabuleiro_.at(coluna, linha);
     if (cor == tabuleiro_.cor()) {
         return false;
@@ -240,10 +240,18 @@ bool ControladorTabuleiro::deveEliminar(const uint16_t coluna,
     int l0 = linha - 2;
     int l1 = linha + 2;
 
-    if (c0 < 0) { c0 = 0; }
-    if (l0 < 0) { l0 = 0; }
-    if (c1 >= (int) tabuleiro_.largura()) { c1 = tabuleiro_.largura() - 1; }
-    if (l1 >= (int) tabuleiro_.altura()) { l1 = tabuleiro_.altura() - 1; }
+    if (c0 < 0) {
+        c0 = 0;
+    }
+    if (l0 < 0) {
+        l0 = 0;
+    }
+    if (c1 >= (int) tabuleiro_.largura()) {
+        c1 = tabuleiro_.largura() - 1;
+    }
+    if (l1 >= (int) tabuleiro_.altura()) {
+        l1 = tabuleiro_.altura() - 1;
+    }
 
     std::map<int, std::map<int, bool>> grid;
     for (int c = -2; c <= 2; ++c) {
@@ -263,21 +271,44 @@ bool ControladorTabuleiro::deveEliminar(const uint16_t coluna,
     }
 
     // diagonais
-    if (grid[-2][-2] && grid[-1][-1]) { return true; }
-    if (grid[-1][-1] && grid[+1][+1]) { return true; }
-    if (grid[+1][+1] && grid[+2][+2]) { return true; }
-    if (grid[-2][+2] && grid[-1][+1]) { return true; }
-    if (grid[-1][+1] && grid[+1][-1]) { return true; }
-    if (grid[+1][-1] && grid[+2][-2]) { return true; }
+    if (grid[-2][-2] && grid[-1][-1]) {
+        return true;
+    }
+    if (grid[-1][-1] && grid[+1][+1]) {
+        return true;
+    }
+    if (grid[+1][+1] && grid[+2][+2]) {
+        return true;
+    }
+    if (grid[-2][+2] && grid[-1][+1]) {
+        return true;
+    }
+    if (grid[-1][+1] && grid[+1][-1]) {
+        return true;
+    }
+    if (grid[+1][-1] && grid[+2][-2]) {
+        return true;
+    }
 
     // perpendiculares
-    if (grid[ 0][-2] && grid[ 0][-1]) { return true; }
-    if (grid[ 0][-1] && grid[ 0][+1]) { return true; }
-    if (grid[ 0][+1] && grid[ 0][+2]) { return true; }
-    if (grid[-2][ 0] && grid[-1][ 0]) { return true; }
-    if (grid[-1][ 0] && grid[+1][ 0]) { return true; }
-    if (grid[+1][ 0] && grid[+2][ 0]) { return true; }
+    if (grid[0][-2] && grid[0][-1]) {
+        return true;
+    }
+    if (grid[0][-1] && grid[0][+1]) {
+        return true;
+    }
+    if (grid[0][+1] && grid[0][+2]) {
+        return true;
+    }
+    if (grid[-2][0] && grid[-1][0]) {
+        return true;
+    }
+    if (grid[-1][0] && grid[+1][0]) {
+        return true;
+    }
+    if (grid[+1][0] && grid[+2][0]) {
+        return true;
+    }
     return false;
 }
-
 }

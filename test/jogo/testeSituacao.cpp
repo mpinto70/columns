@@ -13,22 +13,22 @@ namespace jogo {
 namespace tst {
 
 static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
-                             const pontuacao::Placar& placar) {
+      const pontuacao::Placar& placar) {
     return Situacao(tabuleiro, placar);
 }
 
 static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
-                             const pontuacao::Placar& placar,
-                             const peca::Peca& caindo,
-                             const peca::PosicaoPeca& posicao,
-                             const peca::Peca& proxima) {
+      const pontuacao::Placar& placar,
+      const peca::Peca& caindo,
+      const peca::PosicaoPeca& posicao,
+      const peca::Peca& proxima) {
     return Situacao(tabuleiro, placar, caindo, posicao, proxima);
 }
 
 static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
-                             const pontuacao::Placar& placar,
-                             const ListaEliminacao& eliminacao,
-                             const peca::Peca& proxima) {
+      const pontuacao::Placar& placar,
+      const ListaEliminacao& eliminacao,
+      const peca::Peca& proxima) {
     return Situacao(tabuleiro, placar, eliminacao, proxima);
 }
 
@@ -131,6 +131,5 @@ TEST(TesteSituacao, Criacao) {
     EXPECT_TRUE(p1 != situacao2);
     EXPECT_TRUE(p2 != situacao1);
 }
-
 }
 }

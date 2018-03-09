@@ -1,5 +1,5 @@
-#include "pontuacao/Pontuacao.h"
 #include "peca/Peca.h"
+#include "pontuacao/Pontuacao.h"
 
 #include "gtest/gtest.h"
 
@@ -87,6 +87,5 @@ TEST(TestePontuacao, Zera) {
         EXPECT_EQ(p.total(), 0u) << i;
     }
 }
-
 }
 }

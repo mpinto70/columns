@@ -29,11 +29,11 @@ public:
     void limpa();
     /** @return a lista de mensagens e limpa a atual. */
     Lista recupera();
+
 private:
-    std::mutex mutexMensagem_;  ///< o mutex de mensagem
-    Lista mensagens_;           ///< as mensagens
+    std::mutex mutexMensagem_; ///< o mutex de mensagem
+    Lista mensagens_;          ///< as mensagens
 };
 
 typedef std::shared_ptr<Mensagem> MensagemPtr;
-
 }

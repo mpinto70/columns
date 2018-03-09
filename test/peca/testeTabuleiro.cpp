@@ -12,9 +12,9 @@ namespace tst {
 namespace {
 
 static void confereTabuleiroVazio(const std::string& msg,
-                                  uint16_t l,
-                                  uint16_t h,
-                                  const gui::Cor& cor) {
+      uint16_t l,
+      uint16_t h,
+      const gui::Cor& cor) {
     EXPECT_TRUE(l > 0) << msg;
     EXPECT_TRUE(h > 0) << msg;
     const Tabuleiro tabuleiro(l, h, cor);
@@ -84,7 +84,7 @@ TEST(TesteTabuleiro, Alteracao) {
                 }
             }
             for (uint16_t jj = 0; jj < ALTURA; ++jj) { // na coluna atual
-                if (jj < j) { // as linhas abaixo de j estão coloridas
+                if (jj < j) {                          // as linhas abaixo de j estão coloridas
                     const gui::Cor cor(i, jj, 0);
                     EXPECT_EQ(tab.at(i, jj), cor);
                 } else { // as outras ainda estão brancas
@@ -188,6 +188,5 @@ TEST(TesteTabuleiro, Elimina) {
         //printTabuleiro(tab);
     }
 }
-
 }
 }

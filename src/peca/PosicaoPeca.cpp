@@ -6,14 +6,14 @@
 namespace peca {
 
 PosicaoPeca::PosicaoPeca(const Tabuleiro& tab,
-                         const uint16_t col,
-                         const uint16_t maxSubLinha)
-    : coluna_(col),
-      linha_(0),
-      subLinha_(0),
-      maxSubLinha_(maxSubLinha),
-      maxColuna_(tab.largura()),
-      maxLinha_(tab.altura()) {
+      const uint16_t col,
+      const uint16_t maxSubLinha)
+      : coluna_(col),
+        linha_(0),
+        subLinha_(0),
+        maxSubLinha_(maxSubLinha),
+        maxColuna_(tab.largura()),
+        maxLinha_(tab.altura()) {
     if (maxSubLinha_ == 0) {
         throw std::invalid_argument("PosicaoPeca - máxima subdivisão da posição nula");
     }
@@ -23,12 +23,12 @@ PosicaoPeca::PosicaoPeca(const Tabuleiro& tab,
 }
 
 PosicaoPeca::PosicaoPeca(const PosicaoPeca& rhs)
-    : coluna_(rhs.coluna_),
-      linha_(rhs.linha_),
-      subLinha_(rhs.subLinha_),
-      maxSubLinha_(rhs.maxSubLinha_),
-      maxColuna_(rhs.maxColuna_),
-      maxLinha_(rhs.maxLinha_) {
+      : coluna_(rhs.coluna_),
+        linha_(rhs.linha_),
+        subLinha_(rhs.subLinha_),
+        maxSubLinha_(rhs.maxSubLinha_),
+        maxColuna_(rhs.maxColuna_),
+        maxLinha_(rhs.maxLinha_) {
 }
 
 PosicaoPeca& PosicaoPeca::operator=(const PosicaoPeca& rhs) {
@@ -66,18 +66,25 @@ void PosicaoPeca::moveDireita() {
     ++coluna_;
 }
 
-bool operator == (const PosicaoPeca& lhs,
-                  const PosicaoPeca& rhs) {
-    if (lhs.coluna() != rhs.coluna()) { return false; }
-    if (lhs.linha() != rhs.linha()) { return false; }
-    if (lhs.subLinha() != rhs.subLinha()) { return false; }
-    if (lhs.maxSubLinha() != rhs.maxSubLinha()) { return false; }
+bool operator==(const PosicaoPeca& lhs,
+      const PosicaoPeca& rhs) {
+    if (lhs.coluna() != rhs.coluna()) {
+        return false;
+    }
+    if (lhs.linha() != rhs.linha()) {
+        return false;
+    }
+    if (lhs.subLinha() != rhs.subLinha()) {
+        return false;
+    }
+    if (lhs.maxSubLinha() != rhs.maxSubLinha()) {
+        return false;
+    }
     return true;
 }
 
-bool operator != (const PosicaoPeca& lhs,
-                  const PosicaoPeca& rhs) {
+bool operator!=(const PosicaoPeca& lhs,
+      const PosicaoPeca& rhs) {
     return not(lhs == rhs);
 }
-
 }

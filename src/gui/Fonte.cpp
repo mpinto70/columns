@@ -5,9 +5,9 @@
 namespace gui {
 
 Fonte::Fonte(const std::string& nome,
-             const unsigned char tamanho)
-    : nome_(nome),
-      tamanho_(tamanho) {
+      const unsigned char tamanho)
+      : nome_(nome),
+        tamanho_(tamanho) {
 }
 
 void Fonte::swap(Fonte& rhs) {
@@ -15,13 +15,12 @@ void Fonte::swap(Fonte& rhs) {
     std::swap(tamanho_, rhs.tamanho_);
 }
 
-bool operator == (const Fonte& lhs, const Fonte& rhs) {
+bool operator==(const Fonte& lhs, const Fonte& rhs) {
     return lhs.nome() == rhs.nome()
            && lhs.tamanho() == rhs.tamanho();
 }
 
-bool operator != (const Fonte& lhs, const Fonte& rhs) {
+bool operator!=(const Fonte& lhs, const Fonte& rhs) {
     return not(lhs == rhs);
 }
-
 }

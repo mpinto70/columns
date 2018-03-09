@@ -10,7 +10,7 @@ namespace tst {
 
 namespace {
 void confereCriacaoInvalida(const std::string& msg0,
-                            const Tabuleiro& tab) {
+      const Tabuleiro& tab) {
     for (uint16_t i = 0; i < 2 * tab.largura(); ++i) {
         if (i < tab.largura()) {
             EXPECT_NO_THROW(PosicaoPeca(tab, i, 4)) << msg0;
@@ -34,7 +34,7 @@ void confereCriacaoInvalida(const std::string& msg0,
 }
 
 void confereCaiUmPassoInvalido(const std::string& msg0,
-                               const Tabuleiro& tab) {
+      const Tabuleiro& tab) {
     PosicaoPeca p(tab, tab.largura() - 1, 7);
     while (p.linha() != tab.altura() - TAMANHO_PECA) {
         EXPECT_TRUE(not p.chegouAoFundo()) << msg0;
@@ -54,7 +54,7 @@ void confereCaiUmPassoInvalido(const std::string& msg0,
 }
 
 void confereMoveInvalido(const std::string& msg0,
-                         const Tabuleiro& tab) {
+      const Tabuleiro& tab) {
     PosicaoPeca p(tab, 0, 4);
     for (uint16_t i = 0; i < tab.largura() - 1; ++i) {
         EXPECT_EQ(p.coluna(), i) << msg0;
@@ -202,7 +202,6 @@ TEST(TestePosicaoPeca, Move) {
     EXPECT_EQ(p.subLinha(), 0u);
     EXPECT_EQ(p.maxSubLinha(), 4u);
 
-
     p.moveDireita();
 
     EXPECT_EQ(p.coluna(), 4u);
@@ -261,6 +260,5 @@ TEST(TestePosicaoPeca, Comparacao) {
     EXPECT_EQ(posics[0], PosicaoPeca(t2, 4, 4));
     EXPECT_EQ(posics[1], PosicaoPeca(t2, 5, 4));
 }
-
 }
 }

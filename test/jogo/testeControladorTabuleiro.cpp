@@ -11,7 +11,7 @@ namespace tst {
 namespace {
 
 static void confereCriaPecaInvalida(ControladorTabuleiro& cont,
-                                    const std::string& msg) {
+      const std::string& msg) {
     try {
         const auto peca = cont.criaPeca();
         cont.adicionaPeca(peca);
@@ -297,7 +297,6 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     eliminacao.insert(eliminacao.begin() + 9, ItemEliminacao(3, 19));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
-
     // vai adicionar de outra cor e não vai alterar
     tbbranco.at(1, 16) = gui::Azul;
     tbbranco.at(2, 16) = gui::Azul;
@@ -344,6 +343,5 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      19 - PPPPv
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 }
-
 }
 }

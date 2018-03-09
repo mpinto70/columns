@@ -15,8 +15,8 @@ static std::string montaLogSDL(const std::string& msg) {
 }
 
 grafico::SharedJanela cria_janela(const std::string& versao,
-                                  size_t largura_tela,
-                                  size_t altura_tela) {
+      size_t largura_tela,
+      size_t altura_tela) {
     return std::make_shared<grafico::JanelaSDL>("Colunas " + versao, 1000, 100, largura_tela, altura_tela, gui::Cinza);
 }
 
@@ -31,25 +31,25 @@ InputResult processa_input(jogo::MensagemPtr& mensagens) {
         if (e.type == SDL_KEYDOWN) {
             /* Check the SDLKey values and move change the coords */
             switch (e.key.keysym.sym) {
-            case SDLK_LEFT:
-                mensagens->registra(jogo::EMensagem::moveEsquerda);
-                break;
-            case SDLK_RIGHT:
-                mensagens->registra(jogo::EMensagem::moveDireita);
-                break;
-            case SDLK_UP:
-                mensagens->registra(jogo::EMensagem::rolaCima);
-                break;
-            case SDLK_DOWN:
-                mensagens->registra(jogo::EMensagem::rolaBaixo);
-                break;
-            case SDLK_SPACE:
-                mensagens->registra(jogo::EMensagem::moveBaixo);
-                break;
-            case SDLK_ESCAPE:
-                return InputResult::QUIT;
-            default:
-                break;
+                case SDLK_LEFT:
+                    mensagens->registra(jogo::EMensagem::moveEsquerda);
+                    break;
+                case SDLK_RIGHT:
+                    mensagens->registra(jogo::EMensagem::moveDireita);
+                    break;
+                case SDLK_UP:
+                    mensagens->registra(jogo::EMensagem::rolaCima);
+                    break;
+                case SDLK_DOWN:
+                    mensagens->registra(jogo::EMensagem::rolaBaixo);
+                    break;
+                case SDLK_SPACE:
+                    mensagens->registra(jogo::EMensagem::moveBaixo);
+                    break;
+                case SDLK_ESCAPE:
+                    return InputResult::QUIT;
+                default:
+                    break;
             }
         }
     }
@@ -69,5 +69,4 @@ void init_grafico() {
 void finaliza_grafico() {
     SDL_Quit();
 }
-
 }

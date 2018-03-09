@@ -24,10 +24,10 @@ constexpr unsigned char TAMANHO_PECA = 3;
  */
 class Peca {
 public:
-    Peca(const gui::Cor(&cores)[TAMANHO_PECA]);
+    Peca(const gui::Cor (&cores)[TAMANHO_PECA]);
     Peca(const std::vector<gui::Cor>& cores);
     Peca(const Peca& rhs);
-    Peca& operator = (const Peca& rhs);
+    Peca& operator=(const Peca& rhs);
     void swap(Peca& rhs);
     /** @return a cor do quadradinho indexado por \p i.
      * @param i o índice (0 <= i <= 2)
@@ -40,11 +40,12 @@ public:
      * @param coresPossiveis as cores que serão sorteadas para criar a peça.
      */
     static Peca cria(const std::vector<gui::Cor>& coresPossiveis);
+
 private:
-    gui::Cor cores_[TAMANHO_PECA];  ///< as cores de cada quadradinho da peça
+    gui::Cor cores_[TAMANHO_PECA]; ///< as cores de cada quadradinho da peça
 };
 
-bool operator == (const Peca& lhs, const Peca& rhs);
-bool operator != (const Peca& lhs, const Peca& rhs);
+bool operator==(const Peca& lhs, const Peca& rhs);
+bool operator!=(const Peca& lhs, const Peca& rhs);
 typedef std::unique_ptr<Peca> PecaPtr;
 }

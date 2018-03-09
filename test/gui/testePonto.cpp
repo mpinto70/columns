@@ -21,12 +21,11 @@ TEST(TestePonto, criacao) {
 TEST(TestePonto, OperatorIgual) {
     using namespace std::rel_ops;
     const std::vector<Ponto> v = {
-        {1, 2},
-        {4, 2},
-        {1, 3}
+        { 1, 2 },
+        { 4, 2 },
+        { 1, 3 }
     };
     mck::confereComparacao(__FILE__, __LINE__, v);
 }
-
 }
 }

@@ -16,9 +16,9 @@ public:
      * @param N     o limite do valor a ser gerado
      */
     static size_t gera(size_t N);
-private:
-    static std::mt19937 engine_;    ///< gerador de números randômicos
-    static MapaDist dists_;         ///< mapa de distribuições uniformes
-};
 
+private:
+    static std::mt19937 engine_; ///< gerador de números randômicos
+    static MapaDist dists_;      ///< mapa de distribuições uniformes
+};
 }

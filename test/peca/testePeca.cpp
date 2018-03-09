@@ -5,8 +5,8 @@
 
 #include "gtest/gtest.h"
 
-#include <stdexcept>
 #include <algorithm>
+#include <stdexcept>
 
 namespace peca {
 namespace tst {
@@ -112,8 +112,8 @@ TEST(TestePeca, rolar) {
 }
 
 static void verificaCores(const int line,
-                          const Peca& p,
-                          const std::vector<gui::Cor>& cores) {
+      const Peca& p,
+      const std::vector<gui::Cor>& cores) {
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
         const auto& cor = p[i];
         EXPECT_TRUE(std::find(cores.cbegin(), cores.cend(), cor) != cores.cend()) << line;
@@ -121,7 +121,7 @@ static void verificaCores(const int line,
 }
 
 static void verificaCores(const int line,
-                          const std::vector<gui::Cor>& cores) {
+      const std::vector<gui::Cor>& cores) {
     for (unsigned char i = 0; i < 100; ++i) {
         const auto p = Peca::cria(cores);
         verificaCores(line, p, cores);
@@ -134,7 +134,7 @@ TEST(TestePeca, cria_peca) {
 
     cores.emplace_back(1, 2, 3);
     const auto p1 = Peca::cria(cores);
-    EXPECT_EQ(p1, Peca(std::vector<gui::Cor>(TAMANHO_PECA, {1, 2, 3})));
+    EXPECT_EQ(p1, Peca(std::vector<gui::Cor>(TAMANHO_PECA, { 1, 2, 3 })));
 
     verificaCores(__LINE__, cores);
 
@@ -148,6 +148,5 @@ TEST(TestePeca, cria_peca) {
     cores.emplace_back(10, 153, 12);
     verificaCores(__LINE__, cores);
 }
-
 }
 }

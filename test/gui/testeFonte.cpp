@@ -24,12 +24,11 @@ TEST(TesteFonte, Criacao) {
 TEST(TesteFonte, OperatorIgual) {
     using namespace std::rel_ops;
     const std::vector<Fonte> v = {
-        {"nome 1", 2 },
-        {"nome 2", 2 },
-        {"nome 1", 3 }
+        { "nome 1", 2 },
+        { "nome 2", 2 },
+        { "nome 1", 3 }
     };
     mck::confereComparacao(__FILE__, __LINE__, v);
 }
-
 }
 }
