@@ -15,7 +15,7 @@ do_build() {
     echo "Building ..."
     cmake ..
     check "cmake"
-    make
+    make -j6
     check "make"
     cd ..
 }
@@ -36,10 +36,12 @@ elif [ "$1" = "distclean" ]; then
         bin \
         lib \
         gtest \
+        test/bin \
 
     echo "Done."
 elif [ "$1" = "test" ]; then
     do_build
+    shift
     echo "Testing... "
     for test in `ls bin/test*`
     do
@@ -50,7 +52,8 @@ elif [ "$1" = "demo" ]; then
     do_build
     bin/colunas
 elif [ "$1" = "check" ]; then
-    cppcheck --enable=warning,style,unusedFunction src test
+    do_build
+    cppcheck --enable=warning,style,unusedFunction --error-exitcode=-1 src
 else
     echo "Usage: `basename $0` [test|clean|distclean|demo|check]"
 fi
