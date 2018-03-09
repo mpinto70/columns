@@ -25,8 +25,6 @@ public:
     ControladorTabuleiro(const ControladorTabuleiro&) = delete;
     ControladorTabuleiro& operator=(const ControladorTabuleiro&) = delete;
     const peca::Tabuleiro& tabuleiro() const { return tabuleiro_; }
-    /** @return uma peça com cores aleatórias. */
-    peca::Peca criaPeca() const;
     /** Adiciona a peca \p peca ao tabuleiro
      * @param peca a peça sendo adicionada ao tabuleiro
      * @return true se foi possível criar a peça

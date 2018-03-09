@@ -19,13 +19,9 @@ ControladorTabuleiro::ControladorTabuleiro(const peca::Tabuleiro& tabuleiro,
     }
 }
 
-peca::Peca ControladorTabuleiro::criaPeca() const {
-    return peca::Peca::cria(possiveis_);
-}
-
 bool ControladorTabuleiro::adicionaPeca(const peca::Peca& peca) {
     if (temPeca()) {
-        throw std::logic_error("ControladorTabuleiro::criaPeca - há peça caindo no tabuleiro");
+        throw std::logic_error("ControladorTabuleiro::adicionaPeca - há peça caindo no tabuleiro");
     }
 
     const uint16_t c = determinaColuna();
@@ -35,7 +31,7 @@ bool ControladorTabuleiro::adicionaPeca(const peca::Peca& peca) {
 
     for (unsigned char i = 0; i < peca::TAMANHO_PECA; ++i)
         if (peca[i] == tabuleiro_.cor()) {
-            throw std::invalid_argument("ControladorTabuleiro::criaPeca - peça com cor de fundo");
+            throw std::invalid_argument("ControladorTabuleiro::adicionaPeca - peça com cor de fundo");
         }
 
     posicaoPeca_.reset(new peca::PosicaoPeca(tabuleiro_, c, maxSubLinha_));
@@ -145,9 +141,9 @@ void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
 
 Situacao ControladorTabuleiro::situacao() const {
     if (temPeca()) {
-        return Situacao(tabuleiro_, pontuacao::Placar(0), *peca_, *posicaoPeca_, peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
+        return Situacao(tabuleiro_, pontuacao::Placar(), *peca_, *posicaoPeca_, peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
     } else {
-        return Situacao(tabuleiro_, pontuacao::Placar(0), determinaEliminacao(), peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
+        return Situacao(tabuleiro_, pontuacao::Placar(), determinaEliminacao(), peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
     }
 }
 

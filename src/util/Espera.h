@@ -10,7 +10,7 @@ public:
     /**
      * @param milissegundos a quantidade mínima de tempo em milissegundos a esperar
      */
-    Espera(size_t milissegundos);
+    explicit Espera(size_t milissegundos);
     ~Espera() = default;
 
     void zera();
