@@ -29,15 +29,15 @@ void confereComparacao(const std::string& file,
 }
 
 template <typename T>
-void confereAtribuicaoSwap(const std::string& file,
+void confereAtribuicao(const std::string& file,
       const int line,
       const T& t1,
       const T& t2) {
     const auto msg = montaMensagem(file, line);
     EXPECT_TRUE(not(t1 == t2)) << msg;
 
-    auto r1 = t1;
-    auto r2 = t2;
+    T r1 = t1;
+    T r2 = t2;
 
     EXPECT_EQ(t1, r1) << msg;
     EXPECT_EQ(t2, r2) << msg;
@@ -45,7 +45,8 @@ void confereAtribuicaoSwap(const std::string& file,
     EXPECT_NE(t1, r2) << msg;
     EXPECT_NE(t2, r1) << msg;
 
-    r1.swap(r2);
+    r1 = t2;
+    r2 = t1;
 
     EXPECT_EQ(t1, r2) << msg;
     EXPECT_EQ(t2, r1) << msg;

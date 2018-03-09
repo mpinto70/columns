@@ -18,7 +18,7 @@ TEST(TesteFonte, Criacao) {
     EXPECT_EQ(f2.nome(), "fonte 2");
     EXPECT_EQ(f2.tamanho(), 2);
 
-    mck::confereAtribuicaoSwap(__FILE__, __LINE__, f1, f2);
+    mck::confereAtribuicao(__FILE__, __LINE__, f1, f2);
 }
 
 TEST(TesteFonte, OperatorIgual) {

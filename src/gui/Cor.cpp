@@ -4,12 +4,6 @@
 
 namespace gui {
 
-void Cor::swap(Cor& rhs) {
-    std::swap(R, rhs.R);
-    std::swap(G, rhs.G);
-    std::swap(B, rhs.B);
-}
-
 bool operator==(const Cor& lhs, const Cor& rhs) {
     return lhs.R == rhs.R
            && lhs.G == rhs.G

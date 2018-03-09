@@ -15,7 +15,6 @@ public:
      */
     Fonte(const std::string& nome,
           unsigned char tamanho);
-    void swap(Fonte& rhs);
     const std::string& nome() const { return nome_; }
     unsigned char tamanho() const { return tamanho_; }
 

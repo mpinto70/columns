@@ -17,8 +17,6 @@ public:
     PosicaoPeca(const Tabuleiro& tab,
           uint16_t col,
           uint16_t maxSubLinha);
-    PosicaoPeca(const PosicaoPeca& rhs);
-    PosicaoPeca& operator=(const PosicaoPeca& rhs);
     /** Anda um passo para baixo.
      * @throw std::logic_error é lançada caso não seja mais possível dar um passo
      */

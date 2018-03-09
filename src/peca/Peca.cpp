@@ -21,22 +21,6 @@ Peca::Peca(const std::vector<gui::Cor>& cores) {
     }
 }
 
-Peca::Peca(const Peca& rhs)
-      : cores_(rhs.cores_) {
-}
-
-Peca& Peca::operator=(const Peca& rhs) {
-    Peca tmp(rhs);
-    tmp.swap(*this);
-    return *this;
-}
-
-void Peca::swap(Peca& rhs) {
-    for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        std::swap(cores_[i], rhs.cores_[i]);
-    }
-}
-
 const gui::Cor& Peca::operator[](unsigned char i) const {
     if (i >= TAMANHO_PECA) {
         throw std::invalid_argument("Peca[" + std::to_string(i) + "] - índice fora dos limites");

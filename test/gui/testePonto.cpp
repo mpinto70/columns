@@ -15,7 +15,7 @@ TEST(TestePonto, criacao) {
     EXPECT_EQ(p2.X, 231);
     EXPECT_EQ(p2.Y, 222);
 
-    mck::confereAtribuicaoSwap(__FILE__, __LINE__, p1, p2);
+    mck::confereAtribuicao(__FILE__, __LINE__, p1, p2);
 }
 
 TEST(TestePonto, OperatorIgual) {

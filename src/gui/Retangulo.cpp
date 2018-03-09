@@ -25,13 +25,6 @@ Retangulo::Retangulo(const Ponto& p1,
       : Retangulo(p1.X, p1.Y, p2.X, p2.Y) {
 }
 
-void Retangulo::swap(Retangulo& rhs) {
-    std::swap(X1_, rhs.X1_);
-    std::swap(Y1_, rhs.Y1_);
-    std::swap(X2_, rhs.X2_);
-    std::swap(Y2_, rhs.Y2_);
-}
-
 bool operator==(const Retangulo& lhs, const Retangulo& rhs) {
     return lhs.X1() == rhs.X1()
            && lhs.Y1() == rhs.Y1()

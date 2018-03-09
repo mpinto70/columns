@@ -15,8 +15,6 @@ public:
      * @param cor a cor do fundo do tabuleiro
      */
     Tabuleiro(uint16_t l, uint16_t h, const gui::Cor& cor);
-    Tabuleiro(const Tabuleiro& rhs);
-    Tabuleiro& operator=(const Tabuleiro& rhs);
 
     /** @return as casas do tabuleiro. */
     const std::vector<gui::Cor>& casas() const { return casas_; }

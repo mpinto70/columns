@@ -22,24 +22,6 @@ PosicaoPeca::PosicaoPeca(const Tabuleiro& tab,
     }
 }
 
-PosicaoPeca::PosicaoPeca(const PosicaoPeca& rhs)
-      : coluna_(rhs.coluna_),
-        linha_(rhs.linha_),
-        subLinha_(rhs.subLinha_),
-        maxSubLinha_(rhs.maxSubLinha_),
-        maxColuna_(rhs.maxColuna_),
-        maxLinha_(rhs.maxLinha_) {
-}
-
-PosicaoPeca& PosicaoPeca::operator=(const PosicaoPeca& rhs) {
-    coluna_ = rhs.coluna_;
-    linha_ = rhs.linha_;
-    subLinha_ = rhs.subLinha_;
-    maxColuna_ = rhs.maxColuna_;
-    maxLinha_ = rhs.maxLinha_;
-    return *this;
-}
-
 void PosicaoPeca::caiUmPasso() {
     if (linha_ + TAMANHO_PECA == maxLinha_) {
         throw std::logic_error("PosicaoPeca::caiUmPasso - já está na posição inferior");

@@ -47,14 +47,6 @@ TEST(TestePeca, criacao) {
     Peca p4(p1);
     EXPECT_EQ(p4, p1);
     EXPECT_EQ(p3, p2);
-
-    p4.swap(p3);
-    EXPECT_EQ(p4, p2);
-    EXPECT_EQ(p3, p1);
-
-    p4.swap(p3);
-    EXPECT_EQ(p4, p1);
-    EXPECT_EQ(p3, p2);
 }
 
 TEST(TestePeca, rolar) {

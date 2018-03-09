@@ -30,7 +30,7 @@ TEST(TesteCor, criacao) {
     EXPECT_EQ(c2.G, 222);
     EXPECT_EQ(c2.B, 123);
 
-    mck::confereAtribuicaoSwap(__FILE__, __LINE__, c1, c2);
+    mck::confereAtribuicao(__FILE__, __LINE__, c1, c2);
 }
 
 TEST(TesteCor, Constantes) {

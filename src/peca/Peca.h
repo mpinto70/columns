@@ -24,11 +24,8 @@ constexpr unsigned char TAMANHO_PECA = 3;
  */
 class Peca {
 public:
-    Peca(const gui::Cor (&cores)[TAMANHO_PECA]);
-    Peca(const std::vector<gui::Cor>& cores);
-    Peca(const Peca& rhs);
-    Peca& operator=(const Peca& rhs);
-    void swap(Peca& rhs);
+    explicit Peca(const gui::Cor (&cores)[TAMANHO_PECA]);
+    explicit Peca(const std::vector<gui::Cor>& cores);
     /** @return a cor do quadradinho indexado por \p i.
      * @param i o índice (0 <= i <= 2)
      * @throws std::invalid_argument é lançada caso \p i esteja fora dos limites

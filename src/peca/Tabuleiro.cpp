@@ -20,22 +20,6 @@ Tabuleiro::Tabuleiro(const uint16_t l,
     }
 }
 
-Tabuleiro::Tabuleiro(const Tabuleiro& rhs)
-      : casas_(rhs.casas_),
-        cor_(rhs.cor_),
-        largura_(rhs.largura_),
-        altura_(rhs.altura_) {
-}
-
-Tabuleiro& Tabuleiro::operator=(const Tabuleiro& rhs) {
-    auto tmp = rhs.casas_;
-    casas_.swap(tmp);
-    cor_ = rhs.cor_;
-    largura_ = rhs.largura_;
-    altura_ = rhs.altura_;
-    return *this;
-}
-
 const gui::Cor& Tabuleiro::at(const uint16_t c, const uint16_t l) const {
     if (c >= largura_) {
         throw std::invalid_argument("Tabuleiro::at const - overflow de coluna " + std::to_string(c));

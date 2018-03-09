@@ -23,7 +23,6 @@ struct Cor {
             G(g),
             B(b) {
     }
-    void swap(Cor& rhs);
     unsigned char R; ///< a intensidade de vermelho [0 - 255]
     unsigned char G; ///< a intensidade de verde [0 - 255]
     unsigned char B; ///< a intensidade de azul [0 - 255]

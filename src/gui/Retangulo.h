@@ -24,7 +24,6 @@ public:
      */
     Retangulo(const Ponto& p1,
           const Ponto& p2);
-    void swap(Retangulo& rhs);
     /** @return a cordenada X do canto superior esquerdo. */
     uint16_t X1() const { return X1_; }
     /** @return a cordenada Y do canto superior esquerdo. */
