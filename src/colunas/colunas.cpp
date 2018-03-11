@@ -123,6 +123,7 @@ void loop_input(jogo::MensagemPtr& mensagens) {
         tempoInput.zera();
         if (colunas::processa_input(mensagens) == colunas::InputResult::QUIT) {
             quit = true;
+            break;
         }
         tempoInput.espera();
         // colocar o código adicional aqui
