@@ -1,6 +1,6 @@
-
 #include "ControladorJogo.h"
-#include "util/Espera.h"
+
+#include "util/Wait.h"
 
 #include <stdexcept>
 #include <unistd.h>
@@ -33,24 +33,24 @@ ControladorJogo::ControladorJogo(const peca::Tabuleiro& tabuleiro,
 
 void ControladorJogo::execute() {
     parar_ = false;
-    util::Espera tempoPasso(10);
+    util::Wait tempoPasso(10);
 
     while (not parar_) {
-        tempoPasso.zera();
+        tempoPasso.reset();
         if (tabuleiro_.temPeca()) {
             tabuleiro_.passo();
         } else {
             ListaEliminacao listaEliminacao;
             while (not(listaEliminacao = tabuleiro_.determinaEliminacao()).empty()) {
-                util::Espera tempoElimina(300);
+                util::Wait tempoElimina(300);
                 observer_->atualiza(montaSituacao(listaEliminacao));
                 placar_.acrescenta(listaEliminacao.size());
                 tabuleiro_.elimina(listaEliminacao);
                 //printf("\n%s (%d) - %d\n", __FILE__, __LINE__, placar_.pontuacao().total());
-                tempoElimina.espera();
+                tempoElimina.wait();
                 mensagens_->limpa();
             }
-            tempoPasso.zera();
+            tempoPasso.reset();
             if (not tabuleiro_.adicionaPeca(proximaPeca_)) {
                 return;
             }
@@ -58,7 +58,7 @@ void ControladorJogo::execute() {
         }
         processa(mensagens_->recupera());
         observer_->atualiza(montaSituacao());
-        tempoPasso.espera();
+        tempoPasso.wait();
     }
 }
 

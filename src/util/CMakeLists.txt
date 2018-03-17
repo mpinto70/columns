@@ -2,7 +2,7 @@
 add_library(
     util
     Random.cpp
-    Espera.cpp
+    Wait.cpp
 )
 
 target_include_directories(

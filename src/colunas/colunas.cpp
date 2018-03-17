@@ -5,7 +5,7 @@
 #include "jogo/ControladorTabuleiro.h"
 #include "jogo/SituacaoObserver.h"
 #include "peca/Tabuleiro.h"
-#include "util/Espera.h"
+#include "util/Wait.h"
 
 #include <atomic>
 #include <iostream>
@@ -118,14 +118,14 @@ void executa(jogo::MensagemPtr mensagens) {
 }
 
 void loop_input(jogo::MensagemPtr& mensagens) {
-    util::Espera tempoInput(3);
+    util::Wait tempoInput(3);
     while (!quit) {
-        tempoInput.zera();
+        tempoInput.reset();
         if (colunas::processa_input(mensagens) == colunas::InputResult::QUIT) {
             quit = true;
             break;
         }
-        tempoInput.espera();
+        tempoInput.wait();
         // colocar o código adicional aqui
     }
 }
