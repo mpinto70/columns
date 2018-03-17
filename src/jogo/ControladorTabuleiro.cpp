@@ -1,7 +1,7 @@
 
 #include "ControladorTabuleiro.h"
 #include "pontuacao/Placar.h"
-#include "util/Aleatorio.h"
+#include "util/Random.h"
 
 #include <map>
 #include <stdexcept>
@@ -174,7 +174,7 @@ uint16_t ControladorTabuleiro::determinaColuna() const {
     if (livres.size() == 0) {
         return tabuleiro_.largura();
     } else {
-        const uint16_t idx = util::Aleatorio::gera(livres.size() - 1);
+        const uint16_t idx = util::Random::get(livres.size() - 1);
         return livres[idx];
     }
 }

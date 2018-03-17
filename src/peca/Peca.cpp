@@ -1,6 +1,6 @@
 
 #include "Peca.h"
-#include "util/Aleatorio.h"
+#include "util/Random.h"
 
 #include <stdexcept>
 #include <utility>
@@ -50,7 +50,7 @@ Peca Peca::cria(const std::vector<gui::Cor>& coresPossiveis) {
     }
     gui::Cor cores[TAMANHO_PECA];
     for (unsigned char i = 0; i < peca::TAMANHO_PECA; ++i) {
-        const gui::Cor& rgb(coresPossiveis.at(util::Aleatorio::gera(coresPossiveis.size() - 1)));
+        const gui::Cor& rgb(coresPossiveis.at(util::Random::get(coresPossiveis.size() - 1)));
         cores[i] = rgb;
     }
     return peca::Peca(cores);

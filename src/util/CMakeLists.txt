@@ -1,7 +1,7 @@
 
 add_library(
     util
-    Aleatorio.cpp
+    Random.cpp
     Espera.cpp
 )
 

@@ -1,7 +1,7 @@
 
 #include "ControladorJogo.h"
-#include "util/Aleatorio.h"
 #include "util/Espera.h"
+
 #include <stdexcept>
 #include <unistd.h>
 

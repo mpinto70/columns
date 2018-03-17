@@ -2,7 +2,7 @@
 add_executable(
     testutil
     ../gtest_main.cpp
-    testeAleatorio.cpp
+    RandomTest.cpp
     testeEspera.cpp
 )
 
