@@ -62,11 +62,11 @@ public:
 
 private:
     typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
-    peca::Tabuleiro tabuleiro_;             ///< o tabuleiro
-    peca::PecaPtr peca_;                    ///< a peca caindo no tabuleiro
-    PosicaoPtr posicaoPeca_;                ///< a posição em que está a peça caindo no tabuleiro
-    const uint16_t maxSubLinha_;            ///< tamanho do quadradinho da peça
-    const std::vector<gui::Cor> possiveis_; ///< cores possíveis para as peças
+    peca::Tabuleiro tabuleiro_;               ///< o tabuleiro
+    peca::PecaPtr peca_;                      ///< a peca caindo no tabuleiro
+    PosicaoPtr posicaoPeca_;                  ///< a posição em que está a peça caindo no tabuleiro
+    const uint16_t maxSubLinha_;              ///< tamanho do quadradinho da peça
+    const std::vector<gui::Color> possiveis_; ///< cores possíveis para as peças
     /** @return se é possível mover a peça para a \p coluna.
      * @param coluna o número da coluna de destino
      */

@@ -11,7 +11,7 @@ namespace grafico {
     @param tamanho o tamanho do quadradinho em pixels
  */
 static void pintaQuadrado(Janela& janela,
-      const gui::Cor& cor,
+      const gui::Color& cor,
       const uint16_t x1,
       const uint16_t y1,
       const uint16_t tamanho) {
@@ -19,7 +19,7 @@ static void pintaQuadrado(Janela& janela,
     const int y2 = y1 + tamanho - 1;
     const gui::Retangulo rect(x1, y1, x2, y2);
     janela.preenche(rect, cor);
-    janela.retangulo(rect, gui::escurece(cor, 20));
+    janela.retangulo(rect, gui::darken(cor, 20));
 }
 
 DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,
@@ -43,7 +43,7 @@ DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,
 
 void DesenhaTabuleiro::desenha(Janela& janela,
       const jogo::Situacao& sit,
-      const gui::Cor& corEliminacao) const {
+      const gui::Color& corEliminacao) const {
     desenha(janela, sit.tabuleiro());
     if (sit.temPeca()) {
         const auto& posic = sit.posicaoPeca();
@@ -80,7 +80,7 @@ void DesenhaTabuleiro::desenha(Janela& janela,
 }
 
 void DesenhaTabuleiro::desenhaQuadrado(Janela& janela,
-      const gui::Cor& cor,
+      const gui::Color& cor,
       const uint16_t coluna,
       const uint16_t linha,
       const uint16_t sublinha) const {

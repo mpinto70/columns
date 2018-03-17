@@ -10,10 +10,10 @@ namespace mck {
 
 static Peca criaPecaSequencialPasso(unsigned char cor0,
       char passo) {
-    std::vector<gui::Cor> cores;
+    std::vector<gui::Color> cores;
     unsigned char cor = cor0;
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        gui::Cor rgb(cor, cor, cor);
+        gui::Color rgb(cor, cor, cor);
         cores.push_back(rgb);
         cor += passo;
     }
@@ -35,7 +35,7 @@ void printPeca(const std::string& file,
     const std::string sep(TAMANHO_PECA * 11, '-');
     printf("%s\n", sep.c_str());
     for (unsigned char c = 0; c < TAMANHO_PECA; ++c) {
-        const gui::Cor& cor = peca[c];
+        const gui::Color& cor = peca[c];
         gui::mck::print(cor);
     }
     printf("\n");
@@ -50,7 +50,7 @@ void printTabuleiro(const std::string& file,
     printf("%s\n", sep.c_str());
     for (uint16_t l = 0; l < tabuleiro.altura(); ++l) {
         for (uint16_t c = 0; c < tabuleiro.largura(); ++c) {
-            const gui::Cor& cor = tabuleiro.at(c, l);
+            const gui::Color& cor = tabuleiro.at(c, l);
             gui::mck::print(cor);
         }
         printf("\n");

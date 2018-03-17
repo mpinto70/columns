@@ -27,7 +27,7 @@ public:
      */
     void desenha(Janela& janela,
           const jogo::Situacao& sit,
-          const gui::Cor& corEliminacao) const;
+          const gui::Color& corEliminacao) const;
 
 private:
     uint16_t left_;               ///< o X onde será mostrado o tabuleiro
@@ -49,7 +49,7 @@ private:
      * @param sublinha  a sublinha no tabuleiro (peça caindo)
      */
     void desenhaQuadrado(Janela& janela,
-          const gui::Cor& cor,
+          const gui::Color& cor,
           uint16_t coluna,
           uint16_t linha,
           uint16_t sublinha = 0) const;

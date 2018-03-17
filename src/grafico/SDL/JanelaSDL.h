@@ -24,7 +24,7 @@ public:
           uint16_t top,
           uint16_t width,
           uint16_t height,
-          const gui::Cor& cor);
+          const gui::Color& cor);
     /** Destrói a janela. */
     ~JanelaSDL() override;
     /** @return a janela para desenho. */
@@ -39,7 +39,7 @@ public:
 private:
     SDL_Window* window_;     ///< a janela
     SDL_Renderer* renderer_; ///< o renderer de imagens
-    gui::Cor cor_;           ///< a cor de fundo da janela
+    gui::Color cor_;         ///< a cor de fundo da janela
     /** desenha uma linha.
      * @param x1    coordenada x do ponto inicial
      * @param y1    coordenada y do ponto inicial
@@ -51,7 +51,7 @@ private:
           uint16_t y1,
           uint16_t x2,
           uint16_t y2,
-          const gui::Cor& cor) override;
+          const gui::Color& cor) override;
     /** desenha um retângulo.
      * @param x1    coordenada x do canto superior esquerdo
      * @param y1    coordenada y do canto superior esquerdo
@@ -63,7 +63,7 @@ private:
           uint16_t y1,
           uint16_t x2,
           uint16_t y2,
-          const gui::Cor& cor) override;
+          const gui::Color& cor) override;
     /** preenche um retângulo.
      * @param x1    coordenada x do canto superior esquerdo
      * @param y1    coordenada y do canto superior esquerdo
@@ -75,7 +75,7 @@ private:
           uint16_t y1,
           uint16_t x2,
           uint16_t y2,
-          const gui::Cor& cor) override;
+          const gui::Color& cor) override;
     /** escreve um texto.
      * @param texto o texto a ser escrito
      * @param x     coordenada x do ponto de escrita
@@ -88,6 +88,6 @@ private:
           uint16_t x,
           uint16_t y,
           const gui::Fonte& fonte,
-          const gui::Cor& cor) override;
+          const gui::Color& cor) override;
 };
 }

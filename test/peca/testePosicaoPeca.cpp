@@ -96,8 +96,8 @@ void confereMoveInvalido(const std::string& msg0,
 } // unnamed namespace
 
 TEST(TestePosicaoPeca, Criacao) {
-    const Tabuleiro tab1(7, 25, gui::Branco);
-    const Tabuleiro tab2(8, 15, gui::Branco);
+    const Tabuleiro tab1(7, 25, gui::WHITE);
+    const Tabuleiro tab2(8, 15, gui::WHITE);
 
     const PosicaoPeca p1(tab1, 5, 4);
     EXPECT_EQ(p1.coluna(), 5u);
@@ -125,12 +125,12 @@ TEST(TestePosicaoPeca, Criacao) {
 }
 
 TEST(TestePosicaoPeca, CriacaoInvalida) {
-    confereCriacaoInvalida("t1", Tabuleiro(7, 25, gui::Branco));
-    confereCriacaoInvalida("t2", Tabuleiro(12, 50, gui::Branco));
+    confereCriacaoInvalida("t1", Tabuleiro(7, 25, gui::WHITE));
+    confereCriacaoInvalida("t2", Tabuleiro(12, 50, gui::WHITE));
 }
 
 TEST(TestePosicaoPeca, CaiUmPasso) {
-    const Tabuleiro tab(7, 25, gui::Branco);
+    const Tabuleiro tab(7, 25, gui::WHITE);
 
     PosicaoPeca p(tab, 5, 6);
     EXPECT_EQ(p.coluna(), 5u);
@@ -189,12 +189,12 @@ TEST(TestePosicaoPeca, CaiUmPasso) {
 }
 
 TEST(TestePosicaoPeca, CaiUmPassoInvalido) {
-    confereCaiUmPassoInvalido("t1", Tabuleiro(12, 50, gui::Preto));
-    confereCaiUmPassoInvalido("t2", Tabuleiro(7, 25, gui::Preto));
+    confereCaiUmPassoInvalido("t1", Tabuleiro(12, 50, gui::BLACK));
+    confereCaiUmPassoInvalido("t2", Tabuleiro(7, 25, gui::BLACK));
 }
 
 TEST(TestePosicaoPeca, Move) {
-    const Tabuleiro tab(7, 25, gui::Branco);
+    const Tabuleiro tab(7, 25, gui::WHITE);
 
     PosicaoPeca p(tab, 3, 4);
     EXPECT_EQ(p.coluna(), 3u);
@@ -232,12 +232,12 @@ TEST(TestePosicaoPeca, Move) {
 }
 
 TEST(TestePosicaoPeca, MoveInvalido) {
-    confereMoveInvalido("t1", Tabuleiro(12, 50, gui::Preto));
-    confereMoveInvalido("t2", Tabuleiro(7, 25, gui::Preto));
+    confereMoveInvalido("t1", Tabuleiro(12, 50, gui::BLACK));
+    confereMoveInvalido("t2", Tabuleiro(7, 25, gui::BLACK));
 }
 
 TEST(TestePosicaoPeca, Comparacao) {
-    Tabuleiro t1(12, 50, gui::Preto);
+    Tabuleiro t1(12, 50, gui::BLACK);
 
     std::vector<PosicaoPeca> posics;
     posics.push_back(PosicaoPeca(t1, 4, 4));
@@ -256,7 +256,7 @@ TEST(TestePosicaoPeca, Comparacao) {
         }
     }
 
-    Tabuleiro t2(17, 50, gui::Branco);
+    Tabuleiro t2(17, 50, gui::WHITE);
     EXPECT_EQ(posics[0], PosicaoPeca(t2, 4, 4));
     EXPECT_EQ(posics[1], PosicaoPeca(t2, 5, 4));
 }

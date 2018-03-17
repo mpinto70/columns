@@ -1,7 +1,7 @@
 
 add_library(
     gui
-    Cor.cpp
+    Color.cpp
     Fonte.cpp
     Ponto.cpp
     Retangulo.cpp

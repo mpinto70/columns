@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gui/Cor.h"
+#include "gui/Color.h"
 #include "gui/Fonte.h"
 #include "gui/Ponto.h"
 #include "gui/Retangulo.h"
@@ -38,13 +38,13 @@ public:
      */
     void linha(const gui::Ponto& ini,
           const gui::Ponto& fim,
-          const gui::Cor& cor);
+          const gui::Color& cor);
     /** desenha um retângulo.
      * @param ret   o retângulo
      * @param cor   cor
      */
     void retangulo(const gui::Retangulo& ret,
-          const gui::Cor& cor);
+          const gui::Color& cor);
     /** desenha um retângulo.
      * @param te    canto superior esquerdo
      * @param fd    canto inferior direito
@@ -52,13 +52,13 @@ public:
      */
     void retangulo(const gui::Ponto& te,
           const gui::Ponto& fd,
-          const gui::Cor& cor);
+          const gui::Color& cor);
     /** preenche um retângulo.
      * @param ret   o retângulo
      * @param cor   cor
      */
     void preenche(const gui::Retangulo& ret,
-          const gui::Cor& cor);
+          const gui::Color& cor);
     /** preenche um retângulo.
      * @param te    canto superior esquerdo
      * @param fd    canto inferior direito
@@ -66,7 +66,7 @@ public:
      */
     void preenche(const gui::Ponto& te,
           const gui::Ponto& fd,
-          const gui::Cor& cor);
+          const gui::Color& cor);
     /** escreve um texto.
      * @param texto o texto a ser escrito
      * @param pt    o ponto na tela
@@ -77,7 +77,7 @@ public:
     gui::Retangulo escreve(const std::string& texto,
           const gui::Ponto& pt,
           const gui::Fonte& fonte,
-          const gui::Cor& cor);
+          const gui::Color& cor);
 
 private:
     std::string nome_; ///< o nome da janela
@@ -94,7 +94,7 @@ private:
           uint16_t y1,
           uint16_t x2,
           uint16_t y2,
-          const gui::Cor& cor) = 0;
+          const gui::Color& cor) = 0;
     /** desenha um retângulo.
      * @param x1    coordenada x do canto superior esquerdo
      * @param y1    coordenada y do canto superior esquerdo
@@ -106,7 +106,7 @@ private:
           uint16_t y1,
           uint16_t x2,
           uint16_t y2,
-          const gui::Cor& cor) = 0;
+          const gui::Color& cor) = 0;
     /** preenche um retângulo.
      * @param x1    coordenada x do canto superior esquerdo
      * @param y1    coordenada y do canto superior esquerdo
@@ -118,7 +118,7 @@ private:
           uint16_t y1,
           uint16_t x2,
           uint16_t y2,
-          const gui::Cor& cor) = 0;
+          const gui::Color& cor) = 0;
     /** escreve um texto.
      * @param texto o texto a ser escrito
      * @param x     coordenada x do ponto de escrita
@@ -131,7 +131,7 @@ private:
           uint16_t x,
           uint16_t y,
           const gui::Fonte& fonte,
-          const gui::Cor& cor) = 0;
+          const gui::Color& cor) = 0;
 };
 
 typedef std::shared_ptr<Janela> SharedJanela;

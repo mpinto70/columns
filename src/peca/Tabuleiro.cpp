@@ -1,5 +1,5 @@
-
 #include "Tabuleiro.h"
+
 #include <stdexcept>
 #include <utility>
 
@@ -7,7 +7,7 @@ namespace peca {
 
 Tabuleiro::Tabuleiro(const uint16_t l,
       const uint16_t h,
-      const gui::Cor& cor)
+      const gui::Color& cor)
       : casas_(l * h, cor),
         cor_(cor),
         largura_(l),
@@ -20,7 +20,7 @@ Tabuleiro::Tabuleiro(const uint16_t l,
     }
 }
 
-const gui::Cor& Tabuleiro::at(const uint16_t c, const uint16_t l) const {
+const gui::Color& Tabuleiro::at(const uint16_t c, const uint16_t l) const {
     if (c >= largura_) {
         throw std::invalid_argument("Tabuleiro::at const - overflow de coluna " + std::to_string(c));
     }
@@ -30,7 +30,7 @@ const gui::Cor& Tabuleiro::at(const uint16_t c, const uint16_t l) const {
     return casas_.at(l * largura_ + c);
 }
 
-gui::Cor& Tabuleiro::at(const uint16_t c, const uint16_t l) {
+gui::Color& Tabuleiro::at(const uint16_t c, const uint16_t l) {
     if (c >= largura_) {
         throw std::invalid_argument("Tabuleiro::at - overflow de coluna " + std::to_string(c));
     }

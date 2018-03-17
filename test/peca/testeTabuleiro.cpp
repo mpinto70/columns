@@ -14,7 +14,7 @@ namespace {
 static void confereTabuleiroVazio(const std::string& msg,
       uint16_t l,
       uint16_t h,
-      const gui::Cor& cor) {
+      const gui::Color& cor) {
     EXPECT_TRUE(l > 0) << msg;
     EXPECT_TRUE(h > 0) << msg;
     const Tabuleiro tabuleiro(l, h, cor);
@@ -35,17 +35,17 @@ static void confereTabuleiroVazio(const std::string& msg,
 } // unnamed namespace
 
 TEST(TesteTabuleiro, Criacao) {
-    confereTabuleiroVazio("t1", 10, 20, gui::Branco);
-    confereTabuleiroVazio("t2", 15, 50, gui::Vermelho);
-    confereTabuleiroVazio("t3", 7, 10, gui::Preto);
+    confereTabuleiroVazio("t1", 10, 20, gui::WHITE);
+    confereTabuleiroVazio("t2", 15, 50, gui::RED);
+    confereTabuleiroVazio("t3", 7, 10, gui::BLACK);
 }
 
 TEST(TesteTabuleiro, Copia) {
-    Tabuleiro branco(12, 25, gui::Branco);
+    Tabuleiro branco(12, 25, gui::WHITE);
     Tabuleiro copia(branco);
     EXPECT_EQ(branco, copia);
 
-    Tabuleiro preto(12, 25, gui::Preto);
+    Tabuleiro preto(12, 25, gui::BLACK);
     EXPECT_NE(preto, copia);
 
     copia = preto;
@@ -54,24 +54,24 @@ TEST(TesteTabuleiro, Copia) {
 }
 
 TEST(TesteTabuleiro, CriacaoInvalida) {
-    EXPECT_NO_THROW(Tabuleiro(10, 20, gui::Branco));
+    EXPECT_NO_THROW(Tabuleiro(10, 20, gui::WHITE));
     uint16_t i;
     for (i = 0; i < TAMANHO_PECA; ++i) {
-        EXPECT_THROW(Tabuleiro(i, 2 * TAMANHO_PECA, gui::Branco), std::invalid_argument) << i;
+        EXPECT_THROW(Tabuleiro(i, 2 * TAMANHO_PECA, gui::WHITE), std::invalid_argument) << i;
     }
-    EXPECT_NO_THROW(Tabuleiro(i, 20, gui::Branco));
+    EXPECT_NO_THROW(Tabuleiro(i, 20, gui::WHITE));
     for (i = 0; i < 2 * TAMANHO_PECA; ++i) {
-        EXPECT_THROW(Tabuleiro(10, i, gui::Branco), std::invalid_argument) << i;
+        EXPECT_THROW(Tabuleiro(10, i, gui::WHITE), std::invalid_argument) << i;
     }
-    EXPECT_NO_THROW(Tabuleiro(TAMANHO_PECA, i, gui::Branco));
+    EXPECT_NO_THROW(Tabuleiro(TAMANHO_PECA, i, gui::WHITE));
 }
 
 TEST(TesteTabuleiro, Alteracao) {
     const uint16_t LARGURA = 35;
     const uint16_t ALTURA = 36;
 
-    Tabuleiro tab(LARGURA, ALTURA, gui::Branco);
-    EXPECT_EQ(tab.cor(), gui::Branco);
+    Tabuleiro tab(LARGURA, ALTURA, gui::WHITE);
+    EXPECT_EQ(tab.cor(), gui::WHITE);
     EXPECT_EQ(tab.largura(), LARGURA);
     EXPECT_EQ(tab.altura(), ALTURA);
 
@@ -79,41 +79,41 @@ TEST(TesteTabuleiro, Alteracao) {
         for (uint16_t j = 0; j < ALTURA; ++j) {
             for (uint16_t ii = 0; ii < i; ++ii) { // as colunas anteriores estão coloridas
                 for (uint16_t jj = 0; jj < ALTURA; ++jj) {
-                    const gui::Cor cor(ii, jj, 0);
+                    const gui::Color cor(ii, jj, 0);
                     EXPECT_EQ(tab.at(ii, jj), cor);
                 }
             }
             for (uint16_t jj = 0; jj < ALTURA; ++jj) { // na coluna atual
                 if (jj < j) {                          // as linhas abaixo de j estão coloridas
-                    const gui::Cor cor(i, jj, 0);
+                    const gui::Color cor(i, jj, 0);
                     EXPECT_EQ(tab.at(i, jj), cor);
                 } else { // as outras ainda estão brancas
-                    EXPECT_EQ(tab.at(i, jj), gui::Branco);
+                    EXPECT_EQ(tab.at(i, jj), gui::WHITE);
                 }
             }
             for (uint16_t ii = i + 1; ii < LARGURA; ++ii) { // nas colunas posteriores estão brancas
                 for (uint16_t jj = 0; jj < ALTURA; ++jj) {
-                    EXPECT_EQ(tab.at(ii, jj), gui::Branco);
+                    EXPECT_EQ(tab.at(ii, jj), gui::WHITE);
                 }
             }
 
             // troca a cor do elemento
-            const gui::Cor cor(i, j, 0);
+            const gui::Color cor(i, j, 0);
             tab.at(i, j) = cor;
         }
     }
 
-    EXPECT_EQ(tab.cor(), gui::Branco);
+    EXPECT_EQ(tab.cor(), gui::WHITE);
     EXPECT_EQ(tab.largura(), LARGURA);
     EXPECT_EQ(tab.altura(), ALTURA);
 }
 
 TEST(TesteTabuleiro, Comparacao) {
     std::vector<Tabuleiro> vec;
-    vec.push_back(Tabuleiro(10, 20, gui::Branco));
-    vec.push_back(Tabuleiro(11, 20, gui::Branco));
-    vec.push_back(Tabuleiro(11, 21, gui::Branco));
-    vec.push_back(Tabuleiro(11, 21, gui::Azul));
+    vec.push_back(Tabuleiro(10, 20, gui::WHITE));
+    vec.push_back(Tabuleiro(11, 20, gui::WHITE));
+    vec.push_back(Tabuleiro(11, 21, gui::WHITE));
+    vec.push_back(Tabuleiro(11, 21, gui::BLUE));
 
     for (uint16_t i = 0; i < vec.size(); ++i) {
         for (uint16_t j = 0; j < vec.size(); ++j) {
@@ -125,14 +125,14 @@ TEST(TesteTabuleiro, Comparacao) {
         }
     }
 
-    const Tabuleiro tab0(10, 20, gui::Preto);
-    Tabuleiro tab1(10, 20, gui::Preto);
+    const Tabuleiro tab0(10, 20, gui::BLACK);
+    Tabuleiro tab1(10, 20, gui::BLACK);
     for (uint16_t i = 0; i < 10; ++i) {
         for (uint16_t j = 0; j < 10; ++j) {
             EXPECT_EQ(tab0, tab1);
-            tab1.at(i, j) = gui::Verde;
+            tab1.at(i, j) = gui::GREEN;
             EXPECT_NE(tab0, tab1);
-            tab1.at(i, j) = gui::Preto;
+            tab1.at(i, j) = gui::BLACK;
             EXPECT_EQ(tab0, tab1);
         }
     }
@@ -141,14 +141,14 @@ TEST(TesteTabuleiro, Comparacao) {
 TEST(TesteTabuleiro, Elimina) {
     const uint16_t colunas = 5;
     const uint16_t linhas = 7;
-    std::vector<gui::Cor> casas(colunas * linhas, gui::Preto);
-    Tabuleiro tab(colunas, linhas, gui::Preto);
+    std::vector<gui::Color> casas(colunas * linhas, gui::BLACK);
+    Tabuleiro tab(colunas, linhas, gui::BLACK);
 
     EXPECT_EQ(tab.casas(), casas);
 
     for (uint16_t i = 0; i < colunas; ++i) {
         for (uint16_t j = 0; j < linhas; ++j) {
-            const gui::Cor cor(i + 1, j + 1, 0);
+            const gui::Color cor(i + 1, j + 1, 0);
             casas.at(j * colunas + i) = tab.at(i, j) = cor;
         }
     }
@@ -163,7 +163,7 @@ TEST(TesteTabuleiro, Elimina) {
         for (uint16_t le = 4; le > 0; --le) {
             casas.at(le * colunas + ce) = casas.at((le - 1) * colunas + ce);
         }
-        casas.at(0 * colunas + ce) = gui::Preto;
+        casas.at(0 * colunas + ce) = gui::BLACK;
         EXPECT_EQ(tab.casas(), casas);
     }
 
@@ -171,7 +171,7 @@ TEST(TesteTabuleiro, Elimina) {
 
     for (uint16_t i = 0; i < colunas; ++i) {
         for (uint16_t j = 0; j < linhas; ++j) {
-            const gui::Cor cor(i + 1, j + 1, 0);
+            const gui::Color cor(i + 1, j + 1, 0);
             casas.at(j * colunas + i) = tab.at(i, j) = cor;
         }
     }
@@ -182,7 +182,7 @@ TEST(TesteTabuleiro, Elimina) {
             for (uint16_t LE = le; LE > 0; --LE) {
                 casas.at(LE * colunas + ce) = casas.at((LE - 1) * colunas + ce);
             }
-            casas.at(0 * colunas + ce) = gui::Preto;
+            casas.at(0 * colunas + ce) = gui::BLACK;
             EXPECT_EQ(tab.casas(), casas);
         }
         //printTabuleiro(tab);

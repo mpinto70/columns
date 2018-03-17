@@ -1,7 +1,8 @@
 #pragma once
 
-#include "gui/Cor.h"
+#include "gui/Color.h"
 #include "peca/Peca.h"
+
 #include <memory>
 #include <vector>
 
@@ -14,22 +15,22 @@ public:
      * @param h altura do tabuleiro em quadradinhos
      * @param cor a cor do fundo do tabuleiro
      */
-    Tabuleiro(uint16_t l, uint16_t h, const gui::Cor& cor);
+    Tabuleiro(uint16_t l, uint16_t h, const gui::Color& cor);
 
     /** @return as casas do tabuleiro. */
-    const std::vector<gui::Cor>& casas() const { return casas_; }
+    const std::vector<gui::Color>& casas() const { return casas_; }
     /** @return o elemento na posição (c, l).
      * @param c o índice da coluna a ser retornada
      * @param l o índice da linha a ser retornada
      */
-    const gui::Cor& at(uint16_t c, uint16_t l) const;
+    const gui::Color& at(uint16_t c, uint16_t l) const;
     /** @return o elemento na posição (c, l) para escrita.
      * @param c o índice da coluna a ser retornada
      * @param l o índice da linha a ser retornada
      */
-    gui::Cor& at(uint16_t c, uint16_t l);
+    gui::Color& at(uint16_t c, uint16_t l);
     /** @return a cor de fundo. */
-    const gui::Cor& cor() const { return cor_; }
+    const gui::Color& cor() const { return cor_; }
     /** @return a largura do tabuleiro em quadradinhos. */
     uint16_t largura() const { return largura_; }
     /** @return a altura do tabuleiro em quadradinhos. */
@@ -41,10 +42,10 @@ public:
     void elimina(uint16_t c, uint16_t l);
 
 private:
-    std::vector<gui::Cor> casas_; ///< o tabuleiro
-    gui::Cor cor_;                ///< cor de fundo do tabuleiro
-    uint16_t largura_;            ///< a largura do tabuleiro
-    uint16_t altura_;             ///< a altura do tabuleiro
+    std::vector<gui::Color> casas_; ///< o tabuleiro
+    gui::Color cor_;                ///< cor de fundo do tabuleiro
+    uint16_t largura_;              ///< a largura do tabuleiro
+    uint16_t altura_;               ///< a altura do tabuleiro
 };
 
 bool operator==(const Tabuleiro& lhs, const Tabuleiro& rhs);

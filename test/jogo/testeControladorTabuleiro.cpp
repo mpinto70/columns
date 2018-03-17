@@ -24,13 +24,13 @@ static void confereCriaPecaInvalida(ControladorTabuleiro& cont,
 } // unnamed namespace
 
 TEST(TesteControladorTabuleiro, Criacao) {
-    peca::Tabuleiro tabuleiro(10, 20, gui::Branco);
+    peca::Tabuleiro tabuleiro(10, 20, gui::WHITE);
     ControladorTabuleiro contr(tabuleiro, 4);
     EXPECT_TRUE(contr.temPeca() == false);
 }
 
 TEST(TesteControladorTabuleiro, CriacaoInvalida) {
-    peca::Tabuleiro tabuleiro(10, 20, gui::Branco);
+    peca::Tabuleiro tabuleiro(10, 20, gui::WHITE);
     EXPECT_NO_THROW(ControladorTabuleiro t(tabuleiro, 4));
 
     // tamanho da peça nula
@@ -38,7 +38,7 @@ TEST(TesteControladorTabuleiro, CriacaoInvalida) {
 }
 
 TEST(TesteControladorTabuleiro, CriaPeca) {
-    peca::Tabuleiro branco(10, 20, gui::Branco);
+    peca::Tabuleiro branco(10, 20, gui::WHITE);
     ControladorTabuleiro contr(branco, 4);
     constexpr uint16_t QTD = 5;
 
@@ -57,7 +57,7 @@ TEST(TesteControladorTabuleiro, CriaPeca) {
 }
 
 TEST(TesteControladorTabuleiro, AdicionaPeca) {
-    peca::Tabuleiro branco(10, 20, gui::Branco);
+    peca::Tabuleiro branco(10, 20, gui::WHITE);
     ControladorTabuleiro contr(branco, 4);
 
     const auto peca = contr.criaPeca();
@@ -76,7 +76,7 @@ TEST(TesteControladorTabuleiro, AdicionaPeca) {
 }
 
 TEST(TesteControladorTabuleiro, AdicionaPecaInvalida) {
-    peca::Tabuleiro branco(10, 20, gui::Branco);
+    peca::Tabuleiro branco(10, 20, gui::WHITE);
     ControladorTabuleiro contr(branco, 4);
 
     const auto peca = contr.criaPeca();
@@ -90,7 +90,7 @@ TEST(TesteControladorTabuleiro, AdicionaPecaInvalida) {
 TEST(TesteControladorTabuleiro, Passo) {
     using namespace std::rel_ops;
 
-    const peca::Tabuleiro b0(10, 20, gui::Branco);
+    const peca::Tabuleiro b0(10, 20, gui::WHITE);
     ControladorTabuleiro branco(b0, 4);
     EXPECT_TRUE(branco.tabuleiro() == b0);
     const auto peca = branco.criaPeca();
@@ -118,7 +118,7 @@ TEST(TesteControladorTabuleiro, Passo) {
 
     EXPECT_TRUE(branco.tabuleiro() != b0);
 
-    std::vector<gui::Cor> cores;
+    std::vector<gui::Color> cores;
     for (unsigned char i = 0; i < peca::TAMANHO_PECA; ++i) {
         cores.push_back(branco.tabuleiro().at(col, branco.tabuleiro().altura() - peca::TAMANHO_PECA + i));
     }
@@ -127,7 +127,7 @@ TEST(TesteControladorTabuleiro, Passo) {
 }
 
 TEST(TesteControladorTabuleiro, Move) {
-    peca::Tabuleiro tbbranco(10, 20, gui::Branco);
+    peca::Tabuleiro tbbranco(10, 20, gui::WHITE);
     ControladorTabuleiro branco(tbbranco, 4);
 
     const auto peca = branco.criaPeca();
@@ -181,7 +181,7 @@ TEST(TesteControladorTabuleiro, Move) {
 }
 
 TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
-    peca::Tabuleiro tbbranco(10, 20, gui::Branco);
+    peca::Tabuleiro tbbranco(10, 20, gui::WHITE);
     ListaEliminacao eliminacao;
 
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao().size(), 0u);
@@ -194,7 +194,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      18 - .....
     //                                      19 - .....
     // vai preencher as três peças no fundo à esquerda (horizontal)
-    tbbranco.at(0, 19) = gui::Preto;
+    tbbranco.at(0, 19) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -202,7 +202,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      18 - .....
     //                                      19 - p....
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao().size(), 0u);
-    tbbranco.at(1, 19) = gui::Preto;
+    tbbranco.at(1, 19) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -210,7 +210,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      18 - .....
     //                                      19 - pp...
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao().size(), 0u);
-    tbbranco.at(2, 19) = gui::Preto;
+    tbbranco.at(2, 19) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -227,7 +227,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     EXPECT_EQ(eliminacao.at(2).second, 19u);
 
     // vai preencher as três peças no fundo à esquerda (vertical)
-    tbbranco.at(0, 18) = gui::Preto;
+    tbbranco.at(0, 18) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -236,7 +236,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      19 - PPP..
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao().size(), 3u);
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
-    tbbranco.at(0, 17) = gui::Preto;
+    tbbranco.at(0, 17) = gui::BLACK;
     //                                           01234
     //  agora serão eliminadas a primeira   15 - .....
     //  linha e a primeira coluna, mas o    16 - .....
@@ -248,7 +248,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
     // vai preencher a diagonal que começa no canto inferior esquerdo
-    tbbranco.at(1, 18) = gui::Preto;
+    tbbranco.at(1, 18) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -257,7 +257,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      19 - PPP..
     eliminacao.insert(eliminacao.begin() + 3, ItemEliminacao(1, 18));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
-    tbbranco.at(2, 17) = gui::Preto;
+    tbbranco.at(2, 17) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -269,7 +269,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
 
     // vai colocar uma quarta peça na sequência
 
-    tbbranco.at(0, 16) = gui::Preto;
+    tbbranco.at(0, 16) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - P....
@@ -278,7 +278,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      19 - PPP..
     eliminacao.insert(eliminacao.begin() + 0, ItemEliminacao(0, 16));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
-    tbbranco.at(3, 16) = gui::Preto;
+    tbbranco.at(3, 16) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - P..P.
@@ -287,7 +287,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      19 - PPP..
     eliminacao.insert(eliminacao.begin() + 8, ItemEliminacao(3, 16));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
-    tbbranco.at(3, 19) = gui::Preto;
+    tbbranco.at(3, 19) = gui::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - P..P.
@@ -298,12 +298,12 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
     // vai adicionar de outra cor e não vai alterar
-    tbbranco.at(1, 16) = gui::Azul;
-    tbbranco.at(2, 16) = gui::Azul;
-    tbbranco.at(1, 17) = gui::Azul;
-    tbbranco.at(3, 17) = gui::Azul;
-    tbbranco.at(2, 18) = gui::Azul;
-    tbbranco.at(3, 18) = gui::Azul;
+    tbbranco.at(1, 16) = gui::BLUE;
+    tbbranco.at(2, 16) = gui::BLUE;
+    tbbranco.at(1, 17) = gui::BLUE;
+    tbbranco.at(3, 17) = gui::BLUE;
+    tbbranco.at(2, 18) = gui::BLUE;
+    tbbranco.at(3, 18) = gui::BLUE;
     //                                           01234
     //                                      15 - .....
     //                                      16 - PzzP.
@@ -312,7 +312,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      19 - PPPP.
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
     // vai adicionar de outra cor que vai acrescentar vários
-    tbbranco.at(4, 18) = gui::Azul;
+    tbbranco.at(4, 18) = gui::BLUE;
     //                                           01234
     //                                      15 - .....
     //                                      16 - PzZP.
@@ -327,14 +327,14 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
     // vai colocar outras cores e não vai alterar
-    tbbranco.at(0, 15) = gui::Verde;
-    tbbranco.at(1, 15) = gui::Verde;
-    tbbranco.at(2, 15) = gui::Vermelho;
-    tbbranco.at(3, 15) = gui::Verde;
-    tbbranco.at(4, 15) = gui::Vermelho;
-    tbbranco.at(4, 16) = gui::Verde;
-    tbbranco.at(4, 17) = gui::Verde;
-    tbbranco.at(4, 19) = gui::Verde;
+    tbbranco.at(0, 15) = gui::GREEN;
+    tbbranco.at(1, 15) = gui::GREEN;
+    tbbranco.at(2, 15) = gui::RED;
+    tbbranco.at(3, 15) = gui::GREEN;
+    tbbranco.at(4, 15) = gui::RED;
+    tbbranco.at(4, 16) = gui::GREEN;
+    tbbranco.at(4, 17) = gui::GREEN;
+    tbbranco.at(4, 19) = gui::GREEN;
     //                                           01234
     //                                      15 - vvmvm
     //                                      16 - PzZPv

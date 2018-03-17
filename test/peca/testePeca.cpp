@@ -11,26 +11,26 @@
 namespace peca {
 namespace tst {
 
-using gui::Cor;
+using gui::Color;
 
 TEST(TestePeca, criacao) {
     const Peca p1 = mck::criaPecaSequencialCrescente(0);
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        Cor cor(i, i, i);
+        Color cor(i, i, i);
         EXPECT_EQ(p1[i], cor);
     }
     EXPECT_THROW(p1[TAMANHO_PECA], std::invalid_argument);
 
     const Peca p2 = mck::criaPecaSequencialDecrescente(15);
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        Cor cor(15 - i, 15 - i, 15 - i);
+        Color cor(15 - i, 15 - i, 15 - i);
         EXPECT_EQ(p2[i], cor);
     }
     EXPECT_THROW(p2[TAMANHO_PECA], std::invalid_argument);
 
     Peca p3(p1);
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        Cor cor(i, i, i);
+        Color cor(i, i, i);
         EXPECT_EQ(p3[i], cor);
     }
     EXPECT_THROW(p3[TAMANHO_PECA], std::invalid_argument);
@@ -38,7 +38,7 @@ TEST(TestePeca, criacao) {
 
     p3 = p2;
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        Cor cor(15 - i, 15 - i, 15 - i);
+        Color cor(15 - i, 15 - i, 15 - i);
         EXPECT_EQ(p3[i], cor);
     }
     EXPECT_THROW(p3[TAMANHO_PECA], std::invalid_argument);
@@ -57,9 +57,9 @@ TEST(TestePeca, rolar) {
     }
 
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        const Cor cor(cores[i], cores[i], cores[i]);
+        const Color cor(cores[i], cores[i], cores[i]);
         EXPECT_EQ(p[i], cor);
-        const Cor cor0(i, i, i);
+        const Color cor0(i, i, i);
         EXPECT_EQ(p[i], cor0);
     }
 
@@ -68,7 +68,7 @@ TEST(TestePeca, rolar) {
         std::swap(cores[i], cores[i - 1]);
     }
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        const Cor cor(cores[i], cores[i], cores[i]);
+        const Color cor(cores[i], cores[i], cores[i]);
         EXPECT_EQ(p[i], cor);
     }
 
@@ -77,7 +77,7 @@ TEST(TestePeca, rolar) {
         std::swap(cores[i], cores[i - 1]);
     }
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        const Cor cor(cores[i], cores[i], cores[i]);
+        const Color cor(cores[i], cores[i], cores[i]);
         EXPECT_EQ(p[i], cor);
     }
 
@@ -86,7 +86,7 @@ TEST(TestePeca, rolar) {
         std::swap(cores[i - 1], cores[i]);
     }
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        const Cor cor(cores[i], cores[i], cores[i]);
+        const Color cor(cores[i], cores[i], cores[i]);
         EXPECT_EQ(p[i], cor);
     }
 
@@ -96,16 +96,16 @@ TEST(TestePeca, rolar) {
         std::swap(cores[i - 1], cores[i]);
     }
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
-        const Cor cor(cores[i], cores[i], cores[i]);
+        const Color cor(cores[i], cores[i], cores[i]);
         EXPECT_EQ(p[i], cor);
-        const Cor cor0(i, i, i);
+        const Color cor0(i, i, i);
         EXPECT_EQ(p[i], cor0);
     }
 }
 
 static void verificaCores(const int line,
       const Peca& p,
-      const std::vector<gui::Cor>& cores) {
+      const std::vector<gui::Color>& cores) {
     for (unsigned char i = 0; i < TAMANHO_PECA; ++i) {
         const auto& cor = p[i];
         EXPECT_TRUE(std::find(cores.cbegin(), cores.cend(), cor) != cores.cend()) << line;
@@ -113,7 +113,7 @@ static void verificaCores(const int line,
 }
 
 static void verificaCores(const int line,
-      const std::vector<gui::Cor>& cores) {
+      const std::vector<gui::Color>& cores) {
     for (unsigned char i = 0; i < 100; ++i) {
         const auto p = Peca::cria(cores);
         verificaCores(line, p, cores);
@@ -122,11 +122,11 @@ static void verificaCores(const int line,
 }
 
 TEST(TestePeca, cria_peca) {
-    std::vector<gui::Cor> cores;
+    std::vector<gui::Color> cores;
 
     cores.emplace_back(1, 2, 3);
     const auto p1 = Peca::cria(cores);
-    EXPECT_EQ(p1, Peca(std::vector<gui::Cor>(TAMANHO_PECA, { 1, 2, 3 })));
+    EXPECT_EQ(p1, Peca(std::vector<gui::Color>(TAMANHO_PECA, { 1, 2, 3 })));
 
     verificaCores(__LINE__, cores);
 

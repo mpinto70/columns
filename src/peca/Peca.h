@@ -1,6 +1,7 @@
 #pragma once
 
-#include "gui/Cor.h"
+#include "gui/Color.h"
+
 #include <memory>
 #include <vector>
 
@@ -24,22 +25,22 @@ constexpr unsigned char TAMANHO_PECA = 3;
  */
 class Peca {
 public:
-    explicit Peca(const gui::Cor (&cores)[TAMANHO_PECA]);
-    explicit Peca(const std::vector<gui::Cor>& cores);
+    explicit Peca(const gui::Color (&cores)[TAMANHO_PECA]);
+    explicit Peca(const std::vector<gui::Color>& cores);
     /** @return a cor do quadradinho indexado por \p i.
      * @param i o índice (0 <= i <= 2)
      * @throws std::invalid_argument é lançada caso \p i esteja fora dos limites
      */
-    const gui::Cor& operator[](unsigned char i) const;
+    const gui::Color& operator[](unsigned char i) const;
     void rolaParaCima();
     void rolaParaBaixo();
     /** @return uma peça com cores aleatórias a partir das cores passadas.
      * @param coresPossiveis as cores que serão sorteadas para criar a peça.
      */
-    static Peca cria(const std::vector<gui::Cor>& coresPossiveis);
+    static Peca cria(const std::vector<gui::Color>& coresPossiveis);
 
 private:
-    gui::Cor cores_[TAMANHO_PECA]; ///< as cores de cada quadradinho da peça
+    gui::Color cores_[TAMANHO_PECA]; ///< as cores de cada quadradinho da peça
 };
 
 bool operator==(const Peca& lhs, const Peca& rhs);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gui/Cor.h"
+#include "gui/Color.h"
 #include "jogo/ControladorTabuleiro.h"
 #include "jogo/Mensagem.h"
 #include "jogo/SituacaoObserver.h"
@@ -27,7 +27,7 @@ public:
     ControladorJogo(const peca::Tabuleiro& tabuleiro,
           uint16_t maxSubLinha,
           const pontuacao::Pontuacao& recorde,
-          const std::vector<gui::Cor>& possiveis,
+          const std::vector<gui::Color>& possiveis,
           SituacaoObserverPtr&& obs,
           MensagemPtr& msg);
     ControladorJogo(const ControladorJogo&) = delete;
@@ -36,13 +36,13 @@ public:
     void execute();
 
 private:
-    ControladorTabuleiro tabuleiro_;  ///< o tabuleiro
-    pontuacao::Placar placar_;        ///< o placar
-    peca::Peca proximaPeca_;          ///< a próximaa peca a cair no tabuleiro
-    std::vector<gui::Cor> possiveis_; ///< as cores possíveis
-    SituacaoObserverPtr observer_;    ///< observadores do jogo
-    MensagemPtr mensagens_;           ///< as mensagens
-    std::atomic<bool> parar_;         ///< marca de interrupção de execução
+    ControladorTabuleiro tabuleiro_;    ///< o tabuleiro
+    pontuacao::Placar placar_;          ///< o placar
+    peca::Peca proximaPeca_;            ///< a próximaa peca a cair no tabuleiro
+    std::vector<gui::Color> possiveis_; ///< as cores possíveis
+    SituacaoObserverPtr observer_;      ///< observadores do jogo
+    MensagemPtr mensagens_;             ///< as mensagens
+    std::atomic<bool> parar_;           ///< marca de interrupção de execução
     /** @return a situação atual do jogo.
      * @param lista a lista de quadradinhos a eliminar
      */

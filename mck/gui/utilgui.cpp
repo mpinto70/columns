@@ -6,13 +6,13 @@
 namespace gui {
 namespace mck {
 
-void print(const gui::Cor& cor) {
+void print(const gui::Color& cor) {
     printf(" %02x %02x %02x |", cor.R, cor.G, cor.B);
 }
 
 void print(const std::string& file,
       int line,
-      const Cor& cor) {
+      const Color& cor) {
     printf("Imprimindo cor de %s(%d)\n", file.c_str(), line);
     const std::string sep(11, '-');
     printf("%s\n", sep.c_str());

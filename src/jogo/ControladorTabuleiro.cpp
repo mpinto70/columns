@@ -13,7 +13,7 @@ ControladorTabuleiro::ControladorTabuleiro(const peca::Tabuleiro& tabuleiro,
       const uint16_t maxSubLinha)
       : tabuleiro_(tabuleiro),
         maxSubLinha_(maxSubLinha),
-        possiveis_{ gui::Verde, gui::Vermelho, gui::Azul, gui::Amarelo, gui::Lavanda } {
+        possiveis_{ gui::GREEN, gui::RED, gui::BLUE, gui::YELLOW, gui::LAVENDER } {
     if (maxSubLinha_ == 0) {
         throw std::invalid_argument("ControladorTabuleiro - máximo de subdivisões do quadrado nulo");
     }
@@ -132,9 +132,9 @@ void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
 
 Situacao ControladorTabuleiro::situacao() const {
     if (temPeca()) {
-        return Situacao(tabuleiro_, pontuacao::Placar(), *peca_, *posicaoPeca_, peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
+        return Situacao(tabuleiro_, pontuacao::Placar(), *peca_, *posicaoPeca_, peca::Peca({ gui::BLUE, gui::BLUE, gui::BLUE }));
     } else {
-        return Situacao(tabuleiro_, pontuacao::Placar(), determinaEliminacao(), peca::Peca({ gui::Azul, gui::Azul, gui::Azul }));
+        return Situacao(tabuleiro_, pontuacao::Placar(), determinaEliminacao(), peca::Peca({ gui::BLUE, gui::BLUE, gui::BLUE }));
     }
 }
 
@@ -217,7 +217,7 @@ bool ControladorTabuleiro::atingiuFim() const {
 
 bool ControladorTabuleiro::deveEliminar(const uint16_t coluna,
       const uint16_t linha) const {
-    const gui::Cor cor = tabuleiro_.at(coluna, linha);
+    const gui::Color cor = tabuleiro_.at(coluna, linha);
     if (cor == tabuleiro_.cor()) {
         return false;
     }

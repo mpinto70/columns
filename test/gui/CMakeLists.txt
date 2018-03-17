@@ -2,7 +2,7 @@
 add_executable(
     testgui
     ../gtest_main.cpp
-    testeCor.cpp
+    ColorTest.cpp
     testeFonte.cpp
     testePonto.cpp
 )

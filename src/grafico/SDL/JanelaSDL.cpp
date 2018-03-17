@@ -11,7 +11,7 @@ JanelaSDL::JanelaSDL(const std::string& nome,
       const uint16_t top,
       const uint16_t width,
       const uint16_t height,
-      const gui::Cor& cor)
+      const gui::Color& cor)
       : Janela(nome, width, height),
         window_(nullptr),
         renderer_(nullptr),
@@ -48,7 +48,7 @@ void JanelaSDL::linha_(const uint16_t x1,
       const uint16_t y1,
       const uint16_t x2,
       const uint16_t y2,
-      const gui::Cor& cor) {
+      const gui::Color& cor) {
     if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("JanelaSDL::linha_ - erro no SDL_SetRenderDrawColor");
     }
@@ -62,7 +62,7 @@ void JanelaSDL::retangulo_(const uint16_t x1,
       const uint16_t y1,
       const uint16_t x2,
       const uint16_t y2,
-      const gui::Cor& cor) {
+      const gui::Color& cor) {
     const SDL_Rect rect = { x1, y1, x2 - x1 + 1, y2 - y1 + 1 };
     if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("JanelaSDL::retangulo_ - erro no SDL_SetRenderDrawColor");
@@ -76,7 +76,7 @@ void JanelaSDL::preenche_(const uint16_t x1,
       const uint16_t y1,
       const uint16_t x2,
       const uint16_t y2,
-      const gui::Cor& cor) {
+      const gui::Color& cor) {
     const SDL_Rect rect = { x1, y1, x2 - x1 + 1, y2 - y1 + 1 };
     if (SDL_SetRenderDrawColor(renderer_, cor.R, cor.G, cor.B, SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("JanelaSDL::preenche_ - erro no SDL_SetRenderDrawColor");
@@ -90,7 +90,7 @@ gui::Retangulo JanelaSDL::escreve_(const std::string& texto,
       const uint16_t x,
       const uint16_t y,
       const gui::Fonte& fonte,
-      const gui::Cor& cor) {
+      const gui::Color& cor) {
     //We'll render the string "TTF fonts are cool!" in white
     //Color is in RGB format
     TTF_Font* font = nullptr;

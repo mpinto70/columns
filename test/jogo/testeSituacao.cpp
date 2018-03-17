@@ -41,12 +41,12 @@ TEST(TesteSituacao, Caracteristicas) {
 
 TEST(TesteSituacao, Criacao) {
     using namespace std::rel_ops;
-    const peca::Tabuleiro tabuleiro1(10, 20, gui::Branco);
-    const peca::Tabuleiro tabuleiro2(11, 20, gui::Branco);
-    const peca::Tabuleiro tabuleiro3(10, 21, gui::Branco);
-    const peca::Tabuleiro tabuleiro4(10, 20, gui::Azul);
-    const peca::Tabuleiro tabuleiro5(12, 21, gui::Branco);
-    const peca::Tabuleiro tabuleiro6(13, 20, gui::Azul);
+    const peca::Tabuleiro tabuleiro1(10, 20, gui::WHITE);
+    const peca::Tabuleiro tabuleiro2(11, 20, gui::WHITE);
+    const peca::Tabuleiro tabuleiro3(10, 21, gui::WHITE);
+    const peca::Tabuleiro tabuleiro4(10, 20, gui::BLUE);
+    const peca::Tabuleiro tabuleiro5(12, 21, gui::WHITE);
+    const peca::Tabuleiro tabuleiro6(13, 20, gui::BLUE);
     const pontuacao::Placar placar1(25);
     const pontuacao::Placar placar2(38, 34);
     const pontuacao::Placar placar3(38, 35);

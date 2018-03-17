@@ -16,7 +16,7 @@ namespace {
 const std::string VERSAO = "0.5";
 
 /// cores possíveis
-const std::vector<gui::Cor> POSSIVEIS = { gui::Verde, gui::Vermelho, gui::Azul, gui::Amarelo, gui::Lavanda };
+const std::vector<gui::Color> POSSIVEIS = { gui::GREEN, gui::RED, gui::BLUE, gui::YELLOW, gui::LAVENDER };
 
 constexpr size_t TAMANHO_QUADRADINHO = 30;                           ///< tamanho de cada quadradinho em pixels
 constexpr size_t STEPS_QUADRADINHO = 2;                              ///< passos em pixels dentro de cada quadradinho
@@ -67,16 +67,16 @@ public:
         janela_->escreve("Colunas!",
               gui::Ponto{ 10, ALTURA * TAMANHO_QUADRADINHO + 45 },
               fonteNome_,
-              gui::Azul);
+              gui::BLUE);
         janela_->escreve("Placar",
               gui::Ponto{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50 },
               fonteNome_,
-              gui::Amarelo);
+              gui::YELLOW);
         janela_->escreve(std::to_string(situacao.placar().pontuacao().total()),
               gui::Ponto{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90 },
               fontePlacar_,
-              gui::Amarelo);
-        desenha_.desenha(*janela_, situacao, gui::Branco);
+              gui::YELLOW);
+        desenha_.desenha(*janela_, situacao, gui::WHITE);
         janela_->atualiza();
     }
 
@@ -99,7 +99,7 @@ void executa(jogo::MensagemPtr mensagens) {
         const gui::Fonte fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Fonte fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
-        jogo::ControladorJogo cont(peca::Tabuleiro(LARGURA, ALTURA, gui::Preto),
+        jogo::ControladorJogo cont(peca::Tabuleiro(LARGURA, ALTURA, gui::BLACK),
               TAMANHO_QUADRADINHO / 2,
               pontuacao::Pontuacao(0),
               POSSIVEIS,

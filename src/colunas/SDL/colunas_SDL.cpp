@@ -17,7 +17,7 @@ static std::string montaLogSDL(const std::string& msg) {
 grafico::SharedJanela cria_janela(const std::string& versao,
       size_t largura_tela,
       size_t altura_tela) {
-    return std::make_shared<grafico::JanelaSDL>("Colunas " + versao, 1000, 100, largura_tela, altura_tela, gui::Cinza);
+    return std::make_shared<grafico::JanelaSDL>("Colunas " + versao, 1000, 100, largura_tela, altura_tela, gui::GRAY);
 }
 
 InputResult processa_input(jogo::MensagemPtr& mensagens) {
