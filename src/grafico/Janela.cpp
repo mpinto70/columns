@@ -23,8 +23,8 @@ Janela::Janela(const std::string& nome,
 Janela::~Janela() {
 }
 
-void Janela::linha(const gui::Ponto& ini,
-      const gui::Ponto& fim,
+void Janela::linha(const gui::Point& ini,
+      const gui::Point& fim,
       const gui::Color& cor) {
     linha_(ini.X, ini.Y, fim.X, fim.Y, cor);
 }
@@ -34,8 +34,8 @@ void Janela::retangulo(const gui::Retangulo& ret,
     retangulo_(ret.X1(), ret.Y1(), ret.X2(), ret.Y2(), cor);
 }
 
-void Janela::retangulo(const gui::Ponto& te,
-      const gui::Ponto& fd,
+void Janela::retangulo(const gui::Point& te,
+      const gui::Point& fd,
       const gui::Color& cor) {
     retangulo_(te.X, te.Y, fd.X, fd.Y, cor);
 }
@@ -45,14 +45,14 @@ void Janela::preenche(const gui::Retangulo& ret,
     preenche_(ret.X1(), ret.Y1(), ret.X2(), ret.Y2(), cor);
 }
 
-void Janela::preenche(const gui::Ponto& te,
-      const gui::Ponto& fd,
+void Janela::preenche(const gui::Point& te,
+      const gui::Point& fd,
       const gui::Color& cor) {
     preenche_(te.X, te.Y, fd.X, fd.Y, cor);
 }
 
 gui::Retangulo Janela::escreve(const std::string& texto,
-      const gui::Ponto& pt,
+      const gui::Point& pt,
       const gui::Fonte& fonte,
       const gui::Color& cor) {
     return escreve_(texto, pt.X, pt.Y, fonte, cor);

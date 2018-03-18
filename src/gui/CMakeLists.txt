@@ -3,7 +3,6 @@ add_library(
     gui
     Color.cpp
     Fonte.cpp
-    Ponto.cpp
     Retangulo.cpp
 )
 

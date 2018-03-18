@@ -1,5 +1,5 @@
-
 #include "Retangulo.h"
+
 #include <algorithm>
 
 namespace gui {
@@ -20,8 +20,8 @@ Retangulo::Retangulo(const uint16_t x1,
     }
 }
 
-Retangulo::Retangulo(const Ponto& p1,
-      const Ponto& p2)
+Retangulo::Retangulo(const Point& p1,
+      const Point& p2)
       : Retangulo(p1.X, p1.Y, p2.X, p2.Y) {
 }
 

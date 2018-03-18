@@ -1,0 +1,11 @@
+/home/marcelo/projetos/colunas/test/gui/PointTest.cpp: In instantiation of ‘constexpr void gui::tst::static_check() [with long unsigned int I = 899; long unsigned int J = 0]’:
+/home/marcelo/projetos/colunas/test/gui/PointTest.cpp:33:31:   recursively required from ‘constexpr void gui::tst::static_check() [with long unsigned int I = 1; long unsigned int J = 0]’
+/home/marcelo/projetos/colunas/test/gui/PointTest.cpp:33:31:   required from ‘constexpr void gui::tst::static_check() [with long unsigned int I = 0; long unsigned int J = 0]’
+/home/marcelo/projetos/colunas/test/gui/PointTest.cpp:53:23:   required from here
+/home/marcelo/projetos/colunas/test/gui/PointTest.cpp:33:31: fatal error: template instantiation depth exceeds maximum of 900 (use -ftemplate-depth= to increase the maximum)
+         static_check<I + 1, 0>();
+         ~~~~~~~~~~~~~~~~~~~~~~^~
+compilation terminated.
+make[2]: *** [test/gui/CMakeFiles/testgui.dir/PointTest.cpp.o] Error 1
+make[1]: *** [test/gui/CMakeFiles/testgui.dir/all] Error 2
+make: *** [all] Error 2

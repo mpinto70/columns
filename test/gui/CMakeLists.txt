@@ -4,7 +4,7 @@ add_executable(
     ../gtest_main.cpp
     ColorTest.cpp
     testeFonte.cpp
-    testePonto.cpp
+    PointTest.cpp
 )
 
 target_link_libraries(

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "gui/Ponto.h"
+#include "gui/Point.h"
+
 #include <cstdint>
 
 namespace gui {
@@ -22,8 +23,8 @@ public:
      * @param p1 um dos cantos
      * @param p2 o outro canto
      */
-    Retangulo(const Ponto& p1,
-          const Ponto& p2);
+    Retangulo(const Point& p1,
+          const Point& p2);
     /** @return a cordenada X do canto superior esquerdo. */
     uint16_t X1() const { return X1_; }
     /** @return a cordenada Y do canto superior esquerdo. */
@@ -33,9 +34,9 @@ public:
     /** @return a cordenada Y do canto inferior direito. */
     uint16_t Y2() const { return Y2_; }
     /** @return o canto superior esquerdo. */
-    Ponto P1() const { return Ponto(X1_, Y1_); }
+    Point P1() const { return Point(X1_, Y1_); }
     /** @return o canto inferior direito. */
-    Ponto P2() const { return Ponto(X2_, Y2_); }
+    Point P2() const { return Point(X2_, Y2_); }
 
 private:
     uint16_t X1_; ///< a posição x

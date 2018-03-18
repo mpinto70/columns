@@ -65,15 +65,15 @@ public:
     void atualiza(const jogo::Situacao& situacao) const override {
         janela_->limpa();
         janela_->escreve("Colunas!",
-              gui::Ponto{ 10, ALTURA * TAMANHO_QUADRADINHO + 45 },
+              gui::Point{ 10, ALTURA * TAMANHO_QUADRADINHO + 45 },
               fonteNome_,
               gui::BLUE);
         janela_->escreve("Placar",
-              gui::Ponto{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50 },
+              gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50 },
               fonteNome_,
               gui::YELLOW);
         janela_->escreve(std::to_string(situacao.placar().pontuacao().total()),
-              gui::Ponto{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90 },
+              gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90 },
               fontePlacar_,
               gui::YELLOW);
         desenha_.desenha(*janela_, situacao, gui::WHITE);

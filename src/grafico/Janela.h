@@ -2,7 +2,7 @@
 
 #include "gui/Color.h"
 #include "gui/Fonte.h"
-#include "gui/Ponto.h"
+#include "gui/Point.h"
 #include "gui/Retangulo.h"
 
 #include <cstdint>
@@ -36,8 +36,8 @@ public:
      * @param fim   ponto final
      * @param cor   cor
      */
-    void linha(const gui::Ponto& ini,
-          const gui::Ponto& fim,
+    void linha(const gui::Point& ini,
+          const gui::Point& fim,
           const gui::Color& cor);
     /** desenha um retângulo.
      * @param ret   o retângulo
@@ -50,8 +50,8 @@ public:
      * @param fd    canto inferior direito
      * @param cor   cor
      */
-    void retangulo(const gui::Ponto& te,
-          const gui::Ponto& fd,
+    void retangulo(const gui::Point& te,
+          const gui::Point& fd,
           const gui::Color& cor);
     /** preenche um retângulo.
      * @param ret   o retângulo
@@ -64,8 +64,8 @@ public:
      * @param fd    canto inferior direito
      * @param cor   cor
      */
-    void preenche(const gui::Ponto& te,
-          const gui::Ponto& fd,
+    void preenche(const gui::Point& te,
+          const gui::Point& fd,
           const gui::Color& cor);
     /** escreve um texto.
      * @param texto o texto a ser escrito
@@ -75,7 +75,7 @@ public:
      * @returns o retângulo que envolve o texto
      */
     gui::Retangulo escreve(const std::string& texto,
-          const gui::Ponto& pt,
+          const gui::Point& pt,
           const gui::Fonte& fonte,
           const gui::Color& cor);
 
