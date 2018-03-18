@@ -5,6 +5,7 @@ add_executable(
     ColorTest.cpp
     testeFonte.cpp
     PointTest.cpp
+    RectangleTest.cpp
 )
 
 target_link_libraries(

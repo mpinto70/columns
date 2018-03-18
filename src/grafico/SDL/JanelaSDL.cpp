@@ -86,7 +86,7 @@ void JanelaSDL::preenche_(const uint16_t x1,
     }
 }
 
-gui::Retangulo JanelaSDL::escreve_(const std::string& texto,
+gui::Rectangle JanelaSDL::escreve_(const std::string& texto,
       const uint16_t x,
       const uint16_t y,
       const gui::Fonte& fonte,
@@ -96,7 +96,7 @@ gui::Retangulo JanelaSDL::escreve_(const std::string& texto,
     TTF_Font* font = nullptr;
     SDL_Surface* surf = nullptr;
     SDL_Texture* texture = nullptr;
-    gui::Retangulo res(0, 0, 0, 0);
+    gui::Rectangle res(0, 0, 0, 0);
     try {
         const SDL_Color color = { cor.R, cor.G, cor.B };
         //Open the font
@@ -126,7 +126,7 @@ gui::Retangulo JanelaSDL::escreve_(const std::string& texto,
             throw std::runtime_error("JanelaSDL::escreve_ - erro no SDL_QueryTexture");
         }
 
-        res = gui::Retangulo(x, y, x + dst.w, y + dst.h);
+        res = gui::Rectangle(x, y, x + dst.w, y + dst.h);
         if (SDL_RenderCopy(renderer_, texture, NULL, &dst) != 0) {
             throw std::runtime_error("JanelaSDL::escreve_ - erro no SDL_RenderCopy");
         }

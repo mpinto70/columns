@@ -19,7 +19,6 @@ TEST(PointTest, create) {
 }
 
 TEST(PointTest, comparison) {
-    using namespace std::rel_ops;
     const std::vector<Point> v = {
         { 1, 2 },
         { 4, 2 },

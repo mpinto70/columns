@@ -17,7 +17,7 @@ static void pintaQuadrado(Janela& janela,
       const uint16_t tamanho) {
     const int x2 = x1 + tamanho - 1;
     const int y2 = y1 + tamanho - 1;
-    const gui::Retangulo rect(x1, y1, x2, y2);
+    const gui::Rectangle rect(x1, y1, x2, y2);
     janela.preenche(rect, cor);
     janela.retangulo(rect, gui::darken(cor, 20));
 }
@@ -62,7 +62,7 @@ void DesenhaTabuleiro::desenha(Janela& janela,
 
 void DesenhaTabuleiro::desenha(Janela& janela,
       const peca::Tabuleiro& tab) const {
-    janela.preenche(gui::Retangulo(left_,
+    janela.preenche(gui::Rectangle(left_,
                           top_,
                           left_ + tab.largura() * tamanhoQuadradinho_,
                           top_ + tab.altura() * tamanhoQuadradinho_),

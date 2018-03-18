@@ -1,6 +1,7 @@
 #pragma once
 
 #include "grafico/Janela.h"
+
 #include <SDL2/SDL.h>
 #include <unistd.h>
 
@@ -84,7 +85,7 @@ private:
      * @param cor   a cor
      * @returns o retângulo que envolve o texto
      */
-    gui::Retangulo escreve_(const std::string& texto,
+    gui::Rectangle escreve_(const std::string& texto,
           uint16_t x,
           uint16_t y,
           const gui::Fonte& fonte,

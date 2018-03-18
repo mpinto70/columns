@@ -3,7 +3,7 @@
 #include "gui/Color.h"
 #include "gui/Fonte.h"
 #include "gui/Point.h"
-#include "gui/Retangulo.h"
+#include "gui/Rectangle.h"
 
 #include <cstdint>
 #include <memory>
@@ -43,7 +43,7 @@ public:
      * @param ret   o retângulo
      * @param cor   cor
      */
-    void retangulo(const gui::Retangulo& ret,
+    void retangulo(const gui::Rectangle& ret,
           const gui::Color& cor);
     /** desenha um retângulo.
      * @param te    canto superior esquerdo
@@ -57,7 +57,7 @@ public:
      * @param ret   o retângulo
      * @param cor   cor
      */
-    void preenche(const gui::Retangulo& ret,
+    void preenche(const gui::Rectangle& ret,
           const gui::Color& cor);
     /** preenche um retângulo.
      * @param te    canto superior esquerdo
@@ -74,7 +74,7 @@ public:
      * @param cor   a cor
      * @returns o retângulo que envolve o texto
      */
-    gui::Retangulo escreve(const std::string& texto,
+    gui::Rectangle escreve(const std::string& texto,
           const gui::Point& pt,
           const gui::Fonte& fonte,
           const gui::Color& cor);
@@ -127,7 +127,7 @@ private:
      * @param cor   a cor
      * @returns o retângulo que envolve o texto
      */
-    virtual gui::Retangulo escreve_(const std::string& texto,
+    virtual gui::Rectangle escreve_(const std::string& texto,
           uint16_t x,
           uint16_t y,
           const gui::Fonte& fonte,
