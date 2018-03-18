@@ -1,10 +1,11 @@
 #pragma once
 
 #include "jogo/Situacao.h"
+#include "peca/Piece.h"
 #include "peca/PosicaoPeca.h"
 #include "peca/Tabuleiro.h"
+
 #include <memory>
-#include <peca/Tile.h>
 
 namespace jogo {
 /** Responsável controlar a interação com um tabuleiro:
@@ -31,7 +32,7 @@ public:
      * @return false se não foi possível criar a peça
      * @throw std::logic_error é lançada caso haja peça caindo no tabuleiro
      */
-    bool adicionaPeca(const peca::Tile& peca);
+    bool adicionaPeca(const peca::Piece& peca);
     /** @return se há uma peça caindo no tabuleiro. */
     bool temPeca() const { return peca_.get() != NULL; }
     /** @return a posição da peça que está caindo no tabuleiro.
@@ -41,7 +42,7 @@ public:
     /** @return a peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::Tile& peca() const;
+    const peca::Piece& peca() const;
     /** Faz a peça dar um passo para baixo. */
     void passo();
     /** Move a peça uma coluna para a esquerda. */
@@ -63,7 +64,7 @@ public:
 private:
     typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
     peca::Tabuleiro tabuleiro_;               ///< o tabuleiro
-    peca::TilePtr peca_;                      ///< a peca caindo no tabuleiro
+    peca::PiecePtr peca_;                     ///< a peca caindo no tabuleiro
     PosicaoPtr posicaoPeca_;                  ///< a posição em que está a peça caindo no tabuleiro
     const uint16_t maxSubLinha_;              ///< tamanho do quadradinho da peça
     const std::vector<gui::Color> possiveis_; ///< cores possíveis para as peças

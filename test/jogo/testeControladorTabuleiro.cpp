@@ -1,7 +1,7 @@
 
 #include "jogo/ControladorTabuleiro.h"
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include <stdexcept>
 #include <utility>
@@ -42,7 +42,7 @@ TEST(TesteControladorTabuleiro, CriaPeca) {
     ControladorTabuleiro contr(branco, 4);
     constexpr uint16_t QTD = 5;
 
-    std::vector<peca::Tile> pecas;
+    std::vector<peca::Piece> pecas;
     for (uint16_t i = 0; i < QTD; ++i) {
         pecas.push_back(contr.criaPeca());
     }
@@ -119,10 +119,10 @@ TEST(TesteControladorTabuleiro, Passo) {
     EXPECT_TRUE(branco.tabuleiro() != b0);
 
     std::vector<gui::Color> cores;
-    for (unsigned char i = 0; i < peca::TILE_SIZE; ++i) {
-        cores.push_back(branco.tabuleiro().at(col, branco.tabuleiro().altura() - peca::TILE_SIZE + i));
+    for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i) {
+        cores.push_back(branco.tabuleiro().at(col, branco.tabuleiro().altura() - peca::PIECE_SIZE + i));
     }
-    const peca::Tile fixada(cores);
+    const peca::Piece fixada(cores);
     EXPECT_EQ(fixada, peca);
 }
 

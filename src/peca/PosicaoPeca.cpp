@@ -23,7 +23,7 @@ PosicaoPeca::PosicaoPeca(const Tabuleiro& tab,
 }
 
 void PosicaoPeca::caiUmPasso() {
-    if (linha_ + TILE_SIZE == maxLinha_) {
+    if (linha_ + PIECE_SIZE == maxLinha_) {
         throw std::logic_error("PosicaoPeca::caiUmPasso - já está na posição inferior");
     }
     if (subLinha_ == maxSubLinha_ - 1) {

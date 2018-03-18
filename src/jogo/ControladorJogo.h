@@ -38,7 +38,7 @@ public:
 private:
     ControladorTabuleiro tabuleiro_;    ///< o tabuleiro
     pontuacao::Placar placar_;          ///< o placar
-    peca::Tile proximaPeca_;            ///< a próximaa peca a cair no tabuleiro
+    peca::Piece proximaPeca_;           ///< a próximaa peca a cair no tabuleiro
     std::vector<gui::Color> possiveis_; ///< as cores possíveis
     SituacaoObserverPtr observer_;      ///< observadores do jogo
     MensagemPtr mensagens_;             ///< as mensagens

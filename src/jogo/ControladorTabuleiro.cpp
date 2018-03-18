@@ -19,7 +19,7 @@ ControladorTabuleiro::ControladorTabuleiro(const peca::Tabuleiro& tabuleiro,
     }
 }
 
-bool ControladorTabuleiro::adicionaPeca(const peca::Tile& peca) {
+bool ControladorTabuleiro::adicionaPeca(const peca::Piece& peca) {
     if (temPeca()) {
         throw std::logic_error("ControladorTabuleiro::adicionaPeca - há peça caindo no tabuleiro");
     }
@@ -29,13 +29,13 @@ bool ControladorTabuleiro::adicionaPeca(const peca::Tile& peca) {
         return false;
     }
 
-    for (unsigned char i = 0; i < peca::TILE_SIZE; ++i)
+    for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i)
         if (peca[i] == tabuleiro_.cor()) {
             throw std::invalid_argument("ControladorTabuleiro::adicionaPeca - peça com cor de fundo");
         }
 
     posicaoPeca_.reset(new peca::PosicaoPeca(tabuleiro_, c, maxSubLinha_));
-    peca_.reset(new peca::Tile(peca));
+    peca_.reset(new peca::Piece(peca));
     return true;
 }
 
@@ -46,7 +46,7 @@ const peca::PosicaoPeca& ControladorTabuleiro::posicaoPeca() const {
     return *posicaoPeca_;
 }
 
-const peca::Tile& ControladorTabuleiro::peca() const {
+const peca::Piece& ControladorTabuleiro::peca() const {
     if (not temPeca()) {
         throw std::logic_error("ControladorTabuleiro::peca - não há peça caindo no tabuleiro");
     }
@@ -61,8 +61,8 @@ void ControladorTabuleiro::passo() {
     const uint16_t linhaPeca = posicaoPeca_->linha();
     const uint16_t colunaPeca = posicaoPeca_->coluna();
     if (atingiuFim()) {
-        const peca::Tile& peca = *peca_;
-        for (unsigned char i = 0; i < peca::TILE_SIZE; ++i) {
+        const peca::Piece& peca = *peca_;
+        for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i) {
             tabuleiro_.at(colunaPeca, linhaPeca + i) = peca[i];
         }
         peca_.reset();
@@ -132,9 +132,9 @@ void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
 
 Situacao ControladorTabuleiro::situacao() const {
     if (temPeca()) {
-        return Situacao(tabuleiro_, pontuacao::Placar(), *peca_, *posicaoPeca_, peca::Tile({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return Situacao(tabuleiro_, pontuacao::Placar(), *peca_, *posicaoPeca_, peca::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     } else {
-        return Situacao(tabuleiro_, pontuacao::Placar(), determinaEliminacao(), peca::Tile({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return Situacao(tabuleiro_, pontuacao::Placar(), determinaEliminacao(), peca::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     }
 }
 
@@ -152,12 +152,12 @@ bool ControladorTabuleiro::podeMoverPara(uint16_t coluna) const {
     const uint16_t linhaPeca = posicaoPeca_->linha();
     const uint16_t sublinhaPeca = posicaoPeca_->subLinha();
 
-    for (uint16_t l = linhaPeca; l < linhaPeca + peca::TILE_SIZE; ++l) {
+    for (uint16_t l = linhaPeca; l < linhaPeca + peca::PIECE_SIZE; ++l) {
         if (tabuleiro_.at(coluna, l) != tabuleiro_.cor()) {
             return false;
         }
     }
-    if (sublinhaPeca > 0 && tabuleiro_.at(coluna, linhaPeca + peca::TILE_SIZE) != tabuleiro_.cor()) {
+    if (sublinhaPeca > 0 && tabuleiro_.at(coluna, linhaPeca + peca::PIECE_SIZE) != tabuleiro_.cor()) {
         return false;
     }
 
@@ -181,7 +181,7 @@ uint16_t ControladorTabuleiro::determinaColuna() const {
 
 bool ControladorTabuleiro::podeColocarPeca(uint16_t coluna) const {
     using namespace std::rel_ops;
-    for (unsigned char i = 0; i < peca::TILE_SIZE; ++i)
+    for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i)
         if (tabuleiro_.at(coluna, i) != tabuleiro_.cor()) {
             return false;
         }
@@ -208,7 +208,7 @@ bool ControladorTabuleiro::atingiuFim() const {
     const uint16_t linhaPeca = posicaoPeca_->linha();
     const uint16_t colunaPeca = posicaoPeca_->coluna();
     // está sobre uma peça não vazia
-    if (tabuleiro_.at(colunaPeca, linhaPeca + peca::TILE_SIZE) != tabuleiro_.cor()) {
+    if (tabuleiro_.at(colunaPeca, linhaPeca + peca::PIECE_SIZE) != tabuleiro_.cor()) {
         return true;
     }
 

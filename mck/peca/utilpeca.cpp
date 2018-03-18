@@ -8,33 +8,33 @@
 namespace peca {
 namespace mck {
 
-static Tile criaPecaSequencialPasso(unsigned char cor0,
+static Piece criaPecaSequencialPasso(unsigned char cor0,
       char passo) {
     std::vector<gui::Color> cores;
     unsigned char cor = cor0;
-    for (unsigned char i = 0; i < TILE_SIZE; ++i) {
+    for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
         gui::Color rgb(cor, cor, cor);
         cores.push_back(rgb);
         cor += passo;
     }
-    return Tile(cores);
+    return Piece(cores);
 }
 
-Tile criaPecaSequencialCrescente(unsigned char cor0) {
+Piece criaPecaSequencialCrescente(unsigned char cor0) {
     return criaPecaSequencialPasso(cor0, 1);
 }
 
-Tile criaPecaSequencialDecrescente(unsigned char cor0) {
+Piece criaPecaSequencialDecrescente(unsigned char cor0) {
     return criaPecaSequencialPasso(cor0, -1);
 }
 
 void printPeca(const std::string& file,
       int line,
-      const Tile& peca) {
+      const Piece& peca) {
     printf("Imprimindo peca de %s(%d)\n", file.c_str(), line);
-    const std::string sep(TILE_SIZE * 11, '-');
+    const std::string sep(PIECE_SIZE * 11, '-');
     printf("%s\n", sep.c_str());
-    for (unsigned char c = 0; c < TILE_SIZE; ++c) {
+    for (unsigned char c = 0; c < PIECE_SIZE; ++c) {
         const gui::Color& cor = peca[c];
         gui::mck::print(cor);
     }

@@ -2,7 +2,7 @@
 add_executable(
     testpeca
     ../gtest_main.cpp
-    TileTest.cpp
+    PieceTest.cpp
     testePosicaoPeca.cpp
     testeTabuleiro.cpp
 )

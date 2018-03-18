@@ -1,6 +1,5 @@
+#include "peca/Piece.h"
 #include "pontuacao/Pontuacao.h"
-
-#include "peca/Tile.h"
 
 #include <gtest/gtest.h>
 
@@ -52,31 +51,31 @@ TEST(TestePontuacao, Acrescenta) {
     EXPECT_EQ(p.total(), 0u);
 
     p.acrescenta(5);
-    EXPECT_EQ(p.total(), square(5 - peca::TILE_SIZE + 1));
+    EXPECT_EQ(p.total(), square(5 - peca::PIECE_SIZE + 1));
 
-    p.acrescenta(peca::TILE_SIZE);
-    EXPECT_EQ(p.total(), square(5 - peca::TILE_SIZE + 1) + 1);
+    p.acrescenta(peca::PIECE_SIZE);
+    EXPECT_EQ(p.total(), square(5 - peca::PIECE_SIZE + 1) + 1);
 
-    p.acrescenta(peca::TILE_SIZE + 1);
-    EXPECT_EQ(p.total(), square(5 - peca::TILE_SIZE + 1) + 1 + 4);
+    p.acrescenta(peca::PIECE_SIZE + 1);
+    EXPECT_EQ(p.total(), square(5 - peca::PIECE_SIZE + 1) + 1 + 4);
 }
 
 TEST(TestePontuacao, AcrescentaInvalido) {
     Pontuacao p;
     EXPECT_EQ(p.total(), 0u);
 
-    p.acrescenta(peca::TILE_SIZE + 2);
+    p.acrescenta(peca::PIECE_SIZE + 2);
     EXPECT_EQ(p.total(), 9u);
 
-    for (size_t i = 0; i < peca::TILE_SIZE; ++i) {
+    for (size_t i = 0; i < peca::PIECE_SIZE; ++i) {
         EXPECT_THROW(p.acrescenta(i), std::invalid_argument) << i;
         EXPECT_EQ(p.total(), 9u);
     }
 
-    EXPECT_NO_THROW(p.acrescenta(peca::TILE_SIZE));
+    EXPECT_NO_THROW(p.acrescenta(peca::PIECE_SIZE));
 
     p = Pontuacao(-1); // o máximo valor suportado pelo tipo
-    EXPECT_THROW(p.acrescenta(peca::TILE_SIZE), std::invalid_argument);
+    EXPECT_THROW(p.acrescenta(peca::PIECE_SIZE), std::invalid_argument);
     EXPECT_EQ(p.total(), size_t(-1)); // o valor não se alterou do máximo suportado
 }
 

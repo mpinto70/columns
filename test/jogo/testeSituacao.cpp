@@ -4,7 +4,7 @@
 #include "peca/Tabuleiro.h"
 #include "pontuacao/Placar.h"
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include <type_traits>
 #include <utility>
@@ -19,16 +19,16 @@ static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
 
 static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
       const pontuacao::Placar& placar,
-      const peca::Tile& caindo,
+      const peca::Piece& caindo,
       const peca::PosicaoPeca& posicao,
-      const peca::Tile& proxima) {
+      const peca::Piece& proxima) {
     return Situacao(tabuleiro, placar, caindo, posicao, proxima);
 }
 
 static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
       const pontuacao::Placar& placar,
       const ListaEliminacao& eliminacao,
-      const peca::Tile& proxima) {
+      const peca::Piece& proxima) {
     return Situacao(tabuleiro, placar, eliminacao, proxima);
 }
 
@@ -53,16 +53,16 @@ TEST(TesteSituacao, Criacao) {
     const pontuacao::Placar placar4(39, 34);
     const pontuacao::Placar placar5(40, 35);
     const pontuacao::Placar placar6(41, 34);
-    const peca::Tile peca3 = peca::mck::criaPecaSequencialCrescente(12);
-    const peca::Tile peca4 = peca::mck::criaPecaSequencialCrescente(15);
-    const peca::Tile prox3 = peca::mck::criaPecaSequencialCrescente(17);
-    const peca::Tile prox4 = peca::mck::criaPecaSequencialCrescente(23);
+    const peca::Piece peca3 = peca::mck::criaPecaSequencialCrescente(12);
+    const peca::Piece peca4 = peca::mck::criaPecaSequencialCrescente(15);
+    const peca::Piece prox3 = peca::mck::criaPecaSequencialCrescente(17);
+    const peca::Piece prox4 = peca::mck::criaPecaSequencialCrescente(23);
     const peca::PosicaoPeca posicao3(tabuleiro3, 2, 4);
     const peca::PosicaoPeca posicao4(tabuleiro4, 3, 4);
     const ListaEliminacao elim5 = { { 1, 2 }, { 3, 4 } };
     const ListaEliminacao elim6 = { { 5, 6 }, { 3, 4 } };
-    const peca::Tile prox5 = peca::mck::criaPecaSequencialCrescente(19);
-    const peca::Tile prox6 = peca::mck::criaPecaSequencialCrescente(21);
+    const peca::Piece prox5 = peca::mck::criaPecaSequencialCrescente(19);
+    const peca::Piece prox6 = peca::mck::criaPecaSequencialCrescente(21);
 
     const Situacao situacao1 = criaSituacao(tabuleiro1, placar1);
     EXPECT_TRUE(situacao1.tabuleiro() == tabuleiro1);

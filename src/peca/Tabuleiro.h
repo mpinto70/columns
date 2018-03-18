@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gui/Color.h"
-#include "peca/Tile.h"
+#include "peca/Piece.h"
 
 #include <memory>
 #include <vector>
