@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-namespace pontuacao {
+namespace score {
 
 void Score::add(size_t n) {
     if (n < piece::PIECE_SIZE) {

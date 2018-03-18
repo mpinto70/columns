@@ -4,7 +4,7 @@
 #include "jogo/ControladorTabuleiro.h"
 #include "jogo/Mensagem.h"
 #include "jogo/SituacaoObserver.h"
-#include "pontuacao/ScoreBoard.h"
+#include "score/ScoreBoard.h"
 #include <atomic>
 #include <mutex>
 
@@ -25,7 +25,7 @@ public:
      */
     ControladorJogo(const piece::Board& tabuleiro,
           uint16_t maxSubLinha,
-          const pontuacao::Score& recorde,
+          const score::Score& recorde,
           const std::vector<gui::Color>& possiveis,
           SituacaoObserverPtr&& obs,
           MensagemPtr& msg);
@@ -36,7 +36,7 @@ public:
 
 private:
     ControladorTabuleiro tabuleiro_;    ///< o tabuleiro
-    pontuacao::ScoreBoard placar_;      ///< o placar
+    score::ScoreBoard placar_;          ///< o placar
     piece::Piece proximaPeca_;          ///< a próximaa piece a cair no tabuleiro
     std::vector<gui::Color> possiveis_; ///< as cores possíveis
     SituacaoObserverPtr observer_;      ///< observadores do jogo

@@ -1,16 +1,16 @@
 #include "../mck/util/utiltst.h"
 
-#include "pontuacao/ScoreBoard.h"
+#include "score/ScoreBoard.h"
 
 #include "piece/Piece.h"
-#include "pontuacao/Score.h"
+#include "score/Score.h"
 
 #include <gtest/gtest.h>
 
 #include <stdexcept>
 #include <stdio.h>
 
-namespace pontuacao {
+namespace score {
 namespace tst {
 
 TEST(ScoreBoardTest, create) {

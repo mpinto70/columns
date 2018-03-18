@@ -1,6 +1,6 @@
 #include "../mck/util/utiltst.h"
 
-#include "pontuacao/Score.h"
+#include "score/Score.h"
 
 #include "piece/Piece.h"
 
@@ -9,7 +9,7 @@
 #include <limits>
 #include <stdexcept>
 
-namespace pontuacao {
+namespace score {
 namespace tst {
 
 TEST(ScoreTest, create) {

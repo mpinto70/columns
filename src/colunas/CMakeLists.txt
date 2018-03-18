@@ -30,6 +30,6 @@ target_link_libraries (
     gui
     jogo
     piece
-    pontuacao
+    score
     util
 )

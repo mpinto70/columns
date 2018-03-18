@@ -13,7 +13,7 @@ target_link_libraries(
     libgtest
     libgmock
     jogo
-    pontuacao
+    score
     piece
     gui
     util

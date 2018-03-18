@@ -1,8 +1,8 @@
 #pragma once
 
-#include "pontuacao/Score.h"
+#include "score/Score.h"
 
-namespace pontuacao {
+namespace score {
 /// Stores and processes score and record score
 class ScoreBoard {
 public:

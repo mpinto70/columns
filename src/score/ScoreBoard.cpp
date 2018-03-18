@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace pontuacao {
+namespace score {
 
 ScoreBoard::ScoreBoard(const Score& record,
       const Score& score)

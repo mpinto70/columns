@@ -9,7 +9,7 @@ add_executable(
 target_link_libraries(
     testpontuacao
     util_mck
-    pontuacao
+    score
     libgtest
     libgmock
 )

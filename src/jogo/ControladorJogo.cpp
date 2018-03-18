@@ -9,7 +9,7 @@ namespace jogo {
 
 ControladorJogo::ControladorJogo(const piece::Board& tabuleiro,
       const uint16_t maxSubLinha,
-      const pontuacao::Score& recorde,
+      const score::Score& recorde,
       const std::vector<gui::Color>& possiveis,
       SituacaoObserverPtr&& obs,
       MensagemPtr& msg)
@@ -46,7 +46,7 @@ void ControladorJogo::execute() {
                 observer_->atualiza(montaSituacao(listaEliminacao));
                 placar_.add(listaEliminacao.size());
                 tabuleiro_.elimina(listaEliminacao);
-                //printf("\n%s (%d) - %d\n", __FILE__, __LINE__, placar_.pontuacao().total());
+                //printf("\n%s (%d) - %d\n", __FILE__, __LINE__, placar_.score().total());
                 tempoElimina.wait();
                 mensagens_->limpa();
             }

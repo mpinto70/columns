@@ -1,11 +1,11 @@
 
 add_library(
-    pontuacao
+    score
     Score.cpp
     ScoreBoard.cpp
 )
 
 target_include_directories(
-    pontuacao
+    score
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )

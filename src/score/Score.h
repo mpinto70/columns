@@ -2,7 +2,7 @@
 
 #include <cstdio>
 
-namespace pontuacao {
+namespace score {
 /// Stores and processes score
 class Score {
 public:

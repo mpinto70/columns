@@ -3,7 +3,7 @@
 #include "piece/Board.h"
 #include "piece/Piece.h"
 #include "piece/PiecePosition.h"
-#include "pontuacao/ScoreBoard.h"
+#include "score/ScoreBoard.h"
 #include <memory>
 
 namespace jogo {
@@ -19,7 +19,7 @@ public:
      * @param placar    o placar atual
      */
     Situacao(const piece::Board& tabuleiro,
-          const pontuacao::ScoreBoard& placar);
+          const score::ScoreBoard& placar);
     /** Cria a situação em que não há peça caindo.
      * @param tabuleiro o tabuleiro
      * @param placar    o placar atual
@@ -28,7 +28,7 @@ public:
      * @param proxima   a próxima peça
      */
     Situacao(const piece::Board& tabuleiro,
-          const pontuacao::ScoreBoard& placar,
+          const score::ScoreBoard& placar,
           const piece::Piece& caindo,
           const piece::PiecePosition& posicao,
           const piece::Piece& proxima);
@@ -39,11 +39,11 @@ public:
      * @param proxima   a próxima peça
      */
     Situacao(const piece::Board& tabuleiro,
-          const pontuacao::ScoreBoard& placar,
+          const score::ScoreBoard& placar,
           const ListaEliminacao& lista,
           const piece::Piece& proxima);
     const piece::Board& tabuleiro() const { return tabuleiro_; }
-    const pontuacao::ScoreBoard& placar() const { return placar_; }
+    const score::ScoreBoard& placar() const { return placar_; }
     /** @return se há uma peça caindo no tabuleiro. */
     bool temPeca() const { return peca_.get() != NULL; }
     /** @return a posição da peça que está caindo no tabuleiro.
@@ -65,12 +65,12 @@ public:
 
 private:
     typedef std::unique_ptr<piece::PiecePosition> PosicaoPtr;
-    piece::Board tabuleiro_;       ///< o tabuleiro
-    pontuacao::ScoreBoard placar_; ///< o placar atual
-    piece::PiecePtr peca_;         ///< a piece caindo no tabuleiro
-    PosicaoPtr posicaoPeca_;       ///< a posição em que está a peça caindo no tabuleiro
-    ListaEliminacao eliminacao_;   ///< a lista de eliminação
-    piece::PiecePtr proxima_;      ///< a próxima peça a ser colocada no tabuleiro
+    piece::Board tabuleiro_;     ///< o tabuleiro
+    score::ScoreBoard placar_;   ///< o placar atual
+    piece::PiecePtr peca_;       ///< a piece caindo no tabuleiro
+    PosicaoPtr posicaoPeca_;     ///< a posição em que está a peça caindo no tabuleiro
+    ListaEliminacao eliminacao_; ///< a lista de eliminação
+    piece::PiecePtr proxima_;    ///< a próxima peça a ser colocada no tabuleiro
 };
 
 bool operator==(const Situacao& lhs, const Situacao& rhs);

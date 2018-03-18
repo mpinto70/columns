@@ -1,7 +1,7 @@
 
 #include "ControladorTabuleiro.h"
 #include "util/Random.h"
-#include <pontuacao/ScoreBoard.h>
+#include <score/ScoreBoard.h>
 
 #include <map>
 #include <stdexcept>
@@ -132,9 +132,9 @@ void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
 
 Situacao ControladorTabuleiro::situacao() const {
     if (temPeca()) {
-        return Situacao(tabuleiro_, pontuacao::ScoreBoard(), *peca_, *posicaoPeca_, piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return Situacao(tabuleiro_, score::ScoreBoard(), *peca_, *posicaoPeca_, piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     } else {
-        return Situacao(tabuleiro_, pontuacao::ScoreBoard(), determinaEliminacao(), piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return Situacao(tabuleiro_, score::ScoreBoard(), determinaEliminacao(), piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     }
 }
 
