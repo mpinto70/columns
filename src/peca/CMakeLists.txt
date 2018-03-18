@@ -3,7 +3,7 @@ add_library(
     peca
     Piece.cpp
     PosicaoPeca.cpp
-    Tabuleiro.cpp
+    Board.cpp
 )
 
 target_include_directories(

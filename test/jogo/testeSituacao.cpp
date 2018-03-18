@@ -1,7 +1,7 @@
 #include "../mck/peca/utilpeca.h"
 
 #include "jogo/Situacao.h"
-#include "peca/Tabuleiro.h"
+#include "peca/Board.h"
 #include "pontuacao/Placar.h"
 
 #include <gtest/gtest.h>
@@ -12,12 +12,12 @@
 namespace jogo {
 namespace tst {
 
-static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
+static Situacao criaSituacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar) {
     return Situacao(tabuleiro, placar);
 }
 
-static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
+static Situacao criaSituacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar,
       const peca::Piece& caindo,
       const peca::PosicaoPeca& posicao,
@@ -25,7 +25,7 @@ static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
     return Situacao(tabuleiro, placar, caindo, posicao, proxima);
 }
 
-static Situacao criaSituacao(const peca::Tabuleiro& tabuleiro,
+static Situacao criaSituacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar,
       const ListaEliminacao& eliminacao,
       const peca::Piece& proxima) {
@@ -41,12 +41,12 @@ TEST(TesteSituacao, Caracteristicas) {
 
 TEST(TesteSituacao, Criacao) {
     using namespace std::rel_ops;
-    const peca::Tabuleiro tabuleiro1(10, 20, gui::WHITE);
-    const peca::Tabuleiro tabuleiro2(11, 20, gui::WHITE);
-    const peca::Tabuleiro tabuleiro3(10, 21, gui::WHITE);
-    const peca::Tabuleiro tabuleiro4(10, 20, gui::BLUE);
-    const peca::Tabuleiro tabuleiro5(12, 21, gui::WHITE);
-    const peca::Tabuleiro tabuleiro6(13, 20, gui::BLUE);
+    const peca::Board tabuleiro1(10, 20, gui::WHITE);
+    const peca::Board tabuleiro2(11, 20, gui::WHITE);
+    const peca::Board tabuleiro3(10, 21, gui::WHITE);
+    const peca::Board tabuleiro4(10, 20, gui::BLUE);
+    const peca::Board tabuleiro5(12, 21, gui::WHITE);
+    const peca::Board tabuleiro6(13, 20, gui::BLUE);
     const pontuacao::Placar placar1(25);
     const pontuacao::Placar placar2(38, 34);
     const pontuacao::Placar placar3(38, 35);

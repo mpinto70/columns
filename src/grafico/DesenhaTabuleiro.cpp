@@ -61,17 +61,17 @@ void DesenhaTabuleiro::desenha(Janela& janela,
 }
 
 void DesenhaTabuleiro::desenha(Janela& janela,
-      const peca::Tabuleiro& tab) const {
+      const peca::Board& tab) const {
     janela.preenche(gui::Rectangle(left_,
                           top_,
-                          left_ + tab.largura() * tamanhoQuadradinho_,
-                          top_ + tab.altura() * tamanhoQuadradinho_),
-          tab.cor());
+                          left_ + tab.width() * tamanhoQuadradinho_,
+                          top_ + tab.height() * tamanhoQuadradinho_),
+          tab.background_color());
 
-    for (uint16_t i = 0; i < tab.largura(); ++i) {
-        for (uint16_t j = 0; j < tab.altura(); ++j) {
+    for (uint16_t i = 0; i < tab.width(); ++i) {
+        for (uint16_t j = 0; j < tab.height(); ++j) {
             const auto& corCelula = tab.at(i, j);
-            if (corCelula == tab.cor()) {
+            if (corCelula == tab.background_color()) {
                 continue; // é fundo
             }
             desenhaQuadrado(janela, corCelula, i, j);

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "peca/Tabuleiro.h"
-#include <peca/Piece.h>
+#include "peca/Board.h"
+#include "peca/Piece.h"
 
 namespace peca {
 namespace mck {
@@ -13,6 +13,6 @@ void printPeca(const std::string& file,
       const Piece& peca);
 void printTabuleiro(const std::string& file,
       int line,
-      const Tabuleiro& tabuleiro);
+      const Board& tabuleiro);
 }
 }

@@ -1,5 +1,5 @@
+#include "peca/Board.h"
 #include "peca/PosicaoPeca.h"
-#include "peca/Tabuleiro.h"
 
 #include <gtest/gtest.h>
 
@@ -10,9 +10,9 @@ namespace tst {
 
 namespace {
 void confereCriacaoInvalida(const std::string& msg0,
-      const Tabuleiro& tab) {
-    for (uint16_t i = 0; i < 2 * tab.largura(); ++i) {
-        if (i < tab.largura()) {
+      const Board& tab) {
+    for (uint16_t i = 0; i < 2 * tab.width(); ++i) {
+        if (i < tab.width()) {
             EXPECT_NO_THROW(PosicaoPeca(tab, i, 4)) << msg0;
         } else {
             try {
@@ -34,15 +34,15 @@ void confereCriacaoInvalida(const std::string& msg0,
 }
 
 void confereCaiUmPassoInvalido(const std::string& msg0,
-      const Tabuleiro& tab) {
-    PosicaoPeca p(tab, tab.largura() - 1, 7);
-    while (p.linha() != tab.altura() - PIECE_SIZE) {
+      const Board& tab) {
+    PosicaoPeca p(tab, tab.width() - 1, 7);
+    while (p.linha() != tab.height() - PIECE_SIZE) {
         EXPECT_TRUE(not p.chegouAoFundo()) << msg0;
         EXPECT_NO_THROW(p.caiUmPasso()) << msg0;
     }
 
     EXPECT_TRUE(p.chegouAoFundo()) << msg0;
-    EXPECT_EQ(p.linha(), tab.altura() - PIECE_SIZE) << msg0;
+    EXPECT_EQ(p.linha(), tab.height() - PIECE_SIZE) << msg0;
     EXPECT_EQ(p.subLinha(), 0u) << msg0;
 
     try {
@@ -54,9 +54,9 @@ void confereCaiUmPassoInvalido(const std::string& msg0,
 }
 
 void confereMoveInvalido(const std::string& msg0,
-      const Tabuleiro& tab) {
+      const Board& tab) {
     PosicaoPeca p(tab, 0, 4);
-    for (uint16_t i = 0; i < tab.largura() - 1; ++i) {
+    for (uint16_t i = 0; i < tab.width() - 1; ++i) {
         EXPECT_EQ(p.coluna(), i) << msg0;
         EXPECT_EQ(p.linha(), 0u) << msg0;
         EXPECT_EQ(p.subLinha(), 0u) << msg0;
@@ -66,15 +66,15 @@ void confereMoveInvalido(const std::string& msg0,
         EXPECT_EQ(p.subLinha(), 0u) << msg0;
     }
 
-    EXPECT_EQ(p.coluna(), tab.largura() - 1) << msg0;
+    EXPECT_EQ(p.coluna(), tab.width() - 1) << msg0;
     EXPECT_EQ(p.linha(), 0u) << msg0;
     EXPECT_EQ(p.subLinha(), 0u) << msg0;
     EXPECT_THROW(p.moveDireita(), std::logic_error) << msg0;
-    EXPECT_EQ(p.coluna(), tab.largura() - 1) << msg0;
+    EXPECT_EQ(p.coluna(), tab.width() - 1) << msg0;
     EXPECT_EQ(p.linha(), 0u) << msg0;
     EXPECT_EQ(p.subLinha(), 0u) << msg0;
 
-    for (uint16_t i = tab.largura(); i > 1; --i) {
+    for (uint16_t i = tab.width(); i > 1; --i) {
         EXPECT_EQ(p.coluna(), i - 1) << msg0;
         EXPECT_EQ(p.linha(), 0u) << msg0;
         EXPECT_EQ(p.subLinha(), 0u) << msg0;
@@ -96,8 +96,8 @@ void confereMoveInvalido(const std::string& msg0,
 } // unnamed namespace
 
 TEST(TestePosicaoPeca, Criacao) {
-    const Tabuleiro tab1(7, 25, gui::WHITE);
-    const Tabuleiro tab2(8, 15, gui::WHITE);
+    const Board tab1(7, 25, gui::WHITE);
+    const Board tab2(8, 15, gui::WHITE);
 
     const PosicaoPeca p1(tab1, 5, 4);
     EXPECT_EQ(p1.coluna(), 5u);
@@ -125,12 +125,12 @@ TEST(TestePosicaoPeca, Criacao) {
 }
 
 TEST(TestePosicaoPeca, CriacaoInvalida) {
-    confereCriacaoInvalida("t1", Tabuleiro(7, 25, gui::WHITE));
-    confereCriacaoInvalida("t2", Tabuleiro(12, 50, gui::WHITE));
+    confereCriacaoInvalida("t1", Board(7, 25, gui::WHITE));
+    confereCriacaoInvalida("t2", Board(12, 50, gui::WHITE));
 }
 
 TEST(TestePosicaoPeca, CaiUmPasso) {
-    const Tabuleiro tab(7, 25, gui::WHITE);
+    const Board tab(7, 25, gui::WHITE);
 
     PosicaoPeca p(tab, 5, 6);
     EXPECT_EQ(p.coluna(), 5u);
@@ -189,12 +189,12 @@ TEST(TestePosicaoPeca, CaiUmPasso) {
 }
 
 TEST(TestePosicaoPeca, CaiUmPassoInvalido) {
-    confereCaiUmPassoInvalido("t1", Tabuleiro(12, 50, gui::BLACK));
-    confereCaiUmPassoInvalido("t2", Tabuleiro(7, 25, gui::BLACK));
+    confereCaiUmPassoInvalido("t1", Board(12, 50, gui::BLACK));
+    confereCaiUmPassoInvalido("t2", Board(7, 25, gui::BLACK));
 }
 
 TEST(TestePosicaoPeca, Move) {
-    const Tabuleiro tab(7, 25, gui::WHITE);
+    const Board tab(7, 25, gui::WHITE);
 
     PosicaoPeca p(tab, 3, 4);
     EXPECT_EQ(p.coluna(), 3u);
@@ -232,12 +232,12 @@ TEST(TestePosicaoPeca, Move) {
 }
 
 TEST(TestePosicaoPeca, MoveInvalido) {
-    confereMoveInvalido("t1", Tabuleiro(12, 50, gui::BLACK));
-    confereMoveInvalido("t2", Tabuleiro(7, 25, gui::BLACK));
+    confereMoveInvalido("t1", Board(12, 50, gui::BLACK));
+    confereMoveInvalido("t2", Board(7, 25, gui::BLACK));
 }
 
 TEST(TestePosicaoPeca, Comparacao) {
-    Tabuleiro t1(12, 50, gui::BLACK);
+    Board t1(12, 50, gui::BLACK);
 
     std::vector<PosicaoPeca> posics;
     posics.push_back(PosicaoPeca(t1, 4, 4));
@@ -256,7 +256,7 @@ TEST(TestePosicaoPeca, Comparacao) {
         }
     }
 
-    Tabuleiro t2(17, 50, gui::WHITE);
+    Board t2(17, 50, gui::WHITE);
     EXPECT_EQ(posics[0], PosicaoPeca(t2, 4, 4));
     EXPECT_EQ(posics[1], PosicaoPeca(t2, 5, 4));
 }

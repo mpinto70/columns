@@ -44,12 +44,12 @@ void printPeca(const std::string& file,
 
 void printTabuleiro(const std::string& file,
       const int line,
-      const Tabuleiro& tabuleiro) {
+      const Board& tabuleiro) {
     printf("Imprimindo tabuleiro de %s(%d)\n", file.c_str(), line);
-    const std::string sep(tabuleiro.largura() * 11, '-');
+    const std::string sep(tabuleiro.width() * 11, '-');
     printf("%s\n", sep.c_str());
-    for (uint16_t l = 0; l < tabuleiro.altura(); ++l) {
-        for (uint16_t c = 0; c < tabuleiro.largura(); ++c) {
+    for (uint16_t l = 0; l < tabuleiro.height(); ++l) {
+        for (uint16_t c = 0; c < tabuleiro.width(); ++c) {
             const gui::Color& cor = tabuleiro.at(c, l);
             gui::mck::print(cor);
         }

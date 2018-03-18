@@ -24,13 +24,13 @@ static void confereCriaPecaInvalida(ControladorTabuleiro& cont,
 } // unnamed namespace
 
 TEST(TesteControladorTabuleiro, Criacao) {
-    peca::Tabuleiro tabuleiro(10, 20, gui::WHITE);
+    peca::Board tabuleiro(10, 20, gui::WHITE);
     ControladorTabuleiro contr(tabuleiro, 4);
     EXPECT_TRUE(contr.temPeca() == false);
 }
 
 TEST(TesteControladorTabuleiro, CriacaoInvalida) {
-    peca::Tabuleiro tabuleiro(10, 20, gui::WHITE);
+    peca::Board tabuleiro(10, 20, gui::WHITE);
     EXPECT_NO_THROW(ControladorTabuleiro t(tabuleiro, 4));
 
     // tamanho da peça nula
@@ -38,7 +38,7 @@ TEST(TesteControladorTabuleiro, CriacaoInvalida) {
 }
 
 TEST(TesteControladorTabuleiro, CriaPeca) {
-    peca::Tabuleiro branco(10, 20, gui::WHITE);
+    peca::Board branco(10, 20, gui::WHITE);
     ControladorTabuleiro contr(branco, 4);
     constexpr uint16_t QTD = 5;
 
@@ -57,7 +57,7 @@ TEST(TesteControladorTabuleiro, CriaPeca) {
 }
 
 TEST(TesteControladorTabuleiro, AdicionaPeca) {
-    peca::Tabuleiro branco(10, 20, gui::WHITE);
+    peca::Board branco(10, 20, gui::WHITE);
     ControladorTabuleiro contr(branco, 4);
 
     const auto peca = contr.criaPeca();
@@ -76,7 +76,7 @@ TEST(TesteControladorTabuleiro, AdicionaPeca) {
 }
 
 TEST(TesteControladorTabuleiro, AdicionaPecaInvalida) {
-    peca::Tabuleiro branco(10, 20, gui::WHITE);
+    peca::Board branco(10, 20, gui::WHITE);
     ControladorTabuleiro contr(branco, 4);
 
     const auto peca = contr.criaPeca();
@@ -90,7 +90,7 @@ TEST(TesteControladorTabuleiro, AdicionaPecaInvalida) {
 TEST(TesteControladorTabuleiro, Passo) {
     using namespace std::rel_ops;
 
-    const peca::Tabuleiro b0(10, 20, gui::WHITE);
+    const peca::Board b0(10, 20, gui::WHITE);
     ControladorTabuleiro branco(b0, 4);
     EXPECT_TRUE(branco.tabuleiro() == b0);
     const auto peca = branco.criaPeca();
@@ -120,21 +120,21 @@ TEST(TesteControladorTabuleiro, Passo) {
 
     std::vector<gui::Color> cores;
     for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i) {
-        cores.push_back(branco.tabuleiro().at(col, branco.tabuleiro().altura() - peca::PIECE_SIZE + i));
+        cores.push_back(branco.tabuleiro().at(col, branco.tabuleiro().height() - peca::PIECE_SIZE + i));
     }
     const peca::Piece fixada(cores);
     EXPECT_EQ(fixada, peca);
 }
 
 TEST(TesteControladorTabuleiro, Move) {
-    peca::Tabuleiro tbbranco(10, 20, gui::WHITE);
+    peca::Board tbbranco(10, 20, gui::WHITE);
     ControladorTabuleiro branco(tbbranco, 4);
 
     const auto peca = branco.criaPeca();
     EXPECT_TRUE(branco.adicionaPeca(peca));
 
     peca::PosicaoPeca posic = branco.posicaoPeca();
-    EXPECT_LT(posic.coluna(), tbbranco.largura());
+    EXPECT_LT(posic.coluna(), tbbranco.width());
     EXPECT_EQ(posic.linha(), 0u);
     EXPECT_EQ(posic.subLinha(), 0u);
     EXPECT_EQ(posic.maxSubLinha(), 4u);
@@ -181,7 +181,7 @@ TEST(TesteControladorTabuleiro, Move) {
 }
 
 TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
-    peca::Tabuleiro tbbranco(10, 20, gui::WHITE);
+    peca::Board tbbranco(10, 20, gui::WHITE);
     ListaEliminacao eliminacao;
 
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao().size(), 0u);

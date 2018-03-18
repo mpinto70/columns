@@ -4,7 +4,7 @@ add_executable(
     ../gtest_main.cpp
     PieceTest.cpp
     testePosicaoPeca.cpp
-    testeTabuleiro.cpp
+    BoardTest.cpp
 )
 
 target_link_libraries(

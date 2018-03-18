@@ -9,7 +9,7 @@
 
 namespace jogo {
 
-ControladorTabuleiro::ControladorTabuleiro(const peca::Tabuleiro& tabuleiro,
+ControladorTabuleiro::ControladorTabuleiro(const peca::Board& tabuleiro,
       const uint16_t maxSubLinha)
       : tabuleiro_(tabuleiro),
         maxSubLinha_(maxSubLinha),
@@ -25,12 +25,12 @@ bool ControladorTabuleiro::adicionaPeca(const peca::Piece& peca) {
     }
 
     const uint16_t c = determinaColuna();
-    if (c == tabuleiro_.largura()) {
+    if (c == tabuleiro_.width()) {
         return false;
     }
 
     for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i)
-        if (peca[i] == tabuleiro_.cor()) {
+        if (peca[i] == tabuleiro_.background_color()) {
             throw std::invalid_argument("ControladorTabuleiro::adicionaPeca - peça com cor de fundo");
         }
 
@@ -112,8 +112,8 @@ void ControladorTabuleiro::rolaParaBaixo() {
 
 ListaEliminacao ControladorTabuleiro::determinaEliminacao() const {
     ListaEliminacao eliminaveis;
-    for (uint16_t c = 0; c < tabuleiro_.largura(); ++c) {
-        for (uint16_t l = 0; l < tabuleiro_.altura(); ++l) {
+    for (uint16_t c = 0; c < tabuleiro_.width(); ++c) {
+        for (uint16_t l = 0; l < tabuleiro_.height(); ++l) {
             if (deveEliminar(c, l)) {
                 eliminaveis.push_back(std::make_pair(c, l));
             }
@@ -126,7 +126,7 @@ void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
     for (uint16_t i = 0; i < casas.size(); ++i) {
         const uint16_t col = casas[i].first;
         const uint16_t lin = casas[i].second;
-        tabuleiro_.elimina(col, lin);
+        tabuleiro_.remove(col, lin);
     }
 }
 
@@ -145,7 +145,7 @@ bool ControladorTabuleiro::podeMoverPara(uint16_t coluna) const {
         return false;
     }
 
-    if (coluna >= tabuleiro_.largura()) {
+    if (coluna >= tabuleiro_.width()) {
         return false;
     }
 
@@ -153,11 +153,11 @@ bool ControladorTabuleiro::podeMoverPara(uint16_t coluna) const {
     const uint16_t sublinhaPeca = posicaoPeca_->subLinha();
 
     for (uint16_t l = linhaPeca; l < linhaPeca + peca::PIECE_SIZE; ++l) {
-        if (tabuleiro_.at(coluna, l) != tabuleiro_.cor()) {
+        if (tabuleiro_.at(coluna, l) != tabuleiro_.background_color()) {
             return false;
         }
     }
-    if (sublinhaPeca > 0 && tabuleiro_.at(coluna, linhaPeca + peca::PIECE_SIZE) != tabuleiro_.cor()) {
+    if (sublinhaPeca > 0 && tabuleiro_.at(coluna, linhaPeca + peca::PIECE_SIZE) != tabuleiro_.background_color()) {
         return false;
     }
 
@@ -166,13 +166,13 @@ bool ControladorTabuleiro::podeMoverPara(uint16_t coluna) const {
 
 uint16_t ControladorTabuleiro::determinaColuna() const {
     std::vector<uint16_t> livres;
-    for (uint16_t i = 0; i < tabuleiro_.largura(); ++i) {
+    for (uint16_t i = 0; i < tabuleiro_.width(); ++i) {
         if (podeColocarPeca(i)) {
             livres.push_back(i);
         }
     }
     if (livres.size() == 0) {
-        return tabuleiro_.largura();
+        return tabuleiro_.width();
     } else {
         const uint16_t idx = util::Random::get(livres.size() - 1);
         return livres[idx];
@@ -182,7 +182,7 @@ uint16_t ControladorTabuleiro::determinaColuna() const {
 bool ControladorTabuleiro::podeColocarPeca(uint16_t coluna) const {
     using namespace std::rel_ops;
     for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i)
-        if (tabuleiro_.at(coluna, i) != tabuleiro_.cor()) {
+        if (tabuleiro_.at(coluna, i) != tabuleiro_.background_color()) {
             return false;
         }
     return true;
@@ -208,7 +208,7 @@ bool ControladorTabuleiro::atingiuFim() const {
     const uint16_t linhaPeca = posicaoPeca_->linha();
     const uint16_t colunaPeca = posicaoPeca_->coluna();
     // está sobre uma peça não vazia
-    if (tabuleiro_.at(colunaPeca, linhaPeca + peca::PIECE_SIZE) != tabuleiro_.cor()) {
+    if (tabuleiro_.at(colunaPeca, linhaPeca + peca::PIECE_SIZE) != tabuleiro_.background_color()) {
         return true;
     }
 
@@ -218,7 +218,7 @@ bool ControladorTabuleiro::atingiuFim() const {
 bool ControladorTabuleiro::deveEliminar(const uint16_t coluna,
       const uint16_t linha) const {
     const gui::Color cor = tabuleiro_.at(coluna, linha);
-    if (cor == tabuleiro_.cor()) {
+    if (cor == tabuleiro_.background_color()) {
         return false;
     }
 
@@ -233,11 +233,11 @@ bool ControladorTabuleiro::deveEliminar(const uint16_t coluna,
     if (l0 < 0) {
         l0 = 0;
     }
-    if (c1 >= (int) tabuleiro_.largura()) {
-        c1 = tabuleiro_.largura() - 1;
+    if (c1 >= (int) tabuleiro_.width()) {
+        c1 = tabuleiro_.width() - 1;
     }
-    if (l1 >= (int) tabuleiro_.altura()) {
-        l1 = tabuleiro_.altura() - 1;
+    if (l1 >= (int) tabuleiro_.height()) {
+        l1 = tabuleiro_.height() - 1;
     }
 
     std::map<int, std::map<int, bool>> grid;

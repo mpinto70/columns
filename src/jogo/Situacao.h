@@ -1,8 +1,8 @@
 #pragma once
 
+#include "peca/Board.h"
 #include "peca/Piece.h"
 #include "peca/PosicaoPeca.h"
-#include "peca/Tabuleiro.h"
 #include "pontuacao/Placar.h"
 
 #include <memory>
@@ -19,7 +19,7 @@ public:
      * @param tabuleiro o tabuleiro
      * @param placar    o placar atual
      */
-    Situacao(const peca::Tabuleiro& tabuleiro,
+    Situacao(const peca::Board& tabuleiro,
           const pontuacao::Placar& placar);
     /** Cria a situação em que não há peça caindo.
      * @param tabuleiro o tabuleiro
@@ -28,7 +28,7 @@ public:
      * @param posicao   a posição atual da peça
      * @param proxima   a próxima peça
      */
-    Situacao(const peca::Tabuleiro& tabuleiro,
+    Situacao(const peca::Board& tabuleiro,
           const pontuacao::Placar& placar,
           const peca::Piece& caindo,
           const peca::PosicaoPeca& posicao,
@@ -39,11 +39,11 @@ public:
      * @param lista     a lista de peças a serem eliminadas
      * @param proxima   a próxima peça
      */
-    Situacao(const peca::Tabuleiro& tabuleiro,
+    Situacao(const peca::Board& tabuleiro,
           const pontuacao::Placar& placar,
           const ListaEliminacao& lista,
           const peca::Piece& proxima);
-    const peca::Tabuleiro& tabuleiro() const { return tabuleiro_; }
+    const peca::Board& tabuleiro() const { return tabuleiro_; }
     const pontuacao::Placar& placar() const { return placar_; }
     /** @return se há uma peça caindo no tabuleiro. */
     bool temPeca() const { return peca_.get() != NULL; }
@@ -66,7 +66,7 @@ public:
 
 private:
     typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
-    peca::Tabuleiro tabuleiro_;  ///< o tabuleiro
+    peca::Board tabuleiro_;      ///< o tabuleiro
     pontuacao::Placar placar_;   ///< o placar atual
     peca::PiecePtr peca_;        ///< a peca caindo no tabuleiro
     PosicaoPtr posicaoPeca_;     ///< a posição em que está a peça caindo no tabuleiro

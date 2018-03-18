@@ -24,7 +24,7 @@ public:
      * @param obs o observer da situação do jogo
      * @param msg o gerenciador de mensagens
      */
-    ControladorJogo(const peca::Tabuleiro& tabuleiro,
+    ControladorJogo(const peca::Board& tabuleiro,
           uint16_t maxSubLinha,
           const pontuacao::Pontuacao& recorde,
           const std::vector<gui::Color>& possiveis,

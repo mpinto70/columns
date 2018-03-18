@@ -7,7 +7,7 @@
 
 namespace jogo {
 
-ControladorJogo::ControladorJogo(const peca::Tabuleiro& tabuleiro,
+ControladorJogo::ControladorJogo(const peca::Board& tabuleiro,
       const uint16_t maxSubLinha,
       const pontuacao::Pontuacao& recorde,
       const std::vector<gui::Color>& possiveis,

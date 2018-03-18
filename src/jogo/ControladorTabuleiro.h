@@ -1,9 +1,9 @@
 #pragma once
 
 #include "jogo/Situacao.h"
+#include "peca/Board.h"
 #include "peca/Piece.h"
 #include "peca/PosicaoPeca.h"
-#include "peca/Tabuleiro.h"
 
 #include <memory>
 
@@ -21,11 +21,11 @@ public:
      * @param tabuleiro o tabuleiro em que o controlador vai gerenciar a queda da peça
      * @param maxSubLinha o máximo de subdivisão do passo da peça
      */
-    ControladorTabuleiro(const peca::Tabuleiro& tabuleiro,
+    ControladorTabuleiro(const peca::Board& tabuleiro,
           uint16_t maxSubLinha);
     ControladorTabuleiro(const ControladorTabuleiro&) = delete;
     ControladorTabuleiro& operator=(const ControladorTabuleiro&) = delete;
-    const peca::Tabuleiro& tabuleiro() const { return tabuleiro_; }
+    const peca::Board& tabuleiro() const { return tabuleiro_; }
     /** Adiciona a peca \p peca ao tabuleiro
      * @param peca a peça sendo adicionada ao tabuleiro
      * @return true se foi possível criar a peça
@@ -63,7 +63,7 @@ public:
 
 private:
     typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
-    peca::Tabuleiro tabuleiro_;               ///< o tabuleiro
+    peca::Board tabuleiro_;                   ///< o tabuleiro
     peca::PiecePtr peca_;                     ///< a peca caindo no tabuleiro
     PosicaoPtr posicaoPeca_;                  ///< a posição em que está a peça caindo no tabuleiro
     const uint16_t maxSubLinha_;              ///< tamanho do quadradinho da peça

@@ -5,7 +5,7 @@
 
 namespace jogo {
 
-Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
+Situacao::Situacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar)
       : tabuleiro_(tabuleiro),
         placar_(placar),
@@ -15,7 +15,7 @@ Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
         proxima_(nullptr) {
 }
 
-Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
+Situacao::Situacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar,
       const peca::Piece& caindo,
       const peca::PosicaoPeca& posicao,
@@ -28,7 +28,7 @@ Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
         proxima_(new peca::Piece(proxima)) {
 }
 
-Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
+Situacao::Situacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar,
       const ListaEliminacao& lista,
       const peca::Piece& proxima)
