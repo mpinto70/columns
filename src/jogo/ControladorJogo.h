@@ -26,7 +26,7 @@ public:
      */
     ControladorJogo(const piece::Board& tabuleiro,
           uint16_t maxSubLinha,
-          const pontuacao::Pontuacao& recorde,
+          const pontuacao::Score& recorde,
           const std::vector<gui::Color>& possiveis,
           SituacaoObserverPtr&& obs,
           MensagemPtr& msg);

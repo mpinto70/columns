@@ -1,7 +1,7 @@
-#include "piece/Piece.h"
 #include "pontuacao/Placar.h"
 
-#include "pontuacao/Pontuacao.h"
+#include "piece/Piece.h"
+#include "pontuacao/Score.h"
 
 #include <gtest/gtest.h>
 
@@ -12,24 +12,24 @@ namespace pontuacao {
 namespace tst {
 
 TEST(TestePlacar, Criacao) {
-    const Pontuacao rc1(20);
-    const Pontuacao pt1(10);
+    const Score rc1(20);
+    const Score pt1(10);
     const Placar p1(rc1, pt1);
     EXPECT_EQ(p1.pontuacao(), pt1);
     EXPECT_EQ(p1.recorde(), rc1);
 
-    const Pontuacao rc2(50);
+    const Score rc2(50);
     const Placar p2(rc2);
-    EXPECT_EQ(p2.pontuacao(), Pontuacao(0));
+    EXPECT_EQ(p2.pontuacao(), Score(0));
     EXPECT_EQ(p2.recorde(), rc2);
 
     const Placar p3;
-    EXPECT_EQ(p3.pontuacao(), Pontuacao(0));
-    EXPECT_EQ(p3.recorde(), Pontuacao(0));
+    EXPECT_EQ(p3.pontuacao(), Score(0));
+    EXPECT_EQ(p3.recorde(), Score(0));
 }
 
 TEST(TestePlacar, CriacaoInvalida) {
-    EXPECT_THROW(Placar p(Pontuacao(20), Pontuacao(30)), std::invalid_argument);
+    EXPECT_THROW(Placar p(Score(20), Score(30)), std::invalid_argument);
 }
 
 TEST(TestePlacar, Comparacao) {
@@ -47,26 +47,26 @@ TEST(TestePlacar, Comparacao) {
 }
 
 TEST(TestePlacar, Acrescenta) {
-    Pontuacao p(12), r(17);
+    Score p(12), r(17);
     Placar pl(r, p);
     EXPECT_EQ(pl.recorde(), r);
     EXPECT_EQ(pl.pontuacao(), p);
 
     pl.acrescenta(piece::PIECE_SIZE); //13
-    p.acrescenta(piece::PIECE_SIZE);
+    p.add(piece::PIECE_SIZE);
 
     EXPECT_EQ(pl.recorde(), r);
     EXPECT_EQ(pl.pontuacao(), p);
 
     pl.acrescenta(piece::PIECE_SIZE + 1); //17 == r
-    p.acrescenta(piece::PIECE_SIZE + 1);
+    p.add(piece::PIECE_SIZE + 1);
 
     EXPECT_EQ(pl.recorde(), r);
     EXPECT_EQ(pl.recorde(), p);
     EXPECT_EQ(pl.pontuacao(), p);
 
     pl.acrescenta(piece::PIECE_SIZE); //p > r
-    p.acrescenta(piece::PIECE_SIZE);
+    p.add(piece::PIECE_SIZE);
 
     EXPECT_NE(pl.recorde(), r);
     EXPECT_EQ(pl.recorde(), p);
@@ -75,13 +75,13 @@ TEST(TestePlacar, Acrescenta) {
 
 TEST(TestePlacar, Zera) {
     Placar pl(52, 34);
-    EXPECT_EQ(pl.recorde(), Pontuacao(52));
-    EXPECT_EQ(pl.pontuacao(), Pontuacao(34));
+    EXPECT_EQ(pl.recorde(), Score(52));
+    EXPECT_EQ(pl.pontuacao(), Score(34));
 
     pl.zera();
 
-    EXPECT_EQ(pl.recorde(), Pontuacao(52));
-    EXPECT_EQ(pl.pontuacao(), Pontuacao(0));
+    EXPECT_EQ(pl.recorde(), Score(52));
+    EXPECT_EQ(pl.pontuacao(), Score(0));
 }
 }
 }

@@ -1,12 +1,12 @@
-
 #include "Placar.h"
+
 #include <stdexcept>
 #include <string>
 
 namespace pontuacao {
 
-Placar::Placar(const Pontuacao& recorde,
-      const Pontuacao& pontos)
+Placar::Placar(const Score& recorde,
+      const Score& pontos)
       : recorde_(recorde),
         pontuacao_(pontos) {
     if (recorde_ < pontuacao_)
@@ -18,14 +18,14 @@ Placar::Placar(const Pontuacao& recorde,
 }
 
 void Placar::acrescenta(const size_t n) {
-    pontuacao_.acrescenta(n);
+    pontuacao_.add(n);
     if (recorde_ < pontuacao_) {
         recorde_ = pontuacao_;
     }
 }
 
 void Placar::zera() {
-    pontuacao_.zera();
+    pontuacao_.reset();
 }
 
 bool operator==(const Placar& lhs, const Placar& rhs) {

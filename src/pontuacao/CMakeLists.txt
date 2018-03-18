@@ -2,7 +2,7 @@
 add_library(
     pontuacao
     Placar.cpp
-    Pontuacao.cpp
+    Score.cpp
 )
 
 target_include_directories(

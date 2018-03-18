@@ -9,7 +9,7 @@ namespace jogo {
 
 ControladorJogo::ControladorJogo(const piece::Board& tabuleiro,
       const uint16_t maxSubLinha,
-      const pontuacao::Pontuacao& recorde,
+      const pontuacao::Score& recorde,
       const std::vector<gui::Color>& possiveis,
       SituacaoObserverPtr&& obs,
       MensagemPtr& msg)

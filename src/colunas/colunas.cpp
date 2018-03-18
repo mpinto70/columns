@@ -101,7 +101,7 @@ void executa(jogo::MensagemPtr mensagens) {
 
         jogo::ControladorJogo cont(piece::Board(LARGURA, ALTURA, gui::BLACK),
               TAMANHO_QUADRADINHO / 2,
-              pontuacao::Pontuacao(0),
+              pontuacao::Score(0),
               POSSIVEIS,
               jogo::SituacaoObserverPtr(new ColunasObs(janela, fntNome, fntPlacar, des)),
               mensagens);
