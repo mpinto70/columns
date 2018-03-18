@@ -1,6 +1,7 @@
 #pragma once
 
 #include "peca/Tabuleiro.h"
+
 #include <cstddef>
 #include <cstdint>
 
@@ -29,7 +30,7 @@ public:
     uint16_t maxLinha() const { return maxLinha_; }
     void moveEsquerda();
     void moveDireita();
-    bool chegouAoFundo() const { return linha_ + TAMANHO_PECA == maxLinha_; }
+    bool chegouAoFundo() const { return linha_ + TILE_SIZE == maxLinha_; }
 
 private:
     uint16_t coluna_;      ///< a coluna em que está a peça

@@ -36,13 +36,13 @@ void confereCriacaoInvalida(const std::string& msg0,
 void confereCaiUmPassoInvalido(const std::string& msg0,
       const Tabuleiro& tab) {
     PosicaoPeca p(tab, tab.largura() - 1, 7);
-    while (p.linha() != tab.altura() - TAMANHO_PECA) {
+    while (p.linha() != tab.altura() - TILE_SIZE) {
         EXPECT_TRUE(not p.chegouAoFundo()) << msg0;
         EXPECT_NO_THROW(p.caiUmPasso()) << msg0;
     }
 
     EXPECT_TRUE(p.chegouAoFundo()) << msg0;
-    EXPECT_EQ(p.linha(), tab.altura() - TAMANHO_PECA) << msg0;
+    EXPECT_EQ(p.linha(), tab.altura() - TILE_SIZE) << msg0;
     EXPECT_EQ(p.subLinha(), 0u) << msg0;
 
     try {

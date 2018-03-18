@@ -15,7 +15,7 @@ ControladorJogo::ControladorJogo(const peca::Tabuleiro& tabuleiro,
       MensagemPtr& msg)
       : tabuleiro_(tabuleiro, maxSubLinha),
         placar_(recorde),
-        proximaPeca_(peca::Peca::cria(possiveis)),
+        proximaPeca_(peca::Tile::create(possiveis)),
         possiveis_(possiveis),
         observer_(std::move(obs)),
         mensagens_(msg),
@@ -54,7 +54,7 @@ void ControladorJogo::execute() {
             if (not tabuleiro_.adicionaPeca(proximaPeca_)) {
                 return;
             }
-            proximaPeca_ = peca::Peca::cria(possiveis_);
+            proximaPeca_ = peca::Tile::create(possiveis_);
         }
         processa(mensagens_->recupera());
         observer_->atualiza(montaSituacao());

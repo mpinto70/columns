@@ -48,7 +48,7 @@ void DesenhaTabuleiro::desenha(Janela& janela,
     if (sit.temPeca()) {
         const auto& posic = sit.posicaoPeca();
         const auto& peca = sit.peca();
-        for (uint16_t i = 0; i < peca::TAMANHO_PECA; ++i) {
+        for (uint16_t i = 0; i < peca::TILE_SIZE; ++i) {
             desenhaQuadrado(janela, peca[i], posic.coluna(), posic.linha() + i, posic.subLinha());
         }
     } else {

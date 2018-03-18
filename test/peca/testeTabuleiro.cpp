@@ -56,14 +56,14 @@ TEST(TesteTabuleiro, Copia) {
 TEST(TesteTabuleiro, CriacaoInvalida) {
     EXPECT_NO_THROW(Tabuleiro(10, 20, gui::WHITE));
     uint16_t i;
-    for (i = 0; i < TAMANHO_PECA; ++i) {
-        EXPECT_THROW(Tabuleiro(i, 2 * TAMANHO_PECA, gui::WHITE), std::invalid_argument) << i;
+    for (i = 0; i < TILE_SIZE; ++i) {
+        EXPECT_THROW(Tabuleiro(i, 2 * TILE_SIZE, gui::WHITE), std::invalid_argument) << i;
     }
     EXPECT_NO_THROW(Tabuleiro(i, 20, gui::WHITE));
-    for (i = 0; i < 2 * TAMANHO_PECA; ++i) {
+    for (i = 0; i < 2 * TILE_SIZE; ++i) {
         EXPECT_THROW(Tabuleiro(10, i, gui::WHITE), std::invalid_argument) << i;
     }
-    EXPECT_NO_THROW(Tabuleiro(TAMANHO_PECA, i, gui::WHITE));
+    EXPECT_NO_THROW(Tabuleiro(TILE_SIZE, i, gui::WHITE));
 }
 
 TEST(TesteTabuleiro, Alteracao) {

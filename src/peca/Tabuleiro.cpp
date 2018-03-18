@@ -12,10 +12,10 @@ Tabuleiro::Tabuleiro(const uint16_t l,
         cor_(cor),
         largura_(l),
         altura_(h) {
-    if (l < TAMANHO_PECA) {
+    if (l < TILE_SIZE) {
         throw std::invalid_argument("Tabuleiro - largura insuficiente");
     }
-    if (h < 2 * TAMANHO_PECA) {
+    if (h < 2 * TILE_SIZE) {
         throw std::invalid_argument("Tabuleiro - altura insuficiente");
     }
 }

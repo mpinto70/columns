@@ -1,7 +1,7 @@
 
 add_library(
     peca
-    Peca.cpp
+    Tile.cpp
     PosicaoPeca.cpp
     Tabuleiro.cpp
 )

@@ -17,27 +17,27 @@ Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
 
 Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
       const pontuacao::Placar& placar,
-      const peca::Peca& caindo,
+      const peca::Tile& caindo,
       const peca::PosicaoPeca& posicao,
-      const peca::Peca& proxima)
+      const peca::Tile& proxima)
       : tabuleiro_(tabuleiro),
         placar_(placar),
-        peca_(new peca::Peca(caindo)),
+        peca_(new peca::Tile(caindo)),
         posicaoPeca_(new peca::PosicaoPeca(posicao)),
         eliminacao_(),
-        proxima_(new peca::Peca(proxima)) {
+        proxima_(new peca::Tile(proxima)) {
 }
 
 Situacao::Situacao(const peca::Tabuleiro& tabuleiro,
       const pontuacao::Placar& placar,
       const ListaEliminacao& lista,
-      const peca::Peca& proxima)
+      const peca::Tile& proxima)
       : tabuleiro_(tabuleiro),
         placar_(placar),
         peca_(nullptr),
         posicaoPeca_(nullptr),
         eliminacao_(lista),
-        proxima_(new peca::Peca(proxima)) {
+        proxima_(new peca::Tile(proxima)) {
 }
 
 const peca::PosicaoPeca& Situacao::posicaoPeca() const {
@@ -47,14 +47,14 @@ const peca::PosicaoPeca& Situacao::posicaoPeca() const {
     return *posicaoPeca_;
 }
 
-const peca::Peca& Situacao::peca() const {
+const peca::Tile& Situacao::peca() const {
     if (not temPeca()) {
         throw std::logic_error("Situacao::peca - não há peça caindo no tabuleiro");
     }
     return *peca_;
 }
 
-const peca::Peca& Situacao::proxima() const {
+const peca::Tile& Situacao::proxima() const {
     if (not temProxima()) {
         throw std::logic_error("Situacao::proxima - não há próxima peça");
     }

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "peca/Peca.h"
 #include "peca/PosicaoPeca.h"
 #include "peca/Tabuleiro.h"
 #include "pontuacao/Placar.h"
 #include <memory>
+#include <peca/Tile.h>
 
 namespace jogo {
 /** tipo de item de casa a ser eliminada do tabuleiro. */
@@ -29,9 +29,9 @@ public:
      */
     Situacao(const peca::Tabuleiro& tabuleiro,
           const pontuacao::Placar& placar,
-          const peca::Peca& caindo,
+          const peca::Tile& caindo,
           const peca::PosicaoPeca& posicao,
-          const peca::Peca& proxima);
+          const peca::Tile& proxima);
     /** Cria a situação em que não há nada a ser adicionado e não há peça caindo.
      * @param tabuleiro o tabuleiro
      * @param placar    o placar atual
@@ -41,7 +41,7 @@ public:
     Situacao(const peca::Tabuleiro& tabuleiro,
           const pontuacao::Placar& placar,
           const ListaEliminacao& lista,
-          const peca::Peca& proxima);
+          const peca::Tile& proxima);
     const peca::Tabuleiro& tabuleiro() const { return tabuleiro_; }
     const pontuacao::Placar& placar() const { return placar_; }
     /** @return se há uma peça caindo no tabuleiro. */
@@ -53,7 +53,7 @@ public:
     /** @return a peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::Peca& peca() const;
+    const peca::Tile& peca() const;
     /** @return a lista de casas a serem eliminadas. */
     const ListaEliminacao& eliminacao() const { return eliminacao_; }
     /** @return se há uma próxima peça a ser colocada no tabuleiro. */
@@ -61,16 +61,16 @@ public:
     /** @return a próxima peça a ser colocada no tabuleiro.
      * @throw std::logic_error é lançada caso não haja próxima peça
      */
-    const peca::Peca& proxima() const;
+    const peca::Tile& proxima() const;
 
 private:
     typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
     peca::Tabuleiro tabuleiro_;  ///< o tabuleiro
     pontuacao::Placar placar_;   ///< o placar atual
-    peca::PecaPtr peca_;         ///< a peca caindo no tabuleiro
+    peca::TilePtr peca_;         ///< a peca caindo no tabuleiro
     PosicaoPtr posicaoPeca_;     ///< a posição em que está a peça caindo no tabuleiro
     ListaEliminacao eliminacao_; ///< a lista de eliminação
-    peca::PecaPtr proxima_;      ///< a próxima peça a ser colocada no tabuleiro
+    peca::TilePtr proxima_;      ///< a próxima peça a ser colocada no tabuleiro
 };
 
 bool operator==(const Situacao& lhs, const Situacao& rhs);

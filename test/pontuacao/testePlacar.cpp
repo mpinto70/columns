@@ -1,8 +1,9 @@
-#include "peca/Peca.h"
 #include "pontuacao/Placar.h"
+
+#include "peca/Tile.h"
 #include "pontuacao/Pontuacao.h"
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include <stdexcept>
 #include <stdio.h>
@@ -51,21 +52,21 @@ TEST(TestePlacar, Acrescenta) {
     EXPECT_EQ(pl.recorde(), r);
     EXPECT_EQ(pl.pontuacao(), p);
 
-    pl.acrescenta(peca::TAMANHO_PECA); //13
-    p.acrescenta(peca::TAMANHO_PECA);
+    pl.acrescenta(peca::TILE_SIZE); //13
+    p.acrescenta(peca::TILE_SIZE);
 
     EXPECT_EQ(pl.recorde(), r);
     EXPECT_EQ(pl.pontuacao(), p);
 
-    pl.acrescenta(peca::TAMANHO_PECA + 1); //17 == r
-    p.acrescenta(peca::TAMANHO_PECA + 1);
+    pl.acrescenta(peca::TILE_SIZE + 1); //17 == r
+    p.acrescenta(peca::TILE_SIZE + 1);
 
     EXPECT_EQ(pl.recorde(), r);
     EXPECT_EQ(pl.recorde(), p);
     EXPECT_EQ(pl.pontuacao(), p);
 
-    pl.acrescenta(peca::TAMANHO_PECA); //p > r
-    p.acrescenta(peca::TAMANHO_PECA);
+    pl.acrescenta(peca::TILE_SIZE); //p > r
+    p.acrescenta(peca::TILE_SIZE);
 
     EXPECT_NE(pl.recorde(), r);
     EXPECT_EQ(pl.recorde(), p);
