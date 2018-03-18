@@ -34,12 +34,12 @@ bool ControladorTabuleiro::adicionaPeca(const peca::Piece& peca) {
             throw std::invalid_argument("ControladorTabuleiro::adicionaPeca - peça com cor de fundo");
         }
 
-    posicaoPeca_.reset(new peca::PosicaoPeca(tabuleiro_, c, maxSubLinha_));
+    posicaoPeca_.reset(new peca::PiecePosition(tabuleiro_, c, maxSubLinha_));
     peca_.reset(new peca::Piece(peca));
     return true;
 }
 
-const peca::PosicaoPeca& ControladorTabuleiro::posicaoPeca() const {
+const peca::PiecePosition& ControladorTabuleiro::posicaoPeca() const {
     if (not temPeca()) {
         throw std::logic_error("ControladorTabuleiro::posicaoPeca - não há peça caindo no tabuleiro");
     }
@@ -58,8 +58,8 @@ void ControladorTabuleiro::passo() {
         return;
     }
 
-    const uint16_t linhaPeca = posicaoPeca_->linha();
-    const uint16_t colunaPeca = posicaoPeca_->coluna();
+    const uint16_t linhaPeca = posicaoPeca_->row();
+    const uint16_t colunaPeca = posicaoPeca_->column();
     if (atingiuFim()) {
         const peca::Piece& peca = *peca_;
         for (unsigned char i = 0; i < peca::PIECE_SIZE; ++i) {
@@ -68,7 +68,7 @@ void ControladorTabuleiro::passo() {
         peca_.reset();
         posicaoPeca_.reset();
     } else { // ainda há espaço para cair
-        posicaoPeca_->caiUmPasso();
+        posicaoPeca_->step_down();
     }
 }
 
@@ -77,9 +77,9 @@ void ControladorTabuleiro::moveEsquerda() {
         return;
     }
 
-    const uint16_t colunaPeca = posicaoPeca_->coluna();
+    const uint16_t colunaPeca = posicaoPeca_->column();
     if (podeMoverPara(colunaPeca - 1)) {
-        posicaoPeca_->moveEsquerda();
+        posicaoPeca_->move_left();
     }
 }
 
@@ -88,9 +88,9 @@ void ControladorTabuleiro::moveDireita() {
         return;
     }
 
-    const uint16_t colunaPeca = posicaoPeca_->coluna();
+    const uint16_t colunaPeca = posicaoPeca_->column();
     if (podeMoverPara(colunaPeca + 1)) {
-        posicaoPeca_->moveDireita();
+        posicaoPeca_->move_right();
     }
 }
 
@@ -149,8 +149,8 @@ bool ControladorTabuleiro::podeMoverPara(uint16_t coluna) const {
         return false;
     }
 
-    const uint16_t linhaPeca = posicaoPeca_->linha();
-    const uint16_t sublinhaPeca = posicaoPeca_->subLinha();
+    const uint16_t linhaPeca = posicaoPeca_->row();
+    const uint16_t sublinhaPeca = posicaoPeca_->sub_row();
 
     for (uint16_t l = linhaPeca; l < linhaPeca + peca::PIECE_SIZE; ++l) {
         if (tabuleiro_.at(coluna, l) != tabuleiro_.background_color()) {
@@ -195,18 +195,18 @@ bool ControladorTabuleiro::atingiuFim() const {
     }
 
     // chegou ao fundo
-    if (posicaoPeca_->chegouAoFundo()) {
+    if (posicaoPeca_->reached_bottom()) {
         return true;
     }
 
-    const uint16_t sublinhaPeca = posicaoPeca_->subLinha();
+    const uint16_t sublinhaPeca = posicaoPeca_->sub_row();
     // está numa situação no meio de uma peça
     if (sublinhaPeca != 0) {
         return false;
     }
 
-    const uint16_t linhaPeca = posicaoPeca_->linha();
-    const uint16_t colunaPeca = posicaoPeca_->coluna();
+    const uint16_t linhaPeca = posicaoPeca_->row();
+    const uint16_t colunaPeca = posicaoPeca_->column();
     // está sobre uma peça não vazia
     if (tabuleiro_.at(colunaPeca, linhaPeca + peca::PIECE_SIZE) != tabuleiro_.background_color()) {
         return true;

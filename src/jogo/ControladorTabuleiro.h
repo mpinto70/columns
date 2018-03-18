@@ -3,7 +3,7 @@
 #include "jogo/Situacao.h"
 #include "peca/Board.h"
 #include "peca/Piece.h"
-#include "peca/PosicaoPeca.h"
+#include "peca/PiecePosition.h"
 
 #include <memory>
 
@@ -38,7 +38,7 @@ public:
     /** @return a posição da peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::PosicaoPeca& posicaoPeca() const;
+    const peca::PiecePosition& posicaoPeca() const;
     /** @return a peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
@@ -62,7 +62,7 @@ public:
     Situacao situacao() const;
 
 private:
-    typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
+    typedef std::unique_ptr<peca::PiecePosition> PosicaoPtr;
     peca::Board tabuleiro_;                   ///< o tabuleiro
     peca::PiecePtr peca_;                     ///< a peca caindo no tabuleiro
     PosicaoPtr posicaoPeca_;                  ///< a posição em que está a peça caindo no tabuleiro

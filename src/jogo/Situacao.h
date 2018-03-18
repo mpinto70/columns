@@ -2,7 +2,7 @@
 
 #include "peca/Board.h"
 #include "peca/Piece.h"
-#include "peca/PosicaoPeca.h"
+#include "peca/PiecePosition.h"
 #include "pontuacao/Placar.h"
 
 #include <memory>
@@ -31,7 +31,7 @@ public:
     Situacao(const peca::Board& tabuleiro,
           const pontuacao::Placar& placar,
           const peca::Piece& caindo,
-          const peca::PosicaoPeca& posicao,
+          const peca::PiecePosition& posicao,
           const peca::Piece& proxima);
     /** Cria a situação em que não há nada a ser adicionado e não há peça caindo.
      * @param tabuleiro o tabuleiro
@@ -50,7 +50,7 @@ public:
     /** @return a posição da peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::PosicaoPeca& posicaoPeca() const;
+    const peca::PiecePosition& posicaoPeca() const;
     /** @return a peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
@@ -65,7 +65,7 @@ public:
     const peca::Piece& proxima() const;
 
 private:
-    typedef std::unique_ptr<peca::PosicaoPeca> PosicaoPtr;
+    typedef std::unique_ptr<peca::PiecePosition> PosicaoPtr;
     peca::Board tabuleiro_;      ///< o tabuleiro
     pontuacao::Placar placar_;   ///< o placar atual
     peca::PiecePtr peca_;        ///< a peca caindo no tabuleiro

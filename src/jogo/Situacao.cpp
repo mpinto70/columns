@@ -18,12 +18,12 @@ Situacao::Situacao(const peca::Board& tabuleiro,
 Situacao::Situacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar,
       const peca::Piece& caindo,
-      const peca::PosicaoPeca& posicao,
+      const peca::PiecePosition& posicao,
       const peca::Piece& proxima)
       : tabuleiro_(tabuleiro),
         placar_(placar),
         peca_(new peca::Piece(caindo)),
-        posicaoPeca_(new peca::PosicaoPeca(posicao)),
+        posicaoPeca_(new peca::PiecePosition(posicao)),
         eliminacao_(),
         proxima_(new peca::Piece(proxima)) {
 }
@@ -40,7 +40,7 @@ Situacao::Situacao(const peca::Board& tabuleiro,
         proxima_(new peca::Piece(proxima)) {
 }
 
-const peca::PosicaoPeca& Situacao::posicaoPeca() const {
+const peca::PiecePosition& Situacao::posicaoPeca() const {
     if (not temPeca()) {
         throw std::logic_error("Situacao::posicaoPeca - não há peça caindo no tabuleiro");
     }

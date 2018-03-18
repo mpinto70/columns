@@ -2,9 +2,9 @@
 add_executable(
     testpeca
     ../gtest_main.cpp
-    PieceTest.cpp
-    testePosicaoPeca.cpp
     BoardTest.cpp
+    PieceTest.cpp
+    PiecePositionTest.cpp
 )
 
 target_link_libraries(

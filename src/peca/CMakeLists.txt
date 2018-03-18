@@ -1,9 +1,9 @@
 
 add_library(
     peca
-    Piece.cpp
-    PosicaoPeca.cpp
     Board.cpp
+    Piece.cpp
+    PiecePosition.cpp
 )
 
 target_include_directories(

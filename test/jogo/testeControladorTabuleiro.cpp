@@ -70,9 +70,9 @@ TEST(TesteControladorTabuleiro, AdicionaPeca) {
 
     EXPECT_TRUE(contr.temPeca() == true);
     EXPECT_EQ(contr.peca(), peca);
-    EXPECT_EQ(contr.posicaoPeca().linha(), 0u);
-    EXPECT_EQ(contr.posicaoPeca().subLinha(), 0u);
-    EXPECT_LT(contr.posicaoPeca().coluna(), 10u);
+    EXPECT_EQ(contr.posicaoPeca().row(), 0u);
+    EXPECT_EQ(contr.posicaoPeca().sub_row(), 0u);
+    EXPECT_LT(contr.posicaoPeca().column(), 10u);
 }
 
 TEST(TesteControladorTabuleiro, AdicionaPecaInvalida) {
@@ -96,16 +96,16 @@ TEST(TesteControladorTabuleiro, Passo) {
     const auto peca = branco.criaPeca();
 
     EXPECT_TRUE(branco.adicionaPeca(peca));
-    const uint16_t col = branco.posicaoPeca().coluna();
+    const uint16_t col = branco.posicaoPeca().column();
     EXPECT_TRUE(branco.tabuleiro() == b0);
     uint16_t linha = 0;
     uint16_t sublinha = 0;
     while (branco.temPeca()) {
-        const peca::PosicaoPeca& posic = branco.posicaoPeca();
-        EXPECT_EQ(posic.coluna(), col);
-        EXPECT_EQ(posic.linha(), linha);
-        EXPECT_EQ(posic.subLinha(), sublinha);
-        EXPECT_EQ(posic.maxSubLinha(), 4u);
+        const peca::PiecePosition& posic = branco.posicaoPeca();
+        EXPECT_EQ(posic.column(), col);
+        EXPECT_EQ(posic.row(), linha);
+        EXPECT_EQ(posic.sub_row(), sublinha);
+        EXPECT_EQ(posic.max_sub_row(), 4u);
         EXPECT_TRUE(branco.tabuleiro() == b0);
         branco.passo();
         if (sublinha == 3) {
@@ -133,51 +133,51 @@ TEST(TesteControladorTabuleiro, Move) {
     const auto peca = branco.criaPeca();
     EXPECT_TRUE(branco.adicionaPeca(peca));
 
-    peca::PosicaoPeca posic = branco.posicaoPeca();
-    EXPECT_LT(posic.coluna(), tbbranco.width());
-    EXPECT_EQ(posic.linha(), 0u);
-    EXPECT_EQ(posic.subLinha(), 0u);
-    EXPECT_EQ(posic.maxSubLinha(), 4u);
+    peca::PiecePosition posic = branco.posicaoPeca();
+    EXPECT_LT(posic.column(), tbbranco.width());
+    EXPECT_EQ(posic.row(), 0u);
+    EXPECT_EQ(posic.sub_row(), 0u);
+    EXPECT_EQ(posic.max_sub_row(), 4u);
 
     branco.moveEsquerda();
 
     posic = branco.posicaoPeca();
-    while (posic.coluna() < 2u) {
+    while (posic.column() < 2u) {
         branco.moveDireita();
         posic = branco.posicaoPeca();
     }
-    while (posic.coluna() > 2u) {
+    while (posic.column() > 2u) {
         branco.moveEsquerda();
         posic = branco.posicaoPeca();
     }
 
-    EXPECT_EQ(posic.coluna(), 2u);
-    EXPECT_EQ(posic.linha(), 0u);
-    EXPECT_EQ(posic.subLinha(), 0u);
-    EXPECT_EQ(posic.maxSubLinha(), 4u);
+    EXPECT_EQ(posic.column(), 2u);
+    EXPECT_EQ(posic.row(), 0u);
+    EXPECT_EQ(posic.sub_row(), 0u);
+    EXPECT_EQ(posic.max_sub_row(), 4u);
 
     branco.moveEsquerda();
 
     posic = branco.posicaoPeca();
-    EXPECT_EQ(posic.coluna(), 1u);
+    EXPECT_EQ(posic.column(), 1u);
 
     branco.moveEsquerda();
 
     posic = branco.posicaoPeca();
-    EXPECT_EQ(posic.coluna(), 0u);
+    EXPECT_EQ(posic.column(), 0u);
 
     branco.moveEsquerda();
 
     posic = branco.posicaoPeca();
-    EXPECT_EQ(posic.coluna(), 0u);
+    EXPECT_EQ(posic.column(), 0u);
 
     for (uint16_t i = 0; i < 10; ++i) {
         posic = branco.posicaoPeca();
-        EXPECT_EQ(posic.coluna(), i);
+        EXPECT_EQ(posic.column(), i);
         branco.moveDireita();
     }
     posic = branco.posicaoPeca();
-    EXPECT_EQ(posic.coluna(), 9u);
+    EXPECT_EQ(posic.column(), 9u);
 }
 
 TEST(TesteControladorTabuleiro, DeterminaEliminacao) {

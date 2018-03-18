@@ -49,7 +49,7 @@ void DesenhaTabuleiro::desenha(Janela& janela,
         const auto& posic = sit.posicaoPeca();
         const auto& peca = sit.peca();
         for (uint16_t i = 0; i < peca::PIECE_SIZE; ++i) {
-            desenhaQuadrado(janela, peca[i], posic.coluna(), posic.linha() + i, posic.subLinha());
+            desenhaQuadrado(janela, peca[i], posic.column(), posic.row() + i, posic.sub_row());
         }
     } else {
         for (const auto& eliminada : sit.eliminacao()) {

@@ -20,7 +20,7 @@ static Situacao criaSituacao(const peca::Board& tabuleiro,
 static Situacao criaSituacao(const peca::Board& tabuleiro,
       const pontuacao::Placar& placar,
       const peca::Piece& caindo,
-      const peca::PosicaoPeca& posicao,
+      const peca::PiecePosition& posicao,
       const peca::Piece& proxima) {
     return Situacao(tabuleiro, placar, caindo, posicao, proxima);
 }
@@ -57,8 +57,8 @@ TEST(TesteSituacao, Criacao) {
     const peca::Piece peca4 = peca::mck::criaPecaSequencialCrescente(15);
     const peca::Piece prox3 = peca::mck::criaPecaSequencialCrescente(17);
     const peca::Piece prox4 = peca::mck::criaPecaSequencialCrescente(23);
-    const peca::PosicaoPeca posicao3(tabuleiro3, 2, 4);
-    const peca::PosicaoPeca posicao4(tabuleiro4, 3, 4);
+    const peca::PiecePosition posicao3(tabuleiro3, 2, 4);
+    const peca::PiecePosition posicao4(tabuleiro4, 3, 4);
     const ListaEliminacao elim5 = { { 1, 2 }, { 3, 4 } };
     const ListaEliminacao elim6 = { { 5, 6 }, { 3, 4 } };
     const peca::Piece prox5 = peca::mck::criaPecaSequencialCrescente(19);
