@@ -24,7 +24,7 @@ public:
      * @param obs o observer da situação do jogo
      * @param msg o gerenciador de mensagens
      */
-    ControladorJogo(const peca::Board& tabuleiro,
+    ControladorJogo(const piece::Board& tabuleiro,
           uint16_t maxSubLinha,
           const pontuacao::Pontuacao& recorde,
           const std::vector<gui::Color>& possiveis,
@@ -38,7 +38,7 @@ public:
 private:
     ControladorTabuleiro tabuleiro_;    ///< o tabuleiro
     pontuacao::Placar placar_;          ///< o placar
-    peca::Piece proximaPeca_;           ///< a próximaa peca a cair no tabuleiro
+    piece::Piece proximaPeca_;           ///< a próximaa piece a cair no tabuleiro
     std::vector<gui::Color> possiveis_; ///< as cores possíveis
     SituacaoObserverPtr observer_;      ///< observadores do jogo
     MensagemPtr mensagens_;             ///< as mensagens

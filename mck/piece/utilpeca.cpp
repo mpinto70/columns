@@ -5,7 +5,7 @@
 #include <cstdio>
 #include <string>
 
-namespace peca {
+namespace piece {
 namespace mck {
 
 static Piece criaPecaSequencialPasso(unsigned char cor0,
@@ -30,12 +30,12 @@ Piece criaPecaSequencialDecrescente(unsigned char cor0) {
 
 void printPeca(const std::string& file,
       int line,
-      const Piece& peca) {
-    printf("Imprimindo peca de %s(%d)\n", file.c_str(), line);
+      const Piece& piece) {
+    printf("Imprimindo piece de %s(%d)\n", file.c_str(), line);
     const std::string sep(PIECE_SIZE * 11, '-');
     printf("%s\n", sep.c_str());
     for (unsigned char c = 0; c < PIECE_SIZE; ++c) {
-        const gui::Color& cor = peca[c];
+        const gui::Color& cor = piece[c];
         gui::mck::print(cor);
     }
     printf("\n");

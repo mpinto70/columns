@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace peca {
+namespace piece {
 
 Piece::Piece(const gui::Color (&colors)[PIECE_SIZE])
       : colors_(colors) {
@@ -42,7 +42,7 @@ Piece Piece::create(const std::vector<gui::Color>& possible) {
     std::generate_n(colors, PIECE_SIZE, [&possible]() {
         return possible[util::Random::get(possible.size() - 1)];
     });
-    return peca::Piece(colors);
+    return piece::Piece(colors);
 }
 
 bool operator==(const Piece& lhs, const Piece& rhs) {

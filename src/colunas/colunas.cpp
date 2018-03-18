@@ -4,7 +4,7 @@
 #include "jogo/ControladorJogo.h"
 #include "jogo/ControladorTabuleiro.h"
 #include "jogo/SituacaoObserver.h"
-#include "peca/Board.h"
+#include "piece/Board.h"
 #include "util/Wait.h"
 
 #include <atomic>
@@ -99,7 +99,7 @@ void executa(jogo::MensagemPtr mensagens) {
         const gui::Font fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
-        jogo::ControladorJogo cont(peca::Board(LARGURA, ALTURA, gui::BLACK),
+        jogo::ControladorJogo cont(piece::Board(LARGURA, ALTURA, gui::BLACK),
               TAMANHO_QUADRADINHO / 2,
               pontuacao::Pontuacao(0),
               POSSIVEIS,

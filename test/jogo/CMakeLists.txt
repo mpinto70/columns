@@ -14,7 +14,7 @@ target_link_libraries(
     libgmock
     jogo
     pontuacao
-    peca
+    piece
     gui
     util
 )

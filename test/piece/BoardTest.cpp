@@ -1,14 +1,14 @@
-#include "../mck/peca/utilpeca.h"
+#include "../mck/piece/utilpeca.h"
 #include "../mck/util/utiltst.h"
 
-#include "peca/Board.h"
+#include "piece/Board.h"
 
 #include <gtest/gtest.h>
 
 #include <stdexcept>
 #include <utility>
 
-namespace peca {
+namespace piece {
 namespace tst {
 namespace {
 

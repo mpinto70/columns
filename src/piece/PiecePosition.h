@@ -1,11 +1,11 @@
 #pragma once
 
-#include "peca/Board.h"
+#include "piece/Board.h"
 
 #include <cstddef>
 #include <cstdint>
 
-namespace peca {
+namespace piece {
 
 /// Represents the position of a piece in a board
 class PiecePosition {

@@ -1,10 +1,10 @@
-#include "peca/PiecePosition.h"
-#include "peca/Board.h"
+#include "piece/PiecePosition.h"
+#include "piece/Board.h"
 #include <gtest/gtest.h>
 
 #include <stdexcept>
 
-namespace peca {
+namespace piece {
 namespace tst {
 
 namespace {

@@ -1,10 +1,10 @@
 #include "PiecePosition.h"
 
-#include "peca/Board.h"
+#include "piece/Board.h"
 
 #include <stdexcept>
 
-namespace peca {
+namespace piece {
 
 PiecePosition::PiecePosition(const Board& board,
       const uint16_t col,

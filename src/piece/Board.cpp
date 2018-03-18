@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace peca {
+namespace piece {
 
 Board::Board(const uint16_t w,
       const uint16_t h,

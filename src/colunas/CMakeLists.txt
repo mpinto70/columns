@@ -29,7 +29,7 @@ target_link_libraries (
     grafico_SDL
     gui
     jogo
-    peca
+    piece
     pontuacao
     util
 )

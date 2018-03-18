@@ -1,12 +1,12 @@
 
 add_library(
-    peca
+    piece
     Board.cpp
     Piece.cpp
     PiecePosition.cpp
 )
 
 target_include_directories(
-    peca
+    piece
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )

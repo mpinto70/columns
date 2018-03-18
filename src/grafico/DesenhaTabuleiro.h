@@ -39,7 +39,7 @@ private:
      * @param tab       o tabuleiro sendo desenhado
      */
     void desenha(Janela& janela,
-          const peca::Board& tab) const;
+          const piece::Board& tab) const;
 
     /** Desenha o quadrado na tela.
      * @param janela    a janela onde será desenhado o tabuleiro

@@ -1,6 +1,6 @@
 #include "Pontuacao.h"
 
-#include "peca/Piece.h"
+#include "piece/Piece.h"
 
 #include <stdexcept>
 
@@ -11,10 +11,10 @@ Pontuacao::Pontuacao(const size_t total)
 }
 
 void Pontuacao::acrescenta(size_t n) {
-    if (n < peca::PIECE_SIZE) {
+    if (n < piece::PIECE_SIZE) {
         throw std::invalid_argument("Pontuacao::acrescenta - quantidade inválida de peças unidas");
     }
-    n -= peca::PIECE_SIZE - 1;
+    n -= piece::PIECE_SIZE - 1;
     n *= n;
     const size_t res = total_ + n;
     if (res < total_) { // overflow

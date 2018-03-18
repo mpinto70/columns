@@ -14,7 +14,7 @@ target_link_libraries(
     gui_mck
     libgtest
     libgmock
-    peca
+    piece
     gui
     util
 )

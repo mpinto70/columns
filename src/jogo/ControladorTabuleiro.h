@@ -1,9 +1,9 @@
 #pragma once
 
 #include "jogo/Situacao.h"
-#include "peca/Board.h"
-#include "peca/Piece.h"
-#include "peca/PiecePosition.h"
+#include "piece/Board.h"
+#include "piece/Piece.h"
+#include "piece/PiecePosition.h"
 
 #include <memory>
 
@@ -21,28 +21,28 @@ public:
      * @param tabuleiro o tabuleiro em que o controlador vai gerenciar a queda da peça
      * @param maxSubLinha o máximo de subdivisão do passo da peça
      */
-    ControladorTabuleiro(const peca::Board& tabuleiro,
+    ControladorTabuleiro(const piece::Board& tabuleiro,
           uint16_t maxSubLinha);
     ControladorTabuleiro(const ControladorTabuleiro&) = delete;
     ControladorTabuleiro& operator=(const ControladorTabuleiro&) = delete;
-    const peca::Board& tabuleiro() const { return tabuleiro_; }
-    /** Adiciona a peca \p peca ao tabuleiro
-     * @param peca a peça sendo adicionada ao tabuleiro
+    const piece::Board& tabuleiro() const { return tabuleiro_; }
+    /** Adiciona a piece \p piece ao tabuleiro
+     * @param piece a peça sendo adicionada ao tabuleiro
      * @return true se foi possível criar a peça
      * @return false se não foi possível criar a peça
      * @throw std::logic_error é lançada caso haja peça caindo no tabuleiro
      */
-    bool adicionaPeca(const peca::Piece& peca);
+    bool adicionaPeca(const piece::Piece& piece);
     /** @return se há uma peça caindo no tabuleiro. */
     bool temPeca() const { return peca_.get() != NULL; }
     /** @return a posição da peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::PiecePosition& posicaoPeca() const;
+    const piece::PiecePosition& posicaoPeca() const;
     /** @return a peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::Piece& peca() const;
+    const piece::Piece& piece() const;
     /** Faz a peça dar um passo para baixo. */
     void passo();
     /** Move a peça uma coluna para a esquerda. */
@@ -62,9 +62,9 @@ public:
     Situacao situacao() const;
 
 private:
-    typedef std::unique_ptr<peca::PiecePosition> PosicaoPtr;
-    peca::Board tabuleiro_;                   ///< o tabuleiro
-    peca::PiecePtr peca_;                     ///< a peca caindo no tabuleiro
+    typedef std::unique_ptr<piece::PiecePosition> PosicaoPtr;
+    piece::Board tabuleiro_;                   ///< o tabuleiro
+    piece::PiecePtr peca_;                     ///< a piece caindo no tabuleiro
     PosicaoPtr posicaoPeca_;                  ///< a posição em que está a peça caindo no tabuleiro
     const uint16_t maxSubLinha_;              ///< tamanho do quadradinho da peça
     const std::vector<gui::Color> possiveis_; ///< cores possíveis para as peças

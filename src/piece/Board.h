@@ -1,12 +1,12 @@
 #pragma once
 
 #include "gui/Color.h"
-#include "peca/Piece.h"
+#include "piece/Piece.h"
 
 #include <memory>
 #include <vector>
 
-namespace peca {
+namespace piece {
 /// Represents the game board
 class Board {
 public:

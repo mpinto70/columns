@@ -7,7 +7,7 @@
 
 namespace jogo {
 
-ControladorJogo::ControladorJogo(const peca::Board& tabuleiro,
+ControladorJogo::ControladorJogo(const piece::Board& tabuleiro,
       const uint16_t maxSubLinha,
       const pontuacao::Pontuacao& recorde,
       const std::vector<gui::Color>& possiveis,
@@ -15,7 +15,7 @@ ControladorJogo::ControladorJogo(const peca::Board& tabuleiro,
       MensagemPtr& msg)
       : tabuleiro_(tabuleiro, maxSubLinha),
         placar_(recorde),
-        proximaPeca_(peca::Piece::create(possiveis)),
+        proximaPeca_(piece::Piece::create(possiveis)),
         possiveis_(possiveis),
         observer_(std::move(obs)),
         mensagens_(msg),
@@ -54,7 +54,7 @@ void ControladorJogo::execute() {
             if (not tabuleiro_.adicionaPeca(proximaPeca_)) {
                 return;
             }
-            proximaPeca_ = peca::Piece::create(possiveis_);
+            proximaPeca_ = piece::Piece::create(possiveis_);
         }
         processa(mensagens_->recupera());
         observer_->atualiza(montaSituacao());
@@ -66,7 +66,7 @@ Situacao ControladorJogo::montaSituacao(const jogo::ListaEliminacao& lista) cons
     if (tabuleiro_.temPeca()) {
         return Situacao(tabuleiro_.tabuleiro(),
               placar_,
-              tabuleiro_.peca(),
+              tabuleiro_.piece(),
               tabuleiro_.posicaoPeca(),
               proximaPeca_);
     } else {

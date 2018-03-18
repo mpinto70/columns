@@ -5,7 +5,7 @@
 
 namespace jogo {
 
-Situacao::Situacao(const peca::Board& tabuleiro,
+Situacao::Situacao(const piece::Board& tabuleiro,
       const pontuacao::Placar& placar)
       : tabuleiro_(tabuleiro),
         placar_(placar),
@@ -15,46 +15,46 @@ Situacao::Situacao(const peca::Board& tabuleiro,
         proxima_(nullptr) {
 }
 
-Situacao::Situacao(const peca::Board& tabuleiro,
+Situacao::Situacao(const piece::Board& tabuleiro,
       const pontuacao::Placar& placar,
-      const peca::Piece& caindo,
-      const peca::PiecePosition& posicao,
-      const peca::Piece& proxima)
+      const piece::Piece& caindo,
+      const piece::PiecePosition& posicao,
+      const piece::Piece& proxima)
       : tabuleiro_(tabuleiro),
         placar_(placar),
-        peca_(new peca::Piece(caindo)),
-        posicaoPeca_(new peca::PiecePosition(posicao)),
+        peca_(new piece::Piece(caindo)),
+        posicaoPeca_(new piece::PiecePosition(posicao)),
         eliminacao_(),
-        proxima_(new peca::Piece(proxima)) {
+        proxima_(new piece::Piece(proxima)) {
 }
 
-Situacao::Situacao(const peca::Board& tabuleiro,
+Situacao::Situacao(const piece::Board& tabuleiro,
       const pontuacao::Placar& placar,
       const ListaEliminacao& lista,
-      const peca::Piece& proxima)
+      const piece::Piece& proxima)
       : tabuleiro_(tabuleiro),
         placar_(placar),
         peca_(nullptr),
         posicaoPeca_(nullptr),
         eliminacao_(lista),
-        proxima_(new peca::Piece(proxima)) {
+        proxima_(new piece::Piece(proxima)) {
 }
 
-const peca::PiecePosition& Situacao::posicaoPeca() const {
+const piece::PiecePosition& Situacao::posicaoPeca() const {
     if (not temPeca()) {
         throw std::logic_error("Situacao::posicaoPeca - não há peça caindo no tabuleiro");
     }
     return *posicaoPeca_;
 }
 
-const peca::Piece& Situacao::peca() const {
+const piece::Piece& Situacao::piece() const {
     if (not temPeca()) {
-        throw std::logic_error("Situacao::peca - não há peça caindo no tabuleiro");
+        throw std::logic_error("Situacao::piece - não há peça caindo no tabuleiro");
     }
     return *peca_;
 }
 
-const peca::Piece& Situacao::proxima() const {
+const piece::Piece& Situacao::proxima() const {
     if (not temProxima()) {
         throw std::logic_error("Situacao::proxima - não há próxima peça");
     }
@@ -73,7 +73,7 @@ bool operator==(const Situacao& lhs, const Situacao& rhs) {
         return false;
     }
     if (lhs.temPeca()) {
-        if (lhs.peca() != rhs.peca()) {
+        if (lhs.piece() != rhs.piece()) {
             return false;
         }
         if (lhs.posicaoPeca() != rhs.posicaoPeca()) {

@@ -47,9 +47,9 @@ void DesenhaTabuleiro::desenha(Janela& janela,
     desenha(janela, sit.tabuleiro());
     if (sit.temPeca()) {
         const auto& posic = sit.posicaoPeca();
-        const auto& peca = sit.peca();
-        for (uint16_t i = 0; i < peca::PIECE_SIZE; ++i) {
-            desenhaQuadrado(janela, peca[i], posic.column(), posic.row() + i, posic.sub_row());
+        const auto& piece = sit.piece();
+        for (uint16_t i = 0; i < piece::PIECE_SIZE; ++i) {
+            desenhaQuadrado(janela, piece[i], posic.column(), posic.row() + i, posic.sub_row());
         }
     } else {
         for (const auto& eliminada : sit.eliminacao()) {
@@ -61,7 +61,7 @@ void DesenhaTabuleiro::desenha(Janela& janela,
 }
 
 void DesenhaTabuleiro::desenha(Janela& janela,
-      const peca::Board& tab) const {
+      const piece::Board& tab) const {
     janela.preenche(gui::Rectangle(left_,
                           top_,
                           left_ + tab.width() * tamanhoQuadradinho_,

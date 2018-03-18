@@ -1,8 +1,8 @@
 #pragma once
 
-#include "peca/Board.h"
-#include "peca/Piece.h"
-#include "peca/PiecePosition.h"
+#include "piece/Board.h"
+#include "piece/Piece.h"
+#include "piece/PiecePosition.h"
 #include "pontuacao/Placar.h"
 
 #include <memory>
@@ -19,7 +19,7 @@ public:
      * @param tabuleiro o tabuleiro
      * @param placar    o placar atual
      */
-    Situacao(const peca::Board& tabuleiro,
+    Situacao(const piece::Board& tabuleiro,
           const pontuacao::Placar& placar);
     /** Cria a situação em que não há peça caindo.
      * @param tabuleiro o tabuleiro
@@ -28,33 +28,33 @@ public:
      * @param posicao   a posição atual da peça
      * @param proxima   a próxima peça
      */
-    Situacao(const peca::Board& tabuleiro,
+    Situacao(const piece::Board& tabuleiro,
           const pontuacao::Placar& placar,
-          const peca::Piece& caindo,
-          const peca::PiecePosition& posicao,
-          const peca::Piece& proxima);
+          const piece::Piece& caindo,
+          const piece::PiecePosition& posicao,
+          const piece::Piece& proxima);
     /** Cria a situação em que não há nada a ser adicionado e não há peça caindo.
      * @param tabuleiro o tabuleiro
      * @param placar    o placar atual
      * @param lista     a lista de peças a serem eliminadas
      * @param proxima   a próxima peça
      */
-    Situacao(const peca::Board& tabuleiro,
+    Situacao(const piece::Board& tabuleiro,
           const pontuacao::Placar& placar,
           const ListaEliminacao& lista,
-          const peca::Piece& proxima);
-    const peca::Board& tabuleiro() const { return tabuleiro_; }
+          const piece::Piece& proxima);
+    const piece::Board& tabuleiro() const { return tabuleiro_; }
     const pontuacao::Placar& placar() const { return placar_; }
     /** @return se há uma peça caindo no tabuleiro. */
     bool temPeca() const { return peca_.get() != NULL; }
     /** @return a posição da peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::PiecePosition& posicaoPeca() const;
+    const piece::PiecePosition& posicaoPeca() const;
     /** @return a peça que está caindo no tabuleiro.
      * @throw std::logic_error é lançada caso não haja peça caindo no tabuleiro
      */
-    const peca::Piece& peca() const;
+    const piece::Piece& piece() const;
     /** @return a lista de casas a serem eliminadas. */
     const ListaEliminacao& eliminacao() const { return eliminacao_; }
     /** @return se há uma próxima peça a ser colocada no tabuleiro. */
@@ -62,16 +62,16 @@ public:
     /** @return a próxima peça a ser colocada no tabuleiro.
      * @throw std::logic_error é lançada caso não haja próxima peça
      */
-    const peca::Piece& proxima() const;
+    const piece::Piece& proxima() const;
 
 private:
-    typedef std::unique_ptr<peca::PiecePosition> PosicaoPtr;
-    peca::Board tabuleiro_;      ///< o tabuleiro
+    typedef std::unique_ptr<piece::PiecePosition> PosicaoPtr;
+    piece::Board tabuleiro_;      ///< o tabuleiro
     pontuacao::Placar placar_;   ///< o placar atual
-    peca::PiecePtr peca_;        ///< a peca caindo no tabuleiro
+    piece::PiecePtr peca_;        ///< a piece caindo no tabuleiro
     PosicaoPtr posicaoPeca_;     ///< a posição em que está a peça caindo no tabuleiro
     ListaEliminacao eliminacao_; ///< a lista de eliminação
-    peca::PiecePtr proxima_;     ///< a próxima peça a ser colocada no tabuleiro
+    piece::PiecePtr proxima_;     ///< a próxima peça a ser colocada no tabuleiro
 };
 
 bool operator==(const Situacao& lhs, const Situacao& rhs);

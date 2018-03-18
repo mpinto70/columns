@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-namespace peca {
+namespace piece {
 constexpr unsigned char PIECE_SIZE = 3; ///< number of tiles per piece
 /** Represents a piece of PIECE_SIZE colored tiles.
     \verbatim

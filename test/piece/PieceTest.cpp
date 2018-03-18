@@ -1,13 +1,13 @@
-#include "peca/Piece.h"
+#include "piece/Piece.h"
 
-#include "../mck/peca/utilpeca.h"
+#include "../mck/piece/utilpeca.h"
 
 #include <gtest/gtest.h>
 
 #include <algorithm>
 #include <stdexcept>
 
-namespace peca {
+namespace piece {
 namespace tst {
 
 using gui::Color;
