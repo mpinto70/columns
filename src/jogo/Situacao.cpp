@@ -6,7 +6,7 @@
 namespace jogo {
 
 Situacao::Situacao(const piece::Board& tabuleiro,
-      const pontuacao::Placar& placar)
+      const pontuacao::ScoreBoard& placar)
       : tabuleiro_(tabuleiro),
         placar_(placar),
         peca_(nullptr),
@@ -16,7 +16,7 @@ Situacao::Situacao(const piece::Board& tabuleiro,
 }
 
 Situacao::Situacao(const piece::Board& tabuleiro,
-      const pontuacao::Placar& placar,
+      const pontuacao::ScoreBoard& placar,
       const piece::Piece& caindo,
       const piece::PiecePosition& posicao,
       const piece::Piece& proxima)
@@ -29,7 +29,7 @@ Situacao::Situacao(const piece::Board& tabuleiro,
 }
 
 Situacao::Situacao(const piece::Board& tabuleiro,
-      const pontuacao::Placar& placar,
+      const pontuacao::ScoreBoard& placar,
       const ListaEliminacao& lista,
       const piece::Piece& proxima)
       : tabuleiro_(tabuleiro),

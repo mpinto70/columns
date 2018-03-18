@@ -3,28 +3,24 @@
 #include "pontuacao/Score.h"
 
 namespace pontuacao {
-/** Responsável armazenar e processar um placar (recorde/pontos). */
-class Placar {
+/// Stores and processes score and record score
+class ScoreBoard {
 public:
-    /**
-     * @param recorde   o recorde
-     * @param pontos    a pontuação inicial
+    ScoreBoard(const Score& record = Score(0),
+          const Score& score = Score(0));
+    const Score& record() const { return record_; }
+    const Score& score() const { return score_; }
+    /** Increases score due to \p n tiles being destroyed.
+     * @param n number of tiles that disappeared
      */
-    Placar(const Score& recorde = Score(0),
-          const Score& pontos = Score(0));
-    const Score& recorde() const { return recorde_; }
-    const Score& pontuacao() const { return pontuacao_; }
-    /** Acrescenta pontos ao total da pontuação corrente.
-     * @param n a quantidade de peças que foram unidas e sumiram
-     */
-    void acrescenta(size_t n);
-    void zera();
+    void add(size_t n);
+    void reset();
 
 private:
-    Score recorde_;   ///< o recorde
-    Score pontuacao_; ///< a pontuação
+    Score record_;
+    Score score_;
 };
 
-bool operator==(const Placar& lhs, const Placar& rhs);
-bool operator!=(const Placar& lhs, const Placar& rhs);
+bool operator==(const ScoreBoard& lhs, const ScoreBoard& rhs);
+bool operator!=(const ScoreBoard& lhs, const ScoreBoard& rhs);
 }

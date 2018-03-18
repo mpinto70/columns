@@ -24,7 +24,7 @@ private:
     size_t total_; ///< score
 };
 
-constexpr bool operator==(const Score& lhs, const Score& rhs){
+constexpr bool operator==(const Score& lhs, const Score& rhs) {
     return lhs.total() == rhs.total();
 }
 

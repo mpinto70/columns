@@ -2,7 +2,7 @@
 
 #include "jogo/Situacao.h"
 #include "piece/Board.h"
-#include "pontuacao/Placar.h"
+#include "pontuacao/ScoreBoard.h"
 
 #include <gtest/gtest.h>
 
@@ -13,12 +13,12 @@ namespace jogo {
 namespace tst {
 
 static Situacao criaSituacao(const piece::Board& tabuleiro,
-      const pontuacao::Placar& placar) {
+      const pontuacao::ScoreBoard& placar) {
     return Situacao(tabuleiro, placar);
 }
 
 static Situacao criaSituacao(const piece::Board& tabuleiro,
-      const pontuacao::Placar& placar,
+      const pontuacao::ScoreBoard& placar,
       const piece::Piece& caindo,
       const piece::PiecePosition& posicao,
       const piece::Piece& proxima) {
@@ -26,7 +26,7 @@ static Situacao criaSituacao(const piece::Board& tabuleiro,
 }
 
 static Situacao criaSituacao(const piece::Board& tabuleiro,
-      const pontuacao::Placar& placar,
+      const pontuacao::ScoreBoard& placar,
       const ListaEliminacao& eliminacao,
       const piece::Piece& proxima) {
     return Situacao(tabuleiro, placar, eliminacao, proxima);
@@ -47,12 +47,12 @@ TEST(TesteSituacao, Criacao) {
     const piece::Board tabuleiro4(10, 20, gui::BLUE);
     const piece::Board tabuleiro5(12, 21, gui::WHITE);
     const piece::Board tabuleiro6(13, 20, gui::BLUE);
-    const pontuacao::Placar placar1(25);
-    const pontuacao::Placar placar2(38, 34);
-    const pontuacao::Placar placar3(38, 35);
-    const pontuacao::Placar placar4(39, 34);
-    const pontuacao::Placar placar5(40, 35);
-    const pontuacao::Placar placar6(41, 34);
+    const pontuacao::ScoreBoard placar1(25);
+    const pontuacao::ScoreBoard placar2(38, 34);
+    const pontuacao::ScoreBoard placar3(38, 35);
+    const pontuacao::ScoreBoard placar4(39, 34);
+    const pontuacao::ScoreBoard placar5(40, 35);
+    const pontuacao::ScoreBoard placar6(41, 34);
     const piece::Piece peca3 = piece::mck::criaPecaSequencialCrescente(12);
     const piece::Piece peca4 = piece::mck::criaPecaSequencialCrescente(15);
     const piece::Piece prox3 = piece::mck::criaPecaSequencialCrescente(17);

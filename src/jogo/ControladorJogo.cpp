@@ -44,7 +44,7 @@ void ControladorJogo::execute() {
             while (not(listaEliminacao = tabuleiro_.determinaEliminacao()).empty()) {
                 util::Wait tempoElimina(300);
                 observer_->atualiza(montaSituacao(listaEliminacao));
-                placar_.acrescenta(listaEliminacao.size());
+                placar_.add(listaEliminacao.size());
                 tabuleiro_.elimina(listaEliminacao);
                 //printf("\n%s (%d) - %d\n", __FILE__, __LINE__, placar_.pontuacao().total());
                 tempoElimina.wait();

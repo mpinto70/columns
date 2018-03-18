@@ -18,5 +18,4 @@ void Score::add(size_t n) {
     }
     total_ = res;
 }
-
 }

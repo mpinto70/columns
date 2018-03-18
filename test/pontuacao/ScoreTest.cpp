@@ -25,7 +25,7 @@ TEST(ScoreTest, compare) {
     const Score s2(2);
 
     ::mck::confereAtribuicao(__FILE__, __LINE__, s1, s2);
-    ::mck::confereOrdem<Score>  (__FILE__, __LINE__, {s1, s2});
+    ::mck::confereOrdem<Score>(__FILE__, __LINE__, { s1, s2 });
 
     static_assert(Score(1) == Score(1), "Oops");
     static_assert(Score(1) != Score(2), "Oops");

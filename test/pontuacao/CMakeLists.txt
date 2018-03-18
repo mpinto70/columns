@@ -2,8 +2,8 @@
 add_executable(
     testpontuacao
     ../gtest_main.cpp
-    testePlacar.cpp
     ScoreTest.cpp
+    ScoreBoardTest.cpp
 )
 
 target_link_libraries(

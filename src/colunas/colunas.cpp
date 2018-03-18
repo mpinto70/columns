@@ -72,7 +72,7 @@ public:
               gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50 },
               fonteNome_,
               gui::YELLOW);
-        janela_->escreve(std::to_string(situacao.placar().pontuacao().total()),
+        janela_->escreve(std::to_string(situacao.placar().score().total()),
               gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90 },
               fontePlacar_,
               gui::YELLOW);

@@ -63,8 +63,8 @@ public:
 
 private:
     typedef std::unique_ptr<piece::PiecePosition> PosicaoPtr;
-    piece::Board tabuleiro_;                   ///< o tabuleiro
-    piece::PiecePtr peca_;                     ///< a piece caindo no tabuleiro
+    piece::Board tabuleiro_;                  ///< o tabuleiro
+    piece::PiecePtr peca_;                    ///< a piece caindo no tabuleiro
     PosicaoPtr posicaoPeca_;                  ///< a posição em que está a peça caindo no tabuleiro
     const uint16_t maxSubLinha_;              ///< tamanho do quadradinho da peça
     const std::vector<gui::Color> possiveis_; ///< cores possíveis para as peças
