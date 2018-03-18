@@ -3,7 +3,7 @@
 #include "grafico/DesenhaTabuleiro.h"
 #include "jogo/ControladorJogo.h"
 #include "jogo/ControladorTabuleiro.h"
-#include "jogo/SituacaoObserver.h"
+#include "jogo/StateObserver.h"
 #include "piece/Board.h"
 #include "util/Wait.h"
 
@@ -38,7 +38,7 @@ static void esperaPor(std::atomic<bool>& condicao) {
 }
 
 /** Observador da situação do jogo. */
-class ColunasObs : public jogo::SituacaoObserver {
+class ColunasObs : public jogo::StateObserver {
 public:
     /**
      * @param janela        a janela onde serão desenhadas os elementos
@@ -62,7 +62,7 @@ public:
     /** Atualiza os gráficos da situação do jogo.
      * @param situacao a situação atual do jogo
      */
-    void atualiza(const jogo::Situacao& situacao) const override {
+    void update(const jogo::State& situacao) const override {
         janela_->limpa();
         janela_->escreve("Colunas!",
               gui::Point{ 10, ALTURA * TAMANHO_QUADRADINHO + 45 },
@@ -72,7 +72,7 @@ public:
               gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50 },
               fonteNome_,
               gui::YELLOW);
-        janela_->escreve(std::to_string(situacao.placar().score().total()),
+        janela_->escreve(std::to_string(situacao.score_board().score().total()),
               gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90 },
               fontePlacar_,
               gui::YELLOW);
@@ -103,7 +103,7 @@ void executa(jogo::MensagemPtr mensagens) {
               TAMANHO_QUADRADINHO / 2,
               score::Score(0),
               POSSIVEIS,
-              jogo::SituacaoObserverPtr(new ColunasObs(janela, fntNome, fntPlacar, des)),
+              jogo::StateObserverPtr(new ColunasObs(janela, fntNome, fntPlacar, des)),
               mensagens);
 
         inicializado = true;

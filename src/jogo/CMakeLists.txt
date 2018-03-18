@@ -4,7 +4,7 @@ add_library(
     ControladorJogo.cpp
     ControladorTabuleiro.cpp
     Mensagem.cpp
-    Situacao.cpp
+    State.cpp
 )
 
 target_include_directories(

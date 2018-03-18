@@ -1,7 +1,7 @@
 #pragma once
 
+#include "jogo/State.h"
 #include "grafico/Janela.h"
-#include "jogo/Situacao.h"
 
 #include <cstdint>
 
@@ -26,7 +26,7 @@ public:
      * @param corEliminacao a cor para pintar as peças durante a elimintação
      */
     void desenha(Janela& janela,
-          const jogo::Situacao& sit,
+          const jogo::State& sit,
           const gui::Color& corEliminacao) const;
 
 private:

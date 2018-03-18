@@ -1,7 +1,7 @@
 
 #include "ControladorTabuleiro.h"
+#include "score/ScoreBoard.h"
 #include "util/Random.h"
-#include <score/ScoreBoard.h>
 
 #include <map>
 #include <stdexcept>
@@ -110,8 +110,8 @@ void ControladorTabuleiro::rolaParaBaixo() {
     peca_->roll_down();
 }
 
-ListaEliminacao ControladorTabuleiro::determinaEliminacao() const {
-    ListaEliminacao eliminaveis;
+EliminationList ControladorTabuleiro::determinaEliminacao() const {
+    EliminationList eliminaveis;
     for (uint16_t c = 0; c < tabuleiro_.width(); ++c) {
         for (uint16_t l = 0; l < tabuleiro_.height(); ++l) {
             if (deveEliminar(c, l)) {
@@ -122,7 +122,7 @@ ListaEliminacao ControladorTabuleiro::determinaEliminacao() const {
     return eliminaveis;
 }
 
-void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
+void ControladorTabuleiro::elimina(const EliminationList& casas) {
     for (uint16_t i = 0; i < casas.size(); ++i) {
         const uint16_t col = casas[i].first;
         const uint16_t lin = casas[i].second;
@@ -130,11 +130,11 @@ void ControladorTabuleiro::elimina(const ListaEliminacao& casas) {
     }
 }
 
-Situacao ControladorTabuleiro::situacao() const {
+State ControladorTabuleiro::situacao() const {
     if (temPeca()) {
-        return Situacao(tabuleiro_, score::ScoreBoard(), *peca_, *posicaoPeca_, piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return State(tabuleiro_, score::ScoreBoard(), *peca_, *posicaoPeca_, piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     } else {
-        return Situacao(tabuleiro_, score::ScoreBoard(), determinaEliminacao(), piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return State(tabuleiro_, score::ScoreBoard(), determinaEliminacao(), piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     }
 }
 

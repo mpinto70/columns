@@ -182,7 +182,7 @@ TEST(TesteControladorTabuleiro, Move) {
 
 TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     piece::Board tbbranco(10, 20, gui::WHITE);
-    ListaEliminacao eliminacao;
+    EliminationList eliminacao;
 
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao().size(), 0u);
 
@@ -243,8 +243,8 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //  preenchiemnto é feito da esquerda   17 - P....
     //  para a direita e de cima para       18 - P....
     //  baixo                               19 - PPP..
-    eliminacao.insert(eliminacao.begin() + 0, ItemEliminacao(0, 18));
-    eliminacao.insert(eliminacao.begin() + 0, ItemEliminacao(0, 17));
+    eliminacao.insert(eliminacao.begin() + 0, EliminationItem(0, 18));
+    eliminacao.insert(eliminacao.begin() + 0, EliminationItem(0, 17));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
     // vai preencher a diagonal que começa no canto inferior esquerdo
@@ -255,7 +255,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      17 - P....
     //                                      18 - PP...
     //                                      19 - PPP..
-    eliminacao.insert(eliminacao.begin() + 3, ItemEliminacao(1, 18));
+    eliminacao.insert(eliminacao.begin() + 3, EliminationItem(1, 18));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
     tbbranco.at(2, 17) = gui::BLACK;
     //                                           01234
@@ -264,7 +264,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      17 - P.P..
     //                                      18 - PP...
     //                                      19 - PPP..
-    eliminacao.insert(eliminacao.begin() + 5, ItemEliminacao(2, 17));
+    eliminacao.insert(eliminacao.begin() + 5, EliminationItem(2, 17));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
     // vai colocar uma quarta peça na sequência
@@ -276,7 +276,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      17 - P.P..
     //                                      18 - PP...
     //                                      19 - PPP..
-    eliminacao.insert(eliminacao.begin() + 0, ItemEliminacao(0, 16));
+    eliminacao.insert(eliminacao.begin() + 0, EliminationItem(0, 16));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
     tbbranco.at(3, 16) = gui::BLACK;
     //                                           01234
@@ -285,7 +285,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      17 - P.P..
     //                                      18 - PP...
     //                                      19 - PPP..
-    eliminacao.insert(eliminacao.begin() + 8, ItemEliminacao(3, 16));
+    eliminacao.insert(eliminacao.begin() + 8, EliminationItem(3, 16));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
     tbbranco.at(3, 19) = gui::BLACK;
     //                                           01234
@@ -294,7 +294,7 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      17 - P.P..
     //                                      18 - PP...
     //                                      19 - PPPP.
-    eliminacao.insert(eliminacao.begin() + 9, ItemEliminacao(3, 19));
+    eliminacao.insert(eliminacao.begin() + 9, EliminationItem(3, 19));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
     // vai adicionar de outra cor e não vai alterar
@@ -319,11 +319,11 @@ TEST(TesteControladorTabuleiro, DeterminaEliminacao) {
     //                                      17 - PzPZ.
     //                                      18 - PPZZZ
     //                                      19 - PPPP.
-    eliminacao.insert(eliminacao.begin() + 6, ItemEliminacao(2, 16));
-    eliminacao.insert(eliminacao.begin() + 8, ItemEliminacao(2, 18));
-    eliminacao.insert(eliminacao.begin() + 11, ItemEliminacao(3, 17));
-    eliminacao.insert(eliminacao.begin() + 12, ItemEliminacao(3, 18));
-    eliminacao.insert(eliminacao.begin() + 14, ItemEliminacao(4, 18));
+    eliminacao.insert(eliminacao.begin() + 6, EliminationItem(2, 16));
+    eliminacao.insert(eliminacao.begin() + 8, EliminationItem(2, 18));
+    eliminacao.insert(eliminacao.begin() + 11, EliminationItem(3, 17));
+    eliminacao.insert(eliminacao.begin() + 12, EliminationItem(3, 18));
+    eliminacao.insert(eliminacao.begin() + 14, EliminationItem(4, 18));
     EXPECT_EQ(ControladorTabuleiro(tbbranco, 4).determinaEliminacao(), eliminacao);
 
     // vai colocar outras cores e não vai alterar

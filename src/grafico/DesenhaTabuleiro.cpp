@@ -42,17 +42,17 @@ DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,
 }
 
 void DesenhaTabuleiro::desenha(Janela& janela,
-      const jogo::Situacao& sit,
+      const jogo::State& sit,
       const gui::Color& corEliminacao) const {
-    desenha(janela, sit.tabuleiro());
-    if (sit.temPeca()) {
-        const auto& posic = sit.posicaoPeca();
+    desenha(janela, sit.board());
+    if (sit.has_piece_falling()) {
+        const auto& posic = sit.piece_position();
         const auto& piece = sit.piece();
         for (uint16_t i = 0; i < piece::PIECE_SIZE; ++i) {
             desenhaQuadrado(janela, piece[i], posic.column(), posic.row() + i, posic.sub_row());
         }
     } else {
-        for (const auto& eliminada : sit.eliminacao()) {
+        for (const auto& eliminada : sit.elimination_list()) {
             const auto col = eliminada.first;
             const auto lin = eliminada.second;
             desenhaQuadrado(janela, corEliminacao, col, lin);

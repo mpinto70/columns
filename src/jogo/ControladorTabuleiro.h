@@ -1,6 +1,6 @@
 #pragma once
 
-#include "jogo/Situacao.h"
+#include "jogo/State.h"
 #include "piece/Board.h"
 #include "piece/Piece.h"
 #include "piece/PiecePosition.h"
@@ -54,12 +54,12 @@ public:
     /** Rola a peça para baixo. */
     void rolaParaBaixo();
     /** @return a lista de casas a serem eliminadas. */
-    ListaEliminacao determinaEliminacao() const;
+    EliminationList determinaEliminacao() const;
     /** Elimina as casas.
      * @param casas a lista de casas a serem eliminadas
      */
-    void elimina(const ListaEliminacao& casas);
-    Situacao situacao() const;
+    void elimina(const EliminationList& casas);
+    State situacao() const;
 
 private:
     typedef std::unique_ptr<piece::PiecePosition> PosicaoPtr;

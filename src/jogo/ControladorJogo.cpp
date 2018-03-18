@@ -11,7 +11,7 @@ ControladorJogo::ControladorJogo(const piece::Board& tabuleiro,
       const uint16_t maxSubLinha,
       const score::Score& recorde,
       const std::vector<gui::Color>& possiveis,
-      SituacaoObserverPtr&& obs,
+      StateObserverPtr&& obs,
       MensagemPtr& msg)
       : tabuleiro_(tabuleiro, maxSubLinha),
         placar_(recorde),
@@ -40,10 +40,10 @@ void ControladorJogo::execute() {
         if (tabuleiro_.temPeca()) {
             tabuleiro_.passo();
         } else {
-            ListaEliminacao listaEliminacao;
+            EliminationList listaEliminacao;
             while (not(listaEliminacao = tabuleiro_.determinaEliminacao()).empty()) {
                 util::Wait tempoElimina(300);
-                observer_->atualiza(montaSituacao(listaEliminacao));
+                observer_->update(montaSituacao(listaEliminacao));
                 placar_.add(listaEliminacao.size());
                 tabuleiro_.elimina(listaEliminacao);
                 //printf("\n%s (%d) - %d\n", __FILE__, __LINE__, placar_.score().total());
@@ -57,20 +57,20 @@ void ControladorJogo::execute() {
             proximaPeca_ = piece::Piece::create(possiveis_);
         }
         processa(mensagens_->recupera());
-        observer_->atualiza(montaSituacao());
+        observer_->update(montaSituacao());
         tempoPasso.wait();
     }
 }
 
-Situacao ControladorJogo::montaSituacao(const jogo::ListaEliminacao& lista) const {
+State ControladorJogo::montaSituacao(const jogo::EliminationList& lista) const {
     if (tabuleiro_.temPeca()) {
-        return Situacao(tabuleiro_.tabuleiro(),
+        return State(tabuleiro_.tabuleiro(),
               placar_,
               tabuleiro_.piece(),
               tabuleiro_.posicaoPeca(),
               proximaPeca_);
     } else {
-        return Situacao(tabuleiro_.tabuleiro(),
+        return State(tabuleiro_.tabuleiro(),
               placar_,
               lista,
               proximaPeca_);
@@ -95,7 +95,7 @@ void ControladorJogo::processa(const Mensagem::Lista& msgs) {
                     tabuleiro_.passo();
                     tabuleiro_.passo();
                     tabuleiro_.passo();
-                    observer_->atualiza(montaSituacao());
+                    observer_->update(montaSituacao());
                 }
                 break;
             case EMensagem::rolaBaixo:
@@ -108,7 +108,7 @@ void ControladorJogo::processa(const Mensagem::Lista& msgs) {
                 parar_ = true;
                 break;
         }
-        observer_->atualiza(montaSituacao());
+        observer_->update(montaSituacao());
     }
 }
 }

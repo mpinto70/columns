@@ -3,7 +3,7 @@ add_executable(
     testjogo
     ../gtest_main.cpp
     #testeControladorTabuleiro.cpp
-    testeSituacao.cpp
+    StateTest.cpp
 )
 
 target_link_libraries(
