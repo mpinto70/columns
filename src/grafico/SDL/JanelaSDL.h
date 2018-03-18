@@ -88,7 +88,7 @@ private:
     gui::Rectangle escreve_(const std::string& texto,
           uint16_t x,
           uint16_t y,
-          const gui::Fonte& fonte,
+          const gui::Font& fonte,
           const gui::Color& cor) override;
 };
 }

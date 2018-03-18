@@ -1,4 +1,3 @@
-
 #include "JanelaSDL.h"
 
 #include <SDL2/SDL_ttf.h>
@@ -89,7 +88,7 @@ void JanelaSDL::preenche_(const uint16_t x1,
 gui::Rectangle JanelaSDL::escreve_(const std::string& texto,
       const uint16_t x,
       const uint16_t y,
-      const gui::Fonte& fonte,
+      const gui::Font& fonte,
       const gui::Color& cor) {
     //We'll render the string "TTF fonts are cool!" in white
     //Color is in RGB format
@@ -100,9 +99,9 @@ gui::Rectangle JanelaSDL::escreve_(const std::string& texto,
     try {
         const SDL_Color color = { cor.R, cor.G, cor.B };
         //Open the font
-        font = TTF_OpenFont(fonte.nome().c_str(), fonte.tamanho());
+        font = TTF_OpenFont(fonte.name().c_str(), fonte.size());
         if (font == nullptr) {
-            throw std::runtime_error("JanelaSDL::escreve_ - abertura da fonte " + fonte.nome());
+            throw std::runtime_error("JanelaSDL::escreve_ - abertura da fonte " + fonte.name());
         }
 
         //We need to first render to a surface as that's what TTF_RenderText

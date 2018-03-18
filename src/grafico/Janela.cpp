@@ -53,7 +53,7 @@ void Janela::preenche(const gui::Point& te,
 
 gui::Rectangle Janela::escreve(const std::string& texto,
       const gui::Point& pt,
-      const gui::Fonte& fonte,
+      const gui::Font& fonte,
       const gui::Color& cor) {
     return escreve_(texto, pt.X, pt.Y, fonte, cor);
 }

@@ -2,7 +2,7 @@
 add_library(
     gui
     Color.cpp
-    Fonte.cpp
+    Font.cpp
 )
 
 target_include_directories(

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gui/Color.h"
-#include "gui/Fonte.h"
+#include "gui/Font.h"
 #include "gui/Point.h"
 #include "gui/Rectangle.h"
 
@@ -76,7 +76,7 @@ public:
      */
     gui::Rectangle escreve(const std::string& texto,
           const gui::Point& pt,
-          const gui::Fonte& fonte,
+          const gui::Font& fonte,
           const gui::Color& cor);
 
 private:
@@ -130,7 +130,7 @@ private:
     virtual gui::Rectangle escreve_(const std::string& texto,
           uint16_t x,
           uint16_t y,
-          const gui::Fonte& fonte,
+          const gui::Font& fonte,
           const gui::Color& cor) = 0;
 };
 

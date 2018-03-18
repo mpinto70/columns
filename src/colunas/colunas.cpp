@@ -47,8 +47,8 @@ public:
      * @param desenhador    o desenhador de tabuleiro
      */
     ColunasObs(const grafico::SharedJanela& janela,
-          const gui::Fonte& fonteNome,
-          const gui::Fonte& fontePlacar,
+          const gui::Font& fonteNome,
+          const gui::Font& fontePlacar,
           const grafico::DesenhaTabuleiro& desenhador)
           : janela_(janela),
             fonteNome_(fonteNome),
@@ -82,8 +82,8 @@ public:
 
 private:
     grafico::SharedJanela janela_;      ///< a janela onde será mostrado o jogo
-    gui::Fonte fonteNome_;              ///< a fonte do nome do sistema
-    gui::Fonte fontePlacar_;            ///< a fonte do placar
+    gui::Font fonteNome_;               ///< a fonte do nome do sistema
+    gui::Font fontePlacar_;             ///< a fonte do placar
     grafico::DesenhaTabuleiro desenha_; ///< o desenhador do conteúdo do tabuleiro
 };
 
@@ -96,8 +96,8 @@ void executa(jogo::MensagemPtr mensagens) {
     try {
         auto janela = colunas::cria_janela(VERSAO, LARGURA_TELA, ALTURA_TELA);
         const grafico::DesenhaTabuleiro des(10, 15, TAMANHO_QUADRADINHO, STEPS_QUADRADINHO);
-        const gui::Fonte fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
-        const gui::Fonte fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
+        const gui::Font fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
+        const gui::Font fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
         jogo::ControladorJogo cont(peca::Tabuleiro(LARGURA, ALTURA, gui::BLACK),
               TAMANHO_QUADRADINHO / 2,
