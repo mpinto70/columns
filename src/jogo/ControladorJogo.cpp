@@ -37,21 +37,21 @@ void ControladorJogo::execute() {
 
     while (not parar_) {
         tempoPasso.reset();
-        if (tabuleiro_.temPeca()) {
-            tabuleiro_.passo();
+        if (tabuleiro_.has_piece()) {
+            tabuleiro_.step();
         } else {
             EliminationList listaEliminacao;
-            while (not(listaEliminacao = tabuleiro_.determinaEliminacao()).empty()) {
+            while (not(listaEliminacao = tabuleiro_.determine_elimination()).empty()) {
                 util::Wait tempoElimina(300);
                 observer_->update(montaSituacao(listaEliminacao));
                 placar_.add(listaEliminacao.size());
-                tabuleiro_.elimina(listaEliminacao);
+                tabuleiro_.eliminate(listaEliminacao);
                 //printf("\n%s (%d) - %d\n", __FILE__, __LINE__, placar_.score().total());
                 tempoElimina.wait();
                 mensagens_->limpa();
             }
             tempoPasso.reset();
-            if (not tabuleiro_.adicionaPeca(proximaPeca_)) {
+            if (not tabuleiro_.add_piece(proximaPeca_)) {
                 return;
             }
             proximaPeca_ = piece::Piece::create(possiveis_);
@@ -63,14 +63,14 @@ void ControladorJogo::execute() {
 }
 
 State ControladorJogo::montaSituacao(const jogo::EliminationList& lista) const {
-    if (tabuleiro_.temPeca()) {
-        return State(tabuleiro_.tabuleiro(),
+    if (tabuleiro_.has_piece()) {
+        return State(tabuleiro_.board(),
               placar_,
               tabuleiro_.piece(),
-              tabuleiro_.posicaoPeca(),
+              tabuleiro_.piece_position(),
               proximaPeca_);
     } else {
-        return State(tabuleiro_.tabuleiro(),
+        return State(tabuleiro_.board(),
               placar_,
               lista,
               proximaPeca_);
@@ -81,28 +81,28 @@ void ControladorJogo::processa(const Mensagem::Lista& msgs) {
     for (const auto msg : msgs) {
         switch (msg) {
             case EMensagem::moveEsquerda:
-                tabuleiro_.moveEsquerda();
+                tabuleiro_.move_left();
                 break;
             case EMensagem::moveDireita:
-                tabuleiro_.moveDireita();
+                tabuleiro_.move_right();
                 break;
             case EMensagem::moveBaixo:
-                while (tabuleiro_.temPeca()) {
+                while (tabuleiro_.has_piece()) {
                     //printf("\n%s (%d) - PASSO(%d)\n", __FILE__, __LINE__, ++cont);
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
-                    tabuleiro_.passo();
+                    tabuleiro_.step();
+                    tabuleiro_.step();
+                    tabuleiro_.step();
+                    tabuleiro_.step();
+                    tabuleiro_.step();
+                    tabuleiro_.step();
                     observer_->update(montaSituacao());
                 }
                 break;
             case EMensagem::rolaBaixo:
-                tabuleiro_.rolaParaBaixo();
+                tabuleiro_.roll_down();
                 break;
             case EMensagem::rolaCima:
-                tabuleiro_.rolaParaCima();
+                tabuleiro_.roll_up();
                 break;
             case EMensagem::parar:
                 parar_ = true;

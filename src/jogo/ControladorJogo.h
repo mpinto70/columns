@@ -1,7 +1,7 @@
 #pragma once
 
+#include "jogo/BoardController.h"
 #include "gui/Color.h"
-#include "jogo/ControladorTabuleiro.h"
 #include "jogo/Mensagem.h"
 #include "jogo/StateObserver.h"
 #include "score/ScoreBoard.h"
@@ -36,7 +36,7 @@ public:
     void execute();
 
 private:
-    ControladorTabuleiro tabuleiro_;    ///< o tabuleiro
+    BoardController tabuleiro_;    ///< o tabuleiro
     score::ScoreBoard placar_;          ///< o placar
     piece::Piece proximaPeca_;          ///< a próximaa piece a cair no tabuleiro
     std::vector<gui::Color> possiveis_; ///< as cores possíveis

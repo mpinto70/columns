@@ -2,7 +2,7 @@
 add_executable(
     testjogo
     ../gtest_main.cpp
-    #testeControladorTabuleiro.cpp
+    BoardControllerTest.cpp
     StateTest.cpp
 )
 

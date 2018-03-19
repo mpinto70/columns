@@ -1,8 +1,8 @@
 #include "colunas.h"
 
 #include "grafico/DesenhaTabuleiro.h"
+#include "jogo/BoardController.h"
 #include "jogo/ControladorJogo.h"
-#include "jogo/ControladorTabuleiro.h"
 #include "jogo/StateObserver.h"
 #include "piece/Board.h"
 #include "util/Wait.h"
