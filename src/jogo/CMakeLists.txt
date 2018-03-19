@@ -3,7 +3,7 @@ add_library(
     jogo
     ControladorJogo.cpp
     BoardController.cpp
-    Mensagem.cpp
+    Message.cpp
     State.cpp
 )
 

@@ -32,19 +32,19 @@ InputResult processa_input(jogo::MensagemPtr& mensagens) {
             /* Check the SDLKey values and move change the coords */
             switch (e.key.keysym.sym) {
                 case SDLK_LEFT:
-                    mensagens->registra(jogo::EMensagem::moveEsquerda);
+                    mensagens->add(jogo::EMessage::MoveLeft);
                     break;
                 case SDLK_RIGHT:
-                    mensagens->registra(jogo::EMensagem::moveDireita);
+                    mensagens->add(jogo::EMessage::MoveRight);
                     break;
                 case SDLK_UP:
-                    mensagens->registra(jogo::EMensagem::rolaCima);
+                    mensagens->add(jogo::EMessage::RollUp);
                     break;
                 case SDLK_DOWN:
-                    mensagens->registra(jogo::EMensagem::rolaBaixo);
+                    mensagens->add(jogo::EMessage::RollDown);
                     break;
                 case SDLK_SPACE:
-                    mensagens->registra(jogo::EMensagem::moveBaixo);
+                    mensagens->add(jogo::EMessage::MoveDown);
                     break;
                 case SDLK_ESCAPE:
                     return InputResult::QUIT;

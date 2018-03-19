@@ -3,6 +3,7 @@ add_executable(
     testjogo
     ../gtest_main.cpp
     BoardControllerTest.cpp
+    MessageTest.cpp
     StateTest.cpp
 )
 

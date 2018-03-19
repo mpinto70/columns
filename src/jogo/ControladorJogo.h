@@ -1,8 +1,8 @@
 #pragma once
 
-#include "jogo/BoardController.h"
 #include "gui/Color.h"
-#include "jogo/Mensagem.h"
+#include "jogo/BoardController.h"
+#include "jogo/Message.h"
 #include "jogo/StateObserver.h"
 #include "score/ScoreBoard.h"
 
@@ -36,11 +36,11 @@ public:
     void execute();
 
 private:
-    BoardController tabuleiro_;    ///< o tabuleiro
+    BoardController tabuleiro_;         ///< o tabuleiro
     score::ScoreBoard placar_;          ///< o placar
     piece::Piece proximaPeca_;          ///< a próximaa piece a cair no tabuleiro
     std::vector<gui::Color> possiveis_; ///< as cores possíveis
-    StateObserverPtr observer_;      ///< observadores do jogo
+    StateObserverPtr observer_;         ///< observadores do jogo
     MensagemPtr mensagens_;             ///< as mensagens
     std::atomic<bool> parar_;           ///< marca de interrupção de execução
     /** @return a situação atual do jogo.
@@ -50,6 +50,6 @@ private:
     /** processa as mensagens.
      * @param msgs as mensagens a processar
      */
-    void processa(const Mensagem::Lista& msgs);
+    void processa(const Message::Lista& msgs);
 };
 }

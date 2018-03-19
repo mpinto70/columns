@@ -1,7 +1,7 @@
 #pragma once
 
-#include "jogo/State.h"
 #include "grafico/Janela.h"
+#include "jogo/State.h"
 
 #include <cstdint>
 

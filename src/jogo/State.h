@@ -62,10 +62,10 @@ private:
     using PositionPtr = std::unique_ptr<piece::PiecePosition>;
     piece::Board board_;
     score::ScoreBoard score_board_;
-    piece::PiecePtr piece_;            ///< the piece falling
-    PositionPtr piece_position_;       ///< the position of the falling piece
+    piece::PiecePtr piece_;      ///< the piece falling
+    PositionPtr piece_position_; ///< the position of the falling piece
     EliminationList elimination_list_;
-    piece::PiecePtr next_;             ///< next piece to be put in the board
+    piece::PiecePtr next_; ///< next piece to be put in the board
 };
 
 bool operator==(const State& lhs, const State& rhs);

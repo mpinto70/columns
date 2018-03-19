@@ -134,7 +134,7 @@ int run() {
     try {
         colunas::init_grafico();
 
-        auto mensagens = std::make_shared<jogo::Mensagem>();
+        auto mensagens = std::make_shared<jogo::Message>();
         std::thread executeThread(executa, mensagens);
 
         esperaPor(inicializado);
@@ -142,7 +142,7 @@ int run() {
         // quando sair do loop de input é porque deu quit
         loop_input(mensagens);
 
-        mensagens->registra(jogo::EMensagem::parar);
+        mensagens->add(jogo::EMessage::Stop);
         executeThread.join();
         return 0;
     } catch (std::exception& e) {

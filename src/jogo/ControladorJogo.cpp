@@ -48,7 +48,7 @@ void ControladorJogo::execute() {
                 tabuleiro_.eliminate(listaEliminacao);
                 //printf("\n%s (%d) - %d\n", __FILE__, __LINE__, placar_.score().total());
                 tempoElimina.wait();
-                mensagens_->limpa();
+                mensagens_->clear();
             }
             tempoPasso.reset();
             if (not tabuleiro_.add_piece(proximaPeca_)) {
@@ -56,7 +56,7 @@ void ControladorJogo::execute() {
             }
             proximaPeca_ = piece::Piece::create(possiveis_);
         }
-        processa(mensagens_->recupera());
+        processa(mensagens_->get());
         observer_->update(montaSituacao());
         tempoPasso.wait();
     }
@@ -77,16 +77,16 @@ State ControladorJogo::montaSituacao(const jogo::EliminationList& lista) const {
     }
 }
 
-void ControladorJogo::processa(const Mensagem::Lista& msgs) {
+void ControladorJogo::processa(const Message::Lista& msgs) {
     for (const auto msg : msgs) {
         switch (msg) {
-            case EMensagem::moveEsquerda:
+            case EMessage::MoveLeft:
                 tabuleiro_.move_left();
                 break;
-            case EMensagem::moveDireita:
+            case EMessage::MoveRight:
                 tabuleiro_.move_right();
                 break;
-            case EMensagem::moveBaixo:
+            case EMessage::MoveDown:
                 while (tabuleiro_.has_piece()) {
                     //printf("\n%s (%d) - PASSO(%d)\n", __FILE__, __LINE__, ++cont);
                     tabuleiro_.step();
@@ -98,13 +98,13 @@ void ControladorJogo::processa(const Mensagem::Lista& msgs) {
                     observer_->update(montaSituacao());
                 }
                 break;
-            case EMensagem::rolaBaixo:
+            case EMessage::RollDown:
                 tabuleiro_.roll_down();
                 break;
-            case EMensagem::rolaCima:
+            case EMessage::RollUp:
                 tabuleiro_.roll_up();
                 break;
-            case EMensagem::parar:
+            case EMessage::Stop:
                 parar_ = true;
                 break;
         }

@@ -1,6 +1,6 @@
 #pragma once
 #include "grafico/Janela.h"
-#include "jogo/Mensagem.h"
+#include "jogo/Message.h"
 
 namespace colunas {
 void init_grafico();
