@@ -63,21 +63,21 @@ public:
      * @param situacao a situação atual do game
      */
     void update(const game::State& situacao) const override {
-        janela_->limpa();
-        janela_->escreve("Colunas!",
+        janela_->clear();
+        janela_->write("Colunas!",
               gui::Point{ 10, ALTURA * TAMANHO_QUADRADINHO + 45 },
               fonteNome_,
               gui::BLUE);
-        janela_->escreve("Placar",
+        janela_->write("Placar",
               gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 50 },
               fonteNome_,
               gui::YELLOW);
-        janela_->escreve(std::to_string(situacao.score_board().score().total()),
+        janela_->write(std::to_string(situacao.score_board().score().total()),
               gui::Point{ 10 + LARGURA * TAMANHO_QUADRADINHO + 10, 90 },
               fontePlacar_,
               gui::YELLOW);
         desenha_.desenha(*janela_, situacao, gui::WHITE);
-        janela_->atualiza();
+        janela_->update();
     }
 
 private:

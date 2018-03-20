@@ -1,7 +1,7 @@
 
 add_library(
     grafico_SDL
-    JanelaSDL.cpp
+    WindowSDL.cpp
 )
 
 target_include_directories(

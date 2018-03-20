@@ -1,7 +1,7 @@
 #pragma once
 
 #include "game/State.h"
-#include "grafico/Janela.h"
+#include "grafico/Window.h"
 
 #include <cstdint>
 
@@ -25,7 +25,7 @@ public:
      * @param sit           a situação do game
      * @param corEliminacao a cor para pintar as peças durante a elimintação
      */
-    void desenha(Janela& janela,
+    void desenha(Window& janela,
           const game::State& sit,
           const gui::Color& corEliminacao) const;
 
@@ -38,7 +38,7 @@ private:
      * @param janela    a janela onde será desenhado o tabuleiro
      * @param tab       o tabuleiro sendo desenhado
      */
-    void desenha(Janela& janela,
+    void desenha(Window& janela,
           const piece::Board& tab) const;
 
     /** Desenha o quadrado na tela.
@@ -48,7 +48,7 @@ private:
      * @param linha     a linha no tabuleiro
      * @param sublinha  a sublinha no tabuleiro (peça caindo)
      */
-    void desenhaQuadrado(Janela& janela,
+    void desenhaQuadrado(Window& janela,
           const gui::Color& cor,
           uint16_t coluna,
           uint16_t linha,

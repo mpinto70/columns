@@ -10,7 +10,7 @@ namespace grafico {
     @param y1 o Y no canvas do canto superior esquerdo do quadradinho
     @param tamanho o tamanho do quadradinho em pixels
  */
-static void pintaQuadrado(Janela& janela,
+static void pintaQuadrado(Window& janela,
       const gui::Color& cor,
       const uint16_t x1,
       const uint16_t y1,
@@ -18,8 +18,8 @@ static void pintaQuadrado(Janela& janela,
     const int x2 = x1 + tamanho - 1;
     const int y2 = y1 + tamanho - 1;
     const gui::Rectangle rect(x1, y1, x2, y2);
-    janela.preenche(rect, cor);
-    janela.retangulo(rect, gui::darken(cor, 20));
+    janela.fill(rect, cor);
+    janela.rectangle(rect, gui::darken(cor, 20));
 }
 
 DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,
@@ -41,7 +41,7 @@ DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,
     }
 }
 
-void DesenhaTabuleiro::desenha(Janela& janela,
+void DesenhaTabuleiro::desenha(Window& janela,
       const game::State& sit,
       const gui::Color& corEliminacao) const {
     desenha(janela, sit.board());
@@ -60,12 +60,12 @@ void DesenhaTabuleiro::desenha(Janela& janela,
     }
 }
 
-void DesenhaTabuleiro::desenha(Janela& janela,
+void DesenhaTabuleiro::desenha(Window& janela,
       const piece::Board& tab) const {
-    janela.preenche(gui::Rectangle(left_,
-                          top_,
-                          left_ + tab.width() * tamanhoQuadradinho_,
-                          top_ + tab.height() * tamanhoQuadradinho_),
+    janela.fill(gui::Rectangle(left_,
+                      top_,
+                      left_ + tab.width() * tamanhoQuadradinho_,
+                      top_ + tab.height() * tamanhoQuadradinho_),
           tab.background_color());
 
     for (uint16_t i = 0; i < tab.width(); ++i) {
@@ -79,7 +79,7 @@ void DesenhaTabuleiro::desenha(Janela& janela,
     }
 }
 
-void DesenhaTabuleiro::desenhaQuadrado(Janela& janela,
+void DesenhaTabuleiro::desenhaQuadrado(Window& janela,
       const gui::Color& cor,
       const uint16_t coluna,
       const uint16_t linha,

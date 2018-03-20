@@ -4,7 +4,7 @@ add_subdirectory (SDL)
 add_library(
     grafico
     DesenhaTabuleiro.cpp
-    Janela.cpp
+    Window.cpp
 )
 
 target_include_directories(
