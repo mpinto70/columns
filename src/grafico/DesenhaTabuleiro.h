@@ -1,7 +1,7 @@
 #pragma once
 
+#include "game/State.h"
 #include "grafico/Janela.h"
-#include "jogo/State.h"
 
 #include <cstdint>
 
@@ -22,11 +22,11 @@ public:
           uint16_t stepQuadradinho);
     /** Desenha o tabuleiro na tela.
      * @param janela        a janela onde será desenhado o tabuleiro
-     * @param sit           a situação do jogo
+     * @param sit           a situação do game
      * @param corEliminacao a cor para pintar as peças durante a elimintação
      */
     void desenha(Janela& janela,
-          const jogo::State& sit,
+          const game::State& sit,
           const gui::Color& corEliminacao) const;
 
 private:

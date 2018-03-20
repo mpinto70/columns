@@ -28,7 +28,7 @@ target_link_libraries (
     grafico
     grafico_SDL
     gui
-    jogo
+    game
     piece
     score
     util

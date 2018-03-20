@@ -42,7 +42,7 @@ DesenhaTabuleiro::DesenhaTabuleiro(const uint16_t left,
 }
 
 void DesenhaTabuleiro::desenha(Janela& janela,
-      const jogo::State& sit,
+      const game::State& sit,
       const gui::Color& corEliminacao) const {
     desenha(janela, sit.board());
     if (sit.has_piece_falling()) {

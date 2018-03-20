@@ -1,6 +1,6 @@
 #include "Message.h"
 
-namespace jogo {
+namespace game {
 
 void Message::add(EMessage msg) {
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };

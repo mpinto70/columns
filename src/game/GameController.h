@@ -1,9 +1,9 @@
 #pragma once
 
+#include "game/BoardController.h"
+#include "game/Message.h"
+#include "game/StateObserver.h"
 #include "gui/Color.h"
-#include "jogo/BoardController.h"
-#include "jogo/Message.h"
-#include "jogo/StateObserver.h"
 #include "piece/Board.h"
 #include "score/Score.h"
 #include "score/ScoreBoard.h"
@@ -11,7 +11,7 @@
 #include <atomic>
 #include <mutex>
 
-namespace jogo {
+namespace game {
 /** Controls the game:
  * \li controls the board;
  * \li controls the score board.
@@ -37,7 +37,7 @@ private:
     StateObserverPtr observer_;
     MensagemPtr messages_;
     std::atomic<bool> should_stop_; ///< indicates if the player pressed ESC
-    State prepare_state(const jogo::EliminationList& elimination_list = jogo::EliminationList()) const;
+    State prepare_state(const game::EliminationList& elimination_list = game::EliminationList()) const;
     void process(const Message::Lista& msgs);
 };
 }

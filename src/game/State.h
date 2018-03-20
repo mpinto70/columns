@@ -7,7 +7,7 @@
 
 #include <memory>
 
-namespace jogo {
+namespace game {
 /// tile type to be eliminated from the board
 using EliminationItem = std::pair<uint16_t, uint16_t>;
 /// list of tile type to be eliminated from the board

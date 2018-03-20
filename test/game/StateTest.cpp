@@ -1,6 +1,6 @@
 #include "../mck/piece/utilpeca.h"
 
-#include "jogo/State.h"
+#include "game/State.h"
 
 #include "piece/Board.h"
 #include "score/ScoreBoard.h"
@@ -10,7 +10,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace jogo {
+namespace game {
 namespace tst {
 
 static State criaSituacao(const piece::Board& tabuleiro,

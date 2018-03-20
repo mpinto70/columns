@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace jogo {
+namespace game {
 
 BoardController::BoardController(const piece::Board& board,
       const uint16_t max_sub_row)

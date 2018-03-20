@@ -1,6 +1,6 @@
 
 add_library(
-    jogo
+    game
     GameController.cpp
     BoardController.cpp
     Message.cpp
@@ -8,6 +8,6 @@ add_library(
 )
 
 target_include_directories(
-    jogo
+    game
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )

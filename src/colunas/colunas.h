@@ -1,6 +1,6 @@
 #pragma once
+#include "game/Message.h"
 #include "grafico/Janela.h"
-#include "jogo/Message.h"
 
 namespace colunas {
 void init_grafico();
@@ -13,5 +13,5 @@ enum class InputResult {
     QUIT,
     CONTINUE,
 };
-InputResult processa_input(jogo::MensagemPtr& mensagens);
+InputResult processa_input(game::MensagemPtr& mensagens);
 }

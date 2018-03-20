@@ -2,7 +2,7 @@
 
 #include <utility>
 
-namespace jogo {
+namespace game {
 
 State::State(const piece::Board& board,
       const score::ScoreBoard& score_board)

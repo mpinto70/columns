@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <unistd.h>
 
-namespace jogo {
+namespace game {
 
 GameController::GameController(const piece::Board& board,
       const uint16_t max_sub_row,
@@ -62,7 +62,7 @@ void GameController::execute() {
     }
 }
 
-State GameController::prepare_state(const jogo::EliminationList& elimination_list) const {
+State GameController::prepare_state(const game::EliminationList& elimination_list) const {
     if (board_controller_.has_piece()) {
         return State(board_controller_.board(),
               score_board_,

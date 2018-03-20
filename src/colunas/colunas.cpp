@@ -1,9 +1,9 @@
 #include "colunas.h"
 
+#include "game/BoardController.h"
+#include "game/GameController.h"
+#include "game/StateObserver.h"
 #include "grafico/DesenhaTabuleiro.h"
-#include "jogo/BoardController.h"
-#include "jogo/GameController.h"
-#include "jogo/StateObserver.h"
 #include "piece/Board.h"
 #include "util/Wait.h"
 
@@ -37,8 +37,8 @@ static void esperaPor(std::atomic<bool>& condicao) {
     }
 }
 
-/** Observador da situação do jogo. */
-class ColunasObs : public jogo::StateObserver {
+/** Observador da situação do game. */
+class ColunasObs : public game::StateObserver {
 public:
     /**
      * @param janela        a janela onde serão desenhadas os elementos
@@ -59,10 +59,10 @@ public:
         }
     }
     ~ColunasObs() override = default;
-    /** Atualiza os gráficos da situação do jogo.
-     * @param situacao a situação atual do jogo
+    /** Atualiza os gráficos da situação do game.
+     * @param situacao a situação atual do game
      */
-    void update(const jogo::State& situacao) const override {
+    void update(const game::State& situacao) const override {
         janela_->limpa();
         janela_->escreve("Colunas!",
               gui::Point{ 10, ALTURA * TAMANHO_QUADRADINHO + 45 },
@@ -81,16 +81,16 @@ public:
     }
 
 private:
-    grafico::SharedJanela janela_;      ///< a janela onde será mostrado o jogo
+    grafico::SharedJanela janela_;      ///< a janela onde será mostrado o game
     gui::Font fonteNome_;               ///< a fonte do nome do sistema
     gui::Font fontePlacar_;             ///< a fonte do placar
     grafico::DesenhaTabuleiro desenha_; ///< o desenhador do conteúdo do tabuleiro
 };
 
-/** Inicializa a interface gráfica e executa o jogo.
+/** Inicializa a interface gráfica e executa o game.
  * @param mensagens o gerenciador de mensagens
  */
-void executa(jogo::MensagemPtr mensagens) {
+void executa(game::MensagemPtr mensagens) {
     inicializado = false;
     quit = false;
     try {
@@ -99,11 +99,11 @@ void executa(jogo::MensagemPtr mensagens) {
         const gui::Font fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
-        jogo::GameController cont(piece::Board(LARGURA, ALTURA, gui::BLACK),
+        game::GameController cont(piece::Board(LARGURA, ALTURA, gui::BLACK),
               TAMANHO_QUADRADINHO / 2,
               score::Score(0),
               POSSIVEIS,
-              jogo::StateObserverPtr(new ColunasObs(janela, fntNome, fntPlacar, des)),
+              game::StateObserverPtr(new ColunasObs(janela, fntNome, fntPlacar, des)),
               mensagens);
 
         inicializado = true;
@@ -117,7 +117,7 @@ void executa(jogo::MensagemPtr mensagens) {
     }
 }
 
-void loop_input(jogo::MensagemPtr& mensagens) {
+void loop_input(game::MensagemPtr& mensagens) {
     util::Wait tempoInput(3);
     while (!quit) {
         tempoInput.reset();
@@ -134,7 +134,7 @@ int run() {
     try {
         colunas::init_grafico();
 
-        auto mensagens = std::make_shared<jogo::Message>();
+        auto mensagens = std::make_shared<game::Message>();
         std::thread executeThread(executa, mensagens);
 
         esperaPor(inicializado);
@@ -142,7 +142,7 @@ int run() {
         // quando sair do loop de input é porque deu quit
         loop_input(mensagens);
 
-        mensagens->add(jogo::EMessage::Stop);
+        mensagens->add(game::EMessage::Stop);
         executeThread.join();
         return 0;
     } catch (std::exception& e) {

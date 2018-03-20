@@ -1,8 +1,8 @@
-#include "jogo/Message.h"
+#include "game/Message.h"
 
 #include <gtest/gtest.h>
 
-namespace jogo {
+namespace game {
 namespace tst {
 
 TEST(MessageTest, create) {

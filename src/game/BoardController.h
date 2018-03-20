@@ -1,13 +1,13 @@
 #pragma once
 
-#include "jogo/State.h"
+#include "game/State.h"
 #include "piece/Board.h"
 #include "piece/Piece.h"
 #include "piece/PiecePosition.h"
 
 #include <memory>
 
-namespace jogo {
+namespace game {
 /** Coordinates interaction with the board:
  * \li informs if it is possible to add piece;
  * \li put a new falling piece;

@@ -13,7 +13,7 @@ target_link_libraries(
     gui_mck
     libgtest
     libgmock
-    jogo
+    game
     score
     piece
     gui

@@ -1,4 +1,4 @@
-#include "jogo/BoardController.h"
+#include "game/BoardController.h"
 
 #include "../mck/piece/utilpeca.h"
 
@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace jogo {
+namespace game {
 namespace tst {
 namespace {
 

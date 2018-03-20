@@ -4,7 +4,7 @@
 #include <mutex>
 #include <vector>
 
-namespace jogo {
+namespace game {
 
 /// Message identifiers
 enum class EMessage {

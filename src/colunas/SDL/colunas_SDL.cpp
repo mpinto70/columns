@@ -20,7 +20,7 @@ grafico::SharedJanela cria_janela(const std::string& versao,
     return std::make_shared<grafico::JanelaSDL>("Colunas " + versao, 1000, 100, largura_tela, altura_tela, gui::GRAY);
 }
 
-InputResult processa_input(jogo::MensagemPtr& mensagens) {
+InputResult processa_input(game::MensagemPtr& mensagens) {
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
         //If user closes the window
@@ -32,19 +32,19 @@ InputResult processa_input(jogo::MensagemPtr& mensagens) {
             /* Check the SDLKey values and move change the coords */
             switch (e.key.keysym.sym) {
                 case SDLK_LEFT:
-                    mensagens->add(jogo::EMessage::MoveLeft);
+                    mensagens->add(game::EMessage::MoveLeft);
                     break;
                 case SDLK_RIGHT:
-                    mensagens->add(jogo::EMessage::MoveRight);
+                    mensagens->add(game::EMessage::MoveRight);
                     break;
                 case SDLK_UP:
-                    mensagens->add(jogo::EMessage::RollUp);
+                    mensagens->add(game::EMessage::RollUp);
                     break;
                 case SDLK_DOWN:
-                    mensagens->add(jogo::EMessage::RollDown);
+                    mensagens->add(game::EMessage::RollDown);
                     break;
                 case SDLK_SPACE:
-                    mensagens->add(jogo::EMessage::MoveDown);
+                    mensagens->add(game::EMessage::MoveDown);
                     break;
                 case SDLK_ESCAPE:
                     return InputResult::QUIT;
