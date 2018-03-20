@@ -1,7 +1,7 @@
 
 add_library(
     jogo
-    ControladorJogo.cpp
+    GameController.cpp
     BoardController.cpp
     Message.cpp
     State.cpp
