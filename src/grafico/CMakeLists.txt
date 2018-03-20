@@ -3,7 +3,7 @@ add_subdirectory (SDL)
 
 add_library(
     grafico
-    DesenhaTabuleiro.cpp
+    BoardDrawer.cpp
     Window.cpp
 )
 
