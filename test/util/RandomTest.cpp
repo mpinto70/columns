@@ -16,8 +16,7 @@ std::vector<size_t> criaVetor(const size_t N) {
     return res;
 }
 
-static void confereGeracao(const int line,
-      const size_t N) {
+static void confereGeracao(const int line, const size_t N) {
     const auto v1 = criaVetor(N);
     const auto v2 = criaVetor(N);
     const std::set<size_t> gerados(v1.begin(), v1.end());

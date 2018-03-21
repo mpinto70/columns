@@ -1,5 +1,6 @@
 #include "piece/PiecePosition.h"
 #include "piece/Board.h"
+
 #include <gtest/gtest.h>
 
 #include <stdexcept>
@@ -8,8 +9,7 @@ namespace piece {
 namespace tst {
 
 namespace {
-void confereCriacaoInvalida(const std::string& msg0,
-      const Board& tab) {
+void confereCriacaoInvalida(const std::string& msg0, const Board& tab) {
     for (uint16_t i = 0; i < 2 * tab.width(); ++i) {
         if (i < tab.width()) {
             EXPECT_NO_THROW(PiecePosition(tab, i, 4)) << msg0;
@@ -32,8 +32,7 @@ void confereCriacaoInvalida(const std::string& msg0,
     }
 }
 
-void confereCaiUmPassoInvalido(const std::string& msg0,
-      const Board& tab) {
+void confereCaiUmPassoInvalido(const std::string& msg0, const Board& tab) {
     PiecePosition p(tab, tab.width() - 1, 7);
     while (p.row() != tab.height() - PIECE_SIZE) {
         EXPECT_TRUE(not p.reached_bottom()) << msg0;
@@ -52,8 +51,7 @@ void confereCaiUmPassoInvalido(const std::string& msg0,
     }
 }
 
-void confereMoveInvalido(const std::string& msg0,
-      const Board& tab) {
+void confereMoveInvalido(const std::string& msg0, const Board& tab) {
     PiecePosition p(tab, 0, 4);
     for (uint16_t i = 0; i < tab.width() - 1; ++i) {
         EXPECT_EQ(p.column(), i) << msg0;

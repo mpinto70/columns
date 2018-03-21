@@ -1,8 +1,7 @@
 #include "../mck/util/utiltest.h"
 
-#include "score/Score.h"
-
 #include "piece/Piece.h"
+#include "score/Score.h"
 
 #include <gtest/gtest.h>
 

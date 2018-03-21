@@ -1,9 +1,9 @@
 #include "colunas.h"
-#include <graphics/BoardDrawer.h>
 
 #include "game/BoardController.h"
 #include "game/GameController.h"
 #include "game/StateObserver.h"
+#include "graphics/BoardDrawer.h"
 #include "piece/Board.h"
 #include "util/Wait.h"
 

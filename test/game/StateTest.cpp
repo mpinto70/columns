@@ -13,8 +13,7 @@
 namespace game {
 namespace tst {
 
-static State criaSituacao(const piece::Board& tabuleiro,
-      const score::ScoreBoard& placar) {
+static State criaSituacao(const piece::Board& tabuleiro, const score::ScoreBoard& placar) {
     return State(tabuleiro, placar);
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "game/Message.h"
 #include "graphics/Window.h"
 

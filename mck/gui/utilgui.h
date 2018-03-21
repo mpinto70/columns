@@ -1,6 +1,7 @@
 #pragma once
 
-#include <gui/Color.h>
+#include "gui/Color.h"
+
 #include <iosfwd>
 
 namespace gui {

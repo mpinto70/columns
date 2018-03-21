@@ -1,6 +1,6 @@
-#include "game/BoardController.h"
-
 #include "../mck/piece/utilpeca.h"
+
+#include "game/BoardController.h"
 
 #include <gtest/gtest.h>
 
@@ -11,8 +11,7 @@ namespace game {
 namespace tst {
 namespace {
 
-static void check_create_invalid_piece(BoardController& cont,
-      const std::string& msg) {
+static void check_create_invalid_piece(BoardController& cont, const std::string& msg) {
     try {
         const auto piece = ::piece::mck::create_piece_ascending(12);
         cont.add_piece(piece);

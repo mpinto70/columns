@@ -28,8 +28,7 @@ void Window::line(const gui::Point& begin,
     line_(begin.X, begin.Y, end.X, end.Y, color);
 }
 
-void Window::rectangle(const gui::Rectangle& rectangle,
-      const gui::Color& color) {
+void Window::rectangle(const gui::Rectangle& rectangle, const gui::Color& color) {
     rectangle_(rectangle.P1().X, rectangle.P1().Y, rectangle.P2().X, rectangle.P2().Y, color);
 }
 
@@ -39,8 +38,7 @@ void Window::rectangle(const gui::Point& top_left,
     rectangle_(top_left.X, top_left.Y, bottom_right.X, bottom_right.Y, color);
 }
 
-void Window::fill(const gui::Rectangle& rectangle,
-      const gui::Color& color) {
+void Window::fill(const gui::Rectangle& rectangle, const gui::Color& color) {
     fill_(rectangle.P1().X, rectangle.P1().Y, rectangle.P2().X, rectangle.P2().Y, color);
 }
 

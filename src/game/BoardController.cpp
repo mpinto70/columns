@@ -9,8 +9,7 @@
 
 namespace game {
 
-BoardController::BoardController(const piece::Board& board,
-      const uint16_t max_sub_row)
+BoardController::BoardController(const piece::Board& board, const uint16_t max_sub_row)
       : board_(board),
         max_sub_row_(max_sub_row),
         possibles_{ gui::GREEN, gui::RED, gui::BLUE, gui::YELLOW, gui::LAVENDER } {
@@ -213,8 +212,7 @@ bool BoardController::reached_end() const {
     return false;
 }
 
-bool BoardController::should_eliminate(const uint16_t column,
-      const uint16_t row) const {
+bool BoardController::should_eliminate(const uint16_t column, const uint16_t row) const {
     const gui::Color cor = board_.at(column, row);
     if (cor == board_.background_color()) {
         return false;

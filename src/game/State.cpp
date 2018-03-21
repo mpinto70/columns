@@ -4,8 +4,7 @@
 
 namespace game {
 
-State::State(const piece::Board& board,
-      const score::ScoreBoard& score_board)
+State::State(const piece::Board& board, const score::ScoreBoard& score_board)
       : board_(board),
         score_board_(score_board),
         piece_(nullptr),

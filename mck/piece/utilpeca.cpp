@@ -1,5 +1,5 @@
-
 #include "utilpeca.h"
+
 #include "../mck/gui/utilgui.h"
 
 #include <cstdio>
@@ -8,8 +8,7 @@
 namespace piece {
 namespace mck {
 
-static Piece create_piece_step(unsigned char color0,
-      char step_size) {
+static Piece create_piece_step(unsigned char color0, char step_size) {
     std::vector<gui::Color> cores;
     unsigned char color = color0;
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {

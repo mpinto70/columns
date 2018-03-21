@@ -1,4 +1,3 @@
-
 #include "BoardDrawer.h"
 
 namespace graphics {
@@ -55,8 +54,7 @@ void BoardDrawer::draw(Window& window,
     }
 }
 
-void BoardDrawer::draw(Window& window,
-      const piece::Board& board) const {
+void BoardDrawer::draw(Window& window, const piece::Board& board) const {
     window.fill(gui::Rectangle(left_,
                       top_,
                       left_ + board.width() * tile_size_,

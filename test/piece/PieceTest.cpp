@@ -1,6 +1,6 @@
-#include "piece/Piece.h"
-
 #include "../mck/piece/utilpeca.h"
+
+#include "piece/Piece.h"
 
 #include <gtest/gtest.h>
 
