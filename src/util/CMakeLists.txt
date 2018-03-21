@@ -1,8 +1,8 @@
 
 add_library(
     util
-    Aleatorio.cpp
-    Espera.cpp
+    Random.cpp
+    Wait.cpp
 )
 
 target_include_directories(

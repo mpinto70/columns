@@ -1,7 +1,7 @@
 
 add_library(
     util_mck
-    utiltst.cpp
+    utiltest.cpp
 )
 
 target_include_directories(

@@ -2,8 +2,8 @@
 add_executable(
     testutil
     ../gtest_main.cpp
-    testeAleatorio.cpp
-    testeEspera.cpp
+    RandomTest.cpp
+    WaitTest.cpp
 )
 
 target_link_libraries(

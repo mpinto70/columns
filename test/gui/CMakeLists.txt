@@ -2,9 +2,10 @@
 add_executable(
     testgui
     ../gtest_main.cpp
-    testeCor.cpp
-    testeFonte.cpp
-    testePonto.cpp
+    ColorTest.cpp
+    FontTest.cpp
+    PointTest.cpp
+    RectangleTest.cpp
 )
 
 target_link_libraries(

@@ -1,8 +1,10 @@
-# colunas
+# columns
 
-Colunas é um jogo semelhante ao Tetris. Porém, as peças são todas compostas de peca::TAMANHO_PECA número fixo de partes,
-cada parte de uma cor. Para eliminar peças do tabuleiro é necessário juntar 3 partes da mesma cor em qualquer direção
-(horizontal, vertical ou diagonal).
+Columns is a Tetris variant. In this game, all the pieces are composed of *piece::PIECE_SIZE* straight vertical tiles.
+Each tile as a color. To eliminate tiles from the board it is necessary to gather at least 3 tiles of the same color in
+a straight line in any direction (horizontal, vertical or diagonal).
 
-As peças não giram em torno do eixo perpendicular à tela, assim elas sempre estarão na posição vertical. Porém é
-possível girar as peças em torno do eixo horizontal paralelo à tela de forma que as cores se alternem.
+The pieces don't rotate on the plane of the game, thus they always fall in vertical position. What the player can do is
+rotate the colors with up and down arrow.
+
+Try it out, it is simple and fun.

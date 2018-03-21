@@ -1,10 +1,8 @@
 
 add_library(
     gui
-    Cor.cpp
-    Fonte.cpp
-    Ponto.cpp
-    Retangulo.cpp
+    Color.cpp
+    Font.cpp
 )
 
 target_include_directories(
