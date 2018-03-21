@@ -50,7 +50,7 @@ elif [ "$1" = "test" ]; then
     done
 elif [ "$1" = "demo" ]; then
     do_build
-    bin/colunas
+    bin/columns
 elif [ "$1" = "check" ]; then
     do_build
     cppcheck --enable=warning,style,unusedFunction --error-exitcode=-1 src

@@ -81,5 +81,5 @@ private:
           const gui::Color& color) = 0;
 };
 
-using SharedJanela = std::shared_ptr<Window>;
+using SharedWindow = std::shared_ptr<Window>;
 }

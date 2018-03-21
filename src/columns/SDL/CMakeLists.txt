@@ -1,10 +1,10 @@
 
 add_library(
-    colunas_SDL
-    colunas_SDL.cpp
+    columns_SDL
+    columns_SDL.cpp
 )
 
 target_include_directories(
-    colunas_SDL
+    columns_SDL
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
