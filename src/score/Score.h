@@ -6,11 +6,8 @@ namespace score {
 /// Stores and processes score
 class Score {
 public:
-    /**
-     * @param total initial score
-     */
-    constexpr Score(size_t total = 0)
-          : total_(total) {
+    constexpr explicit Score(size_t initial_score = 0)
+          : total_(initial_score) {
     }
 
     constexpr size_t total() const { return total_; }

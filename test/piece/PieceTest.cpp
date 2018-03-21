@@ -1,4 +1,4 @@
-#include "../mck/piece/utilpeca.h"
+#include "../mck/piece/utilpiece.h"
 
 #include "piece/Piece.h"
 
@@ -12,7 +12,7 @@ namespace tst {
 
 using gui::Color;
 
-TEST(TestPiece, create) {
+TEST(PieceTest, create) {
     const Piece p1 = mck::create_piece_ascending(0);
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
         Color color(i, i, i);
@@ -48,7 +48,7 @@ TEST(TestPiece, create) {
     EXPECT_EQ(p3, p2);
 }
 
-TEST(TestPiece, roll) {
+TEST(PieceTest, roll) {
     Piece p(mck::create_piece_ascending(0));
     std::vector<unsigned char> colors;
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
@@ -120,7 +120,7 @@ void check_colors(const int line, const std::vector<gui::Color>& colors) {
 }
 }
 
-TEST(TestPiece, create_piece) {
+TEST(PieceTest, create_piece) {
     std::vector<gui::Color> colors;
 
     colors.emplace_back(1, 2, 3);

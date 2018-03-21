@@ -27,11 +27,11 @@ const gui::Color& Piece::operator[](unsigned char i) const {
 }
 
 void Piece::roll_up() {
-    std::rotate(colors_, colors_ + 1, colors_ + PIECE_SIZE);
+    std::rotate(&colors_[0], &colors_[1], &colors_[PIECE_SIZE]);
 }
 
 void Piece::roll_down() {
-    std::rotate(colors_, colors_ + PIECE_SIZE - 1, colors_ + PIECE_SIZE);
+    std::rotate(&colors_[0], &colors_[PIECE_SIZE - 1], &colors_[PIECE_SIZE]);
 }
 
 Piece Piece::create(const std::vector<gui::Color>& possible) {

@@ -21,7 +21,7 @@ TEST(FontTest, create) {
     mck::check_assignment(__FILE__, __LINE__, f1, f2);
 }
 
-TEST(FontTest, OperatorIgual) {
+TEST(FontTest, comparison) {
     using namespace std::rel_ops;
     const std::vector<Font> v = {
         { "name 1", 2 },

@@ -1,7 +1,7 @@
 
 add_library(
     peca_mck
-    utilpeca.cpp
+    utilpiece.cpp
 )
 
 target_include_directories(

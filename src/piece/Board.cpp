@@ -51,7 +51,6 @@ bool operator==(const Board& lhs, const Board& rhs) {
     return lhs.height() == rhs.height()
            && lhs.width() == rhs.width()
            && lhs.tiles() == rhs.tiles();
-    return true;
 }
 
 bool operator!=(const Board& lhs, const Board& rhs) {

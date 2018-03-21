@@ -23,7 +23,7 @@ constexpr size_t TILE_STEP = 2;                                 ///< # of steps 
 constexpr size_t BOARD_WIDTH = 8;                               ///< board width in tiles
 constexpr size_t BOARD_HEIGHT = 16;                             ///< board height in tiles
 constexpr size_t SCREEN_WIDTH = BOARD_WIDTH * TILE_SIZE + 200;  ///< screen width in pixels
-constexpr size_t SCREEN_HEIGHT = BOARD_HEIGHT * TILE_SIZE + 50; ///< screen height in pixels
+constexpr size_t SCREEN_HEIGHT = BOARD_HEIGHT * TILE_SIZE + 75; ///< screen height in pixels
 
 std::atomic<bool> initialized;
 std::atomic<bool> quit;
@@ -52,10 +52,13 @@ public:
 
     void update(const game::State& state) const override {
         window_->clear();
-        window_->write("Columns!",
+        window_->line(gui::Point{0, BOARD_HEIGHT * TILE_SIZE + 40 },
+                gui::Point{SCREEN_WIDTH, BOARD_HEIGHT * TILE_SIZE + 40 },
+                gui::WHITE);
+        window_->write("Columns - by mpinto70",
               gui::Point{ 10, BOARD_HEIGHT * TILE_SIZE + 45 },
               font_name_,
-              gui::BLUE);
+              gui::WHITE);
         window_->write("Score",
               gui::Point{ 10 + BOARD_WIDTH * TILE_SIZE + 10, 50 },
               font_name_,

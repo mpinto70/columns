@@ -39,8 +39,8 @@ TEST(ScoreBoardTest, create_invalid) {
 
 TEST(ScoreBoardTest, compare) {
     const std::vector<ScoreBoard> v = {
-        ScoreBoard(2, 1),
-        ScoreBoard(3),
+        ScoreBoard(Score(2), Score(1)),
+        ScoreBoard(Score(3)),
         ScoreBoard(),
     };
 
@@ -77,7 +77,7 @@ TEST(ScoreBoardTest, add) {
 }
 
 TEST(ScoreBoardTest, reset) {
-    ScoreBoard sb(52, 34);
+    ScoreBoard sb(Score(52), Score(34));
     EXPECT_EQ(sb.record(), Score(52));
     EXPECT_EQ(sb.score(), Score(34));
 
