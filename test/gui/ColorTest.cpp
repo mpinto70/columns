@@ -1,6 +1,6 @@
-#include "gui/Color.h"
+#include "../mck/util/utiltest.h"
 
-#include "../mck/util/utiltst.h"
+#include "gui/Color.h"
 
 #include <gtest/gtest.h>
 
@@ -17,7 +17,7 @@ TEST(ColorTest, comparison) {
         { 4, 5, 3 },
         { 4, 5, 6 }
     };
-    mck::confereComparacao(__FILE__, __LINE__, v);
+    mck::check_comparison(__FILE__, __LINE__, v);
 }
 
 TEST(ColorTest, create) {
@@ -30,7 +30,7 @@ TEST(ColorTest, create) {
     EXPECT_EQ(c2.G, 222);
     EXPECT_EQ(c2.B, 123);
 
-    mck::confereAtribuicao(__FILE__, __LINE__, c1, c2);
+    mck::check_assignment(__FILE__, __LINE__, c1, c2);
 }
 
 TEST(ColorTest, constants) {

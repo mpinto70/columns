@@ -1,6 +1,6 @@
-#include "gui/Point.h"
+#include "../mck/util/utiltest.h"
 
-#include "../mck/util/utiltst.h"
+#include "gui/Point.h"
 
 #include <gtest/gtest.h>
 
@@ -15,7 +15,7 @@ TEST(PointTest, create) {
     EXPECT_EQ(p2.X, 231);
     EXPECT_EQ(p2.Y, 222);
 
-    mck::confereAtribuicao(__FILE__, __LINE__, p1, p2);
+    mck::check_assignment(__FILE__, __LINE__, p1, p2);
 }
 
 TEST(PointTest, comparison) {
@@ -24,7 +24,7 @@ TEST(PointTest, comparison) {
         { 4, 2 },
         { 1, 3 },
     };
-    mck::confereComparacao(__FILE__, __LINE__, v);
+    mck::check_comparison(__FILE__, __LINE__, v);
 
     static_assert(Point(1, 2) == Point(1, 2), "Seriously");
     static_assert(Point(2, 1) == Point(2, 1), "Seriously");

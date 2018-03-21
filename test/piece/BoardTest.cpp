@@ -1,5 +1,5 @@
 #include "../mck/piece/utilpeca.h"
-#include "../mck/util/utiltst.h"
+#include "../mck/util/utiltest.h"
 
 #include "piece/Board.h"
 
@@ -118,7 +118,7 @@ TEST(BoardTest, compare) {
         Board(11, 21, gui::BLUE),
     };
 
-    ::mck::confereComparacao(__FILE__, __LINE__, vec);
+    ::mck::check_comparison(__FILE__, __LINE__, vec);
 
     const Board tab0(10, 20, gui::BLACK);
     Board tab1(10, 20, gui::BLACK);

@@ -13,14 +13,14 @@ namespace tst {
 using gui::Color;
 
 TEST(TestPiece, create) {
-    const Piece p1 = mck::criaPecaSequencialCrescente(0);
+    const Piece p1 = mck::create_piece_ascending(0);
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
         Color color(i, i, i);
         EXPECT_EQ(p1[i], color);
     }
     EXPECT_THROW(p1[PIECE_SIZE], std::range_error);
 
-    const Piece p2 = mck::criaPecaSequencialDecrescente(15);
+    const Piece p2 = mck::create_piece_descending(15);
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
         Color color(15 - i, 15 - i, 15 - i);
         EXPECT_EQ(p2[i], color);
@@ -49,7 +49,7 @@ TEST(TestPiece, create) {
 }
 
 TEST(TestPiece, roll) {
-    Piece p(mck::criaPecaSequencialCrescente(0));
+    Piece p(mck::create_piece_ascending(0));
     std::vector<unsigned char> colors;
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
         colors.push_back(i);

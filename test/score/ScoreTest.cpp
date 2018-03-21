@@ -1,4 +1,4 @@
-#include "../mck/util/utiltst.h"
+#include "../mck/util/utiltest.h"
 
 #include "score/Score.h"
 
@@ -24,8 +24,8 @@ TEST(ScoreTest, compare) {
     const Score s1(1);
     const Score s2(2);
 
-    ::mck::confereAtribuicao(__FILE__, __LINE__, s1, s2);
-    ::mck::confereOrdem<Score>(__FILE__, __LINE__, { s1, s2 });
+    ::mck::check_assignment(__FILE__, __LINE__, s1, s2);
+    ::mck::check_total_ordering<Score>(__FILE__, __LINE__, { s1, s2 });
 
     static_assert(Score(1) == Score(1), "Oops");
     static_assert(Score(1) != Score(2), "Oops");

@@ -14,7 +14,7 @@ namespace {
 static void check_create_invalid_piece(BoardController& cont,
       const std::string& msg) {
     try {
-        const auto piece = ::piece::mck::criaPecaSequencialCrescente(12);
+        const auto piece = ::piece::mck::create_piece_ascending(12);
         cont.add_piece(piece);
         FAIL() << "didn't throw " + msg;
     } catch (std::exception& e) {
@@ -42,7 +42,7 @@ TEST(BoardControllerTest, add_piece) {
     piece::Board white(10, 20, gui::WHITE);
     BoardController contr(white, 4);
 
-    const auto piece = ::piece::mck::criaPecaSequencialCrescente(12);
+    const auto piece = ::piece::mck::create_piece_ascending(12);
 
     EXPECT_TRUE(contr.has_piece() == false);
     EXPECT_THROW(contr.piece_position(), std::logic_error);
@@ -61,7 +61,7 @@ TEST(BoardControllerTest, invalid_add_piece) {
     piece::Board white(10, 20, gui::WHITE);
     BoardController contr(white, 4);
 
-    const auto piece = ::piece::mck::criaPecaSequencialCrescente(12);
+    const auto piece = ::piece::mck::create_piece_ascending(12);
 
     EXPECT_TRUE(contr.add_piece(piece));
     EXPECT_TRUE(contr.has_piece() == true);
@@ -73,7 +73,7 @@ TEST(BoardControllerTest, step) {
     const piece::Board b0(10, 20, gui::WHITE);
     BoardController white(b0, 4);
     EXPECT_TRUE(white.board() == b0);
-    const auto piece = ::piece::mck::criaPecaSequencialCrescente(12);
+    const auto piece = ::piece::mck::create_piece_ascending(12);
 
     EXPECT_TRUE(white.add_piece(piece));
     const uint16_t col = white.piece_position().column();
@@ -110,7 +110,7 @@ TEST(BoardControllerTest, move) {
     piece::Board white_board(10, 20, gui::WHITE);
     BoardController white(white_board, 4);
 
-    const auto piece = ::piece::mck::criaPecaSequencialCrescente(12);
+    const auto piece = ::piece::mck::create_piece_ascending(12);
     EXPECT_TRUE(white.add_piece(piece));
 
     piece::PiecePosition position = white.piece_position();

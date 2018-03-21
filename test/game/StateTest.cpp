@@ -54,16 +54,16 @@ TEST(TesteSituacao, Criacao) {
     const score::ScoreBoard placar4(39, 34);
     const score::ScoreBoard placar5(40, 35);
     const score::ScoreBoard placar6(41, 34);
-    const piece::Piece peca3 = piece::mck::criaPecaSequencialCrescente(12);
-    const piece::Piece peca4 = piece::mck::criaPecaSequencialCrescente(15);
-    const piece::Piece prox3 = piece::mck::criaPecaSequencialCrescente(17);
-    const piece::Piece prox4 = piece::mck::criaPecaSequencialCrescente(23);
+    const piece::Piece peca3 = piece::mck::create_piece_ascending(12);
+    const piece::Piece peca4 = piece::mck::create_piece_ascending(15);
+    const piece::Piece prox3 = piece::mck::create_piece_ascending(17);
+    const piece::Piece prox4 = piece::mck::create_piece_ascending(23);
     const piece::PiecePosition posicao3(tabuleiro3, 2, 4);
     const piece::PiecePosition posicao4(tabuleiro4, 3, 4);
     const EliminationList elim5 = { { 1, 2 }, { 3, 4 } };
     const EliminationList elim6 = { { 5, 6 }, { 3, 4 } };
-    const piece::Piece prox5 = piece::mck::criaPecaSequencialCrescente(19);
-    const piece::Piece prox6 = piece::mck::criaPecaSequencialCrescente(21);
+    const piece::Piece prox5 = piece::mck::create_piece_ascending(19);
+    const piece::Piece prox6 = piece::mck::create_piece_ascending(21);
 
     const State situacao1 = criaSituacao(tabuleiro1, placar1);
     EXPECT_TRUE(situacao1.board() == tabuleiro1);

@@ -1,6 +1,6 @@
-#include "gui/Font.h"
+#include "../mck/util/utiltest.h"
 
-#include "../mck/util/utiltst.h"
+#include "gui/Font.h"
 
 #include <gtest/gtest.h>
 
@@ -18,7 +18,7 @@ TEST(FontTest, create) {
     EXPECT_EQ(f2.name(), "font 2");
     EXPECT_EQ(f2.size(), 2);
 
-    mck::confereAtribuicao(__FILE__, __LINE__, f1, f2);
+    mck::check_assignment(__FILE__, __LINE__, f1, f2);
 }
 
 TEST(FontTest, OperatorIgual) {
@@ -28,7 +28,7 @@ TEST(FontTest, OperatorIgual) {
         { "name 2", 2 },
         { "name 1", 3 }
     };
-    mck::confereComparacao(__FILE__, __LINE__, v);
+    mck::check_comparison(__FILE__, __LINE__, v);
 }
 }
 }

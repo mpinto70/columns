@@ -1,4 +1,4 @@
-#include "../mck/util/utiltst.h"
+#include "../mck/util/utiltest.h"
 
 #include "score/ScoreBoard.h"
 
@@ -29,9 +29,9 @@ TEST(ScoreBoardTest, create) {
     EXPECT_EQ(sb3.score(), Score(0));
     EXPECT_EQ(sb3.record(), Score(0));
 
-    ::mck::confereAtribuicao(__FILE__, __LINE__, sb1, sb2);
-    ::mck::confereAtribuicao(__FILE__, __LINE__, sb1, sb3);
-    ::mck::confereAtribuicao(__FILE__, __LINE__, sb2, sb3);
+    ::mck::check_assignment(__FILE__, __LINE__, sb1, sb2);
+    ::mck::check_assignment(__FILE__, __LINE__, sb1, sb3);
+    ::mck::check_assignment(__FILE__, __LINE__, sb2, sb3);
 }
 
 TEST(ScoreBoardTest, create_invalid) {
@@ -45,9 +45,9 @@ TEST(ScoreBoardTest, compare) {
         ScoreBoard(),
     };
 
-    ::mck::confereComparacao(__FILE__, __LINE__, v);
-    ::mck::confereComparacao(__FILE__, __LINE__, v);
-    ::mck::confereComparacao(__FILE__, __LINE__, v);
+    ::mck::check_comparison(__FILE__, __LINE__, v);
+    ::mck::check_comparison(__FILE__, __LINE__, v);
+    ::mck::check_comparison(__FILE__, __LINE__, v);
 }
 
 TEST(ScoreBoardTest, add) {

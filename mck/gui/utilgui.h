@@ -6,9 +6,9 @@
 namespace gui {
 namespace mck {
 
-void print(const Color& cor);
+void print(const Color& color);
 void print(const std::string& file,
       int line,
-      const Color& cor);
+      const Color& color);
 }
 }

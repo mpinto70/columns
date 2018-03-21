@@ -1,6 +1,6 @@
-#include "gui/Rectangle.h"
+#include "../mck/util/utiltest.h"
 
-#include "../mck/util/utiltst.h"
+#include "gui/Rectangle.h"
 
 #include <gtest/gtest.h>
 
@@ -15,7 +15,7 @@ TEST(RectangleTest, create_coordinates) {
     EXPECT_EQ(r2.P1(), Point(2, 1));
     EXPECT_EQ(r2.P2(), Point(4, 3));
 
-    mck::confereAtribuicao(__FILE__, __LINE__, r1, r2);
+    mck::check_assignment(__FILE__, __LINE__, r1, r2);
 }
 
 TEST(RectangleTest, create_points) {
@@ -26,7 +26,7 @@ TEST(RectangleTest, create_points) {
     EXPECT_EQ(r2.P1(), Point(2, 1));
     EXPECT_EQ(r2.P2(), Point(4, 3));
 
-    mck::confereAtribuicao(__FILE__, __LINE__, r1, r2);
+    mck::check_assignment(__FILE__, __LINE__, r1, r2);
 }
 
 TEST(RectangleTest, comparison) {
@@ -37,7 +37,7 @@ TEST(RectangleTest, comparison) {
         { 1, 2, 4, 4 },
         { 1, 2, 3, 5 },
     };
-    mck::confereComparacao(__FILE__, __LINE__, v);
+    mck::check_comparison(__FILE__, __LINE__, v);
 
     static_assert(Rectangle(1, 2, 3, 4) == Rectangle(1, 2, 3, 4), "Seriously");
     static_assert(Rectangle(2, 2, 3, 4) != Rectangle(1, 2, 3, 4), "Seriously");

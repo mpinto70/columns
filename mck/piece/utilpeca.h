@@ -6,13 +6,13 @@
 namespace piece {
 namespace mck {
 
-Piece criaPecaSequencialCrescente(unsigned char cor0);
-Piece criaPecaSequencialDecrescente(unsigned char cor0);
-void printPeca(const std::string& file,
+Piece create_piece_ascending(unsigned char color0);
+Piece create_piece_descending(unsigned char color0);
+void print_piece(const std::string& file,
       int line,
       const Piece& piece);
-void printTabuleiro(const std::string& file,
+void print_board(const std::string& file,
       int line,
-      const Board& tabuleiro);
+      const Board& board);
 }
 }
