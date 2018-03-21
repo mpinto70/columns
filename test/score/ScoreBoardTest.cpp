@@ -1,3 +1,4 @@
+#include "../mck/score/utilscore.h"
 #include "../mck/util/utiltest.h"
 
 #include "piece/Piece.h"

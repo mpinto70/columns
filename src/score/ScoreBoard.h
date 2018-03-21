@@ -20,7 +20,4 @@ private:
     Score record_;
     Score score_;
 };
-
-bool operator==(const ScoreBoard& lhs, const ScoreBoard& rhs);
-bool operator!=(const ScoreBoard& lhs, const ScoreBoard& rhs);
 }

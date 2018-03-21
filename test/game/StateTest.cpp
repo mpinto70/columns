@@ -1,4 +1,6 @@
+#include "../mck/game/utilgame.h"
 #include "../mck/piece/utilpiece.h"
+#include "../mck/score/utilscore.h"
 
 #include "game/State.h"
 

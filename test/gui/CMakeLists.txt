@@ -12,6 +12,7 @@ target_link_libraries(
     testgui
     gui
     util_mck
+    gui_mck
     libgtest
     libgmock
 )

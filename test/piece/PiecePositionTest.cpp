@@ -1,3 +1,4 @@
+#include "../mck/piece/utilpiece.h"
 #include "../mck/util/utiltest.h"
 
 #include "piece/PiecePosition.h"

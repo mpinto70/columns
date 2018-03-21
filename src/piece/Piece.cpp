@@ -44,12 +44,4 @@ Piece Piece::create(const std::vector<gui::Color>& possible) {
     });
     return piece::Piece(colors);
 }
-
-bool operator==(const Piece& lhs, const Piece& rhs) {
-    return std::equal(lhs.colors_, lhs.colors_ + PIECE_SIZE, rhs.colors_);
-}
-
-bool operator!=(const Piece& lhs, const Piece& rhs) {
-    return not(lhs == rhs);
-}
 }

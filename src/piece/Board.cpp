@@ -46,14 +46,4 @@ void Board::remove(const uint16_t c, const uint16_t r) {
     }
     at(c, 0) = background_color_;
 }
-
-bool operator==(const Board& lhs, const Board& rhs) {
-    return lhs.height() == rhs.height()
-           && lhs.width() == rhs.width()
-           && lhs.tiles() == rhs.tiles();
-}
-
-bool operator!=(const Board& lhs, const Board& rhs) {
-    return not(lhs == rhs);
-}
 }

@@ -21,7 +21,4 @@ private:
     std::string name_;   ///< font name (path to file, for example)
     unsigned char size_; ///< font size
 };
-
-bool operator==(const Font& lhs, const Font& rhs);
-bool operator!=(const Font& lhs, const Font& rhs);
 }

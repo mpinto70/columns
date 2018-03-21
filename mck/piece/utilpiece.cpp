@@ -6,6 +6,35 @@
 #include <string>
 
 namespace piece {
+bool operator==(const Piece& lhs, const Piece& rhs) {
+    return std::equal(lhs.colors_, lhs.colors_ + PIECE_SIZE, rhs.colors_);
+}
+
+bool operator!=(const Piece& lhs, const Piece& rhs) {
+    return not(lhs == rhs);
+}
+
+bool operator==(const Board& lhs, const Board& rhs) {
+    return lhs.height() == rhs.height()
+           && lhs.width() == rhs.width()
+           && lhs.tiles() == rhs.tiles();
+}
+
+bool operator!=(const Board& lhs, const Board& rhs) {
+    return not(lhs == rhs);
+}
+
+bool operator==(const PiecePosition& lhs, const PiecePosition& rhs) {
+    return lhs.column() == rhs.column()
+           && lhs.row() == rhs.row()
+           && lhs.sub_row() == rhs.sub_row()
+           && lhs.max_sub_row() == rhs.max_sub_row();
+}
+
+bool operator!=(const PiecePosition& lhs, const PiecePosition& rhs) {
+    return not(lhs == rhs);
+}
+
 namespace mck {
 
 static Piece create_piece_step(unsigned char color0, char step_size) {

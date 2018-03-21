@@ -27,13 +27,4 @@ void ScoreBoard::add(const size_t n) {
 void ScoreBoard::reset() {
     score_.reset();
 }
-
-bool operator==(const ScoreBoard& lhs, const ScoreBoard& rhs) {
-    return lhs.record() == rhs.record()
-           && lhs.score() == rhs.score();
-}
-
-bool operator!=(const ScoreBoard& lhs, const ScoreBoard& rhs) {
-    return not(lhs == rhs);
-}
 }

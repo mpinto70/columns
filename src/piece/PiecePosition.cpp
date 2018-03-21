@@ -48,15 +48,4 @@ void PiecePosition::move_right() {
     }
     ++column_;
 }
-
-bool operator==(const PiecePosition& lhs, const PiecePosition& rhs) {
-    return lhs.column() == rhs.column()
-           && lhs.row() == rhs.row()
-           && lhs.sub_row() == rhs.sub_row()
-           && lhs.max_sub_row() == rhs.max_sub_row();
-}
-
-bool operator!=(const PiecePosition& lhs, const PiecePosition& rhs) {
-    return not(lhs == rhs);
-}
 }

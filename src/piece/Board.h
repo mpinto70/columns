@@ -47,7 +47,4 @@ private:
     uint16_t width_;                ///< board width
     uint16_t height_;               ///< board height
 };
-
-bool operator==(const Board& lhs, const Board& rhs);
-bool operator!=(const Board& lhs, const Board& rhs);
 }

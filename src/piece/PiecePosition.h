@@ -40,7 +40,4 @@ private:
     uint16_t max_column_;  ///< maximum columns position
     uint16_t max_row_;     ///< maximum row position
 };
-
-bool operator==(const PiecePosition& lhs, const PiecePosition& rhs);
-bool operator!=(const PiecePosition& lhs, const PiecePosition& rhs);
 }

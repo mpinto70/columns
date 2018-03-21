@@ -43,7 +43,5 @@ private:
     friend bool operator==(const Piece& lhs, const Piece& rhs);
 };
 
-bool operator==(const Piece& lhs, const Piece& rhs);
-bool operator!=(const Piece& lhs, const Piece& rhs);
 typedef std::unique_ptr<Piece> PiecePtr;
 }

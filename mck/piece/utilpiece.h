@@ -2,8 +2,18 @@
 
 #include "piece/Board.h"
 #include "piece/Piece.h"
+#include "piece/PiecePosition.h"
 
 namespace piece {
+bool operator==(const Piece& lhs, const Piece& rhs);
+bool operator!=(const Piece& lhs, const Piece& rhs);
+
+bool operator==(const Board& lhs, const Board& rhs);
+bool operator!=(const Board& lhs, const Board& rhs);
+
+bool operator==(const PiecePosition& lhs, const PiecePosition& rhs);
+bool operator!=(const PiecePosition& lhs, const PiecePosition& rhs);
+
 namespace mck {
 
 Piece create_piece_ascending(unsigned char color0);

@@ -9,12 +9,4 @@ Font::Font(const std::string& name, const unsigned char size)
         size_(size) {
 }
 
-bool operator==(const Font& lhs, const Font& rhs) {
-    return lhs.name() == rhs.name()
-           && lhs.size() == rhs.size();
-}
-
-bool operator!=(const Font& lhs, const Font& rhs) {
-    return not(lhs == rhs);
-}
 }

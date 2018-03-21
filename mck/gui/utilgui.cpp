@@ -4,6 +4,15 @@
 #include <string>
 
 namespace gui {
+bool operator==(const Font& lhs, const Font& rhs) {
+    return lhs.name() == rhs.name()
+           && lhs.size() == rhs.size();
+}
+
+bool operator!=(const Font& lhs, const Font& rhs) {
+    return not(lhs == rhs);
+}
+
 namespace mck {
 
 void print(const gui::Color& color) {

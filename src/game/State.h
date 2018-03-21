@@ -68,6 +68,4 @@ private:
     piece::PiecePtr next_; ///< next piece to be put in the board
 };
 
-bool operator==(const State& lhs, const State& rhs);
-bool operator!=(const State& lhs, const State& rhs);
 }

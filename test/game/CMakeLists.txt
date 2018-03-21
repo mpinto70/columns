@@ -9,6 +9,8 @@ add_executable(
 
 target_link_libraries(
     testjogo
+    game_mck
+    score_mck
     peca_mck
     gui_mck
     libgtest
