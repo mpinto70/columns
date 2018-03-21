@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace grafico {
+namespace graphics {
 Window::Window(const std::string& name,
       const uint16_t width,
       const uint16_t height)

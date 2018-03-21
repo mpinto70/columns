@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-namespace grafico {
+namespace graphics {
 WindowSDL::WindowSDL(const std::string& name,
       const uint16_t left,
       const uint16_t top,

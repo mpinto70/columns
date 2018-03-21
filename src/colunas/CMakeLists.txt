@@ -25,7 +25,7 @@ target_link_libraries (
     ${SDL2TTF_LIBRARIES}
     ${SDL2_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
-    grafico
+    graphics
     grafico_SDL
     gui
     game

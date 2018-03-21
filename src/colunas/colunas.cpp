@@ -1,5 +1,5 @@
-#include <grafico/BoardDrawer.h>
 #include "colunas.h"
+#include <graphics/BoardDrawer.h>
 
 #include "game/BoardController.h"
 #include "game/GameController.h"
@@ -46,10 +46,10 @@ public:
      * @param fontePlacar   a fonte do placar
      * @param desenhador    o desenhador de tabuleiro
      */
-    ColunasObs(const grafico::SharedJanela& janela,
+    ColunasObs(const graphics::SharedJanela& janela,
           const gui::Font& fonteNome,
           const gui::Font& fontePlacar,
-          const grafico::BoardDrawer& desenhador)
+          const graphics::BoardDrawer& desenhador)
           : janela_(janela),
             fonteNome_(fonteNome),
             fontePlacar_(fontePlacar),
@@ -81,10 +81,10 @@ public:
     }
 
 private:
-    grafico::SharedJanela janela_;      ///< a janela onde será mostrado o game
-    gui::Font fonteNome_;               ///< a fonte do nome do sistema
-    gui::Font fontePlacar_;             ///< a fonte do placar
-    grafico::BoardDrawer desenha_; ///< o desenhador do conteúdo do tabuleiro
+    graphics::SharedJanela janela_; ///< a janela onde será mostrado o game
+    gui::Font fonteNome_;           ///< a fonte do nome do sistema
+    gui::Font fontePlacar_;         ///< a fonte do placar
+    graphics::BoardDrawer desenha_; ///< o desenhador do conteúdo do tabuleiro
 };
 
 /** Inicializa a interface gráfica e executa o game.
@@ -95,7 +95,7 @@ void executa(game::MensagemPtr mensagens) {
     quit = false;
     try {
         auto janela = colunas::cria_janela(VERSAO, LARGURA_TELA, ALTURA_TELA);
-        const grafico::BoardDrawer des(10, 15, TAMANHO_QUADRADINHO, STEPS_QUADRADINHO);
+        const graphics::BoardDrawer des(10, 15, TAMANHO_QUADRADINHO, STEPS_QUADRADINHO);
         const gui::Font fntNome("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font fntPlacar("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 

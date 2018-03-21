@@ -2,12 +2,12 @@
 add_subdirectory (SDL)
 
 add_library(
-    grafico
+    graphics
     BoardDrawer.cpp
     Window.cpp
 )
 
 target_include_directories(
-    grafico
+    graphics
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )

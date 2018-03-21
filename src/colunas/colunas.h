@@ -1,11 +1,11 @@
 #pragma once
 #include "game/Message.h"
-#include "grafico/Window.h"
+#include "graphics/Window.h"
 
 namespace colunas {
 void init_grafico();
 void finaliza_grafico();
-grafico::SharedJanela cria_janela(const std::string& versao,
+graphics::SharedJanela cria_janela(const std::string& versao,
       size_t largura_tela,
       size_t altura_tela);
 

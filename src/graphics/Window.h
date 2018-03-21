@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 
-namespace grafico {
+namespace graphics {
 
 class Window {
 public:

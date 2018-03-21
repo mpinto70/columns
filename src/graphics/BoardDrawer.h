@@ -1,11 +1,11 @@
 #pragma once
 
 #include "game/State.h"
-#include "grafico/Window.h"
+#include "graphics/Window.h"
 
 #include <cstdint>
 
-namespace grafico {
+namespace graphics {
 
 class BoardDrawer {
 public:
@@ -25,10 +25,10 @@ public:
           const gui::Color& elimination_color) const;
 
 private:
-    uint16_t left_;               ///< X coordinates of the board top left corner
-    uint16_t top_;                ///< Y coordinates of the board top left corner
+    uint16_t left_;      ///< X coordinates of the board top left corner
+    uint16_t top_;       ///< Y coordinates of the board top left corner
     uint16_t tile_size_; ///< tile size
-    uint16_t step_size_;    ///< sub tile step size
+    uint16_t step_size_; ///< sub tile step size
 
     void draw(Window& window,
           const piece::Board& board) const;

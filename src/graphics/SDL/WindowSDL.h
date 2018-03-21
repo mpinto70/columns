@@ -1,11 +1,11 @@
 #pragma once
 
-#include "grafico/Window.h"
+#include "graphics/Window.h"
 
 #include <SDL2/SDL.h>
 #include <unistd.h>
 
-namespace grafico {
+namespace graphics {
 
 class WindowSDL : public Window {
 public:

@@ -1,7 +1,7 @@
 
 #include "BoardDrawer.h"
 
-namespace grafico {
+namespace graphics {
 
 namespace {
 void draw_tile_(Window& window,

@@ -1,5 +1,5 @@
 #include "colunas/colunas.h"
-#include "grafico/SDL/WindowSDL.h"
+#include "graphics/SDL/WindowSDL.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -13,10 +13,10 @@ static std::string montaLogSDL(const std::string& msg) {
     return msg + " error: " + SDL_GetError();
 }
 
-grafico::SharedJanela cria_janela(const std::string& versao,
+graphics::SharedJanela cria_janela(const std::string& versao,
       size_t largura_tela,
       size_t altura_tela) {
-    return std::make_shared<grafico::WindowSDL>("Colunas " + versao, 1000, 100, largura_tela, altura_tela, gui::GRAY);
+    return std::make_shared<graphics::WindowSDL>("Colunas " + versao, 1000, 100, largura_tela, altura_tela, gui::GRAY);
 }
 
 InputResult processa_input(game::MensagemPtr& mensagens) {
