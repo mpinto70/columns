@@ -1,6 +1,6 @@
 
 add_executable(
-    testjogo
+    game_test
     ../gtest_main.cpp
     BoardControllerTest.cpp
     MessageTest.cpp
@@ -8,10 +8,10 @@ add_executable(
 )
 
 target_link_libraries(
-    testjogo
+    game_test
     game_mck
     score_mck
-    peca_mck
+    piece_mck
     gui_mck
     libgtest
     libgmock

@@ -1,6 +1,6 @@
 
 add_executable(
-    testpeca
+    piece_test
     ../gtest_main.cpp
     BoardTest.cpp
     PieceTest.cpp
@@ -8,9 +8,9 @@ add_executable(
 )
 
 target_link_libraries(
-    testpeca
+    piece_test
     util_mck
-    peca_mck
+    piece_mck
     gui_mck
     libgtest
     libgmock

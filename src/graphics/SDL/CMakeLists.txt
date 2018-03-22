@@ -1,10 +1,10 @@
 
 add_library(
-    grafico_SDL
+    graphics_SDL
     WindowSDL.cpp
 )
 
 target_include_directories(
-    grafico_SDL
+    graphics_SDL
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )

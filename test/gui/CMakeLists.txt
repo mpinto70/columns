@@ -1,6 +1,6 @@
 
 add_executable(
-    testgui
+    gui_test
     ../gtest_main.cpp
     ColorTest.cpp
     FontTest.cpp
@@ -9,7 +9,7 @@ add_executable(
 )
 
 target_link_libraries(
-    testgui
+    gui_test
     gui
     util_mck
     gui_mck

@@ -1,13 +1,13 @@
 
 add_executable(
-    testutil
+    util_test
     ../gtest_main.cpp
     RandomTest.cpp
     WaitTest.cpp
 )
 
 target_link_libraries(
-    testutil
+    util_test
     util
     libgtest
     libgmock
