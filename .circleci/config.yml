@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/buildpack-deps:artful-curl-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install tools
+          command: sudo apt install -y g++ cmake libboost-all-dev cppcheck libsdl2-dev libsdl2-image  libsdl2-ttf
+      - run:
+          name: Build system
+          command: ./runbuild
+      - run:
+          name: Test system
+          command: ./runbuild test
+      - run:
+          name: Cppcheck system
+          command: ./runbuild check
