@@ -43,7 +43,7 @@ elif [ "$1" = "test" ]; then
     do_build
     shift
     echo "Testing... "
-    for test in `ls bin/*test`
+    for test in `ls test/bin/*`
     do
         $test "$@"
         check "$test"

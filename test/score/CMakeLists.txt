@@ -1,16 +1,20 @@
-
-add_executable(
-    score_test
-    ../gtest_main.cpp
+set(score_srcs
     ScoreTest.cpp
     ScoreBoardTest.cpp
 )
 
-target_link_libraries(
-    score_test
+set(score_libs
     util_mck
     score_mck
     score
     libgtest
     libgmock
+    ${Boost_SYSTEM_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+)
+
+add_unit_test(
+    score
+    score_srcs
+    score_libs
 )

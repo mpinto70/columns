@@ -1,14 +1,16 @@
-
-add_executable(
-    util_test
-    ../gtest_main.cpp
+set(util_srcs
     RandomTest.cpp
     WaitTest.cpp
 )
 
-target_link_libraries(
-    util_test
+set(util_libs
     util
-    libgtest
-    libgmock
+    ${Boost_SYSTEM_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+)
+
+add_unit_test(
+    util
+    util_srcs
+    util_libs
 )

@@ -1,18 +1,20 @@
-
-add_executable(
-    gui_test
-    ../gtest_main.cpp
+set(gui_srcs
     ColorTest.cpp
     FontTest.cpp
     PointTest.cpp
     RectangleTest.cpp
 )
 
-target_link_libraries(
-    gui_test
+set(gui_libs
     gui
     util_mck
     gui_mck
-    libgtest
-    libgmock
+    ${Boost_SYSTEM_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+)
+
+add_unit_test(
+    gui
+    gui_srcs
+    gui_libs
 )
