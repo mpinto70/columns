@@ -17,5 +17,5 @@ enum class InputResult {
     CONTINUE,
 };
 
-InputResult process_input(game::MensagemPtr& messages);
+InputResult process_input(game::SharedMessage& messages);
 }

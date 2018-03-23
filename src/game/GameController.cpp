@@ -13,7 +13,7 @@ GameController::GameController(const piece::Board& board,
       const score::Score& record,
       const std::vector<gui::Color>& possible,
       StateObserverPtr&& observer,
-      MensagemPtr& msg)
+      SharedMessage& msg)
       : board_controller_(board, max_sub_row),
         score_board_(record),
         next_piece_(piece::Piece::create(possible)),

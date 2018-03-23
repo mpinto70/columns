@@ -21,6 +21,5 @@ TEST(FontTest, create) {
 
     ::mck::check_assignment(__FILE__, __LINE__, f1, f2);
 }
-
 }
 }

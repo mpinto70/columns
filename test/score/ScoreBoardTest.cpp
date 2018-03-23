@@ -1,7 +1,6 @@
 #include "../mck/score/utilscore.h"
 #include "../mck/util/utiltest.h"
 
-#include "piece/Piece.h"
 #include "score/Score.h"
 #include "score/ScoreBoard.h"
 
@@ -56,21 +55,21 @@ TEST(ScoreBoardTest, add) {
     EXPECT_EQ(sb.record(), r);
     EXPECT_EQ(sb.score(), s);
 
-    sb.add(piece::PIECE_SIZE);
-    s.add(piece::PIECE_SIZE);
+    sb.add(3);
+    s.add(3);
 
     EXPECT_EQ(sb.record(), r);
     EXPECT_EQ(sb.score(), s);
 
-    sb.add(piece::PIECE_SIZE + 1);
-    s.add(piece::PIECE_SIZE + 1);
+    sb.add(4);
+    s.add(4);
 
     EXPECT_EQ(sb.record(), r);
     EXPECT_EQ(sb.record(), s);
     EXPECT_EQ(sb.score(), s);
 
-    sb.add(piece::PIECE_SIZE);
-    s.add(piece::PIECE_SIZE);
+    sb.add(3);
+    s.add(3);
 
     EXPECT_NE(sb.record(), r);
     EXPECT_EQ(sb.record(), s);

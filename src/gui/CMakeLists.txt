@@ -1,7 +1,6 @@
 
 add_library(
     gui
-    Color.cpp
     Font.cpp
 )
 

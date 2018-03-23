@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 namespace gui {
 
 /// Represents an RGB color
@@ -41,14 +43,18 @@ constexpr bool operator!=(const Color& lhs, const Color& rhs) {
  * @param color base color
  * @param percent darkening percentage
  */
-Color darken(Color color, unsigned char percent);
+constexpr Color darken(Color color, unsigned char percent) {
+    const double factor = (100 - percent) / 100.0;
+    return Color(factor * color.R, factor * color.G, factor * color.B);
+}
 
-constexpr Color RED{ 255, 0, 0 };
-constexpr Color GREEN{ 0, 255, 0 };
-constexpr Color BLUE{ 0, 0, 255 };
-constexpr Color WHITE{ 255, 255, 255 };
+
+constexpr Color RED{ 0x98, 0x1b, 0x1e };
+constexpr Color GREEN{ 0x2e, 0x85, 0x40 };
+constexpr Color BLUE{ 0x02, 0xbf, 0xe7 };
+constexpr Color WHITE{ 0xf1, 0xf1, 0xf1 };
 constexpr Color BLACK{ 0, 0, 0 };
 constexpr Color GRAY{ 127, 127, 127 };
-constexpr Color YELLOW{ 255, 255, 0 };
-constexpr Color LAVENDER{ 153, 102, 255 };
+constexpr Color YELLOW{ 0xfd, 0xb8, 0x1e };
+constexpr Color LAVENDER{ 0x4c, 0x2c, 0x92 };
 }

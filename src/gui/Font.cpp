@@ -8,5 +8,4 @@ Font::Font(const std::string& name, const unsigned char size)
       : name_(name),
         size_(size) {
 }
-
 }

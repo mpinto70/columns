@@ -2,6 +2,7 @@ set(game_srcs
     BoardControllerTest.cpp
     MessageTest.cpp
     StateTest.cpp
+    ControllerTest.cpp
 )
 
 set(game_libs
@@ -10,6 +11,7 @@ set(game_libs
     piece_mck
     gui_mck
     game
+    graphics
     score
     piece
     gui

@@ -21,6 +21,14 @@ struct Point {
     uint16_t Y;
 };
 
+constexpr Point operator+(const Point& lhs, const Point& rhs) {
+    return Point(lhs.X + rhs.X, lhs.Y + rhs.Y);
+}
+
+constexpr Point operator-(const Point& lhs, const Point& rhs) {
+    return Point(lhs.X - rhs.X, lhs.Y - rhs.Y);
+}
+
 constexpr bool operator==(const Point& lhs, const Point& rhs) {
     return lhs.X == rhs.X
            && lhs.Y == rhs.Y;

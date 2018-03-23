@@ -3,6 +3,7 @@ add_subdirectory (SDL)
 
 add_library(
     graphics
+    ScoreBoardDrawer.cpp
     BoardDrawer.cpp
     Window.cpp
 )

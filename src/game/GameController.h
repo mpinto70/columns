@@ -23,7 +23,7 @@ public:
           const score::Score& record,
           const std::vector<gui::Color>& possible,
           StateObserverPtr&& observer,
-          MensagemPtr& msg);
+          SharedMessage& msg);
     GameController(const GameController&) = delete;
     GameController& operator=(const GameController&) = delete;
     /** execution loop. */
@@ -35,7 +35,7 @@ private:
     piece::Piece next_piece_;
     std::vector<gui::Color> possible_;
     StateObserverPtr observer_;
-    MensagemPtr messages_;
+    SharedMessage messages_;
     std::atomic<bool> should_stop_; ///< indicates if the player pressed ESC
     State prepare_state(const game::EliminationList& elimination_list = game::EliminationList()) const;
     void process(const Message::Lista& msgs);

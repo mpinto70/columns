@@ -134,8 +134,8 @@ TEST(BoardTest, compare) {
 }
 
 TEST(BoardTest, remove) {
-    const uint16_t columns = 5;
-    const uint16_t rows = 7;
+    const uint16_t columns = piece::PIECE_SIZE + 2;
+    const uint16_t rows = 2 * piece::PIECE_SIZE + 1;
     std::vector<gui::Color> tiles(columns * rows, gui::BLACK);
     Board board(columns, rows, gui::BLACK);
 

@@ -1,6 +1,5 @@
 #include "../mck/util/utiltest.h"
 
-#include "piece/Piece.h"
 #include "score/Score.h"
 
 #include <gtest/gtest.h>
@@ -40,31 +39,31 @@ TEST(ScoreTest, add) {
     EXPECT_EQ(s.total(), 0u);
 
     s.add(5);
-    EXPECT_EQ(s.total(), square(5 - piece::PIECE_SIZE + 1));
+    EXPECT_EQ(s.total(), square(5 - 3 + 1));
 
-    s.add(piece::PIECE_SIZE);
-    EXPECT_EQ(s.total(), square(5 - piece::PIECE_SIZE + 1) + 1);
+    s.add(3);
+    EXPECT_EQ(s.total(), square(5 - 3 + 1) + 1);
 
-    s.add(piece::PIECE_SIZE + 1);
-    EXPECT_EQ(s.total(), square(5 - piece::PIECE_SIZE + 1) + 1 + 4);
+    s.add(4);
+    EXPECT_EQ(s.total(), square(5 - 3 + 1) + 1 + 4);
 }
 
 TEST(ScoreTest, add_invalid) {
     Score p;
     EXPECT_EQ(p.total(), 0u);
 
-    p.add(piece::PIECE_SIZE + 2);
+    p.add(5);
     EXPECT_EQ(p.total(), 9u);
 
-    for (size_t i = 0; i < piece::PIECE_SIZE; ++i) {
+    for (size_t i = 0; i < 3; ++i) {
         EXPECT_THROW(p.add(i), std::invalid_argument) << i;
         EXPECT_EQ(p.total(), 9u);
     }
 
-    EXPECT_NO_THROW(p.add(piece::PIECE_SIZE));
+    EXPECT_NO_THROW(p.add(3));
 
     p = Score(std::numeric_limits<size_t>::max());
-    EXPECT_THROW(p.add(piece::PIECE_SIZE), std::invalid_argument);
+    EXPECT_THROW(p.add(3), std::invalid_argument);
     EXPECT_EQ(p.total(), std::numeric_limits<size_t>::max());
 }
 

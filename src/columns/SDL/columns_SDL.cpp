@@ -16,7 +16,7 @@ graphics::SharedWindow create_window(const std::string& version,
     return std::make_shared<graphics::WindowSDL>("Columns " + version, 1000, 100, screen_width, screen_height, gui::GRAY);
 }
 
-InputResult process_input(game::MensagemPtr& messages) {
+InputResult process_input(game::SharedMessage& messages) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         //If user closes the window

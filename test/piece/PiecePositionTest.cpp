@@ -1,8 +1,8 @@
 #include "../mck/piece/utilpiece.h"
 #include "../mck/util/utiltest.h"
 
-#include "piece/PiecePosition.h"
 #include "piece/Board.h"
+#include "piece/PiecePosition.h"
 
 #include <gtest/gtest.h>
 
@@ -92,7 +92,6 @@ void check_move_invalid(const std::string& msg0, const Board& board) {
     EXPECT_EQ(p.row(), 0u) << msg0;
     EXPECT_EQ(p.sub_row(), 0u) << msg0;
 }
-
 }
 
 TEST(PiecePositionTest, create) {
@@ -239,7 +238,7 @@ TEST(PiecePositionTest, invalid_move) {
 TEST(PiecePositionTest, comparison) {
     Board t1(12, 50, gui::BLACK);
 
-    std::vector<PiecePosition> posics {
+    std::vector<PiecePosition> posics{
         PiecePosition(t1, 4, 4),
         PiecePosition(t1, 5, 4),
         PiecePosition(t1, 5, 6),

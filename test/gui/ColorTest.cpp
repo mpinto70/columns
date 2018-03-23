@@ -34,10 +34,10 @@ TEST(ColorTest, create) {
 }
 
 TEST(ColorTest, constants) {
-    static_assert(RED == Color(255, 0, 0), "wrong RED");
-    static_assert(GREEN == Color(0, 255, 0), "wrong GREEN");
-    static_assert(BLUE == Color(0, 0, 255), "wrong BLUE");
-    static_assert(WHITE == Color(255, 255, 255), "wrong WHITE");
+    static_assert(RED == Color(0x98, 0x1b, 0x1e), "wrong RED");
+    static_assert(GREEN == Color(0x2e, 0x85, 0x40), "wrong GREEN");
+    static_assert(BLUE == Color(0x02, 0xbf, 0xe7), "wrong BLUE");
+    static_assert(WHITE == Color(0xf1, 0xf1, 0xf1), "wrong WHITE");
     static_assert(BLACK == Color(0, 0, 0), "wrong BLACK");
 }
 

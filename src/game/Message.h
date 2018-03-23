@@ -32,5 +32,5 @@ private:
     Lista messages_;
 };
 
-using MensagemPtr = std::shared_ptr<Message>;
+using SharedMessage = std::shared_ptr<Message>;
 }

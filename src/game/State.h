@@ -67,5 +67,4 @@ private:
     EliminationList elimination_list_;
     piece::PiecePtr next_; ///< next piece to be put in the board
 };
-
 }
