@@ -48,7 +48,6 @@ constexpr Color darken(Color color, unsigned char percent) {
     return Color(factor * color.R, factor * color.G, factor * color.B);
 }
 
-
 constexpr Color RED{ 0x98, 0x1b, 0x1e };
 constexpr Color GREEN{ 0x2e, 0x85, 0x40 };
 constexpr Color BLUE{ 0x02, 0xbf, 0xe7 };

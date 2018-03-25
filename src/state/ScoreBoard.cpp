@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace score {
+namespace state {
 
 ScoreBoard::ScoreBoard(const Score& record,
       const Score& score)

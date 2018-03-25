@@ -1,9 +1,20 @@
-#include "utilgame.h"
+#include "utilstate.h"
 
 #include "../mck/piece/utilpiece.h"
-#include "../mck/score/utilscore.h"
 
-namespace game {
+#include "state/ScoreBoard.h"
+#include "state/State.h"
+
+namespace state {
+bool operator==(const ScoreBoard& lhs, const ScoreBoard& rhs) {
+    return lhs.record() == rhs.record()
+           && lhs.score() == rhs.score();
+}
+
+bool operator!=(const ScoreBoard& lhs, const ScoreBoard& rhs) {
+    return not(lhs == rhs);
+}
+
 bool operator==(const State& lhs, const State& rhs) {
     if (lhs.board() != rhs.board()) {
         return false;
@@ -39,5 +50,9 @@ bool operator==(const State& lhs, const State& rhs) {
 
 bool operator!=(const State& lhs, const State& rhs) {
     return not(lhs == rhs);
+}
+
+State create_state(const piece::Board& board) {
+    return State(board, ScoreBoard{ Score{ 150 }, Score{ 20 } });
 }
 }

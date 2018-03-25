@@ -1,10 +1,10 @@
 #pragma once
 
-#include "game/State.h"
+#include "state/State.h"
 
 #include <memory>
 
-namespace game {
+namespace state {
 /// State observers interface
 class StateObserver {
 public:

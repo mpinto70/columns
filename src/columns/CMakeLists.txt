@@ -30,6 +30,6 @@ target_link_libraries (
     gui
     game
     piece
-    score
+    state
     util
 )

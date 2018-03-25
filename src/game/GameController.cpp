@@ -1,6 +1,6 @@
 #include "GameController.h"
 
-#include "score/Score.h"
+#include "state/Score.h"
 #include "util/Wait.h"
 
 #include <stdexcept>
@@ -10,9 +10,9 @@ namespace game {
 
 GameController::GameController(const piece::Board& board,
       const uint16_t max_sub_row,
-      const score::Score& record,
+      const state::Score& record,
       const std::vector<gui::Color>& possible,
-      StateObserverPtr&& observer,
+      state::StateObserverPtr&& observer,
       SharedMessage& msg)
       : board_controller_(board, max_sub_row),
         score_board_(record),
@@ -41,7 +41,7 @@ void GameController::execute() {
         if (board_controller_.has_piece()) {
             board_controller_.step();
         } else {
-            EliminationList elimination_list;
+            state::EliminationList elimination_list;
             while (not(elimination_list = board_controller_.determine_elimination()).empty()) {
                 util::Wait elimination_time(300);
                 observer_->update(prepare_state(elimination_list));
@@ -62,15 +62,15 @@ void GameController::execute() {
     }
 }
 
-State GameController::prepare_state(const game::EliminationList& elimination_list) const {
+state::State GameController::prepare_state(const state::EliminationList& elimination_list) const {
     if (board_controller_.has_piece()) {
-        return State(board_controller_.board(),
+        return state::State(board_controller_.board(),
               score_board_,
               board_controller_.piece(),
               board_controller_.piece_position(),
               next_piece_);
     } else {
-        return State(board_controller_.board(),
+        return state::State(board_controller_.board(),
               score_board_,
               elimination_list,
               next_piece_);

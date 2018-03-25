@@ -1,15 +1,15 @@
-#include "../mck/score/utilscore.h"
+#include "../mck/state/utilstate.h"
 #include "../mck/util/utiltest.h"
 
-#include "score/Score.h"
-#include "score/ScoreBoard.h"
+#include "state/Score.h"
+#include "state/ScoreBoard.h"
 
 #include <gtest/gtest.h>
 
 #include <stdexcept>
 #include <stdio.h>
 
-namespace score {
+namespace state {
 namespace tst {
 
 TEST(ScoreBoardTest, create) {

@@ -1,13 +1,15 @@
 set(graphics_srcs
     ScoreBoardDrawerTest.cpp
+    BoardDrawerTest.cpp
 )
 
 set(graphics_libs
-    score_mck
+    state_mck
     piece_mck
+    graphics_mck
     gui_mck
     graphics
-    score
+    state
     piece
     gui
     util

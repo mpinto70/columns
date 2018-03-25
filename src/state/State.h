@@ -3,11 +3,11 @@
 #include "piece/Board.h"
 #include "piece/Piece.h"
 #include "piece/PiecePosition.h"
-#include "score/ScoreBoard.h"
+#include "state/ScoreBoard.h"
 
 #include <memory>
 
-namespace game {
+namespace state {
 /// tile type to be eliminated from the board
 using EliminationItem = std::pair<uint16_t, uint16_t>;
 /// list of tile type to be eliminated from the board
@@ -17,7 +17,7 @@ class State {
 public:
     /// Create an initial state (no piece falling).
     State(const piece::Board& board,
-          const score::ScoreBoard& socre_board);
+          const state::ScoreBoard& socre_board);
     /** Create an initial state with a falling piece.
      * @param board         the board
      * @param score_board   the score
@@ -26,7 +26,7 @@ public:
      * @param next          the next piece to fall
      */
     State(const piece::Board& board,
-          const score::ScoreBoard& score_board,
+          const state::ScoreBoard& score_board,
           const piece::Piece& falling,
           const piece::PiecePosition& position,
           const piece::Piece& next);
@@ -37,11 +37,11 @@ public:
      * @param next          the next piece to fall
      */
     State(const piece::Board& board,
-          const score::ScoreBoard& score_board,
+          const state::ScoreBoard& score_board,
           const EliminationList& list,
           const piece::Piece& next);
     const piece::Board& board() const { return board_; }
-    const score::ScoreBoard& score_board() const { return score_board_; }
+    const state::ScoreBoard& score_board() const { return score_board_; }
     bool has_piece_falling() const { return piece_.get() != NULL; }
     /** @return the position of the current falling piece.
      * @throw std::logic_error if there is no piece falling
@@ -61,7 +61,7 @@ public:
 private:
     using PositionPtr = std::unique_ptr<piece::PiecePosition>;
     piece::Board board_;
-    score::ScoreBoard score_board_;
+    state::ScoreBoard score_board_;
     piece::PiecePtr piece_;      ///< the piece falling
     PositionPtr piece_position_; ///< the position of the falling piece
     EliminationList elimination_list_;

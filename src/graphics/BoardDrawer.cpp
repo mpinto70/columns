@@ -1,5 +1,7 @@
 #include "BoardDrawer.h"
 
+#include "state/State.h"
+
 namespace graphics {
 
 namespace {
@@ -16,12 +18,10 @@ void draw_tile_(Window& window,
 }
 }
 
-BoardDrawer::BoardDrawer(const uint16_t left,
-      const uint16_t top,
+BoardDrawer::BoardDrawer(const gui::Point& top_left,
       const uint16_t tile_size,
       const uint16_t step_size)
-      : left_(left),
-        top_(top),
+      : top_left_(top_left),
         tile_size_(tile_size),
         step_size_(step_size) {
     if (tile_size == 0) {
@@ -36,7 +36,7 @@ BoardDrawer::BoardDrawer(const uint16_t left,
 }
 
 void BoardDrawer::draw(Window& window,
-      const game::State& state,
+      const state::State& state,
       const gui::Color& elimination_color) const {
     draw(window, state.board());
     if (state.has_piece_falling()) {
@@ -55,11 +55,8 @@ void BoardDrawer::draw(Window& window,
 }
 
 void BoardDrawer::draw(Window& window, const piece::Board& board) const {
-    window.fill(gui::Rectangle(left_,
-                      top_,
-                      left_ + board.width() * tile_size_,
-                      top_ + board.height() * tile_size_),
-          board.background_color());
+    const gui::Point bottom_right = top_left_ + gui::Point(board.width() * tile_size_, board.height() * tile_size_);
+    window.fill(gui::Rectangle(top_left_, bottom_right), board.background_color());
     for (uint16_t i = 0; i < board.width(); ++i) {
         for (uint16_t j = 0; j < board.height(); ++j) {
             const auto& tile_color = board.at(i, j);
@@ -76,9 +73,9 @@ void BoardDrawer::draw_tile(Window& window,
       const uint16_t column,
       const uint16_t row,
       const uint16_t sub_row) const {
-    const auto x = column * tile_size_ + left_;
+    const auto x = column * tile_size_ + top_left_.X;
     const auto dy = sub_row * step_size_;
-    const int y = row * tile_size_ + dy + top_;
+    const int y = row * tile_size_ + dy + top_left_.Y;
     draw_tile_(window,
           color,
           x,

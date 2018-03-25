@@ -1,9 +1,9 @@
 #pragma once
 
-#include "game/State.h"
 #include "piece/Board.h"
 #include "piece/Piece.h"
 #include "piece/PiecePosition.h"
+#include "state/State.h"
 
 #include <memory>
 
@@ -45,10 +45,10 @@ public:
     void roll_up();
     void roll_down();
     /** @return the list of tiles to eliminate. */
-    EliminationList determine_elimination() const;
+    state::EliminationList determine_elimination() const;
     /// Eliminate the tiles.
-    void eliminate(const EliminationList& tiles);
-    State state() const;
+    void eliminate(const state::EliminationList& tiles);
+    state::State state() const;
 
 private:
     using PositionPtr = std::unique_ptr<piece::PiecePosition>;

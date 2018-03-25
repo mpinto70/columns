@@ -1,8 +1,8 @@
 #pragma once
 
-#include "score/Score.h"
+#include "state/Score.h"
 
-namespace score {
+namespace state {
 /// Stores and processes score and record score
 class ScoreBoard {
 public:

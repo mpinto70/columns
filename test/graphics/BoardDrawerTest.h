@@ -8,7 +8,7 @@ namespace graphics {
 namespace tst {
 using ::testing::StrictMock;
 
-class ScoreBoardDrawerTest : public ::testing::Test {
+class BoardDrawerTest : public ::testing::Test {
 protected:
     void SetUp() override;
     void TearDown() override;

@@ -6,6 +6,6 @@ include_directories(
 add_subdirectory (util)
 add_subdirectory (gui)
 add_subdirectory (piece)
-add_subdirectory (score)
+add_subdirectory (state)
 add_subdirectory (graphics)
 add_subdirectory (game)

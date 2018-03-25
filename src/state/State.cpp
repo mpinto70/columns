@@ -2,9 +2,9 @@
 
 #include <utility>
 
-namespace game {
+namespace state {
 
-State::State(const piece::Board& board, const score::ScoreBoard& score_board)
+State::State(const piece::Board& board, const state::ScoreBoard& score_board)
       : board_(board),
         score_board_(score_board),
         piece_(nullptr),
@@ -14,7 +14,7 @@ State::State(const piece::Board& board, const score::ScoreBoard& score_board)
 }
 
 State::State(const piece::Board& board,
-      const score::ScoreBoard& score_board,
+      const state::ScoreBoard& score_board,
       const piece::Piece& falling,
       const piece::PiecePosition& position,
       const piece::Piece& next)
@@ -27,7 +27,7 @@ State::State(const piece::Board& board,
 }
 
 State::State(const piece::Board& board,
-      const score::ScoreBoard& score_board,
+      const state::ScoreBoard& score_board,
       const EliminationList& list,
       const piece::Piece& next)
       : board_(board),

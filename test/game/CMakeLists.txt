@@ -1,18 +1,18 @@
 set(game_srcs
     BoardControllerTest.cpp
     MessageTest.cpp
-    StateTest.cpp
     ControllerTest.cpp
 )
 
 set(game_libs
-    game_mck
-    score_mck
+    graphics_mck
+    state_mck
     piece_mck
     gui_mck
+    util_mck
     game
     graphics
-    score
+    state
     piece
     gui
     util

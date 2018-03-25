@@ -1,6 +1,6 @@
 #include "BoardController.h"
 
-#include "score/ScoreBoard.h"
+#include "state/ScoreBoard.h"
 #include "util/Random.h"
 
 #include <map>
@@ -109,8 +109,8 @@ void BoardController::roll_down() {
     piece_->roll_down();
 }
 
-EliminationList BoardController::determine_elimination() const {
-    EliminationList to_eliminate;
+state::EliminationList BoardController::determine_elimination() const {
+    state::EliminationList to_eliminate;
     for (uint16_t c = 0; c < board_.width(); ++c) {
         for (uint16_t l = 0; l < board_.height(); ++l) {
             if (should_eliminate(c, l)) {
@@ -121,7 +121,7 @@ EliminationList BoardController::determine_elimination() const {
     return to_eliminate;
 }
 
-void BoardController::eliminate(const EliminationList& casas) {
+void BoardController::eliminate(const state::EliminationList& casas) {
     for (uint16_t i = 0; i < casas.size(); ++i) {
         const uint16_t col = casas[i].first;
         const uint16_t row = casas[i].second;
@@ -129,11 +129,11 @@ void BoardController::eliminate(const EliminationList& casas) {
     }
 }
 
-State BoardController::state() const {
+state::State BoardController::state() const {
     if (has_piece()) {
-        return State(board_, score::ScoreBoard(), *piece_, *piece_position_, piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return state::State(board_, state::ScoreBoard(), *piece_, *piece_position_, piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     } else {
-        return State(board_, score::ScoreBoard(), determine_elimination(), piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return state::State(board_, state::ScoreBoard(), determine_elimination(), piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
     }
 }
 

@@ -4,7 +4,6 @@ add_library(
     GameController.cpp
     BoardController.cpp
     Message.cpp
-    State.cpp
     Controller.cpp
 )
 

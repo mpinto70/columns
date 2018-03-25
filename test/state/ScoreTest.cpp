@@ -1,13 +1,13 @@
 #include "../mck/util/utiltest.h"
 
-#include "score/Score.h"
+#include "state/Score.h"
 
 #include <gtest/gtest.h>
 
 #include <limits>
 #include <stdexcept>
 
-namespace score {
+namespace state {
 namespace tst {
 
 TEST(ScoreTest, create) {

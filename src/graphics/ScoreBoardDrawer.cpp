@@ -1,22 +1,29 @@
 #include "ScoreBoardDrawer.h"
 
 namespace graphics {
-constexpr gui::Rectangle BOX{ 200, 120, 250, 170 };
-const gui::Font TITLE_FONT("Georgia", 12);
-const gui::Font SCORE_FONT("Helvetica", 10);
-constexpr gui::Color BACKGROUND = gui::GRAY;
-constexpr gui::Color BORDER_COLOR = gui::darken(BACKGROUND, 50);
-constexpr gui::Color TITLE_COLOR = gui::YELLOW;
-constexpr gui::Color SCORE_COLOR = gui::GREEN;
-constexpr gui::Color RECORD_COLOR = gui::darken(SCORE_COLOR, 20);
+ScoreBoardDrawer::ScoreBoardDrawer(const gui::Rectangle& box,
+      const gui::Font& title_font,
+      const gui::Font& score_font,
+      const gui::Color& background,
+      const gui::Color& title_color,
+      const gui::Color& score_color)
+      : box_(box),
+        title_font_(title_font),
+        score_font_(score_font),
+        background_(background),
+        border_color_(gui::darken(background, 50)),
+        title_color_(title_color),
+        score_color_(score_color),
+        record_color_(gui::darken(score_color, 20)) {
+}
 
-void ScoreBoardDrawer::draw(SharedWindow window, const score::ScoreBoard& score_board) const {
-    window->fill(BOX, BACKGROUND);
-    window->rectangle(BOX, BORDER_COLOR);
-    window->write("Score", BOX.P1() + gui::Point{ 3, 3 }, TITLE_FONT, TITLE_COLOR);
-    window->write("you", BOX.P1() + gui::Point{ 3, 18 }, SCORE_FONT, SCORE_COLOR);
-    window->write("record", BOX.P1() + gui::Point{ 3, 33 }, SCORE_FONT, RECORD_COLOR);
-    window->write(std::to_string(score_board.score().total()), BOX.P1() + gui::Point{ 25, 18 }, SCORE_FONT, SCORE_COLOR);
-    window->write(std::to_string(score_board.record().total()), BOX.P1() + gui::Point{ 25, 33 }, SCORE_FONT, RECORD_COLOR);
+void ScoreBoardDrawer::draw(SharedWindow window, const state::ScoreBoard& score_board) const {
+    window->fill(box_, background_);
+    window->rectangle(box_, border_color_);
+    window->write("Score", box_.P1() + gui::Point{ 3, 3 }, title_font_, title_color_);
+    window->write("you", box_.P1() + gui::Point{ 3, 18 }, score_font_, score_color_);
+    window->write("record", box_.P1() + gui::Point{ 3, 33 }, score_font_, record_color_);
+    window->write(std::to_string(score_board.score().total()), box_.P1() + gui::Point{ 25, 18 }, score_font_, score_color_);
+    window->write(std::to_string(score_board.record().total()), box_.P1() + gui::Point{ 25, 33 }, score_font_, record_color_);
 }
 }

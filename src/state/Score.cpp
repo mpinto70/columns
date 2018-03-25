@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-namespace score {
+namespace state {
 
 void Score::add(size_t n) {
     if (n < 3) {

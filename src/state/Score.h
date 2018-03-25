@@ -2,7 +2,7 @@
 
 #include <cstdio>
 
-namespace score {
+namespace state {
 /// Stores and processes score
 class Score {
 public:

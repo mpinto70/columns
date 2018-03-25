@@ -7,9 +7,9 @@ namespace piece {
 
 Board::Board(const uint16_t w,
       const uint16_t h,
-      const gui::Color& color)
-      : tiles_(w * h, color),
-        background_color_(color),
+      const gui::Color& background)
+      : tiles_(w * h, background),
+        background_color_(background),
         width_(w),
         height_(h) {
     if (w < PIECE_SIZE) {

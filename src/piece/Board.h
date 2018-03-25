@@ -13,9 +13,9 @@ public:
     /** Creates an empty board with dimensions \p w X \p h.
      * @param w board width in tile squares
      * @param h board height in tile squares
-     * @param color background color
+     * @param background background color
      */
-    Board(uint16_t w, uint16_t h, const gui::Color& color);
+    Board(uint16_t w, uint16_t h, const gui::Color& background);
 
     /// @return the colors of the board squares
     const std::vector<gui::Color>& tiles() const { return tiles_; }

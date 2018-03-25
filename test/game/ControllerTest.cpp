@@ -1,5 +1,7 @@
 #include "ControllerTest.h"
 
+#include "../mck/graphics/utilgraphics.h"
+
 namespace game {
 namespace tst {
 using ::graphics::SharedWindow;
@@ -10,7 +12,9 @@ void ControllerTest::SetUp() {
     window_mock.reset(new StrictMock<WindowMock>("name", 125, 500));
     messages = std::make_shared<Message>();
     EXPECT_CALL(*window_mock, clear()).Times(1);
-    controller.reset(new Controller(window_mock, messages));
+    score_board_drawer.reset(new graphics::ScoreBoardDrawer(::graphics::mck::create_score_board_drawer()));
+    ::graphics::mck::prepare_score_board_draw(*score_board_drawer, *window_mock, state::ScoreBoard());
+    controller.reset(new Controller(window_mock, *score_board_drawer, messages));
 }
 
 void ControllerTest::TearDown() {

@@ -2,9 +2,9 @@
 
 #include "game/BoardController.h"
 #include "game/GameController.h"
-#include "game/StateObserver.h"
 #include "graphics/BoardDrawer.h"
 #include "piece/Board.h"
+#include "state/StateObserver.h"
 #include "util/Wait.h"
 
 #include <atomic>
@@ -41,7 +41,7 @@ static void wait_for_initialization() {
     }
 }
 
-class ColumnsObserver : public game::StateObserver {
+class ColumnsObserver : public state::StateObserver {
 public:
     ColumnsObserver(const graphics::SharedWindow& window,
           const gui::Font& font_name,
@@ -57,7 +57,7 @@ public:
     }
     ~ColumnsObserver() override = default;
 
-    void update(const game::State& state) const override {
+    void update(const state::State& state) const override {
         window_->clear();
         window_->line(gui::Point{ 0, BOARD_HEIGHT * TILE_SIZE + 40 },
               gui::Point{ SCREEN_WIDTH, BOARD_HEIGHT * TILE_SIZE + 40 },
@@ -88,15 +88,15 @@ private:
 void game_loop(game::SharedMessage mensagens) {
     try {
         auto window = columns::create_window(VERSION, SCREEN_WIDTH, SCREEN_HEIGHT);
-        const graphics::BoardDrawer drawer(10, 15, TILE_SIZE, TILE_STEP);
+        const graphics::BoardDrawer drawer({ 10, 15 }, TILE_SIZE, TILE_STEP);
         const gui::Font font_name("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font font_score("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
         game::GameController controller(piece::Board(BOARD_WIDTH, BOARD_HEIGHT, gui::WHITE),
               TILE_SIZE / 2,
-              score::Score(0),
+              state::Score(0),
               POSSIBLE,
-              game::StateObserverPtr(new ColumnsObserver(window, font_name, font_score, drawer)),
+              state::StateObserverPtr(new ColumnsObserver(window, font_name, font_score, drawer)),
               mensagens);
 
         initialized = true;

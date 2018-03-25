@@ -1,11 +1,10 @@
 
 add_library(
-    score
-    Score.cpp
-    ScoreBoard.cpp
+    state_mck
+    utilstate.cpp
 )
 
 target_include_directories(
-    score
+    state_mck
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )

@@ -1,10 +1,12 @@
 
 add_library(
-    game_mck
-    utilgame.cpp
+    state
+    Score.cpp
+    ScoreBoard.cpp
+    State.cpp
 )
 
 target_include_directories(
-    game_mck
+    state
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )

@@ -1,26 +1,25 @@
-#include "../mck/game/utilgame.h"
 #include "../mck/piece/utilpiece.h"
-#include "../mck/score/utilscore.h"
+#include "../mck/state/utilstate.h"
 
-#include "game/State.h"
+#include "state/State.h"
 
 #include "piece/Board.h"
-#include "score/ScoreBoard.h"
+#include "state/ScoreBoard.h"
 
 #include <gtest/gtest.h>
 
 #include <type_traits>
 #include <utility>
 
-namespace game {
+namespace state {
 namespace tst {
 
-static State create_state(const piece::Board& board, const score::ScoreBoard& score_board) {
+static State create_state(const piece::Board& board, const state::ScoreBoard& score_board) {
     return State(board, score_board);
 }
 
 static State create_state(const piece::Board& board,
-      const score::ScoreBoard& score_board,
+      const state::ScoreBoard& score_board,
       const piece::Piece& falling,
       const piece::PiecePosition& position,
       const piece::Piece& next) {
@@ -28,7 +27,7 @@ static State create_state(const piece::Board& board,
 }
 
 static State create_state(const piece::Board& board,
-      const score::ScoreBoard& score_board,
+      const state::ScoreBoard& score_board,
       const EliminationList& elimination,
       const piece::Piece& next) {
     return State(board, score_board, elimination, next);
@@ -49,12 +48,12 @@ TEST(StateTest, create) {
     const piece::Board board4(10, 20, gui::BLUE);
     const piece::Board board5(12, 21, gui::WHITE);
     const piece::Board board6(13, 20, gui::BLUE);
-    const score::ScoreBoard score_board1(score::Score(25));
-    const score::ScoreBoard score_board2(score::Score(38), score::Score(34));
-    const score::ScoreBoard score_board3(score::Score(38), score::Score(35));
-    const score::ScoreBoard score_board4(score::Score(39), score::Score(34));
-    const score::ScoreBoard score_board5(score::Score(40), score::Score(35));
-    const score::ScoreBoard score_board6(score::Score(41), score::Score(34));
+    const state::ScoreBoard score_board1(state::Score(25));
+    const state::ScoreBoard score_board2(state::Score(38), state::Score(34));
+    const state::ScoreBoard score_board3(state::Score(38), state::Score(35));
+    const state::ScoreBoard score_board4(state::Score(39), state::Score(34));
+    const state::ScoreBoard score_board5(state::Score(40), state::Score(35));
+    const state::ScoreBoard score_board6(state::Score(41), state::Score(34));
     const piece::Piece piece3 = piece::mck::create_piece_ascending(12);
     const piece::Piece piece4 = piece::mck::create_piece_ascending(15);
     const piece::Piece next3 = piece::mck::create_piece_ascending(17);
