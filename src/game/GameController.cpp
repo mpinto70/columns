@@ -77,7 +77,7 @@ state::State GameController::prepare_state(const state::EliminationList& elimina
     }
 }
 
-void GameController::process(const Message::Lista& msgs) {
+void GameController::process(const Message::List& msgs) {
     for (const auto msg : msgs) {
         switch (msg) {
             case EMessage::MoveLeft:

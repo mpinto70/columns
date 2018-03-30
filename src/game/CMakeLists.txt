@@ -5,6 +5,7 @@ add_library(
     BoardController.cpp
     Message.cpp
     Controller.cpp
+    InputReader.cpp
 )
 
 target_include_directories(

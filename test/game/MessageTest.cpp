@@ -7,11 +7,11 @@ namespace tst {
 
 TEST(MessageTest, create) {
     Message msg;
-    EXPECT_EQ(msg.get(), Message::Lista());
+    EXPECT_EQ(msg.get(), Message::List());
 }
 
 TEST(MessageTest, add) {
-    const Message::Lista expected = {
+    const Message::List expected = {
         EMessage::MoveDown,
         EMessage::MoveLeft,
         EMessage::Stop,
@@ -24,7 +24,22 @@ TEST(MessageTest, add) {
 
     EXPECT_EQ(msg.get(), expected);
     // the message list is emptied when you call get
-    EXPECT_EQ(msg.get(), Message::Lista());
+    EXPECT_EQ(msg.get(), Message::List());
+}
+
+TEST(MessageTest, add_vector) {
+    const Message::List expected = {
+        EMessage::MoveDown,
+        EMessage::MoveLeft,
+        EMessage::Stop,
+    };
+
+    Message msg;
+    msg.add(expected);
+
+    EXPECT_EQ(msg.get(), expected);
+    // the message list is emptied when you call get
+    EXPECT_EQ(msg.get(), Message::List());
 }
 
 TEST(MessageTest, clear) {
@@ -34,7 +49,7 @@ TEST(MessageTest, clear) {
     msg.add(EMessage::Stop);
 
     msg.clear();
-    EXPECT_EQ(msg.get(), Message::Lista());
+    EXPECT_EQ(msg.get(), Message::List());
 }
 }
 }

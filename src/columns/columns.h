@@ -8,7 +8,7 @@ namespace columns {
 void init_graphics();
 void stop_graphics();
 
-graphics::SharedWindow create_window(const std::string& version,
+graphics::WindowPtr create_window(const std::string& version,
       size_t screen_width,
       size_t screen_height);
 

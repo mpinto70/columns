@@ -10,10 +10,15 @@ static std::string create_log_SDL(const std::string& preamble) {
     return preamble + " error: " + SDL_GetError();
 }
 
-graphics::SharedWindow create_window(const std::string& version,
+graphics::WindowPtr create_window(const std::string& version,
       size_t screen_width,
       size_t screen_height) {
-    return std::make_shared<graphics::WindowSDL>("Columns " + version, 1000, 100, screen_width, screen_height, gui::GRAY);
+    return std::make_unique<graphics::WindowSDL>("Columns " + version,
+          1000,
+          100,
+          screen_width,
+          screen_height,
+          gui::GRAY);
 }
 
 InputResult process_input(game::SharedMessage& messages) {

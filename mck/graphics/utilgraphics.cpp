@@ -21,26 +21,25 @@ constexpr gui::Color TITLE_COLOR = gui::YELLOW;
 constexpr gui::Color SCORE_COLOR = gui::GREEN;
 }
 
-ScoreBoardDrawer create_score_board_drawer() {
-    return ScoreBoardDrawer(BOX, TITLE_FONT, SCORE_FONT, BACKGROUND, TITLE_COLOR, SCORE_COLOR);
+std::unique_ptr<ScoreBoardDrawer> create_score_board_drawer() {
+    return std::make_unique<ScoreBoardDrawer>(BOX,
+          TITLE_FONT,
+          SCORE_FONT,
+          BACKGROUND,
+          TITLE_COLOR,
+          SCORE_COLOR);
 }
 
-void prepare_score_board_draw(const ScoreBoardDrawer& drawer,
-      ::testing::StrictMock<WindowMock>& window_mock,
+void prepare_score_board_draw(::testing::StrictMock<WindowMock>& window_mock,
       const state::ScoreBoard& score_board) {
     using ::testing::Return;
 
-    const uint16_t X1 = drawer.box().P1().X;
-    const uint16_t Y1 = drawer.box().P1().Y;
-    const uint16_t X2 = drawer.box().P2().X;
-    const uint16_t Y2 = drawer.box().P2().Y;
-    const gui::Font TITLE_FONT = drawer.title_font();
-    const gui::Font SCORE_FONT = drawer.score_font();
-    const gui::Color BACKGROUND = drawer.background();
-    const gui::Color BORDER_COLOR = drawer.border_color();
-    const gui::Color TITLE_COLOR = drawer.title_color();
-    const gui::Color SCORE_COLOR = drawer.score_color();
-    const gui::Color RECORD_COLOR = drawer.record_color();
+    const uint16_t X1 = BOX.P1().X;
+    const uint16_t Y1 = BOX.P1().Y;
+    const uint16_t X2 = BOX.P2().X;
+    const uint16_t Y2 = BOX.P2().Y;
+    const gui::Color BORDER_COLOR = gui::darken(BACKGROUND, 50);
+    const gui::Color RECORD_COLOR = gui::darken(SCORE_COLOR, 20);
 
     const std::string score = std::to_string(score_board.score().total());
     const std::string record = std::to_string(score_board.record().total());
@@ -87,7 +86,7 @@ void prepare_board_draw(const BoardDrawer& drawer,
 }
 
 BoardDrawer create_board_drawer() {
-    return BoardDrawer(TOP_LEFT, TILE_SIZE, STEP_SIZE);
+    return BoardDrawer(TOP_LEFT, TILE_SIZE, STEP_SIZE, gui::WHITE);
 }
 }
 }

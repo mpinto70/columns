@@ -81,5 +81,5 @@ private:
           const gui::Color& color) = 0;
 };
 
-using SharedWindow = std::shared_ptr<Window>;
+using WindowPtr = std::unique_ptr<Window>;
 }

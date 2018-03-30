@@ -2,6 +2,7 @@ set(game_srcs
     BoardControllerTest.cpp
     MessageTest.cpp
     ControllerTest.cpp
+    InputReaderTest.cpp
 )
 
 set(game_libs

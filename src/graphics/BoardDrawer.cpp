@@ -1,7 +1,5 @@
 #include "BoardDrawer.h"
 
-#include "state/State.h"
-
 namespace graphics {
 
 namespace {
@@ -20,10 +18,12 @@ void draw_tile_(Window& window,
 
 BoardDrawer::BoardDrawer(const gui::Point& top_left,
       const uint16_t tile_size,
-      const uint16_t step_size)
+      const uint16_t step_size,
+      const gui::Color& elimination_color)
       : top_left_(top_left),
         tile_size_(tile_size),
-        step_size_(step_size) {
+        step_size_(step_size),
+        elimination_color_(elimination_color) {
     if (tile_size == 0) {
         throw std::invalid_argument("BoardDrawer - zero tile size");
     }
@@ -36,8 +36,7 @@ BoardDrawer::BoardDrawer(const gui::Point& top_left,
 }
 
 void BoardDrawer::draw(Window& window,
-      const state::State& state,
-      const gui::Color& elimination_color) const {
+      const state::State& state) const {
     draw(window, state.board());
     if (state.has_piece_falling()) {
         const auto& position = state.piece_position();
@@ -49,7 +48,7 @@ void BoardDrawer::draw(Window& window,
         for (const auto& eliminated : state.elimination_list()) {
             const auto column = eliminated.first;
             const auto row = eliminated.second;
-            draw_tile(window, elimination_color, column, row);
+            draw_tile(window, elimination_color_, column, row);
         }
     }
 }

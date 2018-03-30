@@ -28,6 +28,7 @@ elif [ "$1" = "clean" ]; then
         build \
         bin \
         lib \
+        test/bin \
 
     echo "Done."
 elif [ "$1" = "distclean" ]; then
@@ -35,8 +36,8 @@ elif [ "$1" = "distclean" ]; then
         build \
         bin \
         lib \
-        gtest \
         test/bin \
+        gtest \
 
     echo "Done."
 elif [ "$1" = "test" ]; then

@@ -17,13 +17,14 @@ ScoreBoardDrawer::ScoreBoardDrawer(const gui::Rectangle& box,
         record_color_(gui::darken(score_color, 20)) {
 }
 
-void ScoreBoardDrawer::draw(SharedWindow window, const state::ScoreBoard& score_board) const {
-    window->fill(box_, background_);
-    window->rectangle(box_, border_color_);
-    window->write("Score", box_.P1() + gui::Point{ 3, 3 }, title_font_, title_color_);
-    window->write("you", box_.P1() + gui::Point{ 3, 18 }, score_font_, score_color_);
-    window->write("record", box_.P1() + gui::Point{ 3, 33 }, score_font_, record_color_);
-    window->write(std::to_string(score_board.score().total()), box_.P1() + gui::Point{ 25, 18 }, score_font_, score_color_);
-    window->write(std::to_string(score_board.record().total()), box_.P1() + gui::Point{ 25, 33 }, score_font_, record_color_);
+void ScoreBoardDrawer::draw(Window& window, const state::State& state) const {
+    const auto& score_board = state.score_board();
+    window.fill(box_, background_);
+    window.rectangle(box_, border_color_);
+    window.write("Score", box_.P1() + gui::Point{ 3, 3 }, title_font_, title_color_);
+    window.write("you", box_.P1() + gui::Point{ 3, 18 }, score_font_, score_color_);
+    window.write("record", box_.P1() + gui::Point{ 3, 33 }, score_font_, record_color_);
+    window.write(std::to_string(score_board.score().total()), box_.P1() + gui::Point{ 25, 18 }, score_font_, score_color_);
+    window.write(std::to_string(score_board.record().total()), box_.P1() + gui::Point{ 25, 33 }, score_font_, record_color_);
 }
 }

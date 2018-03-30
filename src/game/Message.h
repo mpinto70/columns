@@ -19,17 +19,18 @@ enum class EMessage {
 /// Controls event messages
 class Message {
 public:
-    using Lista = std::vector<EMessage>;
+    using List = std::vector<EMessage>;
     void add(EMessage msg);
+    void add(const List& msgs);
     void clear();
     /** @return message list
      * @attention the list is cleared after returned
      */
-    Lista get();
+    List get();
 
 private:
     std::mutex message_mutex_;
-    Lista messages_;
+    List messages_;
 };
 
 using SharedMessage = std::shared_ptr<Message>;

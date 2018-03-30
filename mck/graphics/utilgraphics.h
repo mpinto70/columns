@@ -10,10 +10,9 @@
 namespace graphics {
 namespace mck {
 
-ScoreBoardDrawer create_score_board_drawer();
+std::unique_ptr<ScoreBoardDrawer> create_score_board_drawer();
 
-void prepare_score_board_draw(const ScoreBoardDrawer& drawer,
-      ::testing::StrictMock<WindowMock>& window_mock,
+void prepare_score_board_draw(::testing::StrictMock<WindowMock>& window_mock,
       const state::ScoreBoard& score_board);
 
 BoardDrawer create_board_drawer();

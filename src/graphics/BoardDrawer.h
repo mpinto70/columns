@@ -1,15 +1,12 @@
 #pragma once
 
-#include "graphics/Window.h"
-#include "gui/Point.h"
-#include "piece/Board.h"
-#include "state/State.h"
+#include "graphics/Drawer.h"
 
 #include <cstdint>
 
 namespace graphics {
 
-class BoardDrawer {
+class BoardDrawer : public Drawer {
 public:
     /**
      * @param top_left  board top left corner
@@ -18,16 +15,18 @@ public:
      */
     BoardDrawer(const gui::Point& top_left,
           uint16_t tile_size,
-          uint16_t step_size);
+          uint16_t step_size,
+          const gui::Color& elimination_color);
 
-    void draw(Window& window,
-          const state::State& state,
-          const gui::Color& elimination_color) const;
+    ~BoardDrawer() override = default;
+
+    void draw(Window& window, const state::State& state) const override;
 
 private:
-    gui::Point top_left_; ///< board top left corner
-    uint16_t tile_size_;  ///< tile size
-    uint16_t step_size_;  ///< sub tile step size
+    gui::Point top_left_;          ///< board top left corner
+    uint16_t tile_size_;           ///< tile size
+    uint16_t step_size_;           ///< sub tile step size
+    gui::Color elimination_color_; ///< color for the tiles being eliminated
 
     void draw(Window& window,
           const piece::Board& board) const;

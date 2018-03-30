@@ -43,11 +43,11 @@ static void wait_for_initialization() {
 
 class ColumnsObserver : public state::StateObserver {
 public:
-    ColumnsObserver(const graphics::SharedWindow& window,
+    ColumnsObserver(graphics::WindowPtr&& window,
           const gui::Font& font_name,
           const gui::Font& font_score,
           const graphics::BoardDrawer& drawer)
-          : window_(window),
+          : window_(std::move(window)),
             font_name_(font_name),
             font_score_(font_score),
             drawer_(drawer) {
@@ -74,12 +74,12 @@ public:
               gui::Point{ 10 + BOARD_WIDTH * TILE_SIZE + 10, 90 },
               font_score_,
               gui::YELLOW);
-        drawer_.draw(*window_, state, gui::WHITE);
+        drawer_.draw(*window_, state);
         window_->update();
     }
 
 private:
-    graphics::SharedWindow window_;
+    graphics::WindowPtr window_;
     gui::Font font_name_;
     gui::Font font_score_;
     graphics::BoardDrawer drawer_;
@@ -87,8 +87,7 @@ private:
 
 void game_loop(game::SharedMessage mensagens) {
     try {
-        auto window = columns::create_window(VERSION, SCREEN_WIDTH, SCREEN_HEIGHT);
-        const graphics::BoardDrawer drawer({ 10, 15 }, TILE_SIZE, TILE_STEP);
+        const graphics::BoardDrawer drawer({ 10, 15 }, TILE_SIZE, TILE_STEP, gui::WHITE);
         const gui::Font font_name("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font font_score("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
@@ -96,7 +95,11 @@ void game_loop(game::SharedMessage mensagens) {
               TILE_SIZE / 2,
               state::Score(0),
               POSSIBLE,
-              state::StateObserverPtr(new ColumnsObserver(window, font_name, font_score, drawer)),
+              state::StateObserverPtr(
+                    new ColumnsObserver(columns::create_window(VERSION, SCREEN_WIDTH, SCREEN_HEIGHT),
+                          font_name,
+                          font_score,
+                          drawer)),
               mensagens);
 
         initialized = true;

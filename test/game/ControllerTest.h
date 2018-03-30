@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../mck/game/InputReaderMock.h"
 #include "../mck/graphics/WindowMock.h"
 
 #include "game/Controller.h"
@@ -19,8 +20,8 @@ protected:
     void TearDown() override;
 
     std::unique_ptr<Controller> controller;
-    std::unique_ptr<graphics::ScoreBoardDrawer> score_board_drawer;
-    std::shared_ptr<StrictMock<graphics::mck::WindowMock>> window_mock;
+    mck::InputReaderMock* input_reader_mock;
+    StrictMock<graphics::mck::WindowMock>* window_mock;
     SharedMessage messages;
 };
 }

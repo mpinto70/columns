@@ -7,15 +7,20 @@ void Message::add(EMessage msg) {
     messages_.push_back(msg);
 }
 
+void Message::add(const List& msgs) {
+    auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
+    messages_.insert(messages_.end(), msgs.begin(), msgs.end());
+}
+
 void Message::clear() {
-    Lista empty;
+    List empty;
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
     messages_.swap(empty);
     lock.unlock();
 }
 
-Message::Lista Message::get() {
-    Lista res;
+Message::List Message::get() {
+    List res;
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
     res.swap(messages_);
     lock.unlock();
