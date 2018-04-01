@@ -4,8 +4,8 @@
 
 namespace graphics {
 Window::Window(const std::string& name,
-      const uint16_t width,
-      const uint16_t height)
+      const size_t width,
+      const size_t height)
       : name_(name),
         width_(width),
         height_(height) {

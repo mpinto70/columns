@@ -1,4 +1,3 @@
-
 add_library(
     piece_mck
     utilpiece.cpp

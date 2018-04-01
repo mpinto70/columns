@@ -5,8 +5,7 @@
 
 namespace state {
 
-ScoreBoard::ScoreBoard(const Score& record,
-      const Score& score)
+ScoreBoard::ScoreBoard(const Score& record, const Score& score)
       : record_(record),
         score_(score) {
     if (record_ < score_)

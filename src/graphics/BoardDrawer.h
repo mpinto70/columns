@@ -2,8 +2,6 @@
 
 #include "graphics/Drawer.h"
 
-#include <cstdint>
-
 namespace graphics {
 
 class BoardDrawer : public Drawer {
@@ -14,8 +12,8 @@ public:
      * @param step_size sub tile step size
      */
     BoardDrawer(const gui::Point& top_left,
-          uint16_t tile_size,
-          uint16_t step_size,
+          size_t tile_size,
+          size_t step_size,
           gui::Color elimination_color);
 
     ~BoardDrawer() override = default;
@@ -24,17 +22,17 @@ public:
 
 private:
     gui::Point top_left_;          ///< board top left corner
-    uint16_t tile_size_;           ///< tile size
-    uint16_t step_size_;           ///< sub tile step size
+    size_t tile_size_;             ///< tile size
+    size_t step_size_;             ///< sub tile step size
     gui::Color elimination_color_; ///< color for the tiles being eliminated
 
     void draw(Window& window,
-          const piece::Board& board) const;
+          piece::SharedConstBoard board) const;
 
     void draw_tile(Window& windows,
           gui::Color color,
-          uint16_t column,
-          uint16_t row,
-          uint16_t sub_row = 0) const;
+          size_t column,
+          size_t row,
+          size_t sub_row = 0) const;
 };
 }

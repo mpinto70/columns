@@ -5,8 +5,8 @@
 
 namespace piece {
 
-Board::Board(const uint16_t w,
-      const uint16_t h,
+Board::Board(const size_t w,
+      const size_t h,
       gui::Color background)
       : tiles_(w * h, background),
         background_color_(background),
@@ -20,30 +20,29 @@ Board::Board(const uint16_t w,
     }
 }
 
-gui::Color Board::at(const uint16_t c, const uint16_t r) const {
-    if (c >= width_) {
-        throw std::invalid_argument("Board::at const - column overflow " + std::to_string(c));
-    }
-    if (r >= height_) {
-        throw std::invalid_argument("Board::at const - row overflow " + std::to_string(r));
-    }
+gui::Color Board::at(const size_t c, const size_t r) const {
+    check_overflow(c, r);
     return tiles_.at(r * width_ + c);
 }
 
-gui::Color& Board::at(const uint16_t c, const uint16_t r) {
+gui::Color& Board::at(const size_t c, const size_t r) {
+    check_overflow(c, r);
+    return tiles_.at(r * width_ + c);
+}
+
+void Board::remove(const size_t c, const size_t r) {
+    for (size_t j = r; j > 0; --j) {
+        at(c, j) = at(c, j - 1);
+    }
+    at(c, 0) = background_color_;
+}
+
+void Board::check_overflow(size_t c, size_t r) const {
     if (c >= width_) {
         throw std::invalid_argument("Board::at - column overflow " + std::to_string(c));
     }
     if (r >= height_) {
         throw std::invalid_argument("Board::at - row overflow " + std::to_string(r));
     }
-    return tiles_.at(r * width_ + c);
-}
-
-void Board::remove(const uint16_t c, const uint16_t r) {
-    for (uint16_t j = r; j > 0; --j) {
-        at(c, j) = at(c, j - 1);
-    }
-    at(c, 0) = background_color_;
 }
 }

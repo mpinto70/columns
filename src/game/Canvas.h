@@ -19,7 +19,7 @@ public:
     void draw(const state::State& state);
 
 private:
-    virtual void draw_(const piece::Board& board) = 0;
+    virtual void draw_(piece::SharedConstBoard board) = 0;
     virtual void draw_(const piece::Piece& piece, const piece::PiecePosition& piece_position) = 0;
     virtual void draw_next_(const piece::Piece& next_piece) = 0;
     virtual void draw_(const state::ScoreBoard& score_board) = 0;

@@ -24,13 +24,13 @@ static void check_create_invalid_piece(BoardController& cont, const std::string&
 } // unnamed namespace
 
 TEST(BoardControllerTest, create) {
-    piece::Board board(10, 20, gui::Color::WHITE);
+    piece::SharedBoard board = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController contr(board, 4);
     EXPECT_TRUE(contr.has_piece() == false);
 }
 
 TEST(BoardControllerTest, create_invalid) {
-    piece::Board board(10, 20, gui::Color::WHITE);
+    piece::SharedBoard board = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     EXPECT_NO_THROW(BoardController t(board, 4));
 
     // zero size piece
@@ -38,7 +38,7 @@ TEST(BoardControllerTest, create_invalid) {
 }
 
 TEST(BoardControllerTest, add_piece) {
-    piece::Board white(10, 20, gui::Color::WHITE);
+    piece::SharedBoard white = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController contr(white, 4);
 
     const auto piece = ::piece::mck::create_piece_ascending(12);
@@ -57,7 +57,7 @@ TEST(BoardControllerTest, add_piece) {
 }
 
 TEST(BoardControllerTest, invalid_add_piece) {
-    piece::Board white(10, 20, gui::Color::WHITE);
+    piece::SharedBoard white = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController contr(white, 4);
 
     const auto piece = ::piece::mck::create_piece_ascending(12);
@@ -69,23 +69,23 @@ TEST(BoardControllerTest, invalid_add_piece) {
 }
 
 TEST(BoardControllerTest, step) {
-    const piece::Board b0(10, 20, gui::Color::WHITE);
-    BoardController white(b0, 4);
-    EXPECT_TRUE(white.board() == b0);
+    piece::SharedBoard b0 = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
+    BoardController white(std::make_shared<piece::Board>(10, 20, gui::Color::WHITE), 4);
+    EXPECT_TRUE(*white.board() == *b0);
     const auto piece = ::piece::mck::create_piece_ascending(12);
 
     EXPECT_TRUE(white.add_piece(piece));
-    const uint16_t col = white.piece_position().column();
-    EXPECT_TRUE(white.board() == b0);
-    uint16_t row = 0;
-    uint16_t sub_row = 0;
+    const size_t col = white.piece_position().column();
+    EXPECT_TRUE(*white.board() == *b0);
+    size_t row = 0;
+    size_t sub_row = 0;
     while (white.has_piece()) {
         const piece::PiecePosition& position = white.piece_position();
         EXPECT_EQ(position.column(), col);
         EXPECT_EQ(position.row(), row);
         EXPECT_EQ(position.sub_row(), sub_row);
         EXPECT_EQ(position.max_sub_row(), 4u);
-        EXPECT_TRUE(white.board() == b0);
+        EXPECT_TRUE(*white.board() == *b0);
         white.step();
         if (sub_row == 3) {
             ++row;
@@ -95,25 +95,25 @@ TEST(BoardControllerTest, step) {
         }
     }
 
-    EXPECT_TRUE(white.board() != b0);
+    EXPECT_TRUE(*white.board() != *b0);
 
     std::vector<gui::Color> colors;
     for (unsigned char i = 0; i < piece::PIECE_SIZE; ++i) {
-        colors.push_back(white.board().at(col, white.board().height() - piece::PIECE_SIZE + i));
+        colors.push_back(white.board()->at(col, white.board()->height() - piece::PIECE_SIZE + i));
     }
     const piece::Piece fixed(colors);
     EXPECT_EQ(fixed, piece);
 }
 
 TEST(BoardControllerTest, move) {
-    piece::Board white_board(10, 20, gui::Color::WHITE);
+    piece::SharedBoard white_board = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController white(white_board, 4);
 
     const auto piece = ::piece::mck::create_piece_ascending(12);
     EXPECT_TRUE(white.add_piece(piece));
 
     piece::PiecePosition position = white.piece_position();
-    EXPECT_LT(position.column(), white_board.width());
+    EXPECT_LT(position.column(), white_board->width());
     EXPECT_EQ(position.row(), 0u);
     EXPECT_EQ(position.sub_row(), 0u);
     EXPECT_EQ(position.max_sub_row(), 4u);
@@ -150,7 +150,7 @@ TEST(BoardControllerTest, move) {
     position = white.piece_position();
     EXPECT_EQ(position.column(), 0u);
 
-    for (uint16_t i = 0; i < 10; ++i) {
+    for (size_t i = 0; i < 10; ++i) {
         position = white.piece_position();
         EXPECT_EQ(position.column(), i);
         white.move_right();
@@ -160,7 +160,7 @@ TEST(BoardControllerTest, move) {
 }
 
 TEST(BoardControllerTest, determine_elimination) {
-    piece::Board white_board(10, 20, gui::Color::WHITE);
+    piece::SharedBoard white_board = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     state::EliminationList elimination;
 
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination().size(), 0u);
@@ -173,7 +173,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      18 - .....
     //                                      19 - .....
     // will fill the three tiles at the bottom left (horizontal)
-    white_board.at(0, 19) = gui::Color::BLACK;
+    white_board->at(0, 19) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -181,7 +181,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      18 - .....
     //                                      19 - p....
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination().size(), 0u);
-    white_board.at(1, 19) = gui::Color::BLACK;
+    white_board->at(1, 19) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -189,7 +189,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      18 - .....
     //                                      19 - pp...
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination().size(), 0u);
-    white_board.at(2, 19) = gui::Color::BLACK;
+    white_board->at(2, 19) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -206,7 +206,7 @@ TEST(BoardControllerTest, determine_elimination) {
     EXPECT_EQ(elimination.at(2).second, 19u);
 
     // will fill the three tiles at the bottom left (vertical)
-    white_board.at(0, 18) = gui::Color::BLACK;
+    white_board->at(0, 18) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -215,7 +215,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      19 - PPP..
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination().size(), 3u);
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
-    white_board.at(0, 17) = gui::Color::BLACK;
+    white_board->at(0, 17) = gui::Color::BLACK;
     //                                           01234
     //  now the first line and first        15 - .....
     //  colmn will be eliminated, but the   16 - .....
@@ -227,7 +227,7 @@ TEST(BoardControllerTest, determine_elimination) {
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
 
     // goint to fill the diagonal that starts ad the bottom left corner
-    white_board.at(1, 18) = gui::Color::BLACK;
+    white_board->at(1, 18) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -236,7 +236,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      19 - PPP..
     elimination.insert(elimination.begin() + 3, state::EliminationItem(1, 18));
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
-    white_board.at(2, 17) = gui::Color::BLACK;
+    white_board->at(2, 17) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - .....
@@ -247,7 +247,7 @@ TEST(BoardControllerTest, determine_elimination) {
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
 
     // going to put a fourth tile in the sequence
-    white_board.at(0, 16) = gui::Color::BLACK;
+    white_board->at(0, 16) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - P....
@@ -256,7 +256,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      19 - PPP..
     elimination.insert(elimination.begin() + 0, state::EliminationItem(0, 16));
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
-    white_board.at(3, 16) = gui::Color::BLACK;
+    white_board->at(3, 16) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - P..P.
@@ -265,7 +265,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      19 - PPP..
     elimination.insert(elimination.begin() + 8, state::EliminationItem(3, 16));
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
-    white_board.at(3, 19) = gui::Color::BLACK;
+    white_board->at(3, 19) = gui::Color::BLACK;
     //                                           01234
     //                                      15 - .....
     //                                      16 - P..P.
@@ -276,12 +276,12 @@ TEST(BoardControllerTest, determine_elimination) {
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
 
     // going to add another color and will not change the result
-    white_board.at(1, 16) = gui::Color::BLUE;
-    white_board.at(2, 16) = gui::Color::BLUE;
-    white_board.at(1, 17) = gui::Color::BLUE;
-    white_board.at(3, 17) = gui::Color::BLUE;
-    white_board.at(2, 18) = gui::Color::BLUE;
-    white_board.at(3, 18) = gui::Color::BLUE;
+    white_board->at(1, 16) = gui::Color::BLUE;
+    white_board->at(2, 16) = gui::Color::BLUE;
+    white_board->at(1, 17) = gui::Color::BLUE;
+    white_board->at(3, 17) = gui::Color::BLUE;
+    white_board->at(2, 18) = gui::Color::BLUE;
+    white_board->at(3, 18) = gui::Color::BLUE;
     //                                           01234
     //                                      15 - .....
     //                                      16 - PzzP.
@@ -290,7 +290,7 @@ TEST(BoardControllerTest, determine_elimination) {
     //                                      19 - PPPP.
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
     // going to add another color and will include many
-    white_board.at(4, 18) = gui::Color::BLUE;
+    white_board->at(4, 18) = gui::Color::BLUE;
     //                                           01234
     //                                      15 - .....
     //                                      16 - PzZP.
@@ -305,14 +305,14 @@ TEST(BoardControllerTest, determine_elimination) {
     EXPECT_EQ(BoardController(white_board, 4).determine_elimination(), elimination);
 
     // going to add other colors and not change the elimination list
-    white_board.at(0, 15) = gui::Color::GREEN;
-    white_board.at(1, 15) = gui::Color::GREEN;
-    white_board.at(2, 15) = gui::Color::RED;
-    white_board.at(3, 15) = gui::Color::GREEN;
-    white_board.at(4, 15) = gui::Color::RED;
-    white_board.at(4, 16) = gui::Color::GREEN;
-    white_board.at(4, 17) = gui::Color::GREEN;
-    white_board.at(4, 19) = gui::Color::GREEN;
+    white_board->at(0, 15) = gui::Color::GREEN;
+    white_board->at(1, 15) = gui::Color::GREEN;
+    white_board->at(2, 15) = gui::Color::RED;
+    white_board->at(3, 15) = gui::Color::GREEN;
+    white_board->at(4, 15) = gui::Color::RED;
+    white_board->at(4, 16) = gui::Color::GREEN;
+    white_board->at(4, 17) = gui::Color::GREEN;
+    white_board->at(4, 19) = gui::Color::GREEN;
     //                                           01234
     //                                      15 - vvmvm
     //                                      16 - PzZPv

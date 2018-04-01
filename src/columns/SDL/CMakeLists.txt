@@ -1,4 +1,3 @@
-
 add_library(
     columns_SDL
     columns_SDL.cpp

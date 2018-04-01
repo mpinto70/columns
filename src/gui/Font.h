@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstdint>
 #include <string>
 
 namespace gui {
@@ -12,8 +11,7 @@ public:
      * @param name  font name (path to file, for example)
      * @param size  font size
      */
-    Font(const std::string& name,
-          unsigned char size);
+    Font(const std::string& name, unsigned char size);
     const std::string& name() const { return name_; }
     unsigned char size() const { return size_; }
 

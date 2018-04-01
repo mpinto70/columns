@@ -1,5 +1,6 @@
 #include "../mck/piece/utilpiece.h"
 #include "../mck/state/utilstate.h"
+#include "../mck/util/utiltest.h"
 
 #include "state/State.h"
 
@@ -14,11 +15,11 @@
 namespace state {
 namespace tst {
 
-static State create_state(const piece::Board& board, const state::ScoreBoard& score_board) {
+static State create_state(piece::SharedConstBoard board, const state::ScoreBoard& score_board) {
     return State(board, score_board);
 }
 
-static State create_state(const piece::Board& board,
+static State create_state(piece::SharedConstBoard board,
       const state::ScoreBoard& score_board,
       const piece::Piece& falling,
       const piece::PiecePosition& position,
@@ -26,7 +27,7 @@ static State create_state(const piece::Board& board,
     return State(board, score_board, falling, position, next);
 }
 
-static State create_state(const piece::Board& board,
+static State create_state(piece::SharedConstBoard board,
       const state::ScoreBoard& score_board,
       const EliminationList& elimination,
       const piece::Piece& next) {
@@ -34,20 +35,20 @@ static State create_state(const piece::Board& board,
 }
 
 TEST(StateTest, caracteristics) {
-    EXPECT_TRUE(std::is_move_assignable<State>::value == true);
-    EXPECT_TRUE(std::is_move_constructible<State>::value == true);
-    EXPECT_TRUE(std::is_copy_assignable<State>::value == false);
-    EXPECT_TRUE(std::is_copy_constructible<State>::value == false);
+    EXPECT_TRUE(std::is_move_assignable<State>::value);
+    EXPECT_TRUE(std::is_move_constructible<State>::value);
+    EXPECT_FALSE(std::is_copy_assignable<State>::value);
+    EXPECT_FALSE(std::is_copy_constructible<State>::value);
 }
 
 TEST(StateTest, create) {
     using namespace std::rel_ops;
-    const piece::Board board1(10, 20, gui::Color::WHITE);
-    const piece::Board board2(11, 20, gui::Color::WHITE);
-    const piece::Board board3(10, 21, gui::Color::WHITE);
-    const piece::Board board4(10, 20, gui::Color::BLUE);
-    const piece::Board board5(12, 21, gui::Color::WHITE);
-    const piece::Board board6(13, 20, gui::Color::BLUE);
+    const piece::SharedConstBoard board1 = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
+    const piece::SharedConstBoard board2 = std::make_shared<piece::Board>(11, 20, gui::Color::WHITE);
+    const piece::SharedConstBoard board3 = std::make_shared<piece::Board>(10, 21, gui::Color::WHITE);
+    const piece::SharedConstBoard board4 = std::make_shared<piece::Board>(10, 20, gui::Color::BLUE);
+    const piece::SharedConstBoard board5 = std::make_shared<piece::Board>(12, 21, gui::Color::WHITE);
+    const piece::SharedConstBoard board6 = std::make_shared<piece::Board>(13, 20, gui::Color::BLUE);
     const state::ScoreBoard score_board1(state::Score(25));
     const state::ScoreBoard score_board2(state::Score(38), state::Score(34));
     const state::ScoreBoard score_board3(state::Score(38), state::Score(35));

@@ -17,11 +17,10 @@ namespace game {
  */
 class BoardController {
 public:
-    BoardController(const piece::Board& board,
-          uint16_t max_sub_row);
+    BoardController(piece::SharedBoard board, size_t max_sub_row);
     BoardController(const BoardController&) = delete;
     BoardController& operator=(const BoardController&) = delete;
-    const piece::Board& board() const { return board_; }
+    piece::SharedConstBoard board() const { return board_; }
     /** Add a piece to the board
      * @param piece the piece
      * @return true if it was possible to add a piece
@@ -29,7 +28,7 @@ public:
      * @throw std::logic_error if there is a piece falling
      */
     bool add_piece(const piece::Piece& piece);
-    bool has_piece() const { return piece_.get() != NULL; }
+    bool has_piece() const { return piece_.get() != nullptr; }
     /**
      * @throw std::logic_error if there is no piece falling
      */
@@ -52,20 +51,20 @@ public:
 
 private:
     using PositionPtr = std::unique_ptr<piece::PiecePosition>;
-    piece::Board board_;
+    piece::SharedBoard board_;
     piece::PiecePtr piece_; ///< the piece falling in the board
     PositionPtr piece_position_;
-    const uint16_t max_sub_row_;
+    const size_t max_sub_row_;
     const std::vector<gui::Color> possibles_;
 
-    bool can_move_to(uint16_t column) const;
+    bool can_move_to(size_t column) const;
     /** @return determine where a new piece can be inserted.
      * @attention if there is no column available, returns width
      */
-    uint16_t determine_column() const;
-    bool can_add_piece(uint16_t column) const;
+    size_t determine_column() const;
+    bool can_add_piece(size_t column) const;
     /** @return if the piece has reached end of its fall. */
     bool reached_end() const;
-    bool should_eliminate(uint16_t column, uint16_t row) const;
+    bool should_eliminate(size_t column, size_t row) const;
 };
 }

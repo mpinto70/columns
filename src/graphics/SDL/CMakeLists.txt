@@ -1,4 +1,3 @@
-
 add_library(
     graphics_SDL
     WindowSDL.cpp

@@ -77,8 +77,8 @@ void print_board(const std::string& file,
     printf("Printing board from %s(%d)\n", file.c_str(), line);
     const std::string separator(board.width() * 11, '-');
     printf("%s\n", separator.c_str());
-    for (uint16_t l = 0; l < board.height(); ++l) {
-        for (uint16_t c = 0; c < board.width(); ++c) {
+    for (size_t l = 0; l < board.height(); ++l) {
+        for (size_t c = 0; c < board.width(); ++c) {
             gui::Color color = board.at(c, l);
             gui::mck::print(color);
         }

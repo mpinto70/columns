@@ -1,4 +1,3 @@
-
 add_library(
     gui_mck
     utilgui.cpp

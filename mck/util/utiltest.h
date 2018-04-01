@@ -2,13 +2,13 @@
 
 #include <gtest/gtest.h>
 
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
 
 namespace mck {
-std::string create_message(const std::string& file,
-      int line);
+std::string create_message(const std::string& file, int line);
 
 template <typename T>
 void check_comparison(const std::string& file,
@@ -23,6 +23,42 @@ void check_comparison(const std::string& file,
                 EXPECT_EQ(ts[i], ts[j]) << msgij;
             } else {
                 EXPECT_NE(ts[i], ts[j]) << msgij;
+            }
+        }
+    }
+}
+
+template <typename T>
+void check_comparison(const std::string& file,
+      const int line,
+      const std::vector<std::shared_ptr<const T>>& pts) {
+    const auto msg = create_message(file, line);
+    EXPECT_NE(pts.size(), 0u) << msg;
+    for (size_t i = 0; i < pts.size(); ++i) {
+        for (size_t j = 0; j < pts.size(); ++j) {
+            const auto msgij = msg + " " + std::to_string(i) + "/" + std::to_string(j);
+            if (i == j) {
+                EXPECT_EQ(*pts[i], *pts[j]) << msgij;
+            } else {
+                EXPECT_NE(*pts[i], *pts[j]) << msgij;
+            }
+        }
+    }
+}
+
+template <typename T>
+void check_comparison(const std::string& file,
+      const int line,
+      const std::vector<std::shared_ptr<T>>& pts) {
+    const auto msg = create_message(file, line);
+    EXPECT_NE(pts.size(), 0u) << msg;
+    for (size_t i = 0; i < pts.size(); ++i) {
+        for (size_t j = 0; j < pts.size(); ++j) {
+            const auto msgij = msg + " " + std::to_string(i) + "/" + std::to_string(j);
+            if (i == j) {
+                EXPECT_EQ(*pts[i], *pts[j]) << msgij;
+            } else {
+                EXPECT_NE(*pts[i], *pts[j]) << msgij;
             }
         }
     }

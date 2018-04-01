@@ -8,8 +8,8 @@
 
 namespace game {
 
-GameController::GameController(const piece::Board& board,
-      const uint16_t max_sub_row,
+GameController::GameController(piece::SharedBoard board,
+      const size_t max_sub_row,
       const state::Score& record,
       const std::vector<gui::Color>& possible,
       state::StateObserverPtr&& observer,

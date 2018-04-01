@@ -50,10 +50,10 @@ void prepare_score_board_draw(::testing::StrictMock<WindowMock>& window_mock,
       const state::ScoreBoard& score_board) {
     using ::testing::Return;
 
-    const uint16_t X1 = BOX.P1().X;
-    const uint16_t Y1 = BOX.P1().Y;
-    const uint16_t X2 = BOX.P2().X;
-    const uint16_t Y2 = BOX.P2().Y;
+    const size_t X1 = BOX.P1().X;
+    const size_t Y1 = BOX.P1().Y;
+    const size_t X2 = BOX.P2().X;
+    const size_t Y2 = BOX.P2().Y;
     const gui::Color BORDER_COLOR = gui::darken(BACKGROUND, 50);
     const gui::Color RECORD_COLOR = gui::darken(SCORE_COLOR, 20);
 
@@ -70,31 +70,31 @@ void prepare_score_board_draw(::testing::StrictMock<WindowMock>& window_mock,
 
 namespace {
 constexpr gui::Point TOP_LEFT{ 3, 20 };
-constexpr uint16_t TILE_SIZE = 12;
-constexpr uint16_t STEP_SIZE = 3;
+constexpr size_t TILE_SIZE = 12;
+constexpr size_t STEP_SIZE = 3;
 }
 
 void prepare_board_draw(const BoardDrawer& drawer,
       ::testing::StrictMock<mck::WindowMock>& window_mock,
       const state::State& state,
       gui::Color elimination_color) {
-    constexpr uint16_t X1 = TOP_LEFT.X;
-    constexpr uint16_t Y1 = TOP_LEFT.Y;
+    constexpr size_t X1 = TOP_LEFT.X;
+    constexpr size_t Y1 = TOP_LEFT.Y;
     const auto& board = state.board();
-    const uint16_t X2 = TOP_LEFT.X + board.width() * TILE_SIZE;
-    const uint16_t Y2 = TOP_LEFT.Y + board.height() * TILE_SIZE;
-    const auto background = state.board().background_color();
+    const size_t X2 = TOP_LEFT.X + board->width() * TILE_SIZE;
+    const size_t Y2 = TOP_LEFT.Y + board->height() * TILE_SIZE;
+    const auto background = state.board()->background_color();
     EXPECT_CALL(window_mock, fill_(X1, Y1, X2, Y2, background)).Times(1);
-    for (size_t i = 0; i < board.width(); ++i) {
-        for (size_t j = 0; j < board.height(); ++j) {
-            const auto& color = board.at(i, j);
-            if (color == board.background_color())
+    for (size_t i = 0; i < board->width(); ++i) {
+        for (size_t j = 0; j < board->height(); ++j) {
+            const auto& color = board->at(i, j);
+            if (color == board->background_color())
                 continue;
             const auto border_color = gui::darken(color, 20);
-            const uint16_t x1 = X1 + i * TILE_SIZE;
-            const uint16_t y1 = Y1 + j * TILE_SIZE;
-            const uint16_t x2 = x1 + TILE_SIZE - 1;
-            const uint16_t y2 = y1 + TILE_SIZE - 1;
+            const size_t x1 = X1 + i * TILE_SIZE;
+            const size_t y1 = Y1 + j * TILE_SIZE;
+            const size_t x2 = x1 + TILE_SIZE - 1;
+            const size_t y2 = y1 + TILE_SIZE - 1;
             EXPECT_CALL(window_mock, fill_(x1, y1, x2, y2, color)).Times(1);
             EXPECT_CALL(window_mock, rectangle_(x1, y1, x2, y2, border_color)).Times(1);
         }

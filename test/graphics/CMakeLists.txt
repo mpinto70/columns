@@ -1,6 +1,6 @@
 set(graphics_srcs
-    ScoreBoardDrawerTest.cpp
     BoardDrawerTest.cpp
+    ScoreBoardDrawerTest.cpp
     WindowTest.cpp
 )
 

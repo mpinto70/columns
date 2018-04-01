@@ -1,7 +1,7 @@
 set(piece_srcs
     BoardTest.cpp
-    PieceTest.cpp
     PiecePositionTest.cpp
+    PieceTest.cpp
 )
 
 set(piece_libs

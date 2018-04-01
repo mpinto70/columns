@@ -9,11 +9,11 @@ namespace tst {
 
 TEST(PointTest, create) {
     const Point p1(1, 2);
-    EXPECT_EQ(p1.X, 1);
-    EXPECT_EQ(p1.Y, 2);
+    EXPECT_EQ(p1.X, 1u);
+    EXPECT_EQ(p1.Y, 2u);
     const Point p2(231, 222);
-    EXPECT_EQ(p2.X, 231);
-    EXPECT_EQ(p2.Y, 222);
+    EXPECT_EQ(p2.X, 231u);
+    EXPECT_EQ(p2.Y, 222u);
 
     mck::check_assignment(__FILE__, __LINE__, p1, p2);
 }

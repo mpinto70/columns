@@ -1,5 +1,7 @@
 #include "Controller.h"
 
+#include <utility>
+
 namespace game {
 
 Controller::Controller(CanvasPtr&& canvas,
@@ -10,11 +12,12 @@ Controller::Controller(CanvasPtr&& canvas,
       size_t record)
       : canvas_(std::move(canvas)),
         input_reader_(std::move(input_reader)),
-        state_(piece::Board(board_width, board_height, board_background),
-              state::ScoreBoard(state::Score(record), state::Score(0))) {
+        board_(std::make_shared<piece::Board>(board_width, board_height, board_background)),
+        record_(record) {
 }
 
 void Controller::run() {
-    canvas_->draw(state_);
+    state::State state(board_, state::ScoreBoard(state::Score(record_), state::Score(0)));
+    canvas_->draw(state);
 }
 }

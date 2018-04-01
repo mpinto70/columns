@@ -9,15 +9,14 @@
 
 namespace state {
 /// tile type to be eliminated from the board
-using EliminationItem = std::pair<uint16_t, uint16_t>;
+using EliminationItem = std::pair<size_t, size_t>;
 /// list of tile type to be eliminated from the board
 using EliminationList = std::vector<EliminationItem>;
 /// Registers the game state
 class State {
 public:
     /// Create an initial state (no piece falling).
-    State(const piece::Board& board,
-          const state::ScoreBoard& socre_board);
+    State(piece::SharedConstBoard board, const state::ScoreBoard& socre_board);
     /** Create an initial state with a falling piece.
      * @param board         the board
      * @param score_board   the score
@@ -25,7 +24,7 @@ public:
      * @param position      the position of the falling piece
      * @param next          the next piece to fall
      */
-    State(const piece::Board& board,
+    State(piece::SharedConstBoard board,
           const state::ScoreBoard& score_board,
           const piece::Piece& falling,
           const piece::PiecePosition& position,
@@ -36,13 +35,14 @@ public:
      * @param list          list of tiles to be removed
      * @param next          the next piece to fall
      */
-    State(const piece::Board& board,
+    State(piece::SharedConstBoard board,
           const state::ScoreBoard& score_board,
           const EliminationList& list,
           const piece::Piece& next);
-    const piece::Board& board() const { return board_; }
+
+    piece::SharedConstBoard board() const { return board_; }
     const state::ScoreBoard& score_board() const { return score_board_; }
-    bool has_piece_falling() const { return piece_.get() != NULL; }
+    bool has_piece_falling() const { return piece_.get() != nullptr; }
     /** @return the position of the current falling piece.
      * @throw std::logic_error if there is no piece falling
      */
@@ -52,7 +52,7 @@ public:
      */
     const piece::Piece& piece() const;
     const EliminationList& elimination_list() const { return elimination_list_; }
-    bool has_next() const { return next_.get() != NULL; }
+    bool has_next() const { return next_.get() != nullptr; }
     /** @return the next piece to fall in the board.
      * @throw std::logic_error if there is no next piece
      */
@@ -60,7 +60,7 @@ public:
 
 private:
     using PositionPtr = std::unique_ptr<piece::PiecePosition>;
-    piece::Board board_;
+    piece::SharedConstBoard board_;
     state::ScoreBoard score_board_;
     piece::PiecePtr piece_;      ///< the piece falling
     PositionPtr piece_position_; ///< the position of the falling piece

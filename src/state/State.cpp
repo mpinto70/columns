@@ -4,7 +4,7 @@
 
 namespace state {
 
-State::State(const piece::Board& board, const state::ScoreBoard& score_board)
+State::State(piece::SharedConstBoard board, const state::ScoreBoard& score_board)
       : board_(board),
         score_board_(score_board),
         piece_(nullptr),
@@ -13,7 +13,7 @@ State::State(const piece::Board& board, const state::ScoreBoard& score_board)
         next_(nullptr) {
 }
 
-State::State(const piece::Board& board,
+State::State(piece::SharedConstBoard board,
       const state::ScoreBoard& score_board,
       const piece::Piece& falling,
       const piece::PiecePosition& position,
@@ -26,7 +26,7 @@ State::State(const piece::Board& board,
         next_(new piece::Piece(next)) {
 }
 
-State::State(const piece::Board& board,
+State::State(piece::SharedConstBoard board,
       const state::ScoreBoard& score_board,
       const EliminationList& list,
       const piece::Piece& next)

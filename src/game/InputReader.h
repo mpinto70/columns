@@ -10,8 +10,6 @@ public:
     explicit InputReader(SharedMessage messages);
     virtual ~InputReader() = default;
 
-    SharedMessage messages() const { return messages_; }
-
     void run();
 
 private:

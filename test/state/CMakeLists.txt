@@ -1,6 +1,6 @@
 set(state_srcs
-    ScoreTest.cpp
     ScoreBoardTest.cpp
+    ScoreTest.cpp
     StateTest.cpp
 )
 

@@ -87,11 +87,11 @@ private:
 
 void game_loop(game::SharedMessage mensagens) {
     try {
-        const graphics::BoardDrawer drawer({ 10, 15 }, TILE_SIZE, TILE_STEP, gui::Color::WHITE);
+        const graphics::BoardDrawer drawer({ 10, 15 }, TILE_SIZE, TILE_STEP, gui::Color::BLACK);
         const gui::Font font_name("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font font_score("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
-        game::GameController controller(piece::Board(BOARD_WIDTH, BOARD_HEIGHT, gui::Color::WHITE),
+        game::GameController controller(std::make_shared<piece::Board>(BOARD_WIDTH, BOARD_HEIGHT, gui::Color::WHITE),
               TILE_SIZE / 2,
               state::Score(0),
               POSSIBLE,

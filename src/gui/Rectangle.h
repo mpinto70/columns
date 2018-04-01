@@ -3,7 +3,6 @@
 #include "gui/Point.h"
 
 #include <algorithm>
-#include <cstdint>
 
 namespace gui {
 
@@ -16,10 +15,10 @@ public:
      * @param x2 x coordinate of corner 2
      * @param y2 y coordinate of corner 2
      */
-    constexpr Rectangle(uint16_t x1,
-          uint16_t y1,
-          uint16_t x2,
-          uint16_t y2)
+    constexpr Rectangle(size_t x1,
+          size_t y1,
+          size_t x2,
+          size_t y2)
           : P1_(std::min(x1, x2), std::min(y1, y2)),
             P2_(std::max(x1, x2), std::max(y1, y2)) {
     }
@@ -28,8 +27,7 @@ public:
      * @param p1 one corner
      * @param p2 other corner
      */
-    constexpr Rectangle(const Point& p1,
-          const Point& p2)
+    constexpr Rectangle(const Point& p1, const Point& p2)
           : Rectangle(p1.X, p1.Y, p2.X, p2.Y) {
     }
 

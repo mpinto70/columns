@@ -1,4 +1,3 @@
-
 add_library(
     state_mck
     utilstate.cpp

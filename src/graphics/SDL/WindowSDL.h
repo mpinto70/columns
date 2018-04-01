@@ -10,10 +10,10 @@ namespace graphics {
 class WindowSDL : public Window {
 public:
     WindowSDL(const std::string& name,
-          uint16_t left,
-          uint16_t top,
-          uint16_t width,
-          uint16_t height,
+          size_t left,
+          size_t top,
+          size_t width,
+          size_t height,
           gui::Color color);
     ~WindowSDL() override;
 
@@ -30,31 +30,31 @@ private:
     SDL_Renderer* renderer_;
     gui::Color color_;
 
-    void line_(uint16_t x1,
-          uint16_t y1,
-          uint16_t x2,
-          uint16_t y2,
+    void line_(size_t x1,
+          size_t y1,
+          size_t x2,
+          size_t y2,
           gui::Color color) override;
 
-    void rectangle_(uint16_t x1,
-          uint16_t y1,
-          uint16_t x2,
-          uint16_t y2,
+    void rectangle_(size_t x1,
+          size_t y1,
+          size_t x2,
+          size_t y2,
           gui::Color color) override;
 
-    void fill_(uint16_t x1,
-          uint16_t y1,
-          uint16_t x2,
-          uint16_t y2,
+    void fill_(size_t x1,
+          size_t y1,
+          size_t x2,
+          size_t y2,
           gui::Color color) override;
 
-    gui::Rectangle write_(const std::string& texto,
-          uint16_t x,
-          uint16_t y,
+    gui::Rectangle write_(const std::string& text,
+          size_t x,
+          size_t y,
           const gui::Font& fonte,
           gui::Color color) override;
 
-    void draw_(const piece::Board& board) override;
+    void draw_(piece::SharedConstBoard board) override;
     void draw_(const piece::Piece& piece, const piece::PiecePosition& piece_position) override;
     void draw_next_(const piece::Piece& next_piece) override;
     void draw_(const state::ScoreBoard& score_board) override;

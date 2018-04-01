@@ -52,7 +52,7 @@ bool operator!=(const State& lhs, const State& rhs) {
     return not(lhs == rhs);
 }
 
-State create_state(const piece::Board& board) {
+State create_state(piece::SharedConstBoard board) {
     return State(board, ScoreBoard{ Score{ 150 }, Score{ 20 } });
 }
 }

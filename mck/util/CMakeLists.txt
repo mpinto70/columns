@@ -1,4 +1,3 @@
-
 add_library(
     util_mck
     utiltest.cpp

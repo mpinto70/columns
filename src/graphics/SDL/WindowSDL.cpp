@@ -25,13 +25,20 @@ SDL_Color to_sdl_color(gui::Color color) {
     const auto sdl_color = to_color_triplet(color);
     return SDL_Color{ sdl_color[0], sdl_color[1], sdl_color[2] };
 }
+
+SDL_Rect to_sdl_rect(const size_t x1,
+      const size_t y1,
+      const size_t x2,
+      const size_t y2) {
+    return { int(x1), int(y1), int(x2 - x1 + 1), int(y2 - y1 + 1) };
+}
 }
 
 WindowSDL::WindowSDL(const std::string& name,
-      const uint16_t left,
-      const uint16_t top,
-      const uint16_t width,
-      const uint16_t height,
+      const size_t left,
+      const size_t top,
+      const size_t width,
+      const size_t height,
       gui::Color color)
       : Window(name, width, height),
         window_(nullptr),
@@ -66,10 +73,10 @@ void WindowSDL::update() {
     SDL_RenderPresent(renderer_);
 }
 
-void WindowSDL::line_(const uint16_t x1,
-      const uint16_t y1,
-      const uint16_t x2,
-      const uint16_t y2,
+void WindowSDL::line_(const size_t x1,
+      const size_t y1,
+      const size_t x2,
+      const size_t y2,
       gui::Color color) {
     const auto sdl_color = to_color_triplet(color);
     if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
@@ -81,12 +88,12 @@ void WindowSDL::line_(const uint16_t x1,
     }
 }
 
-void WindowSDL::rectangle_(const uint16_t x1,
-      const uint16_t y1,
-      const uint16_t x2,
-      const uint16_t y2,
+void WindowSDL::rectangle_(const size_t x1,
+      const size_t y1,
+      const size_t x2,
+      const size_t y2,
       gui::Color color) {
-    const SDL_Rect rect = { x1, y1, x2 - x1 + 1, y2 - y1 + 1 };
+    const SDL_Rect rect = to_sdl_rect(x1, y1, x2, y2);
     const auto sdl_color = to_color_triplet(color);
     if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("WindowSDL::retangulo_ - erro no SDL_SetRenderDrawColor");
@@ -96,12 +103,12 @@ void WindowSDL::rectangle_(const uint16_t x1,
     }
 }
 
-void WindowSDL::fill_(const uint16_t x1,
-      const uint16_t y1,
-      const uint16_t x2,
-      const uint16_t y2,
+void WindowSDL::fill_(const size_t x1,
+      const size_t y1,
+      const size_t x2,
+      const size_t y2,
       gui::Color color) {
-    const SDL_Rect rect = { x1, y1, x2 - x1 + 1, y2 - y1 + 1 };
+    const SDL_Rect rect = to_sdl_rect(x1, y1, x2, y2);
     const auto sdl_color = to_color_triplet(color);
     if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("WindowSDL::preenche_ - erro no SDL_SetRenderDrawColor");
@@ -111,9 +118,9 @@ void WindowSDL::fill_(const uint16_t x1,
     }
 }
 
-gui::Rectangle WindowSDL::write_(const std::string& texto,
-      const uint16_t x,
-      const uint16_t y,
+gui::Rectangle WindowSDL::write_(const std::string& text,
+      const size_t x,
+      const size_t y,
       const gui::Font& fonte,
       gui::Color color) {
     TTF_Font* font = nullptr;
@@ -129,9 +136,9 @@ gui::Rectangle WindowSDL::write_(const std::string& texto,
 
         //We need to first render to a surface as that's what TTF_RenderText
         //returns, then load that surface into a texture
-        surface = TTF_RenderText_Blended(font, texto.c_str(), sdl_color);
+        surface = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
         if (surface == nullptr) {
-            throw std::runtime_error("WindowSDL::write_ - getting the surface " + texto);
+            throw std::runtime_error("WindowSDL::write_ - getting the surface " + text);
         }
 
         texture = SDL_CreateTextureFromSurface(renderer_, surface);
@@ -149,7 +156,7 @@ gui::Rectangle WindowSDL::write_(const std::string& texto,
         }
 
         res = gui::Rectangle(x, y, x + dst.w, y + dst.h);
-        if (SDL_RenderCopy(renderer_, texture, NULL, &dst) != 0) {
+        if (SDL_RenderCopy(renderer_, texture, nullptr, &dst) != 0) {
             throw std::runtime_error("WindowSDL::write_ - SDL_RenderCopy error");
         }
     } catch (...) {
@@ -171,7 +178,7 @@ gui::Rectangle WindowSDL::write_(const std::string& texto,
     return res;
 }
 
-void WindowSDL::draw_(const piece::Board& board) {
+void WindowSDL::draw_(piece::SharedConstBoard board) {
 }
 
 void WindowSDL::draw_(const piece::Piece& piece, const piece::PiecePosition& piece_position) {

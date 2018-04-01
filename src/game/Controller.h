@@ -16,11 +16,10 @@ public:
           size_t record);
     void run();
 
-    const state::State& state() const { return state_; }
-
 private:
     CanvasPtr canvas_;
     InputReaderPtr input_reader_;
-    state::State state_;
+    piece::SharedBoard board_;
+    size_t record_;
 };
 }
