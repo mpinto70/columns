@@ -42,12 +42,12 @@ TEST(StateTest, caracteristics) {
 
 TEST(StateTest, create) {
     using namespace std::rel_ops;
-    const piece::Board board1(10, 20, gui::WHITE);
-    const piece::Board board2(11, 20, gui::WHITE);
-    const piece::Board board3(10, 21, gui::WHITE);
-    const piece::Board board4(10, 20, gui::BLUE);
-    const piece::Board board5(12, 21, gui::WHITE);
-    const piece::Board board6(13, 20, gui::BLUE);
+    const piece::Board board1(10, 20, gui::Color::WHITE);
+    const piece::Board board2(11, 20, gui::Color::WHITE);
+    const piece::Board board3(10, 21, gui::Color::WHITE);
+    const piece::Board board4(10, 20, gui::Color::BLUE);
+    const piece::Board board5(12, 21, gui::Color::WHITE);
+    const piece::Board board6(13, 20, gui::Color::BLUE);
     const state::ScoreBoard score_board1(state::Score(25));
     const state::ScoreBoard score_board2(state::Score(38), state::Score(34));
     const state::ScoreBoard score_board3(state::Score(38), state::Score(35));

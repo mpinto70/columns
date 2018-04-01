@@ -18,11 +18,11 @@ const std::string VERSION = "0.6";
 
 /// available colors
 const std::vector<gui::Color> POSSIBLE = {
-    gui::GREEN,
-    gui::RED,
-    gui::BLUE,
-    gui::YELLOW,
-    gui::LAVENDER,
+    gui::Color::GREEN,
+    gui::Color::RED,
+    gui::Color::BLUE,
+    gui::Color::YELLOW,
+    gui::Color::LAVENDER,
 };
 
 constexpr size_t TILE_SIZE = 30;                                ///< tile size in pixels
@@ -61,19 +61,19 @@ public:
         window_->clear();
         window_->line(gui::Point{ 0, BOARD_HEIGHT * TILE_SIZE + 40 },
               gui::Point{ SCREEN_WIDTH, BOARD_HEIGHT * TILE_SIZE + 40 },
-              gui::WHITE);
+              gui::Color::WHITE);
         window_->write("Columns - by mpinto70",
               gui::Point{ 10, BOARD_HEIGHT * TILE_SIZE + 45 },
               font_name_,
-              gui::WHITE);
+              gui::Color::WHITE);
         window_->write("Score",
               gui::Point{ 10 + BOARD_WIDTH * TILE_SIZE + 10, 50 },
               font_name_,
-              gui::YELLOW);
+              gui::Color::YELLOW);
         window_->write(std::to_string(state.score_board().score().total()),
               gui::Point{ 10 + BOARD_WIDTH * TILE_SIZE + 10, 90 },
               font_score_,
-              gui::YELLOW);
+              gui::Color::YELLOW);
         drawer_.draw(*window_, state);
         window_->update();
     }
@@ -87,11 +87,11 @@ private:
 
 void game_loop(game::SharedMessage mensagens) {
     try {
-        const graphics::BoardDrawer drawer({ 10, 15 }, TILE_SIZE, TILE_STEP, gui::WHITE);
+        const graphics::BoardDrawer drawer({ 10, 15 }, TILE_SIZE, TILE_STEP, gui::Color::WHITE);
         const gui::Font font_name("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font font_score("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
-        game::GameController controller(piece::Board(BOARD_WIDTH, BOARD_HEIGHT, gui::WHITE),
+        game::GameController controller(piece::Board(BOARD_WIDTH, BOARD_HEIGHT, gui::Color::WHITE),
               TILE_SIZE / 2,
               state::Score(0),
               POSSIBLE,

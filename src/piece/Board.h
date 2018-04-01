@@ -15,7 +15,7 @@ public:
      * @param h board height in tile squares
      * @param background background color
      */
-    Board(uint16_t w, uint16_t h, const gui::Color& background);
+    Board(uint16_t w, uint16_t h, gui::Color background);
 
     /// @return the colors of the board squares
     const std::vector<gui::Color>& tiles() const { return tiles_; }
@@ -23,14 +23,14 @@ public:
      * @param c column index
      * @param r row index
      */
-    const gui::Color& at(uint16_t c, uint16_t r) const;
+    gui::Color at(uint16_t c, uint16_t r) const;
     /** @return writable square in position (c, r).
      * @param c column index
      * @param r row index
      */
     gui::Color& at(uint16_t c, uint16_t r);
     /// @return background color.
-    const gui::Color& background_color() const { return background_color_; }
+    gui::Color background_color() const { return background_color_; }
     /// @return board width
     uint16_t width() const { return width_; }
     /// @return board height

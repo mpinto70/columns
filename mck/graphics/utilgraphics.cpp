@@ -6,6 +6,8 @@
 #include "state/State.h"
 
 #include "../mck/gui/utilgui.h"
+#include "../mck/piece/utilpiece.h"
+#include "../mck/state/utilstate.h"
 
 #include <string>
 
@@ -16,9 +18,9 @@ namespace {
 constexpr gui::Rectangle BOX{ 200, 120, 250, 170 };
 const gui::Font TITLE_FONT("Georgia", 12);
 const gui::Font SCORE_FONT("Helvetica", 10);
-constexpr gui::Color BACKGROUND = gui::GRAY;
-constexpr gui::Color TITLE_COLOR = gui::YELLOW;
-constexpr gui::Color SCORE_COLOR = gui::GREEN;
+constexpr gui::Color BACKGROUND = gui::Color::GRAY;
+constexpr gui::Color TITLE_COLOR = gui::Color::YELLOW;
+constexpr gui::Color SCORE_COLOR = gui::Color::GREEN;
 }
 
 std::unique_ptr<ScoreBoardDrawer> create_score_board_drawer() {
@@ -28,6 +30,20 @@ std::unique_ptr<ScoreBoardDrawer> create_score_board_drawer() {
           BACKGROUND,
           TITLE_COLOR,
           SCORE_COLOR);
+}
+
+void prepare_state_draw(::testing::StrictMock<WindowMock>& window_mock,
+      const state::State& state) {
+    EXPECT_CALL(window_mock, clear()).Times(1);
+    EXPECT_CALL(window_mock, draw_(state.board())).Times(1);
+    EXPECT_CALL(window_mock, draw_(state.score_board())).Times(1);
+    if (state.has_piece_falling()) {
+        EXPECT_CALL(window_mock, draw_(state.piece(), state.piece_position())).Times(1);
+    }
+    EXPECT_CALL(window_mock, draw_(state.elimination_list())).Times(1);
+    if (state.has_next()) {
+        EXPECT_CALL(window_mock, draw_next_(state.next())).Times(1);
+    }
 }
 
 void prepare_score_board_draw(::testing::StrictMock<WindowMock>& window_mock,
@@ -61,7 +77,7 @@ constexpr uint16_t STEP_SIZE = 3;
 void prepare_board_draw(const BoardDrawer& drawer,
       ::testing::StrictMock<mck::WindowMock>& window_mock,
       const state::State& state,
-      const gui::Color& elimination_color) {
+      gui::Color elimination_color) {
     constexpr uint16_t X1 = TOP_LEFT.X;
     constexpr uint16_t Y1 = TOP_LEFT.Y;
     const auto& board = state.board();
@@ -86,7 +102,7 @@ void prepare_board_draw(const BoardDrawer& drawer,
 }
 
 BoardDrawer create_board_drawer() {
-    return BoardDrawer(TOP_LEFT, TILE_SIZE, STEP_SIZE, gui::WHITE);
+    return BoardDrawer(TOP_LEFT, TILE_SIZE, STEP_SIZE, gui::Color::WHITE);
 }
 }
 }

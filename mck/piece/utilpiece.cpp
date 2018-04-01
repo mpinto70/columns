@@ -38,14 +38,15 @@ bool operator!=(const PiecePosition& lhs, const PiecePosition& rhs) {
 namespace mck {
 
 static Piece create_piece_step(unsigned char color0, char step_size) {
-    std::vector<gui::Color> cores;
+    std::vector<gui::Color> colors;
     unsigned char color = color0;
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        gui::Color rgb(color, color, color);
-        cores.push_back(rgb);
+        const size_t color_index = color % gui::mck::end_color();
+        gui::Color cr = ::gui::mck::to_color(color_index);
+        colors.push_back(cr);
         color += step_size;
     }
-    return Piece(cores);
+    return Piece(colors);
 }
 
 Piece create_piece_ascending(unsigned char color0) {
@@ -63,7 +64,7 @@ void print_piece(const std::string& file,
     const std::string separator(PIECE_SIZE * 11, '-');
     printf("%s\n", separator.c_str());
     for (unsigned char c = 0; c < PIECE_SIZE; ++c) {
-        const gui::Color& color = piece[c];
+        gui::Color color = piece[c];
         gui::mck::print(color);
     }
     printf("\n");
@@ -78,7 +79,7 @@ void print_board(const std::string& file,
     printf("%s\n", separator.c_str());
     for (uint16_t l = 0; l < board.height(); ++l) {
         for (uint16_t c = 0; c < board.width(); ++c) {
-            const gui::Color& color = board.at(c, l);
+            gui::Color color = board.at(c, l);
             gui::mck::print(color);
         }
         printf("\n");

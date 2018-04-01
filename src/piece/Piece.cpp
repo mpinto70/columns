@@ -3,12 +3,13 @@
 #include "util/Random.h"
 
 #include <algorithm>
+#include <cstring>
 #include <stdexcept>
 
 namespace piece {
 
-Piece::Piece(const gui::Color (&colors)[PIECE_SIZE])
-      : colors_(colors) {
+Piece::Piece(const gui::Color (&colors)[PIECE_SIZE]) {
+    std::memcpy(colors_, colors, sizeof(colors_));
 }
 
 Piece::Piece(const std::vector<gui::Color>& colors) {
@@ -19,7 +20,7 @@ Piece::Piece(const std::vector<gui::Color>& colors) {
     std::copy(colors.begin(), colors.end(), colors_);
 }
 
-const gui::Color& Piece::operator[](unsigned char i) const {
+gui::Color Piece::operator[](unsigned char i) const {
     if (i >= PIECE_SIZE) {
         throw std::range_error("Piece[" + std::to_string(i) + "] - index out of range");
     }

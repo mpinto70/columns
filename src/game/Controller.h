@@ -1,28 +1,25 @@
 #pragma once
 
+#include "game/Canvas.h"
 #include "game/InputReader.h"
-#include "game/Message.h"
-#include "graphics/Drawer.h"
-#include "graphics/Window.h"
-#include "piece/Board.h"
 #include "state/State.h"
 
 namespace game {
 
 class Controller {
 public:
-    Controller(graphics::WindowPtr&& window,
-          graphics::DrawerList&& drawers,
+    Controller(CanvasPtr&& canvas,
           InputReaderPtr&& input_reader,
-          const piece::Board& board,
+          size_t board_width,
+          size_t board_height,
+          gui::Color board_background,
           size_t record);
     void run();
 
     const state::State& state() const { return state_; }
 
 private:
-    graphics::WindowPtr window_;
-    graphics::DrawerList drawers_;
+    CanvasPtr canvas_;
     InputReaderPtr input_reader_;
     state::State state_;
 };

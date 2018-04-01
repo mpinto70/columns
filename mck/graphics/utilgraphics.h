@@ -12,6 +12,9 @@ namespace mck {
 
 std::unique_ptr<ScoreBoardDrawer> create_score_board_drawer();
 
+void prepare_state_draw(::testing::StrictMock<WindowMock>& window_mock,
+      const state::State& state);
+
 void prepare_score_board_draw(::testing::StrictMock<WindowMock>& window_mock,
       const state::ScoreBoard& score_board);
 
@@ -20,6 +23,6 @@ BoardDrawer create_board_drawer();
 void prepare_board_draw(const BoardDrawer& drawer,
       ::testing::StrictMock<WindowMock>& window_mock,
       const state::State& state,
-      const gui::Color& elimination_color);
+      gui::Color elimination_color);
 }
 }

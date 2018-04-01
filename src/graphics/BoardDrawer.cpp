@@ -4,7 +4,7 @@ namespace graphics {
 
 namespace {
 void draw_tile_(Window& window,
-      const gui::Color& color,
+      gui::Color color,
       const uint16_t x1,
       const uint16_t y1,
       const uint16_t size) {
@@ -19,7 +19,7 @@ void draw_tile_(Window& window,
 BoardDrawer::BoardDrawer(const gui::Point& top_left,
       const uint16_t tile_size,
       const uint16_t step_size,
-      const gui::Color& elimination_color)
+      gui::Color elimination_color)
       : top_left_(top_left),
         tile_size_(tile_size),
         step_size_(step_size),
@@ -68,7 +68,7 @@ void BoardDrawer::draw(Window& window, const piece::Board& board) const {
 }
 
 void BoardDrawer::draw_tile(Window& window,
-      const gui::Color& color,
+      gui::Color color,
       const uint16_t column,
       const uint16_t row,
       const uint16_t sub_row) const {

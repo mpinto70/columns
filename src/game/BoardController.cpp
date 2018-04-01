@@ -12,7 +12,7 @@ namespace game {
 BoardController::BoardController(const piece::Board& board, const uint16_t max_sub_row)
       : board_(board),
         max_sub_row_(max_sub_row),
-        possibles_{ gui::GREEN, gui::RED, gui::BLUE, gui::YELLOW, gui::LAVENDER } {
+        possibles_{ gui::Color::GREEN, gui::Color::RED, gui::Color::BLUE, gui::Color::YELLOW, gui::Color::LAVENDER } {
     if (max_sub_row_ == 0) {
         throw std::invalid_argument("BoardController - zero maximum subdivisions");
     }
@@ -131,9 +131,16 @@ void BoardController::eliminate(const state::EliminationList& casas) {
 
 state::State BoardController::state() const {
     if (has_piece()) {
-        return state::State(board_, state::ScoreBoard(), *piece_, *piece_position_, piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return state::State(board_,
+              state::ScoreBoard(),
+              *piece_,
+              *piece_position_,
+              piece::Piece({ gui::Color::BLUE, gui::Color::BLUE, gui::Color::BLUE }));
     } else {
-        return state::State(board_, state::ScoreBoard(), determine_elimination(), piece::Piece({ gui::BLUE, gui::BLUE, gui::BLUE }));
+        return state::State(board_,
+              state::ScoreBoard(),
+              determine_elimination(),
+              piece::Piece({ gui::Color::BLUE, gui::Color::BLUE, gui::Color::BLUE }));
     }
 }
 

@@ -16,7 +16,7 @@ public:
     BoardDrawer(const gui::Point& top_left,
           uint16_t tile_size,
           uint16_t step_size,
-          const gui::Color& elimination_color);
+          gui::Color elimination_color);
 
     ~BoardDrawer() override = default;
 
@@ -32,7 +32,7 @@ private:
           const piece::Board& board) const;
 
     void draw_tile(Window& windows,
-          const gui::Color& color,
+          gui::Color color,
           uint16_t column,
           uint16_t row,
           uint16_t sub_row = 0) const;

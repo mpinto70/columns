@@ -6,6 +6,7 @@ add_library(
     Message.cpp
     Controller.cpp
     InputReader.cpp
+    Canvas.cpp
 )
 
 target_include_directories(

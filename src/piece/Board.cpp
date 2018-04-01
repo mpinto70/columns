@@ -7,7 +7,7 @@ namespace piece {
 
 Board::Board(const uint16_t w,
       const uint16_t h,
-      const gui::Color& background)
+      gui::Color background)
       : tiles_(w * h, background),
         background_color_(background),
         width_(w),
@@ -20,7 +20,7 @@ Board::Board(const uint16_t w,
     }
 }
 
-const gui::Color& Board::at(const uint16_t c, const uint16_t r) const {
+gui::Color Board::at(const uint16_t c, const uint16_t r) const {
     if (c >= width_) {
         throw std::invalid_argument("Board::at const - column overflow " + std::to_string(c));
     }

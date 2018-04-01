@@ -18,7 +18,7 @@ graphics::WindowPtr create_window(const std::string& version,
           100,
           screen_width,
           screen_height,
-          gui::GRAY);
+          gui::Color::GRAY);
 }
 
 InputResult process_input(game::SharedMessage& messages) {

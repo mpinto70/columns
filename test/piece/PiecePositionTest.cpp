@@ -95,8 +95,8 @@ void check_move_invalid(const std::string& msg0, const Board& board) {
 }
 
 TEST(PiecePositionTest, create) {
-    const Board tab1(7, 25, gui::WHITE);
-    const Board tab2(8, 15, gui::WHITE);
+    const Board tab1(7, 25, gui::Color::WHITE);
+    const Board tab2(8, 15, gui::Color::WHITE);
 
     const PiecePosition p1(tab1, 5, 4);
     EXPECT_EQ(p1.column(), 5u);
@@ -124,12 +124,12 @@ TEST(PiecePositionTest, create) {
 }
 
 TEST(PiecePositionTest, invalid_create) {
-    check_invalid_creation("t1", Board(7, 25, gui::WHITE));
-    check_invalid_creation("t2", Board(12, 50, gui::WHITE));
+    check_invalid_creation("t1", Board(7, 25, gui::Color::WHITE));
+    check_invalid_creation("t2", Board(12, 50, gui::Color::WHITE));
 }
 
 TEST(PiecePositionTest, step_down) {
-    const Board board(7, 25, gui::WHITE);
+    const Board board(7, 25, gui::Color::WHITE);
 
     PiecePosition p(board, 5, 6);
     EXPECT_EQ(p.column(), 5u);
@@ -188,12 +188,12 @@ TEST(PiecePositionTest, step_down) {
 }
 
 TEST(PiecePositionTest, invalid_step_down) {
-    check_step_down_invalid("t1", Board(12, 50, gui::BLACK));
-    check_step_down_invalid("t2", Board(7, 25, gui::BLACK));
+    check_step_down_invalid("t1", Board(12, 50, gui::Color::BLACK));
+    check_step_down_invalid("t2", Board(7, 25, gui::Color::BLACK));
 }
 
 TEST(PiecePositionTest, move) {
-    const Board board(7, 25, gui::WHITE);
+    const Board board(7, 25, gui::Color::WHITE);
 
     PiecePosition p(board, 3, 4);
     EXPECT_EQ(p.column(), 3u);
@@ -231,12 +231,12 @@ TEST(PiecePositionTest, move) {
 }
 
 TEST(PiecePositionTest, invalid_move) {
-    check_move_invalid("t1", Board(12, 50, gui::BLACK));
-    check_move_invalid("t2", Board(7, 25, gui::BLACK));
+    check_move_invalid("t1", Board(12, 50, gui::Color::BLACK));
+    check_move_invalid("t2", Board(7, 25, gui::Color::BLACK));
 }
 
 TEST(PiecePositionTest, comparison) {
-    Board t1(12, 50, gui::BLACK);
+    Board t1(12, 50, gui::Color::BLACK);
 
     std::vector<PiecePosition> posics{
         PiecePosition(t1, 4, 4),
@@ -249,7 +249,7 @@ TEST(PiecePositionTest, comparison) {
 
     ::mck::check_comparison(__FILE__, __LINE__, posics);
 
-    Board t2(17, 50, gui::WHITE);
+    Board t2(17, 50, gui::Color::WHITE);
     EXPECT_EQ(posics[0], PiecePosition(t2, 4, 4));
     EXPECT_EQ(posics[1], PiecePosition(t2, 5, 4));
 }

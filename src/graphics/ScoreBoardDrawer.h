@@ -8,9 +8,9 @@ public:
     ScoreBoardDrawer(const gui::Rectangle& box,
           const gui::Font& title_font,
           const gui::Font& score_font,
-          const gui::Color& background,
-          const gui::Color& title_color,
-          const gui::Color& score_color);
+          gui::Color background,
+          gui::Color title_color,
+          gui::Color score_color);
 
     ~ScoreBoardDrawer() override = default;
 

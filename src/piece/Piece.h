@@ -30,7 +30,7 @@ public:
      * @param i index (0 <= i <= PIECE_SIZE)
      * @throws std::invalid_argument if \p i is out of bounds
      */
-    const gui::Color& operator[](unsigned char i) const;
+    gui::Color operator[](unsigned char i) const;
     void roll_up();
     void roll_down();
     /** @return create a piece with random colors based on colors from \p possibles.
