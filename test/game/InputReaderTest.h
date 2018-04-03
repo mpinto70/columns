@@ -17,7 +17,6 @@ protected:
     void TearDown() override;
 
     std::unique_ptr<mck::InputReaderMock> reader;
-    SharedMessage messages;
 };
 }
 }

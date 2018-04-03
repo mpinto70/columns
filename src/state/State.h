@@ -16,7 +16,78 @@ using EliminationList = std::vector<EliminationItem>;
 class State {
 public:
     /// Create an initial state (no piece falling).
-    State(piece::SharedConstBoard board, const state::ScoreBoard& socre_board);
+    State(piece::SharedConstBoard board,
+          const state::ScoreBoard& socre_board);
+
+    virtual ~State() = default;
+
+    State(const State&) = delete;
+    State& operator=(const State&) = delete;
+    State(State&&) = delete;
+    State& operator=(State&&) = delete;
+
+    piece::SharedConstBoard board() const { return board_; }
+    const state::ScoreBoard& score_board() const { return score_board_; }
+
+    virtual bool has_next() const { return false; }
+    /// @throw std::logic_error by default
+    virtual const piece::Piece& next() const;
+
+    virtual bool has_piece_falling() const { return false; }
+    /// @throw std::logic_error by default
+    virtual const piece::PiecePosition& piece_position() const;
+    /// @throw std::logic_error by default
+    virtual const piece::Piece& piece() const;
+
+    virtual bool has_elimination_list() const { return false; }
+    /// @throw std::logic_error by default
+    virtual const EliminationList& elimination_list() const;
+
+private:
+    piece::SharedConstBoard board_;
+    state::ScoreBoard score_board_;
+};
+
+using StatePtr = std::unique_ptr<State>;
+
+class StateWithNext : public State {
+public:
+    StateWithNext(piece::SharedConstBoard board,
+          const state::ScoreBoard& socre_board,
+          const piece::Piece& next);
+    ~StateWithNext() override = default;
+
+    bool has_next() const override { return true; }
+    const piece::Piece& next() const override { return next_; }
+
+private:
+    piece::Piece next_;
+};
+
+class StateElimination : public StateWithNext {
+public:
+    /** Create a state in which nothing will be added and there is no piece falling.
+     * @param board         the board
+     * @param score_board   the score
+     * @param list          list of tiles to be removed
+     * @param next          the next piece to fall
+     */
+    StateElimination(piece::SharedConstBoard board,
+          const state::ScoreBoard& score_board,
+          const piece::Piece& next,
+          const EliminationList& list);
+
+    ~StateElimination() override = default;
+    bool has_piece_falling() const override { return false; }
+    bool has_elimination_list() const override { return true; }
+    const EliminationList& elimination_list() const override { return elimination_list_; }
+
+private:
+    EliminationList elimination_list_;
+};
+
+class StateFalling : public StateWithNext {
+public:
     /** Create an initial state with a falling piece.
      * @param board         the board
      * @param score_board   the score
@@ -24,47 +95,20 @@ public:
      * @param position      the position of the falling piece
      * @param next          the next piece to fall
      */
-    State(piece::SharedConstBoard board,
+    StateFalling(piece::SharedConstBoard board,
           const state::ScoreBoard& score_board,
+          const piece::Piece& next,
           const piece::Piece& falling,
-          const piece::PiecePosition& position,
-          const piece::Piece& next);
-    /** Create a state in which nothing will be added and there is no piece falling.
-     * @param board         the board
-     * @param score_board   the score
-     * @param list          list of tiles to be removed
-     * @param next          the next piece to fall
-     */
-    State(piece::SharedConstBoard board,
-          const state::ScoreBoard& score_board,
-          const EliminationList& list,
-          const piece::Piece& next);
+          const piece::PiecePosition& position);
 
-    piece::SharedConstBoard board() const { return board_; }
-    const state::ScoreBoard& score_board() const { return score_board_; }
-    bool has_piece_falling() const { return piece_.get() != nullptr; }
-    /** @return the position of the current falling piece.
-     * @throw std::logic_error if there is no piece falling
-     */
-    const piece::PiecePosition& piece_position() const;
-    /** @return the falling piece.
-     * @throw std::logic_error if there is no piece falling
-     */
-    const piece::Piece& piece() const;
-    const EliminationList& elimination_list() const { return elimination_list_; }
-    bool has_next() const { return next_.get() != nullptr; }
-    /** @return the next piece to fall in the board.
-     * @throw std::logic_error if there is no next piece
-     */
-    const piece::Piece& next() const;
+    ~StateFalling() = default;
+
+    bool has_piece_falling() const override { return true; }
+    const piece::PiecePosition& piece_position() const override { return piece_position_; }
+    const piece::Piece& piece() const override { return piece_; }
 
 private:
-    using PositionPtr = std::unique_ptr<piece::PiecePosition>;
-    piece::SharedConstBoard board_;
-    state::ScoreBoard score_board_;
-    piece::PiecePtr piece_;      ///< the piece falling
-    PositionPtr piece_position_; ///< the position of the falling piece
-    EliminationList elimination_list_;
-    piece::PiecePtr next_; ///< next piece to be put in the board
+    piece::Piece piece_;                  ///< the piece falling
+    piece::PiecePosition piece_position_; ///< the position of the falling piece
 };
 }

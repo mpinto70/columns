@@ -44,10 +44,12 @@ void BoardDrawer::draw(Window& window, const state::State& state) const {
             draw_tile(window, piece[i], position.column(), position.row() + i, position.sub_row());
         }
     } else {
-        for (const auto& eliminated : state.elimination_list()) {
-            const auto column = eliminated.first;
-            const auto row = eliminated.second;
-            draw_tile(window, elimination_color_, column, row);
+        if (state.has_elimination_list()) {
+            for (const auto& eliminated : state.elimination_list()) {
+                const auto column = eliminated.first;
+                const auto row = eliminated.second;
+                draw_tile(window, elimination_color_, column, row);
+            }
         }
     }
 }

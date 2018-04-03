@@ -6,56 +6,47 @@ namespace state {
 
 State::State(piece::SharedConstBoard board, const state::ScoreBoard& score_board)
       : board_(board),
-        score_board_(score_board),
-        piece_(nullptr),
-        piece_position_(nullptr),
-        elimination_list_(),
-        next_(nullptr) {
-}
-
-State::State(piece::SharedConstBoard board,
-      const state::ScoreBoard& score_board,
-      const piece::Piece& falling,
-      const piece::PiecePosition& position,
-      const piece::Piece& next)
-      : board_(board),
-        score_board_(score_board),
-        piece_(new piece::Piece(falling)),
-        piece_position_(new piece::PiecePosition(position)),
-        elimination_list_(),
-        next_(new piece::Piece(next)) {
-}
-
-State::State(piece::SharedConstBoard board,
-      const state::ScoreBoard& score_board,
-      const EliminationList& list,
-      const piece::Piece& next)
-      : board_(board),
-        score_board_(score_board),
-        piece_(nullptr),
-        piece_position_(nullptr),
-        elimination_list_(list),
-        next_(new piece::Piece(next)) {
-}
-
-const piece::PiecePosition& State::piece_position() const {
-    if (not has_piece_falling()) {
-        throw std::logic_error("State::piece_position - there is no falling piece on the board");
-    }
-    return *piece_position_;
-}
-
-const piece::Piece& State::piece() const {
-    if (not has_piece_falling()) {
-        throw std::logic_error("State::piece - there is no falling piece on the board");
-    }
-    return *piece_;
+        score_board_(score_board) {
 }
 
 const piece::Piece& State::next() const {
-    if (not has_next()) {
-        throw std::logic_error("State::next - there is no next piece");
-    }
-    return *next_;
+    throw std::logic_error("State::next - there is no next piece");
+}
+
+const piece::PiecePosition& State::piece_position() const {
+    throw std::logic_error("State::piece_position - there is no falling piece on the board");
+}
+
+const piece::Piece& State::piece() const {
+    throw std::logic_error("State::piece - there is no falling piece on the board");
+}
+
+const EliminationList& State::elimination_list() const {
+    throw std::logic_error("State::piece - there is no elimination list");
+}
+
+StateWithNext::StateWithNext(piece::SharedConstBoard board,
+      const state::ScoreBoard& score_board,
+      const piece::Piece& next)
+      : State(board, score_board),
+        next_(next) {
+}
+
+StateElimination::StateElimination(piece::SharedConstBoard board,
+      const state::ScoreBoard& score_board,
+      const piece::Piece& next,
+      const EliminationList& list)
+      : StateWithNext(board, score_board, next),
+        elimination_list_(list) {
+}
+
+StateFalling::StateFalling(piece::SharedConstBoard board,
+      const state::ScoreBoard& score_board,
+      const piece::Piece& next,
+      const piece::Piece& falling,
+      const piece::PiecePosition& position)
+      : StateWithNext(board, score_board, next),
+        piece_(falling),
+        piece_position_(position) {
 }
 }

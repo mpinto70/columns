@@ -14,9 +14,9 @@ using ::testing::StrictMock;
 TEST(BoardDrawerTest, draw_empty_board) {
     StrictMock<mck::WindowMock> window_mock("name", 125, 500);
     const auto drawer = mck::create_board_drawer();
-    const auto state = state::create_state(std::make_shared<piece::Board>(8, 24, gui::Color::WHITE));
-    ::graphics::mck::prepare_board_draw(drawer, window_mock, state, gui::Color::GRAY);
-    drawer.draw(window_mock, state);
+    const auto state = state::mck::create_state(std::make_shared<piece::Board>(8, 24, gui::Color::WHITE));
+    ::graphics::mck::prepare_board_draw(drawer, window_mock, *state, gui::Color::GRAY);
+    drawer.draw(window_mock, *state);
 }
 
 TEST(BoardDrawerTest, draw_full_board) {
@@ -29,10 +29,10 @@ TEST(BoardDrawerTest, draw_full_board) {
             board->at(i, j) = POSSIBLES[idx];
         }
     }
-    const auto state = state::create_state(board);
+    const auto state = state::mck::create_state(board);
     StrictMock<mck::WindowMock> window_mock("name", 125, 500);
-    ::graphics::mck::prepare_board_draw(drawer, window_mock, state, gui::Color::GRAY);
-    drawer.draw(window_mock, state);
+    ::graphics::mck::prepare_board_draw(drawer, window_mock, *state, gui::Color::GRAY);
+    drawer.draw(window_mock, *state);
 }
 }
 }

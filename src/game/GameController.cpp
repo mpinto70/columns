@@ -44,7 +44,8 @@ void GameController::execute() {
             state::EliminationList elimination_list;
             while (not(elimination_list = board_controller_.determine_elimination()).empty()) {
                 util::Wait elimination_time(300);
-                observer_->update(prepare_state(elimination_list));
+                auto state = prepare_state(elimination_list);
+                observer_->update(*state);
                 score_board_.add(elimination_list.size());
                 board_controller_.eliminate(elimination_list);
                 elimination_time.wait();
@@ -57,23 +58,24 @@ void GameController::execute() {
             next_piece_ = piece::Piece::create(possible_);
         }
         process(messages_->get());
-        observer_->update(prepare_state());
+        auto state = prepare_state();
+        observer_->update(*state);
         step_time.wait();
     }
 }
 
-state::State GameController::prepare_state(const state::EliminationList& elimination_list) const {
+state::StatePtr GameController::prepare_state(const state::EliminationList& elimination_list) const {
     if (board_controller_.has_piece()) {
-        return state::State(board_controller_.board(),
+        return std::make_unique<state::StateFalling>(board_controller_.board(),
               score_board_,
+              next_piece_,
               board_controller_.piece(),
-              board_controller_.piece_position(),
-              next_piece_);
+              board_controller_.piece_position());
     } else {
-        return state::State(board_controller_.board(),
+        return std::make_unique<state::StateElimination>(board_controller_.board(),
               score_board_,
-              elimination_list,
-              next_piece_);
+              next_piece_,
+              elimination_list);
     }
 }
 
@@ -94,7 +96,8 @@ void GameController::process(const Message::List& msgs) {
                     board_controller_.step();
                     board_controller_.step();
                     board_controller_.step();
-                    observer_->update(prepare_state());
+                    auto state = prepare_state();
+                    observer_->update(*state);
                 }
                 break;
             case EMessage::RollDown:
@@ -107,7 +110,8 @@ void GameController::process(const Message::List& msgs) {
                 should_stop_ = true;
                 break;
         }
-        observer_->update(prepare_state());
+        auto state = prepare_state();
+        observer_->update(*state);
     }
 }
 }

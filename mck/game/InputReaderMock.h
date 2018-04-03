@@ -9,13 +9,13 @@ namespace mck {
 
 class InputReaderMock : public InputReader {
 public:
-    InputReaderMock(SharedMessage messages)
-          : InputReader(messages) {
+    InputReaderMock()
+          : InputReader() {
     }
     ~InputReaderMock() override = default;
 
     MOCK_METHOD0(should_process, bool());
-    MOCK_METHOD0(get_input, Message::List());
+    MOCK_METHOD0(get_input_, Message::List());
 };
 }
 }

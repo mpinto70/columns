@@ -15,11 +15,13 @@ public:
           gui::Color board_background,
           size_t record);
     void run();
+    const state::State& state() const { return *state_; }
 
 private:
     CanvasPtr canvas_;
     InputReaderPtr input_reader_;
     piece::SharedBoard board_;
-    size_t record_;
+    state::ScoreBoard score_board_;
+    state::StatePtr state_;
 };
 }

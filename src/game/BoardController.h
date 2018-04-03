@@ -47,7 +47,6 @@ public:
     state::EliminationList determine_elimination() const;
     /// Eliminate the tiles.
     void eliminate(const state::EliminationList& tiles);
-    state::State state() const;
 
 private:
     using PositionPtr = std::unique_ptr<piece::PiecePosition>;

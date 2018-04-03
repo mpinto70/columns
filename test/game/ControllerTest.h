@@ -20,7 +20,6 @@ protected:
     std::unique_ptr<Controller> controller;
     mck::InputReaderMock* input_reader_mock;
     StrictMock<mck::CanvasMock>* canvas_mock;
-    SharedMessage messages;
 };
 }
 }

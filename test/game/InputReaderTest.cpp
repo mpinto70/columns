@@ -4,17 +4,18 @@
 
 #include <gmock/gmock.h>
 
+#include <chrono>
+#include <thread>
+
 namespace game {
 namespace tst {
 
 void InputReaderTest::SetUp() {
-    messages = std::make_shared<Message>();
-    reader.reset(new mck::InputReaderMock(messages));
+    reader.reset(new mck::InputReaderMock);
 }
 
 void InputReaderTest::TearDown() {
     reader.reset();
-    messages.reset();
 }
 
 using ::testing::Return;
@@ -29,7 +30,7 @@ TEST_F(InputReaderTest, one_loop) {
     EXPECT_CALL(*reader, should_process())
           .WillOnce(Return(true))
           .WillOnce(Return(false));
-    EXPECT_CALL(*reader, get_input())
+    EXPECT_CALL(*reader, get_input_())
           .WillOnce(Return(Message::List()));
     reader->run();
 }
@@ -39,7 +40,7 @@ TEST_F(InputReaderTest, two_loops) {
           .WillOnce(Return(true))
           .WillOnce(Return(true))
           .WillOnce(Return(false));
-    EXPECT_CALL(*reader, get_input())
+    EXPECT_CALL(*reader, get_input_())
           .WillOnce(Return(Message::List()))
           .WillOnce(Return(Message::List()));
     reader->run();
@@ -59,11 +60,43 @@ TEST_F(InputReaderTest, list_of_messages) {
           .WillOnce(Return(true))
           .WillOnce(Return(true))
           .WillOnce(Return(false));
-    EXPECT_CALL(*reader, get_input())
+    EXPECT_CALL(*reader, get_input_())
           .WillOnce(Return(first))
           .WillOnce(Return(second));
     reader->run();
-    EXPECT_EQ(messages->get(), expected);
+    EXPECT_EQ(reader->get_input(), expected);
+}
+
+namespace {
+void run_reader(InputReader* reader) {
+    reader->run();
+}
+}
+
+TEST_F(InputReaderTest, run_until_stopped) {
+    const Message::List input = { EMessage::MoveDown, EMessage::MoveLeft };
+
+    EXPECT_CALL(*reader, should_process()).WillRepeatedly(Return(true));
+    EXPECT_CALL(*reader, get_input_()).WillRepeatedly(Return(input));
+
+    // run the loop in a separate thread
+    EXPECT_FALSE(reader->is_running());
+    std::thread t1(run_reader, reader.get());
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    EXPECT_TRUE(reader->is_running());
+    reader->stop();
+    t1.join();
+    EXPECT_FALSE(reader->is_running());
+
+    // now check that the messages are comprised of repeated inputs
+    const auto messages = reader->get_input();
+    EXPECT_GT(messages.size(), 0u);
+    ASSERT_EQ(messages.size() % input.size(), 0u);
+    for (size_t m = 0; m < messages.size(); m += input.size()) {
+        for (size_t i = 0; i < input.size(); ++i) {
+            EXPECT_EQ(messages[m + i], input[i]);
+        }
+    }
 }
 }
 }

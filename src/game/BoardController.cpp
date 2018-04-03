@@ -129,21 +129,6 @@ void BoardController::eliminate(const state::EliminationList& casas) {
     }
 }
 
-state::State BoardController::state() const {
-    if (has_piece()) {
-        return state::State(board_,
-              state::ScoreBoard(),
-              *piece_,
-              *piece_position_,
-              piece::Piece({ gui::Color::BLUE, gui::Color::BLUE, gui::Color::BLUE }));
-    } else {
-        return state::State(board_,
-              state::ScoreBoard(),
-              determine_elimination(),
-              piece::Piece({ gui::Color::BLUE, gui::Color::BLUE, gui::Color::BLUE }));
-    }
-}
-
 bool BoardController::can_move_to(size_t column) const {
     if (not has_piece()) {
         return false;

@@ -37,7 +37,7 @@ private:
     state::StateObserverPtr observer_;
     SharedMessage messages_;
     std::atomic<bool> should_stop_; ///< indicates if the player pressed ESC
-    state::State prepare_state(const state::EliminationList& elimination_list = state::EliminationList()) const;
+    state::StatePtr prepare_state(const state::EliminationList& elimination_list = state::EliminationList()) const;
     void process(const Message::List& msgs);
 };
 }
