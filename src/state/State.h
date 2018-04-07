@@ -48,7 +48,7 @@ private:
     state::ScoreBoard score_board_;
 };
 
-using StatePtr = std::unique_ptr<State>;
+using StatePtr = std::unique_ptr<const State>;
 
 class StateWithNext : public State {
 public:

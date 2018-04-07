@@ -23,5 +23,9 @@ private:
     piece::SharedBoard board_;
     state::ScoreBoard score_board_;
     state::StatePtr state_;
+    bool quit_;
+
+    void process_inputs();
+    void process_input(EMessage input);
 };
 }

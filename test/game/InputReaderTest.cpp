@@ -31,7 +31,7 @@ TEST_F(InputReaderTest, one_loop) {
           .WillOnce(Return(true))
           .WillOnce(Return(false));
     EXPECT_CALL(*reader, get_input_())
-          .WillOnce(Return(Message::List()));
+          .WillOnce(Return(Messages::List()));
     reader->run();
 }
 
@@ -41,15 +41,15 @@ TEST_F(InputReaderTest, two_loops) {
           .WillOnce(Return(true))
           .WillOnce(Return(false));
     EXPECT_CALL(*reader, get_input_())
-          .WillOnce(Return(Message::List()))
-          .WillOnce(Return(Message::List()));
+          .WillOnce(Return(Messages::List()))
+          .WillOnce(Return(Messages::List()));
     reader->run();
 }
 
 TEST_F(InputReaderTest, list_of_messages) {
-    const Message::List first = { EMessage::MoveDown, EMessage::MoveLeft };
-    const Message::List second = { EMessage::RollDown, EMessage::MoveRight };
-    const Message::List expected = {
+    const Messages::List first = { EMessage::MoveDown, EMessage::MoveLeft };
+    const Messages::List second = { EMessage::RollDown, EMessage::MoveRight };
+    const Messages::List expected = {
         EMessage::MoveDown,
         EMessage::MoveLeft,
         EMessage::RollDown,
@@ -74,7 +74,7 @@ void run_reader(InputReader* reader) {
 }
 
 TEST_F(InputReaderTest, run_until_stopped) {
-    const Message::List input = { EMessage::MoveDown, EMessage::MoveLeft };
+    const Messages::List input = { EMessage::MoveDown, EMessage::MoveLeft };
 
     EXPECT_CALL(*reader, should_process()).WillRepeatedly(Return(true));
     EXPECT_CALL(*reader, get_input_()).WillRepeatedly(Return(input));

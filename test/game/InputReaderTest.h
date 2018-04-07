@@ -3,7 +3,7 @@
 #include "../mck/game/InputReaderMock.h"
 
 #include "game/InputReader.h"
-#include "game/Message.h"
+#include "game/Messages.h"
 
 #include <gtest/gtest.h>
 

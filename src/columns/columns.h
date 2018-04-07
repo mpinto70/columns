@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/Message.h"
+#include "game/Messages.h"
 #include "graphics/Window.h"
 
 namespace columns {

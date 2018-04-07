@@ -1,25 +1,25 @@
-#include "Message.h"
+#include "game/Messages.h"
 
 namespace game {
 
-void Message::add(EMessage msg) {
+void Messages::add(EMessage msg) {
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
     messages_.push_back(msg);
 }
 
-void Message::add(const List& msgs) {
+void Messages::add(const List& msgs) {
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
     messages_.insert(messages_.end(), msgs.begin(), msgs.end());
 }
 
-void Message::clear() {
+void Messages::clear() {
     List empty;
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
     messages_.swap(empty);
     lock.unlock();
 }
 
-Message::List Message::get() {
+Messages::List Messages::get() {
     List res;
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
     res.swap(messages_);

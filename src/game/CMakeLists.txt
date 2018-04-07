@@ -5,7 +5,8 @@ add_library(
     Controller.cpp
     GameController.cpp
     InputReader.cpp
-    Message.cpp
+    PieceController.cpp
+    Messages.cpp
 )
 
 target_include_directories(

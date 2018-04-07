@@ -15,7 +15,7 @@ public:
     ~InputReaderMock() override = default;
 
     MOCK_METHOD0(should_process, bool());
-    MOCK_METHOD0(get_input_, Message::List());
+    MOCK_METHOD0(get_input_, Messages::List());
 };
 }
 }

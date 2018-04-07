@@ -17,7 +17,7 @@ enum class EMessage {
 };
 
 /// Controls event messages
-class Message {
+class Messages {
 public:
     using List = std::vector<EMessage>;
     void add(EMessage msg);
@@ -33,5 +33,5 @@ private:
     List messages_;
 };
 
-using SharedMessage = std::shared_ptr<Message>;
+using SharedMessage = std::shared_ptr<Messages>;
 }

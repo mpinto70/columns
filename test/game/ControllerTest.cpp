@@ -31,7 +31,7 @@ TEST_F(ControllerTest, initial_state) {
 }
 
 TEST_F(ControllerTest, run_with_STOP_returns_immediately) {
-    const Message::List input = { EMessage::Stop };
+    const Messages::List input = { EMessage::Stop };
 
     EXPECT_CALL(*input_reader_mock, should_process()).WillRepeatedly(Return(true));
     EXPECT_CALL(*input_reader_mock, get_input_()).WillRepeatedly(Return(input));

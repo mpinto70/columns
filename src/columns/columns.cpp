@@ -114,7 +114,7 @@ void game_loop(game::SharedMessage mensagens) {
 }
 
 void input_loop(game::SharedMessage& messages) {
-    util::Wait input_interval(3);
+    util::Wait input_interval(std::chrono::milliseconds{ 3 });
     while (!quit) {
         input_interval.reset();
         if (columns::process_input(messages) == columns::InputResult::QUIT) {
@@ -129,7 +129,7 @@ int run() {
     try {
         columns::init_graphics();
 
-        auto messages = std::make_shared<game::Message>();
+        auto messages = std::make_shared<game::Messages>();
         std::thread game_thread(game_loop, messages);
 
         wait_for_initialization();

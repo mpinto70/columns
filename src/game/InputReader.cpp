@@ -21,7 +21,7 @@ void InputReader::stop() {
     stop_ = true;
 }
 
-Message::List InputReader::get_input() {
+Messages::List InputReader::get_input() {
     return messages_.get();
 }
 }

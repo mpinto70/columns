@@ -34,7 +34,7 @@ GameController::GameController(piece::SharedBoard board,
 
 void GameController::execute() {
     should_stop_ = false;
-    util::Wait step_time(10);
+    util::Wait step_time(std::chrono::milliseconds{ 10 });
 
     while (not should_stop_) {
         step_time.reset();
@@ -43,7 +43,7 @@ void GameController::execute() {
         } else {
             state::EliminationList elimination_list;
             while (not(elimination_list = board_controller_.determine_elimination()).empty()) {
-                util::Wait elimination_time(300);
+                util::Wait elimination_time(std::chrono::milliseconds{ 300 });
                 auto state = prepare_state(elimination_list);
                 observer_->update(*state);
                 score_board_.add(elimination_list.size());
@@ -79,7 +79,7 @@ state::StatePtr GameController::prepare_state(const state::EliminationList& elim
     }
 }
 
-void GameController::process(const Message::List& msgs) {
+void GameController::process(const Messages::List& msgs) {
     for (const auto msg : msgs) {
         switch (msg) {
             case EMessage::MoveLeft:

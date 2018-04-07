@@ -1,7 +1,7 @@
 #pragma once
 
 #include "game/BoardController.h"
-#include "game/Message.h"
+#include "game/Messages.h"
 #include "gui/Color.h"
 #include "piece/Board.h"
 #include "state/Score.h"
@@ -38,6 +38,6 @@ private:
     SharedMessage messages_;
     std::atomic<bool> should_stop_; ///< indicates if the player pressed ESC
     state::StatePtr prepare_state(const state::EliminationList& elimination_list = state::EliminationList()) const;
-    void process(const Message::List& msgs);
+    void process(const Messages::List& msgs);
 };
 }
