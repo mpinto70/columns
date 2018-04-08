@@ -46,6 +46,8 @@ public:
      */
     void remove(size_t c, size_t r);
 
+    bool used(size_t c, size_t r) const;
+
 private:
     std::vector<gui::Color> tiles_; ///< the board
     gui::Color background_color_;   ///< board background color

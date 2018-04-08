@@ -2,7 +2,7 @@
 
 #include "piece/Board.h"
 
-#include <cstddef>
+#include <memory>
 
 namespace piece {
 
@@ -39,4 +39,5 @@ private:
     size_t max_column_;  ///< maximum columns position
     size_t max_row_;     ///< maximum row position
 };
+typedef std::unique_ptr<PiecePosition> PiecePositionPtr;
 }

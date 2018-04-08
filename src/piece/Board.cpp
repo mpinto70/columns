@@ -37,6 +37,10 @@ void Board::remove(const size_t c, const size_t r) {
     at(c, 0) = background_color_;
 }
 
+bool Board::used(const size_t c, const size_t r) const {
+    return at(c, r) != background_color_;
+}
+
 void Board::check_overflow(size_t c, size_t r) const {
     if (c >= width_) {
         throw std::invalid_argument("Board::at - column overflow " + std::to_string(c));

@@ -2,6 +2,7 @@
 
 #include "game/Messages.h"
 
+#include <atomic>
 #include <memory>
 
 namespace game {
@@ -20,8 +21,8 @@ public:
 
 private:
     Messages messages_;
-    bool running_;
-    bool stop_;
+    std::atomic<bool> running_;
+    std::atomic<bool> stop_;
 
     virtual bool should_process() = 0;
     virtual Messages::List get_input_() = 0;

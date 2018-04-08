@@ -35,6 +35,7 @@ static void check_empty_board(const std::string& msg,
     for (size_t i = 0; i < w; ++i) {
         for (size_t j = 0; j < h; ++j) {
             EXPECT_EQ(board.at(i, j), color) << msg;
+            EXPECT_FALSE(board.used(i, j)) << msg;
         }
     }
 
@@ -76,8 +77,10 @@ void check_one_tile_colored(const Board& board,
         for (size_t j = 0; j < board.height(); ++j) {
             if (i == column && j == line) {
                 EXPECT_EQ(board.at(i, j), color) << msg;
+                EXPECT_EQ(board.used(i, j), color != board.background_color()) << msg;
             } else {
                 EXPECT_EQ(board.at(i, j), board.background_color()) << msg;
+                EXPECT_FALSE(board.used(i, j)) << msg;
             }
         }
     }
