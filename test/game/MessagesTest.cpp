@@ -12,13 +12,13 @@ TEST(MessagesTest, create) {
 
 TEST(MessagesTest, add) {
     const Messages::List expected = {
-        EMessage::MoveDown,
+        EMessage::DropDown,
         EMessage::MoveLeft,
         EMessage::Stop,
     };
 
     Messages msgs;
-    msgs.add(EMessage::MoveDown);
+    msgs.add(EMessage::DropDown);
     msgs.add(EMessage::MoveLeft);
     msgs.add(EMessage::Stop);
 
@@ -29,7 +29,7 @@ TEST(MessagesTest, add) {
 
 TEST(MessagesTest, add_vector) {
     const Messages::List expected = {
-        EMessage::MoveDown,
+        EMessage::DropDown,
         EMessage::MoveLeft,
         EMessage::Stop,
     };
@@ -44,7 +44,7 @@ TEST(MessagesTest, add_vector) {
 
 TEST(MessagesTest, clear) {
     Messages msgs;
-    msgs.add(EMessage::MoveDown);
+    msgs.add(EMessage::DropDown);
     msgs.add(EMessage::MoveLeft);
     msgs.add(EMessage::Stop);
 

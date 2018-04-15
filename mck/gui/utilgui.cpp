@@ -18,6 +18,7 @@ namespace mck {
 
 std::string to_string(gui::Color color) {
     switch (color) {
+        case Color::NONE: return "none";
         case Color::RED: return "RED";
         case Color::GREEN: return "GREEN";
         case Color::BLUE: return "BLUE";

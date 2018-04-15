@@ -10,7 +10,7 @@ namespace game {
 enum class EMessage {
     MoveLeft,
     MoveRight,
-    MoveDown,
+    DropDown,
     RollUp,
     RollDown,
     Stop

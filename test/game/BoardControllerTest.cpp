@@ -41,7 +41,7 @@ TEST(BoardControllerTest, add_piece) {
     piece::SharedBoard white = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController contr(white, 4);
 
-    const auto piece = ::piece::mck::create_piece_ascending(12);
+    const auto piece = ::piece::mck::create_piece_ascending(1);
 
     EXPECT_TRUE(contr.has_piece() == false);
     EXPECT_THROW(contr.piece_position(), std::logic_error);
@@ -60,7 +60,7 @@ TEST(BoardControllerTest, invalid_add_piece) {
     piece::SharedBoard white = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController contr(white, 4);
 
-    const auto piece = ::piece::mck::create_piece_ascending(12);
+    const auto piece = ::piece::mck::create_piece_ascending(1);
 
     EXPECT_TRUE(contr.add_piece(piece));
     EXPECT_TRUE(contr.has_piece() == true);
@@ -72,7 +72,7 @@ TEST(BoardControllerTest, step) {
     piece::SharedBoard b0 = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController white(std::make_shared<piece::Board>(10, 20, gui::Color::WHITE), 4);
     EXPECT_TRUE(*white.board() == *b0);
-    const auto piece = ::piece::mck::create_piece_ascending(12);
+    const auto piece = ::piece::mck::create_piece_ascending(1);
 
     EXPECT_TRUE(white.add_piece(piece));
     const size_t col = white.piece_position().column();
@@ -109,7 +109,7 @@ TEST(BoardControllerTest, move) {
     piece::SharedBoard white_board = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
     BoardController white(white_board, 4);
 
-    const auto piece = ::piece::mck::create_piece_ascending(12);
+    const auto piece = ::piece::mck::create_piece_ascending(1);
     EXPECT_TRUE(white.add_piece(piece));
 
     piece::PiecePosition position = white.piece_position();

@@ -10,7 +10,8 @@ PieceController::PieceController(piece::SharedConstBoard board,
       : board_(board),
         max_sub_row_(max_sub_row),
         piece_(nullptr),
-        position_(nullptr) {
+        position_(nullptr),
+        steps_per_step_(1) {
 }
 
 piece::PiecePosition PieceController::position() const {
@@ -30,6 +31,7 @@ void PieceController::add(const piece::Piece& piece, size_t column) {
         throw std::runtime_error("PieceController::add - invalid column");
     auto pic = std::make_unique<piece::Piece>(piece);
     auto pos = std::make_unique<piece::PiecePosition>(board_, column, max_sub_row_);
+    steps_per_step_ = 1;
     piece_.swap(pic);
     position_.swap(pos);
 }
@@ -47,6 +49,15 @@ void PieceController::process(const Messages::List& messages) {
                 if (can_move_right())
                     position_->move_right();
                 break;
+            case EMessage::RollUp:
+                piece_->roll_up();
+                break;
+            case EMessage::RollDown:
+                piece_->roll_down();
+                break;
+            case EMessage::DropDown:
+                steps_per_step_ = 5;
+                break;
             default:
                 break;
         }
@@ -56,15 +67,17 @@ void PieceController::process(const Messages::List& messages) {
 bool PieceController::step() {
     if (not position_)
         throw std::runtime_error("PieceController::step - no piece falling");
-    if (not can_step_down())
-        return false;
-    position_->step_down();
+    for (size_t i = 0; i < steps_per_step_; ++i) {
+        if (not can_step_down())
+            return false;
+        position_->step_down();
+    }
     return true;
 }
 
 bool PieceController::can_move_left() const {
     const auto column = position_->column();
-    const auto bottom_row = position_->row() + piece::PIECE_SIZE - 1;
+    const auto bottom_row = lower_row_to_check();
     if (column == 0)
         return false;
     if (board_->used(column - 1, bottom_row))
@@ -74,7 +87,7 @@ bool PieceController::can_move_left() const {
 
 bool PieceController::can_move_right() const {
     const auto column = position_->column();
-    const auto bottom_row = position_->row() + piece::PIECE_SIZE - 1;
+    const auto bottom_row = lower_row_to_check();
     if (column + 1 == board_->width())
         return false;
     if (board_->used(column + 1, bottom_row))
@@ -91,5 +104,9 @@ bool PieceController::can_step_down() const {
     if (board_->used(column, row + piece::PIECE_SIZE))
         return false;
     return position_->row() + piece::PIECE_SIZE < board_->height();
+}
+
+size_t PieceController::lower_row_to_check() const {
+    return position_->row() + piece::PIECE_SIZE - (position_->sub_row() == 0 ? 1 : 0);
 }
 }

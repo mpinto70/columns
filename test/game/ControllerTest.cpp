@@ -11,12 +11,11 @@ void ControllerTest::SetUp() {
     canvas_mock = new StrictMock<mck::CanvasMock>;
     input_reader_mock = new mck::InputReaderMock();
     InputReaderPtr input_reader(input_reader_mock);
+    board = std::make_shared<piece::Board>(8, 16, gui::Color::WHITE);
 
     controller.reset(new Controller(CanvasPtr(canvas_mock),
           std::move(input_reader),
-          8,
-          16,
-          gui::Color::WHITE,
+          board,
           157));
 }
 

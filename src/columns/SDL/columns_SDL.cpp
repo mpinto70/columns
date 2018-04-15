@@ -45,7 +45,7 @@ InputResult process_input(game::SharedMessage& messages) {
                     messages->add(game::EMessage::RollDown);
                     break;
                 case SDLK_SPACE:
-                    messages->add(game::EMessage::MoveDown);
+                    messages->add(game::EMessage::DropDown);
                     break;
                 case SDLK_ESCAPE:
                     return InputResult::QUIT;

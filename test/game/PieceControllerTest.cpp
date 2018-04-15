@@ -98,6 +98,20 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_left_is_us
     EXPECT_EQ(controller.position(), position);
 }
 
+TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_below_left_is_used_and_piece_is_sub_stepped) {
+    PieceController controller = create_controller_with_piece(4, 8, 10, 3);
+    fill_column(3, piece::PIECE_SIZE, gui::Color::BLUE);
+
+    EXPECT_TRUE(controller.step());
+    const auto position = controller.position();
+    const auto piece = controller.piece();
+    controller.process({ EMessage::MoveRight, EMessage::MoveRight });
+
+    controller.process({ EMessage::MoveLeft, EMessage::MoveLeft });
+    EXPECT_EQ(controller.piece(), piece);
+    EXPECT_EQ(controller.position(), position);
+}
+
 TEST_F(PieceControllerTest, added_piece_move_right) {
     PieceController controller = create_controller_with_piece();
     auto position = controller.position();
@@ -131,7 +145,44 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_right_when_tile_at_right_is_
     EXPECT_EQ(controller.position(), position);
 }
 
-TEST_F(PieceControllerTest, added_piece_step_move_down) {
+TEST_F(PieceControllerTest, added_piece_roll_up) {
+    PieceController controller = create_controller_with_piece();
+    const auto position = controller.position();
+    auto piece = controller.piece();
+
+    piece.roll_up();
+
+    controller.process({ EMessage::RollUp });
+    EXPECT_EQ(controller.piece(), piece);
+    EXPECT_EQ(controller.position(), position);
+}
+
+TEST_F(PieceControllerTest, added_piece_roll_down) {
+    PieceController controller = create_controller_with_piece();
+    const auto position = controller.position();
+    auto piece = controller.piece();
+
+    piece.roll_down();
+
+    controller.process({ EMessage::RollDown });
+    EXPECT_EQ(controller.piece(), piece);
+    EXPECT_EQ(controller.position(), position);
+}
+
+TEST_F(PieceControllerTest, added_piece_doesnt_move_right_when_tile_at_right_is_used_and_piece_is_sub_stepped) {
+    PieceController controller = create_controller_with_piece(4, 8, 10, 3);
+    fill_column(5, piece::PIECE_SIZE, gui::Color::BLUE);
+
+    EXPECT_TRUE(controller.step());
+    const auto position = controller.position();
+    const auto piece = controller.piece();
+
+    controller.process({ EMessage::MoveRight, EMessage::MoveRight });
+    EXPECT_EQ(controller.piece(), piece);
+    EXPECT_EQ(controller.position(), position);
+}
+
+TEST_F(PieceControllerTest, added_piece_step_moves_down) {
     PieceController controller = create_controller_with_piece();
     auto position = controller.position();
     const auto piece = controller.piece();
@@ -167,6 +218,68 @@ TEST_F(PieceControllerTest, added_piece_step_doesnt_move_down_when_over_used_til
 
     EXPECT_FALSE(controller.step());
     EXPECT_EQ(controller.position(), position);
+}
+
+TEST_F(PieceControllerTest, step_becomes_faster_after_drop_down) {
+    PieceController controller = create_controller_with_piece();
+    auto position = controller.position();
+
+    position.step_down();
+    EXPECT_TRUE(controller.step());
+    EXPECT_EQ(controller.position(), position);
+
+    controller.process({ EMessage::DropDown });
+
+    position.step_down();
+    position.step_down();
+    position.step_down();
+    position.step_down();
+    position.step_down();
+    EXPECT_TRUE(controller.step());
+    EXPECT_EQ(controller.position(), position);
+}
+
+TEST_F(PieceControllerTest, step_restore_to_original_for_new_piece) {
+    PieceController controller = create_controller_with_piece(3);
+    const auto piece = controller.piece();
+    auto position = controller.position();
+
+    controller.process({ EMessage::DropDown });
+
+    position.step_down();
+    position.step_down();
+    position.step_down();
+    position.step_down();
+    position.step_down();
+    EXPECT_TRUE(controller.step());
+    EXPECT_EQ(controller.position(), position);
+
+    controller.add(piece, 3);
+
+    position = controller.position();
+
+    position.step_down();
+    EXPECT_TRUE(controller.step());
+    EXPECT_EQ(controller.position(), position);
+}
+
+TEST_F(PieceControllerTest, accelerated_steps_does_not_overflow) {
+    PieceController controller = create_controller_with_piece(3, 6, 11, 2);
+    auto position = controller.position();
+
+    controller.process({ EMessage::DropDown });
+
+    while (controller.step()) {
+        position.step_down();
+        position.step_down();
+        position.step_down();
+        position.step_down();
+        position.step_down();
+        EXPECT_EQ(controller.position(), position);
+    }
+    position = controller.position();
+    EXPECT_EQ(position.sub_row(), 0u);
+    EXPECT_EQ(position.row(), 11u - piece::PIECE_SIZE);
 }
 }
 }

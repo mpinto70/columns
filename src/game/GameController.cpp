@@ -88,7 +88,7 @@ void GameController::process(const Messages::List& msgs) {
             case EMessage::MoveRight:
                 board_controller_.move_right();
                 break;
-            case EMessage::MoveDown:
+            case EMessage::DropDown:
                 while (board_controller_.has_piece()) {
                     board_controller_.step();
                     board_controller_.step();

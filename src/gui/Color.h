@@ -5,6 +5,7 @@
 namespace gui {
 
 enum class Color : size_t {
+    NONE,
     RED,
     GREEN,
     BLUE,

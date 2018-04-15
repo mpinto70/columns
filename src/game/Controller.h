@@ -10,9 +10,7 @@ class Controller {
 public:
     Controller(CanvasPtr&& canvas,
           InputReaderPtr&& input_reader,
-          size_t board_width,
-          size_t board_height,
-          gui::Color board_background,
+          piece::SharedBoard& board,
           size_t record);
     void run();
     const state::State& state() const { return *state_; }
