@@ -8,10 +8,6 @@
 #include <memory>
 
 namespace state {
-/// tile type to be eliminated from the board
-using EliminationItem = std::pair<size_t, size_t>;
-/// list of tile type to be eliminated from the board
-using EliminationList = std::vector<EliminationItem>;
 /// Registers the game state
 class State {
 public:
@@ -41,7 +37,7 @@ public:
 
     virtual bool has_elimination_list() const { return false; }
     /// @throw std::logic_error by default
-    virtual const EliminationList& elimination_list() const;
+    virtual const piece::Board::EliminationList& elimination_list() const;
 
 private:
     piece::SharedConstBoard board_;
@@ -75,15 +71,15 @@ public:
     StateElimination(piece::SharedConstBoard board,
           const state::ScoreBoard& score_board,
           const piece::Piece& next,
-          const EliminationList& list);
+          const piece::Board::EliminationList& list);
 
     ~StateElimination() override = default;
     bool has_piece_falling() const override { return false; }
     bool has_elimination_list() const override { return true; }
-    const EliminationList& elimination_list() const override { return elimination_list_; }
+    const piece::Board::EliminationList& elimination_list() const override { return elimination_list_; }
 
 private:
-    EliminationList elimination_list_;
+    piece::Board::EliminationList elimination_list_;
 };
 
 class StateFalling : public StateWithNext {

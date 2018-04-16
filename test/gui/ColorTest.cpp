@@ -8,7 +8,7 @@ namespace gui {
 namespace tst {
 
 TEST(ColorTest, end_color) {
-    EXPECT_EQ(::gui::mck::end_color(), static_cast<size_t>(Color::LAVENDER) + 1);
+    EXPECT_EQ(::gui::mck::end_color(), static_cast<size_t>(Color::NONE));
 }
 }
 }

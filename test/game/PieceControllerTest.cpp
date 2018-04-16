@@ -17,7 +17,7 @@ namespace tst {
 PieceController PieceControllerTest::create_controller(size_t width,
       size_t height,
       size_t sub_row) {
-    board = std::make_shared<piece::Board>(width, height, gui::Color::WHITE);
+    board = std::make_shared<piece::Board>(width, height);
     return PieceController(board, sub_row);
 }
 

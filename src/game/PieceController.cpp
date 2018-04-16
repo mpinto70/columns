@@ -30,7 +30,7 @@ void PieceController::add(const piece::Piece& piece, size_t column) {
     if (board_->used(column, piece::PIECE_SIZE - 1))
         throw std::runtime_error("PieceController::add - invalid column");
     auto pic = std::make_unique<piece::Piece>(piece);
-    auto pos = std::make_unique<piece::PiecePosition>(board_, column, max_sub_row_);
+    auto pos = std::make_unique<piece::PiecePosition>(*board_, column, max_sub_row_);
     steps_per_step_ = 1;
     piece_.swap(pic);
     position_.swap(pos);

@@ -61,11 +61,11 @@ public:
         window_->clear();
         window_->line(gui::Point{ 0, BOARD_HEIGHT * TILE_SIZE + 40 },
               gui::Point{ SCREEN_WIDTH, BOARD_HEIGHT * TILE_SIZE + 40 },
-              gui::Color::WHITE);
+              gui::Color::BLACK);
         window_->write("Columns - by mpinto70",
               gui::Point{ 10, BOARD_HEIGHT * TILE_SIZE + 45 },
               font_name_,
-              gui::Color::WHITE);
+              gui::Color::BLACK);
         window_->write("Score",
               gui::Point{ 10 + BOARD_WIDTH * TILE_SIZE + 10, 50 },
               font_name_,
@@ -91,7 +91,7 @@ void game_loop(game::SharedMessage mensagens) {
         const gui::Font font_name("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font font_score("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
-        game::GameController controller(std::make_shared<piece::Board>(BOARD_WIDTH, BOARD_HEIGHT, gui::Color::WHITE),
+        game::GameController controller(std::make_shared<piece::Board>(BOARD_WIDTH, BOARD_HEIGHT),
               TILE_SIZE / 2,
               state::Score(0),
               POSSIBLE,

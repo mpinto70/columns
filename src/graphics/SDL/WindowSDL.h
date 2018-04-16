@@ -58,6 +58,6 @@ private:
     void draw_(const piece::Piece& piece, const piece::PiecePosition& piece_position) override;
     void draw_next_(const piece::Piece& next_piece) override;
     void draw_(const state::ScoreBoard& score_board) override;
-    void draw_(const state::EliminationList& elimination_list) override;
+    void draw_(const piece::Board::EliminationList& elimination_list) override;
 };
 }

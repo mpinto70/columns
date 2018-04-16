@@ -27,7 +27,7 @@ private:
     size_t max_sub_row_;
     piece::PiecePtr piece_;
     piece::PiecePositionPtr position_;
-    size_t steps_per_step_;
+    size_t steps_per_step_; ///< normal == 1, accelerated == 5
 
     bool can_move_left() const;
     bool can_move_right() const;

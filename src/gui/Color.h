@@ -4,16 +4,15 @@
 
 namespace gui {
 
-enum class Color : size_t {
-    NONE,
+enum class Color {
     RED,
     GREEN,
     BLUE,
-    WHITE,
-    BLACK,
     GRAY,
     YELLOW,
     LAVENDER,
+    BLACK,
+    NONE,
 };
 
 constexpr Color darken(Color color, unsigned char percent) {

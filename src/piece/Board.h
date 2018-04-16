@@ -10,12 +10,16 @@ namespace piece {
 /// Represents the game board
 class Board {
 public:
+    struct Tile {
+        size_t column;
+        size_t row;
+    };
+    using EliminationList = std::vector<Tile>;
     /** Creates an empty board with dimensions \p w X \p h.
      * @param w board width in tile squares
      * @param h board height in tile squares
-     * @param background background color
      */
-    Board(size_t w, size_t h, gui::Color background);
+    Board(size_t w, size_t h);
 
     Board(const Board&) = delete;
     Board& operator=(const Board&) = delete;
@@ -34,8 +38,6 @@ public:
      * @param r row index
      */
     gui::Color& at(size_t c, size_t r);
-    /// @return background color.
-    gui::Color background_color() const { return background_color_; }
     /// @return board width
     size_t width() const { return width_; }
     /// @return board height
@@ -48,14 +50,48 @@ public:
 
     bool used(size_t c, size_t r) const;
 
+    EliminationList elimination_list() const;
+
 private:
     std::vector<gui::Color> tiles_; ///< the board
-    gui::Color background_color_;   ///< board background color
     size_t width_;                  ///< board width
     size_t height_;                 ///< board height
 
     void check_overflow(size_t c, size_t r) const;
+
+    bool has_horizontal_triplet(size_t c,
+          size_t r,
+          gui::Color color) const;
+    bool has_vertical_triplet(size_t c,
+          size_t r,
+          gui::Color color) const;
+    bool has_diagonal_descending_triplet(size_t c,
+          size_t r,
+          gui::Color color) const;
+    bool has_diagonal_ascending_triplet(size_t c,
+          size_t r,
+          gui::Color color) const;
+    void add_horizontal_triplet(std::vector<Tile>& res,
+          size_t i,
+          size_t j) const;
+    void add_vertical_triplet(std::vector<Tile>& res,
+          size_t i,
+          size_t j) const;
+    void add_diagonal_descending_triplet(std::vector<Tile>& res,
+          size_t i,
+          size_t j) const;
+    void add_diagonal_ascending_triplet(std::vector<Tile>& res,
+          size_t i,
+          size_t j) const;
 };
+
+constexpr bool operator==(const Board::Tile& lhs, const Board::Tile& rhs) {
+    return lhs.column == rhs.column && lhs.row == rhs.row;
+}
+
+constexpr bool operator<(const Board::Tile& lhs, const Board::Tile& rhs) {
+    return lhs.column < rhs.column || (lhs.column == rhs.column && lhs.row < rhs.row);
+}
 
 using SharedBoard = std::shared_ptr<Board>;
 using SharedConstBoard = std::shared_ptr<const Board>;

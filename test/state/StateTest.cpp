@@ -24,12 +24,12 @@ TEST(StateTest, caracteristics) {
 
 TEST(StateTest, create) {
     using namespace std::rel_ops;
-    const piece::SharedConstBoard board1 = std::make_shared<piece::Board>(10, 20, gui::Color::WHITE);
-    const piece::SharedConstBoard board2 = std::make_shared<piece::Board>(11, 20, gui::Color::WHITE);
-    const piece::SharedConstBoard board3 = std::make_shared<piece::Board>(10, 21, gui::Color::WHITE);
-    const piece::SharedConstBoard board4 = std::make_shared<piece::Board>(10, 20, gui::Color::BLUE);
-    const piece::SharedConstBoard board5 = std::make_shared<piece::Board>(12, 21, gui::Color::WHITE);
-    const piece::SharedConstBoard board6 = std::make_shared<piece::Board>(13, 20, gui::Color::BLUE);
+    const piece::SharedConstBoard board1 = std::make_shared<piece::Board>(10, 20);
+    const piece::SharedConstBoard board2 = std::make_shared<piece::Board>(11, 20);
+    const piece::SharedConstBoard board3 = std::make_shared<piece::Board>(10, 21);
+    const piece::SharedConstBoard board4 = std::make_shared<piece::Board>(10, 20);
+    const piece::SharedConstBoard board5 = std::make_shared<piece::Board>(12, 21);
+    const piece::SharedConstBoard board6 = std::make_shared<piece::Board>(13, 20);
     const state::ScoreBoard score_board1(state::Score(25));
     const state::ScoreBoard score_board2(state::Score(38), state::Score(34));
     const state::ScoreBoard score_board3(state::Score(38), state::Score(35));
@@ -40,10 +40,10 @@ TEST(StateTest, create) {
     const piece::Piece piece4 = piece::mck::create_piece_ascending(15);
     const piece::Piece next3 = piece::mck::create_piece_ascending(17);
     const piece::Piece next4 = piece::mck::create_piece_ascending(23);
-    const piece::PiecePosition position3(board3, 2, 4);
-    const piece::PiecePosition position4(board4, 3, 4);
-    const EliminationList elim5 = { { 1, 2 }, { 3, 4 } };
-    const EliminationList elim6 = { { 5, 6 }, { 3, 4 } };
+    const piece::PiecePosition position3(*board3, 2, 4);
+    const piece::PiecePosition position4(*board4, 3, 4);
+    const piece::Board::EliminationList elim5 = { { 1, 2 }, { 3, 4 } };
+    const piece::Board::EliminationList elim6 = { { 5, 6 }, { 3, 4 } };
     const piece::Piece next5 = piece::mck::create_piece_ascending(19);
     const piece::Piece next6 = piece::mck::create_piece_ascending(21);
 

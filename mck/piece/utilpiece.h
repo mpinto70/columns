@@ -11,6 +11,8 @@ bool operator!=(const Piece& lhs, const Piece& rhs);
 bool operator==(const Board& lhs, const Board& rhs);
 bool operator!=(const Board& lhs, const Board& rhs);
 
+bool operator!=(const Board::Tile& lhs, const Board::Tile& rhs);
+
 bool operator==(const PiecePosition& lhs, const PiecePosition& rhs);
 bool operator!=(const PiecePosition& lhs, const PiecePosition& rhs);
 

@@ -44,9 +44,9 @@ public:
     void roll_up();
     void roll_down();
     /** @return the list of tiles to eliminate. */
-    state::EliminationList determine_elimination() const;
+    piece::Board::EliminationList determine_elimination() const;
     /// Eliminate the tiles.
-    void eliminate(const state::EliminationList& tiles);
+    void eliminate(const piece::Board::EliminationList& tiles);
 
 private:
     using PositionPtr = std::unique_ptr<piece::PiecePosition>;
@@ -64,6 +64,5 @@ private:
     bool can_add_piece(size_t column) const;
     /** @return if the piece has reached end of its fall. */
     bool reached_end() const;
-    bool should_eliminate(size_t column, size_t row) const;
 };
 }

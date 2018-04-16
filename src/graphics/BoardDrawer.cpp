@@ -46,8 +46,8 @@ void BoardDrawer::draw(Window& window, const state::State& state) const {
     } else {
         if (state.has_elimination_list()) {
             for (const auto& eliminated : state.elimination_list()) {
-                const auto column = eliminated.first;
-                const auto row = eliminated.second;
+                const auto column = eliminated.column;
+                const auto row = eliminated.row;
                 draw_tile(window, elimination_color_, column, row);
             }
         }
@@ -56,13 +56,13 @@ void BoardDrawer::draw(Window& window, const state::State& state) const {
 
 void BoardDrawer::draw(Window& window, piece::SharedConstBoard board) const {
     const gui::Point bottom_right = top_left_ + gui::Point(board->width() * tile_size_, board->height() * tile_size_);
-    window.fill(gui::Rectangle(top_left_, bottom_right), board->background_color());
+    window.fill(gui::Rectangle(top_left_, bottom_right), gui::Color::NONE);
     for (size_t i = 0; i < board->width(); ++i) {
         for (size_t j = 0; j < board->height(); ++j) {
-            const auto& tile_color = board->at(i, j);
-            if (tile_color == board->background_color()) {
+            if (not board->used(i, j)) {
                 continue; // bottom
             }
+            const auto tile_color = board->at(i, j);
             draw_tile(window, tile_color, i, j);
         }
     }

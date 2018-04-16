@@ -8,7 +8,6 @@ public:
     ScoreBoardDrawer(const gui::Rectangle& box,
           const gui::Font& title_font,
           const gui::Font& score_font,
-          gui::Color background,
           gui::Color title_color,
           gui::Color score_color);
 
@@ -20,7 +19,6 @@ private:
     gui::Rectangle box_;
     gui::Font title_font_;
     gui::Font score_font_;
-    gui::Color background_;
     gui::Color border_color_;
     gui::Color title_color_;
     gui::Color score_color_;

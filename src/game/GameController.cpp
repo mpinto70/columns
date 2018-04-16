@@ -41,7 +41,7 @@ void GameController::execute() {
         if (board_controller_.has_piece()) {
             board_controller_.step();
         } else {
-            state::EliminationList elimination_list;
+            piece::Board::EliminationList elimination_list;
             while (not(elimination_list = board_controller_.determine_elimination()).empty()) {
                 util::Wait elimination_time(std::chrono::milliseconds{ 300 });
                 auto state = prepare_state(elimination_list);
@@ -64,7 +64,7 @@ void GameController::execute() {
     }
 }
 
-state::StatePtr GameController::prepare_state(const state::EliminationList& elimination_list) const {
+state::StatePtr GameController::prepare_state(const piece::Board::EliminationList& elimination_list) const {
     if (board_controller_.has_piece()) {
         return std::make_unique<state::StateFalling>(board_controller_.board(),
               score_board_,

@@ -14,7 +14,7 @@ public:
      * @param col column
      * @param max_sub_row the maximum divisions in a step
      */
-    PiecePosition(SharedConstBoard board,
+    PiecePosition(const Board& board,
           size_t col,
           size_t max_sub_row);
     /** step down.

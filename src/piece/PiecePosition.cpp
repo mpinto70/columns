@@ -6,19 +6,19 @@
 
 namespace piece {
 
-PiecePosition::PiecePosition(SharedConstBoard board,
+PiecePosition::PiecePosition(const Board& board,
       const size_t col,
       const size_t max_sub_row)
       : column_(col),
         row_(0),
         sub_row_(0),
         max_sub_row_(max_sub_row),
-        max_column_(board->width()),
-        max_row_(board->height()) {
+        max_column_(board.width()),
+        max_row_(board.height()) {
     if (max_sub_row_ == 0) {
         throw std::invalid_argument("PiecePosition - zero maximum subdivision");
     }
-    if (col >= board->width()) {
+    if (col >= board.width()) {
         throw std::invalid_argument("PiecePosition - column is greater than board width");
     }
 }

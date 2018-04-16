@@ -10,12 +10,14 @@ constexpr Uint8 COLORS[][3] = {
     { 0x98, 0x1b, 0x1e }, // RED
     { 0x2e, 0x85, 0x40 }, // GREEN
     { 0x02, 0xbf, 0xe7 }, // BLUE
-    { 0xf1, 0xf1, 0xf1 }, // WHITE
-    { 0, 0, 0 },          // BLACK
     { 127, 127, 127 },    // GRAY
     { 0xfd, 0xb8, 0x1e }, // YELLOW
     { 0x4c, 0x2c, 0x92 }, // LAVENDER
+    { 0, 0, 0 },          // BLACK
+    { 0xf1, 0xf1, 0xf1 }, // NONE == WHITE
 };
+
+static_assert(sizeof(COLORS) / sizeof(COLORS[0]) == static_cast<size_t>(gui::Color::NONE) + 1, "wrong array size");
 
 const Uint8* to_color_triplet(gui::Color color) {
     return COLORS[static_cast<unsigned int>(color)];
@@ -190,6 +192,6 @@ void WindowSDL::draw_next_(const piece::Piece& next_piece) {
 void WindowSDL::draw_(const state::ScoreBoard& score_board) {
 }
 
-void WindowSDL::draw_(const state::EliminationList& elimination_list) {
+void WindowSDL::draw_(const piece::Board::EliminationList& elimination_list) {
 }
 }

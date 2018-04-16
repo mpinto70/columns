@@ -19,6 +19,6 @@ StatePtr create_state(piece::SharedConstBoard board,
 StatePtr create_state(piece::SharedConstBoard board,
       const state::ScoreBoard& score_board,
       const piece::Piece& next,
-      const EliminationList& elimination);
+      const piece::Board::EliminationList& elimination);
 }
 }

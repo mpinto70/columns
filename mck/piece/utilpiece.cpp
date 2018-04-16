@@ -24,6 +24,10 @@ bool operator!=(const Board& lhs, const Board& rhs) {
     return not(lhs == rhs);
 }
 
+bool operator!=(const Board::Tile& lhs, const Board::Tile& rhs) {
+    return not(lhs == rhs);
+}
+
 bool operator==(const PiecePosition& lhs, const PiecePosition& rhs) {
     return lhs.column() == rhs.column()
            && lhs.row() == rhs.row()

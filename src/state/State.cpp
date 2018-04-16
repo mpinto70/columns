@@ -21,7 +21,7 @@ const piece::Piece& State::piece() const {
     throw std::logic_error("State::piece - there is no falling piece on the board");
 }
 
-const EliminationList& State::elimination_list() const {
+const piece::Board::EliminationList& State::elimination_list() const {
     throw std::logic_error("State::piece - there is no elimination list");
 }
 
@@ -35,7 +35,7 @@ StateWithNext::StateWithNext(piece::SharedConstBoard board,
 StateElimination::StateElimination(piece::SharedConstBoard board,
       const state::ScoreBoard& score_board,
       const piece::Piece& next,
-      const EliminationList& list)
+      const piece::Board::EliminationList& list)
       : StateWithNext(board, score_board, next),
         elimination_list_(list) {
 }

@@ -22,7 +22,6 @@ std::string to_string(gui::Color color) {
         case Color::RED: return "RED";
         case Color::GREEN: return "GREEN";
         case Color::BLUE: return "BLUE";
-        case Color::WHITE: return "WHITE";
         case Color::BLACK: return "BLACK";
         case Color::GRAY: return "GRAY";
         case Color::YELLOW: return "YELLOW";

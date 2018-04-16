@@ -11,7 +11,7 @@ void ControllerTest::SetUp() {
     canvas_mock = new StrictMock<mck::CanvasMock>;
     input_reader_mock = new mck::InputReaderMock();
     InputReaderPtr input_reader(input_reader_mock);
-    board = std::make_shared<piece::Board>(8, 16, gui::Color::WHITE);
+    board = std::make_shared<piece::Board>(8, 16);
 
     controller.reset(new Controller(CanvasPtr(canvas_mock),
           std::move(input_reader),
@@ -24,7 +24,7 @@ void ControllerTest::TearDown() {
 }
 
 TEST_F(ControllerTest, initial_state) {
-    const state::State expected(std::make_shared<piece::Board>(8, 16, gui::Color::WHITE),
+    const state::State expected(std::make_shared<piece::Board>(8, 16),
           state::ScoreBoard(state::Score(157)));
     EXPECT_EQ(controller->state(), expected);
 }

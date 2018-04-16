@@ -14,7 +14,7 @@ Color to_color(size_t value);
 Color to_normalized_color(size_t value);
 
 constexpr size_t end_color() {
-    return static_cast<size_t>(Color::LAVENDER) + 1;
+    return static_cast<size_t>(Color::NONE);
 }
 
 void print(Color color);

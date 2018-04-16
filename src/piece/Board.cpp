@@ -1,15 +1,14 @@
 #include "Board.h"
 
+#include <algorithm>
 #include <stdexcept>
 #include <utility>
 
 namespace piece {
 
 Board::Board(const size_t w,
-      const size_t h,
-      gui::Color background)
-      : tiles_(w * h, background),
-        background_color_(background),
+      const size_t h)
+      : tiles_(w * h, gui::Color::NONE),
         width_(w),
         height_(h) {
     if (w < PIECE_SIZE) {
@@ -34,11 +33,39 @@ void Board::remove(const size_t c, const size_t r) {
     for (size_t j = r; j > 0; --j) {
         at(c, j) = at(c, j - 1);
     }
-    at(c, 0) = background_color_;
+    at(c, 0) = gui::Color::NONE;
 }
 
 bool Board::used(const size_t c, const size_t r) const {
-    return at(c, r) != background_color_;
+    return at(c, r) != gui::Color::NONE;
+}
+
+Board::EliminationList Board::elimination_list() const {
+    EliminationList res;
+    res.reserve(height_ * width_);
+    for (size_t i = 0; i < width_; ++i) {
+        for (size_t j = 0; j < height_; ++j) {
+            if (used(i, j)) {
+                const auto color = at(i, j);
+                if (has_horizontal_triplet(i, j, color)) {
+                    add_horizontal_triplet(res, i, j);
+                }
+                if (has_vertical_triplet(i, j, color)) {
+                    add_vertical_triplet(res, i, j);
+                }
+                if (has_diagonal_descending_triplet(i, j, color)) {
+                    add_diagonal_descending_triplet(res, i, j);
+                }
+                if (has_diagonal_ascending_triplet(i, j, color)) {
+                    add_diagonal_ascending_triplet(res, i, j);
+                }
+            }
+        }
+    }
+    std::sort(res.begin(), res.end());
+    res.erase(std::unique(res.begin(), res.end()), res.end());
+
+    return res;
 }
 
 void Board::check_overflow(size_t c, size_t r) const {
@@ -48,5 +75,64 @@ void Board::check_overflow(size_t c, size_t r) const {
     if (r >= height_) {
         throw std::invalid_argument("Board::at - row overflow " + std::to_string(r));
     }
+}
+
+bool Board::has_horizontal_triplet(size_t c,
+      size_t r,
+      gui::Color color) const {
+    return c + 2 < width_ && at(c + 1, r) == color && at(c + 2, r) == color;
+}
+
+bool Board::has_vertical_triplet(
+      size_t c,
+      size_t r,
+      gui::Color color) const {
+    return r + 2 < height_ && at(c, r + 1) == color && at(c, r + 2) == color;
+}
+
+bool Board::has_diagonal_descending_triplet(size_t c,
+      size_t r,
+      gui::Color color) const {
+    return c + 2 < width_ && r + 2 < height_ && at(c + 1, r + 1) == color
+           && at(c + 2, r + 2) == color;
+}
+
+bool Board::has_diagonal_ascending_triplet(size_t c,
+      size_t r,
+      gui::Color color) const {
+    return c + 2 < width_ && r >= 2 && at(c + 1, r - 1) == color
+           && at(c + 2, r - 2) == color;
+}
+
+void Board::add_horizontal_triplet(std::vector<Tile>& res,
+      size_t i,
+      size_t j) const {
+    res.push_back({ i + 0, j });
+    res.push_back({ i + 1, j });
+    res.push_back({ i + 2, j });
+}
+
+void Board::add_vertical_triplet(std::vector<Tile>& res,
+      size_t i,
+      size_t j) const {
+    res.push_back({ i, j + 0 });
+    res.push_back({ i, j + 1 });
+    res.push_back({ i, j + 2 });
+}
+
+void Board::add_diagonal_descending_triplet(std::vector<Tile>& res,
+      size_t i,
+      size_t j) const {
+    res.push_back({ i + 0, j + 0 });
+    res.push_back({ i + 1, j + 1 });
+    res.push_back({ i + 2, j + 2 });
+}
+
+void Board::add_diagonal_ascending_triplet(std::vector<Tile>& res,
+      size_t i,
+      size_t j) const {
+    res.push_back({ i + 0, j - 0 });
+    res.push_back({ i + 1, j - 1 });
+    res.push_back({ i + 2, j - 2 });
 }
 }
