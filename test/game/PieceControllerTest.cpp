@@ -41,10 +41,12 @@ void PieceControllerTest::fill_column(size_t column,
 
 TEST_F(PieceControllerTest, create_there_is_no_piece) {
     PieceController controller = create_controller();
-    const piece::Piece none(std::vector<gui::Color>(piece::PIECE_SIZE, gui::Color::NONE));
     EXPECT_FALSE(controller.has_piece());
-    EXPECT_EQ(controller.position(), piece::PiecePosition(*board, 0, 4));
-    EXPECT_EQ(controller.piece(), none);
+    EXPECT_THROW(controller.position(), std::runtime_error);
+    EXPECT_THROW(controller.piece(), std::runtime_error);
+    EXPECT_THROW(controller.remove(), std::runtime_error);
+    EXPECT_THROW(controller.step(), std::runtime_error);
+    EXPECT_THROW(controller.process(EMessage::RollDown), std::runtime_error);
 }
 
 TEST_F(PieceControllerTest, add_piece) {
@@ -73,7 +75,8 @@ TEST_F(PieceControllerTest, added_piece_move_left) {
 
     position.move_left();
     position.move_left();
-    controller.process({ EMessage::MoveLeft, EMessage::MoveLeft });
+    controller.process(EMessage::MoveLeft);
+    controller.process(EMessage::MoveLeft);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -83,7 +86,7 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_at_left) {
     const auto position = controller.position();
     const auto piece = controller.piece();
 
-    controller.process({ EMessage::MoveLeft, EMessage::MoveLeft });
+    controller.process(EMessage::MoveLeft);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -94,7 +97,7 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_left_is_us
     const auto piece = controller.piece();
     fill_column(3, piece::PIECE_SIZE - 1, gui::Color::BLUE);
 
-    controller.process({ EMessage::MoveLeft, EMessage::MoveLeft });
+    controller.process(EMessage::MoveLeft);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -106,9 +109,7 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_below_left
     EXPECT_TRUE(controller.step());
     const auto position = controller.position();
     const auto piece = controller.piece();
-    controller.process({ EMessage::MoveRight, EMessage::MoveRight });
-
-    controller.process({ EMessage::MoveLeft, EMessage::MoveLeft });
+    controller.process(EMessage::MoveLeft);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -120,7 +121,8 @@ TEST_F(PieceControllerTest, added_piece_move_right) {
 
     position.move_right();
     position.move_right();
-    controller.process({ EMessage::MoveRight, EMessage::MoveRight });
+    controller.process(EMessage::MoveRight);
+    controller.process(EMessage::MoveRight);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -130,7 +132,7 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_right_when_at_right) {
     const auto position = controller.position();
     const auto piece = controller.piece();
 
-    controller.process({ EMessage::MoveRight, EMessage::MoveRight });
+    controller.process(EMessage::MoveRight);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -141,7 +143,7 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_right_when_tile_at_right_is_
     const auto piece = controller.piece();
     fill_column(5, piece::PIECE_SIZE - 1, gui::Color::BLUE);
 
-    controller.process({ EMessage::MoveRight, EMessage::MoveRight });
+    controller.process(EMessage::MoveRight);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -153,7 +155,7 @@ TEST_F(PieceControllerTest, added_piece_roll_up) {
 
     piece.roll_up();
 
-    controller.process({ EMessage::RollUp });
+    controller.process(EMessage::RollUp);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -165,7 +167,7 @@ TEST_F(PieceControllerTest, added_piece_roll_down) {
 
     piece.roll_down();
 
-    controller.process({ EMessage::RollDown });
+    controller.process(EMessage::RollDown);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -178,7 +180,7 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_right_when_tile_at_right_is_
     const auto position = controller.position();
     const auto piece = controller.piece();
 
-    controller.process({ EMessage::MoveRight, EMessage::MoveRight });
+    controller.process(EMessage::MoveRight);
     EXPECT_EQ(controller.piece(), piece);
     EXPECT_EQ(controller.position(), position);
 }
@@ -229,7 +231,7 @@ TEST_F(PieceControllerTest, step_becomes_faster_after_drop_down) {
     EXPECT_TRUE(controller.step());
     EXPECT_EQ(controller.position(), position);
 
-    controller.process({ EMessage::DropDown });
+    controller.process(EMessage::DropDown);
 
     position.step_down();
     position.step_down();
@@ -245,7 +247,7 @@ TEST_F(PieceControllerTest, step_restore_to_original_for_new_piece) {
     const auto piece = controller.piece();
     auto position = controller.position();
 
-    controller.process({ EMessage::DropDown });
+    controller.process(EMessage::DropDown);
 
     position.step_down();
     position.step_down();
@@ -254,6 +256,8 @@ TEST_F(PieceControllerTest, step_restore_to_original_for_new_piece) {
     position.step_down();
     EXPECT_TRUE(controller.step());
     EXPECT_EQ(controller.position(), position);
+
+    controller.remove();
 
     controller.add(piece, 3);
 
@@ -268,7 +272,7 @@ TEST_F(PieceControllerTest, accelerated_steps_does_not_overflow) {
     PieceController controller = create_controller_with_piece(3, 6, 11, 2);
     auto position = controller.position();
 
-    controller.process({ EMessage::DropDown });
+    controller.process(EMessage::DropDown);
 
     while (controller.step()) {
         position.step_down();
@@ -290,14 +294,28 @@ TEST_F(PieceControllerTest, remove_without_added_piece_throws) {
 }
 
 TEST_F(PieceControllerTest, remove_with_added_piece_removes) {
-    PieceController controller = create_controller();
-    const piece::Piece added = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
-    controller.add(added, 0);
+    PieceController controller = create_controller(8, 16, 7);
+    piece::Piece added = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
+    piece::PiecePosition position(*board, 3, 7);
+    controller.add(added, 3);
     EXPECT_TRUE(controller.has_piece());
+    EXPECT_EQ(controller.piece(), added);
+    EXPECT_EQ(controller.position(), position);
 
-    const piece::Piece removed = controller.remove();
+    for (size_t i = 0; i < 9; ++i) {
+        controller.step();
+        position.step_down();
+    }
 
-    EXPECT_EQ(removed, added);
+    controller.process(EMessage::RollDown);
+    controller.process(EMessage::RollDown);
+    added.roll_down();
+    added.roll_down();
+
+    const auto removed = controller.remove();
+
+    EXPECT_EQ(removed.first, added);
+    EXPECT_EQ(removed.second, position);
     EXPECT_FALSE(controller.has_piece());
     EXPECT_THROW(controller.remove(), std::runtime_error);
 }

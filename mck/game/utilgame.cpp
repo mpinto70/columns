@@ -21,5 +21,23 @@ void prepare_state_draw(::testing::StrictMock<CanvasMock>& canvas_mock,
         EXPECT_CALL(canvas_mock, draw_next_(state.next())).Times(1);
     }
 }
+
+std::string to_string(EMessage input) {
+    switch (input) {
+        case EMessage::Stop:
+            return "Stop";
+        case EMessage::MoveLeft:
+            return "MoveLeft";
+        case EMessage::MoveRight:
+            return "MoveRight";
+        case EMessage::DropDown:
+            return "DropDown";
+        case EMessage::RollDown:
+            return "RollDown";
+        case EMessage::RollUp:
+            return "RollUp";
+    }
+    return "UNKNOWN EMessage";
+}
 }
 }

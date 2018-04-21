@@ -11,21 +11,20 @@ public:
     InputReader();
     virtual ~InputReader() = default;
 
-    void run();
+    void read_input();
 
-    Messages::List get_input();
+    void clear_input() {
+        messages_.clear();
+    }
 
-    void stop();
-
-    bool is_running() const { return running_; }
+    Messages::List get_input() {
+        return messages_.get();
+    }
 
 private:
     Messages messages_;
-    std::atomic<bool> running_;
-    std::atomic<bool> stop_;
 
-    virtual bool should_process() = 0;
-    virtual Messages::List get_input_() = 0;
+    virtual Messages::List read_input_() = 0;
 };
 
 using InputReaderPtr = std::unique_ptr<InputReader>;

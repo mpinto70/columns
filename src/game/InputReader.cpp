@@ -1,27 +1,10 @@
 #include "InputReader.h"
 
 namespace game {
-InputReader::InputReader()
-      : messages_(),
-        running_(false),
-        stop_(false) {
-}
+InputReader::InputReader() = default;
 
-void InputReader::run() {
-    running_ = true;
-    stop_ = false;
-    while (not stop_ && should_process()) {
-        auto msgs = get_input_();
-        messages_.add(msgs);
-    }
-    running_ = false;
-}
-
-void InputReader::stop() {
-    stop_ = true;
-}
-
-Messages::List InputReader::get_input() {
-    return messages_.get();
+void InputReader::read_input() {
+    const auto msgs = read_input_();
+    messages_.add(msgs);
 }
 }

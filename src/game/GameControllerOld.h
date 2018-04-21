@@ -16,16 +16,16 @@ namespace game {
  * \li controls the board;
  * \li controls the score board.
  */
-class GameController {
+class GameControllerOld {
 public:
-    GameController(piece::SharedBoard board,
+    GameControllerOld(piece::SharedBoard board,
           size_t max_sub_row,
           const state::Score& record,
           const std::vector<gui::Color>& possible,
           state::StateObserverPtr&& observer,
           SharedMessage& msg);
-    GameController(const GameController&) = delete;
-    GameController& operator=(const GameController&) = delete;
+    GameControllerOld(const GameControllerOld&) = delete;
+    GameControllerOld& operator=(const GameControllerOld&) = delete;
     /** execution loop. */
     void execute();
 

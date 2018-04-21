@@ -5,6 +5,7 @@
 #include "piece/PiecePosition.h"
 
 #include <atomic>
+#include <utility>
 
 namespace game {
 class PieceController {
@@ -13,13 +14,13 @@ public:
           size_t max_sub_row);
     bool has_piece() const { return piece_[0] != gui::Color::NONE; }
 
-    const piece::PiecePosition& position() const { return position_; }
-    const piece::Piece& piece() const { return piece_; }
+    const piece::PiecePosition& position() const;
+    const piece::Piece& piece() const;
 
     void add(const piece::Piece& piece, size_t column);
-    piece::Piece remove();
+    std::pair<piece::Piece, piece::PiecePosition> remove();
 
-    void process(const Messages::List& messages);
+    void process(EMessage message);
 
     bool step();
 

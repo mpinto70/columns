@@ -19,8 +19,21 @@ PieceController::PieceController(piece::SharedConstBoard board,
         position_(*board, 0, max_sub_row),
         steps_per_step_(1) {
 }
+const piece::PiecePosition& PieceController::position() const {
+    if (not has_piece())
+        throw std::runtime_error("PieceController::position - no piece falling");
+    return position_;
+}
+
+const piece::Piece& PieceController::piece() const {
+    if (not has_piece())
+        throw std::runtime_error("PieceController::piece - no piece falling");
+    return piece_;
+}
 
 void PieceController::add(const piece::Piece& piece, size_t column) {
+    if (has_piece())
+        throw std::runtime_error("PieceController::add - there is a piece falling");
     if (board_->used(column, piece::PIECE_SIZE - 1))
         throw std::runtime_error("PieceController::add - invalid column");
     position_ = piece::PiecePosition(*board_, column, max_sub_row_);
@@ -28,39 +41,37 @@ void PieceController::add(const piece::Piece& piece, size_t column) {
     steps_per_step_ = 1;
 }
 
-piece::Piece PieceController::remove() {
+std::pair<piece::Piece, piece::PiecePosition> PieceController::remove() {
     if (not has_piece())
         throw std::runtime_error("PieceController::remove - no piece falling");
     piece::Piece res = no_piece();
     res.swap(piece_);
-    return res;
+    return std::make_pair(res, position_);
 }
 
-void PieceController::process(const Messages::List& messages) {
+void PieceController::process(EMessage message) {
     if (not has_piece())
         throw std::runtime_error("PieceController::process - no piece falling");
-    for (const auto message : messages) {
-        switch (message) {
-            case EMessage::MoveLeft:
-                if (can_move_left())
-                    position_.move_left();
-                break;
-            case EMessage::MoveRight:
-                if (can_move_right())
-                    position_.move_right();
-                break;
-            case EMessage::RollUp:
-                piece_.roll_up();
-                break;
-            case EMessage::RollDown:
-                piece_.roll_down();
-                break;
-            case EMessage::DropDown:
-                steps_per_step_ = 5;
-                break;
-            default:
-                break;
-        }
+    switch (message) {
+        case EMessage::MoveLeft:
+            if (can_move_left())
+                position_.move_left();
+            break;
+        case EMessage::MoveRight:
+            if (can_move_right())
+                position_.move_right();
+            break;
+        case EMessage::RollUp:
+            piece_.roll_up();
+            break;
+        case EMessage::RollDown:
+            piece_.roll_down();
+            break;
+        case EMessage::DropDown:
+            steps_per_step_ = 5;
+            break;
+        default:
+            break;
     }
 }
 

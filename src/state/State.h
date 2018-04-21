@@ -15,7 +15,7 @@ public:
     State(piece::SharedConstBoard board,
           const state::ScoreBoard& socre_board);
 
-    virtual ~State() = default;
+    virtual ~State() = 0;
 
     State(const State&) = delete;
     State& operator=(const State&) = delete;
@@ -45,6 +45,13 @@ private:
 };
 
 using StatePtr = std::unique_ptr<const State>;
+
+class StateInitial : public State {
+public:
+    StateInitial(piece::SharedConstBoard board,
+          const state::ScoreBoard& socre_board);
+    ~StateInitial() override = default;
+};
 
 class StateWithNext : public State {
 public:
@@ -87,9 +94,9 @@ public:
     /** Create an initial state with a falling piece.
      * @param board         the board
      * @param score_board   the score
+     * @param next          the next piece to fall
      * @param falling       the falling piece
      * @param position      the position of the falling piece
-     * @param next          the next piece to fall
      */
     StateFalling(piece::SharedConstBoard board,
           const state::ScoreBoard& score_board,

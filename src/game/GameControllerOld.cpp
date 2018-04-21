@@ -1,4 +1,4 @@
-#include "GameController.h"
+#include "GameControllerOld.h"
 
 #include "state/Score.h"
 #include "util/Wait.h"
@@ -8,7 +8,7 @@
 
 namespace game {
 
-GameController::GameController(piece::SharedBoard board,
+GameControllerOld::GameControllerOld(piece::SharedBoard board,
       const size_t max_sub_row,
       const state::Score& record,
       const std::vector<gui::Color>& possible,
@@ -32,7 +32,7 @@ GameController::GameController(piece::SharedBoard board,
     }
 }
 
-void GameController::execute() {
+void GameControllerOld::execute() {
     should_stop_ = false;
     util::Wait step_time(std::chrono::milliseconds{ 10 });
 
@@ -64,7 +64,7 @@ void GameController::execute() {
     }
 }
 
-state::StatePtr GameController::prepare_state(const piece::Board::EliminationList& elimination_list) const {
+state::StatePtr GameControllerOld::prepare_state(const piece::Board::EliminationList& elimination_list) const {
     if (board_controller_.has_piece()) {
         return std::make_unique<state::StateFalling>(board_controller_.board(),
               score_board_,
@@ -79,7 +79,7 @@ state::StatePtr GameController::prepare_state(const piece::Board::EliminationLis
     }
 }
 
-void GameController::process(const Messages::List& msgs) {
+void GameControllerOld::process(const Messages::List& msgs) {
     for (const auto msg : msgs) {
         switch (msg) {
             case EMessage::MoveLeft:

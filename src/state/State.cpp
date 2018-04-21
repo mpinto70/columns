@@ -9,6 +9,8 @@ State::State(piece::SharedConstBoard board, const state::ScoreBoard& score_board
         score_board_(score_board) {
 }
 
+State::~State() = default;
+
 const piece::Piece& State::next() const {
     throw std::logic_error("State::next - there is no next piece");
 }
@@ -23,6 +25,10 @@ const piece::Piece& State::piece() const {
 
 const piece::Board::EliminationList& State::elimination_list() const {
     throw std::logic_error("State::piece - there is no elimination list");
+}
+
+StateInitial::StateInitial(piece::SharedConstBoard board, const state::ScoreBoard& score_board)
+      : State(board, score_board) {
 }
 
 StateWithNext::StateWithNext(piece::SharedConstBoard board,

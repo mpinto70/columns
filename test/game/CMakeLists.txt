@@ -3,6 +3,7 @@ set(game_srcs
     CanvasTest.cpp
     ControllerTest.cpp
     InputReaderTest.cpp
+    MatchControllerTest.cpp
     PieceControllerTest.cpp
     MessagesTest.cpp
 )

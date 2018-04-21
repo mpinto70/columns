@@ -3,8 +3,9 @@ add_library(
     BoardController.cpp
     Canvas.cpp
     Controller.cpp
-    GameController.cpp
+    GameControllerOld.cpp
     InputReader.cpp
+    MatchController.cpp
     PieceController.cpp
     Messages.cpp
 )

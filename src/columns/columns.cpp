@@ -1,7 +1,7 @@
 #include "columns.h"
 
 #include "game/BoardController.h"
-#include "game/GameController.h"
+#include "game/GameControllerOld.h"
 #include "graphics/BoardDrawer.h"
 #include "piece/Board.h"
 #include "state/StateObserver.h"
@@ -91,7 +91,7 @@ void game_loop(game::SharedMessage mensagens) {
         const gui::Font font_name("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 25);
         const gui::Font font_score("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 25);
 
-        game::GameController controller(std::make_shared<piece::Board>(BOARD_WIDTH, BOARD_HEIGHT),
+        game::GameControllerOld controller(std::make_shared<piece::Board>(BOARD_WIDTH, BOARD_HEIGHT),
               TILE_SIZE / 2,
               state::Score(0),
               POSSIBLE,

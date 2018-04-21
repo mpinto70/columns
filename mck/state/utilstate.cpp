@@ -59,7 +59,7 @@ StatePtr create_state(piece::SharedConstBoard board) {
 }
 
 StatePtr create_state(piece::SharedConstBoard board, const state::ScoreBoard& score_board) {
-    return std::make_unique<State>(board, score_board);
+    return std::make_unique<StateInitial>(board, score_board);
 }
 
 StatePtr create_state(piece::SharedConstBoard board,
