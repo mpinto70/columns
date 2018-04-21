@@ -11,12 +11,13 @@ class PieceController {
 public:
     PieceController(piece::SharedConstBoard board,
           size_t max_sub_row);
-    bool has_piece() const { return piece_.get() != nullptr; }
+    bool has_piece() const { return piece_[0] != gui::Color::NONE; }
 
-    piece::PiecePosition position() const;
-    piece::Piece piece() const;
+    const piece::PiecePosition& position() const { return position_; }
+    const piece::Piece& piece() const { return piece_; }
 
     void add(const piece::Piece& piece, size_t column);
+    piece::Piece remove();
 
     void process(const Messages::List& messages);
 
@@ -25,8 +26,8 @@ public:
 private:
     piece::SharedConstBoard board_;
     size_t max_sub_row_;
-    piece::PiecePtr piece_;
-    piece::PiecePositionPtr position_;
+    piece::Piece piece_;
+    piece::PiecePosition position_;
     size_t steps_per_step_; ///< normal == 1, accelerated == 5
 
     bool can_move_left() const;

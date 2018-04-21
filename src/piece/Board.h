@@ -59,6 +59,13 @@ private:
 
     void check_overflow(size_t c, size_t r) const;
 
+    size_t index(size_t c, size_t r) const {
+        return r * width_ + c;
+    }
+
+    gui::Color tile(size_t c, size_t r) const;
+    gui::Color& tile(size_t c, size_t r);
+
     bool has_horizontal_triplet(size_t c,
           size_t r,
           gui::Color color) const;

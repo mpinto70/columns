@@ -11,6 +11,7 @@ namespace mck {
 
 std::string to_string(gui::Color color);
 Color to_color(size_t value);
+size_t from_color(Color color);
 Color to_normalized_color(size_t value);
 
 constexpr size_t end_color() {

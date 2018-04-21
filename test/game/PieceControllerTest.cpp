@@ -41,9 +41,10 @@ void PieceControllerTest::fill_column(size_t column,
 
 TEST_F(PieceControllerTest, create_there_is_no_piece) {
     PieceController controller = create_controller();
+    const piece::Piece none(std::vector<gui::Color>(piece::PIECE_SIZE, gui::Color::NONE));
     EXPECT_FALSE(controller.has_piece());
-    EXPECT_THROW(controller.position(), std::runtime_error);
-    EXPECT_THROW(controller.piece(), std::runtime_error);
+    EXPECT_EQ(controller.position(), piece::PiecePosition(*board, 0, 4));
+    EXPECT_EQ(controller.piece(), none);
 }
 
 TEST_F(PieceControllerTest, add_piece) {
@@ -280,6 +281,25 @@ TEST_F(PieceControllerTest, accelerated_steps_does_not_overflow) {
     position = controller.position();
     EXPECT_EQ(position.sub_row(), 0u);
     EXPECT_EQ(position.row(), 11u - piece::PIECE_SIZE);
+}
+
+TEST_F(PieceControllerTest, remove_without_added_piece_throws) {
+    PieceController controller = create_controller();
+    EXPECT_FALSE(controller.has_piece());
+    EXPECT_THROW(controller.remove(), std::runtime_error);
+}
+
+TEST_F(PieceControllerTest, remove_with_added_piece_removes) {
+    PieceController controller = create_controller();
+    const piece::Piece added = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
+    controller.add(added, 0);
+    EXPECT_TRUE(controller.has_piece());
+
+    const piece::Piece removed = controller.remove();
+
+    EXPECT_EQ(removed, added);
+    EXPECT_FALSE(controller.has_piece());
+    EXPECT_THROW(controller.remove(), std::runtime_error);
 }
 }
 }

@@ -26,6 +26,9 @@ class Piece {
 public:
     explicit Piece(const gui::Color (&colors)[PIECE_SIZE]);
     explicit Piece(const std::vector<gui::Color>& colors);
+
+    void swap(piece::Piece& other);
+
     /** @return color of the tile indexed by \p i.
      * @param i index (0 <= i <= PIECE_SIZE)
      * @throws std::invalid_argument if \p i is out of bounds

@@ -34,6 +34,10 @@ Color to_color(size_t value) {
     return static_cast<Color>(value);
 }
 
+size_t from_color(Color color) {
+    return static_cast<size_t>(color);
+}
+
 Color to_normalized_color(size_t value) {
     return to_color(value % end_color());
 }

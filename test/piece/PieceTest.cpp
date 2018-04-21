@@ -34,6 +34,26 @@ TEST(PieceTest, create) {
     ::mck::check_assignment(__FILE__, __LINE__, p1, p2);
 }
 
+TEST(PieceTest, swap) {
+    Piece p1 = mck::create_piece_ascending(gui::mck::from_color(gui::Color::RED));
+    Piece p2 = mck::create_piece_descending(gui::mck::from_color(gui::Color::BLUE));
+    const Piece p1_backup = p1;
+    const Piece p2_backup = p2;
+
+    EXPECT_EQ(p1, p1_backup) << "precondition";
+    EXPECT_EQ(p2, p2_backup) << "precondition";
+
+    p1.swap(p2);
+
+    EXPECT_EQ(p1, p2_backup) << "there";
+    EXPECT_EQ(p2, p1_backup) << "there";
+
+    p1.swap(p2);
+
+    EXPECT_EQ(p1, p1_backup) << "and back again";
+    EXPECT_EQ(p2, p2_backup) << "and back again";
+}
+
 TEST(PieceTest, roll) {
     Piece p(mck::create_piece_ascending(0));
     std::vector<unsigned char> colors;

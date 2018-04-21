@@ -12,7 +12,6 @@ public:
     ~Wait() = default;
 
     void reset();
-    bool is_expired() const;
     void wait() const;
     Clock::time_point end() const { return end_; }
 

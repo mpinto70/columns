@@ -15,21 +15,13 @@ void check_wait(const size_t mili) {
 
     Wait wait(std::chrono::milliseconds{ mili });
     Wait::Clock::time_point end = wait.end();
-    for (size_t i = 0; i < 10; ++i) {
-        EXPECT_FALSE(wait.is_expired()) << mili;
-    }
     wait.wait();
-    EXPECT_TRUE(wait.is_expired()) << mili;
     after = Wait::Clock::now();
     EXPECT_LE(end, after) << mili;
 
     wait.reset();
     end = wait.end();
-    for (size_t i = 0; i < 10; ++i) {
-        EXPECT_FALSE(wait.is_expired()) << mili;
-    }
     wait.wait();
-    EXPECT_TRUE(wait.is_expired()) << mili;
     after = Wait::Clock::now();
     EXPECT_LE(end, after) << mili;
 }

@@ -20,6 +20,12 @@ Piece::Piece(const std::vector<gui::Color>& colors) {
     std::copy(colors.begin(), colors.end(), colors_);
 }
 
+void Piece::swap(piece::Piece& other) {
+    for (size_t i = 0; i < PIECE_SIZE; ++i) {
+        std::swap(colors_[i], other.colors_[i]);
+    }
+}
+
 gui::Color Piece::operator[](unsigned char i) const {
     if (i >= PIECE_SIZE) {
         throw std::range_error("Piece[" + std::to_string(i) + "] - index out of range");
