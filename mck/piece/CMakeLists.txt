@@ -1,6 +1,7 @@
 add_library(
     piece_mck
     utilpiece.cpp
+    PieceCreatorCycle.cpp
 )
 
 target_include_directories(

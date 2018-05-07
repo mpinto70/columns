@@ -41,7 +41,7 @@ bool operator!=(const PiecePosition& lhs, const PiecePosition& rhs) {
 
 namespace mck {
 
-static Piece create_piece_step(unsigned char color0, char step_size) {
+Piece create_piece_step(unsigned char color0, char step_size) {
     std::vector<gui::Color> colors;
     unsigned char color = color0;
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
@@ -59,6 +59,23 @@ Piece create_piece_ascending(unsigned char color0) {
 
 Piece create_piece_descending(unsigned char color0) {
     return create_piece_step(color0, -1);
+}
+
+std::unique_ptr<Board> dup(const Board& rhs) {
+    auto other = std::make_unique<Board>(rhs.width(), rhs.height());
+    for (size_t r = 0; r < rhs.height(); ++r) {
+        for (size_t c = 0; c < rhs.width(); ++c) {
+            other->at(c, r) = rhs.at(c, r);
+        }
+    }
+    return std::move(other);
+}
+
+void fix(Board& board, const Piece& piece, const PiecePosition& position) {
+    const size_t column = position.column();
+    for (size_t i = 0; i < piece::PIECE_SIZE; ++i) {
+        board.at(column, position.row() + i) = piece[i];
+    }
 }
 
 void print_piece(const std::string& file,

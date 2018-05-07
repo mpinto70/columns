@@ -2,6 +2,7 @@ add_library(
     piece
     Board.cpp
     Piece.cpp
+    PieceCreatorRandom.cpp
     PiecePosition.cpp
 )
 

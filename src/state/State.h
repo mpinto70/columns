@@ -72,8 +72,8 @@ public:
     /** Create a state in which nothing will be added and there is no piece falling.
      * @param board         the board
      * @param score_board   the score
-     * @param list          list of tiles to be removed
      * @param next          the next piece to fall
+     * @param list          list of tiles to be removed
      */
     StateElimination(piece::SharedConstBoard board,
           const state::ScoreBoard& score_board,
