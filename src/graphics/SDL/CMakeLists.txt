@@ -1,6 +1,7 @@
 add_library(
     graphics_SDL
     WindowSDL.cpp
+    Canvas.cpp
 )
 
 target_include_directories(

@@ -36,6 +36,12 @@ void Board::remove(const size_t c, const size_t r) {
     at(c, 0) = gui::Color::NONE;
 }
 
+void Board::remove(const EliminationList& elimination_list) {
+    for (const auto& elimination : elimination_list) {
+        remove(elimination.column, elimination.row);
+    }
+}
+
 bool Board::used(const size_t c, const size_t r) const {
     return at(c, r) != gui::Color::NONE;
 }

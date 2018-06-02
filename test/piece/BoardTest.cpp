@@ -11,14 +11,6 @@
 
 namespace piece {
 namespace tst {
-
-TEST(BoardTest, caracteristics) {
-    EXPECT_FALSE(std::is_move_assignable<Board>::value);
-    EXPECT_FALSE(std::is_move_constructible<Board>::value);
-    EXPECT_FALSE(std::is_copy_assignable<Board>::value);
-    EXPECT_FALSE(std::is_copy_constructible<Board>::value);
-}
-
 namespace {
 
 static void check_empty_board(const std::string& msg,
@@ -137,7 +129,7 @@ TEST(BoardTest, remove) {
 
     for (size_t i = 0; i < columns; ++i) {
         for (size_t j = 0; j < rows; ++j) {
-            tiles.at(j * columns + i) = board.at(i, j) = gui::Color::BLUE;
+            tiles.at(j * columns + i) = board.at(i, j) = gui::mck::to_normalized_color(j * columns + i);
         }
     }
 
@@ -169,6 +161,33 @@ TEST(BoardTest, remove) {
             EXPECT_EQ(board.tiles(), tiles);
         }
     }
+}
+
+TEST(BoardTest, remove_list) {
+    const size_t columns = piece::PIECE_SIZE + 2;
+    const size_t rows = 2 * piece::PIECE_SIZE + 1;
+    Board board(columns, rows);
+    Board expected(columns, rows);
+
+    for (size_t i = 0; i < columns; ++i) {
+        for (size_t j = 0; j < rows; ++j) {
+            board.at(i, j) = expected.at(i, j) = gui::mck::to_normalized_color(j * columns + i);
+        }
+    }
+
+    const Board::EliminationList elimination_list = {
+        { columns - 1, rows - 1 },
+        { 0, rows - 1 },
+        { 1, rows - 3 },
+        { columns - 2, rows - 2 },
+    };
+
+    for (const auto& elimination : elimination_list) {
+        expected.remove(elimination.column, elimination.row);
+    }
+
+    board.remove(elimination_list);
+    EXPECT_EQ(board, expected);
 }
 
 TEST(BoardTest, shared_const) {

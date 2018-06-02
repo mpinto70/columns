@@ -21,11 +21,6 @@ public:
      */
     Board(size_t w, size_t h);
 
-    Board(const Board&) = delete;
-    Board& operator=(const Board&) = delete;
-    Board(Board&&) = delete;
-    Board& operator=(Board&&) = delete;
-
     /// @return the colors of the board squares
     const std::vector<gui::Color>& tiles() const { return tiles_; }
     /** @return square in position (c, r).
@@ -47,6 +42,7 @@ public:
      * @param r row index
      */
     void remove(size_t c, size_t r);
+    void remove(const EliminationList& elimination_list);
 
     bool used(size_t c, size_t r) const;
 

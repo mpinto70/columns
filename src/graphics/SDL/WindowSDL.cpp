@@ -5,47 +5,18 @@
 #include <stdexcept>
 
 namespace graphics {
-namespace {
-constexpr Uint8 COLORS[][3] = {
-    { 0x98, 0x1b, 0x1e }, // RED
-    { 0x2e, 0x85, 0x40 }, // GREEN
-    { 0x02, 0xbf, 0xe7 }, // BLUE
-    { 127, 127, 127 },    // GRAY
-    { 0xfd, 0xb8, 0x1e }, // YELLOW
-    { 0x4c, 0x2c, 0x92 }, // LAVENDER
-    { 0, 0, 0 },          // BLACK
-    { 0xf1, 0xf1, 0xf1 }, // NONE == WHITE
-};
-
-static_assert(sizeof(COLORS) / sizeof(COLORS[0]) == static_cast<size_t>(gui::Color::NONE) + 1, "wrong array size");
-
-const Uint8* to_color_triplet(gui::Color color) {
-    return COLORS[static_cast<unsigned int>(color)];
-}
-
-SDL_Color to_sdl_color(gui::Color color) {
-    const auto sdl_color = to_color_triplet(color);
-    return SDL_Color{ sdl_color[0], sdl_color[1], sdl_color[2] };
-}
-
-SDL_Rect to_sdl_rect(const size_t x1,
-      const size_t y1,
-      const size_t x2,
-      const size_t y2) {
-    return { int(x1), int(y1), int(x2 - x1 + 1), int(y2 - y1 + 1) };
-}
-}
 
 WindowSDL::WindowSDL(const std::string& name,
-      const size_t left,
-      const size_t top,
-      const size_t width,
-      const size_t height,
-      gui::Color color)
-      : Window(name, width, height),
+      size_t left,
+      size_t top,
+      size_t width,
+      size_t height,
+      const ColorTripletT& color)
+      : width_(width),
+        height_(height),
         window_(nullptr),
         renderer_(nullptr),
-        color_(color) {
+        color_{ color[0], color[1], color[2] } {
     window_ = SDL_CreateWindow(name.c_str(), left, top, width, height, SDL_WINDOW_SHOWN);
     if (window_ == nullptr) {
         throw std::runtime_error("WindowSDL - error creating window: " + std::string(SDL_GetError()));
@@ -56,14 +27,8 @@ WindowSDL::WindowSDL(const std::string& name,
     }
 }
 
-WindowSDL::~WindowSDL() {
-    SDL_DestroyRenderer(renderer_);
-    SDL_DestroyWindow(window_);
-}
-
 void WindowSDL::clear() {
-    const auto sdl_color = to_color_triplet(color_);
-    if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
+    if (SDL_SetRenderDrawColor(renderer_, color_[0], color_[1], color_[2], SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("WindowSDL::clear - SDL_SetRenderDrawColor error");
     }
     if (SDL_RenderClear(renderer_) != 0) {
@@ -75,92 +40,81 @@ void WindowSDL::update() {
     SDL_RenderPresent(renderer_);
 }
 
-void WindowSDL::line_(const size_t x1,
-      const size_t y1,
-      const size_t x2,
-      const size_t y2,
-      gui::Color color) {
-    const auto sdl_color = to_color_triplet(color);
+void WindowSDL::line(int x1,
+      int y1,
+      int x2,
+      int y2,
+      const ColorTripletT& sdl_color) {
     if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
-        throw std::runtime_error("WindowSDL::linha_ - erro no SDL_SetRenderDrawColor");
+        throw std::runtime_error("WindowSDL::line - error no SDL_SetRenderDrawColor");
     }
 
     if (SDL_RenderDrawLine(renderer_, x1, y1, x2, y2) != 0) {
-        throw std::runtime_error("WindowSDL::linha_ - erro no SDL_RenderDrawLine");
+        throw std::runtime_error("WindowSDL::line - error no SDL_RenderDrawLine");
     }
 }
 
-void WindowSDL::rectangle_(const size_t x1,
-      const size_t y1,
-      const size_t x2,
-      const size_t y2,
-      gui::Color color) {
-    const SDL_Rect rect = to_sdl_rect(x1, y1, x2, y2);
-    const auto sdl_color = to_color_triplet(color);
-    if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
-        throw std::runtime_error("WindowSDL::retangulo_ - erro no SDL_SetRenderDrawColor");
+void WindowSDL::rectangle(const SDL_Rect& rect, const ColorTripletT& color) {
+    if (SDL_SetRenderDrawColor(renderer_, color[0], color[1], color[2], SDL_ALPHA_OPAQUE) != 0) {
+        throw std::runtime_error("WindowSDL::rectangle - error no SDL_SetRenderDrawColor");
     }
     if (SDL_RenderDrawRect(renderer_, &rect)) {
-        throw std::runtime_error("WindowSDL::retangulo_ - erro no SDL_RenderDrawRect");
+        throw std::runtime_error("WindowSDL::rectangle - error no SDL_RenderDrawRect");
     }
 }
 
-void WindowSDL::fill_(const size_t x1,
-      const size_t y1,
-      const size_t x2,
-      const size_t y2,
-      gui::Color color) {
-    const SDL_Rect rect = to_sdl_rect(x1, y1, x2, y2);
-    const auto sdl_color = to_color_triplet(color);
-    if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
-        throw std::runtime_error("WindowSDL::preenche_ - erro no SDL_SetRenderDrawColor");
+void WindowSDL::fill(const SDL_Rect& rect, const ColorTripletT& color) {
+    if (SDL_SetRenderDrawColor(renderer_, color[0], color[1], color[2], SDL_ALPHA_OPAQUE) != 0) {
+        throw std::runtime_error("WindowSDL::fill - error no SDL_SetRenderDrawColor");
     }
     if (SDL_RenderFillRect(renderer_, &rect) != 0) {
-        throw std::runtime_error("WindowSDL::preenche_ - erro no SDL_RenderFillRect");
+        throw std::runtime_error("WindowSDL::fill - error no SDL_RenderFillRect");
     }
 }
 
-gui::Rectangle WindowSDL::write_(const std::string& text,
-      const size_t x,
-      const size_t y,
-      const gui::Font& fonte,
-      gui::Color color) {
+SDL_Rect WindowSDL::write(const std::string& text,
+      int x,
+      int y,
+      const std::string& font_name,
+      int font_size,
+      const ColorTripletT& color) {
     TTF_Font* font = nullptr;
     SDL_Surface* surface = nullptr;
     SDL_Texture* texture = nullptr;
-    gui::Rectangle res(0, 0, 0, 0);
     try {
-        const SDL_Color sdl_color = to_sdl_color(color);
-        font = TTF_OpenFont(fonte.name().c_str(), fonte.size());
+        const SDL_Color sdl_color = { color[0], color[1], color[2] };
+
+        font = TTF_OpenFont(font_name.c_str(), font_size);
         if (font == nullptr) {
-            throw std::runtime_error("WindowSDL::write_ - opening font " + fonte.name());
+            throw std::runtime_error("WindowSDL::write - opening font " + font_name);
         }
 
         //We need to first render to a surface as that's what TTF_RenderText
         //returns, then load that surface into a texture
         surface = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
         if (surface == nullptr) {
-            throw std::runtime_error("WindowSDL::write_ - getting the surface " + text);
+            throw std::runtime_error("WindowSDL::write - getting the surface " + text);
         }
 
         texture = SDL_CreateTextureFromSurface(renderer_, surface);
         if (texture == nullptr) {
-            throw std::runtime_error("WindowSDL::write_ - getting the texture");
+            throw std::runtime_error("WindowSDL::write - getting the texture");
         }
 
         //Get the texture w/h so we can center it in the screen
-        SDL_Rect dst;
-        dst.x = x;
-        dst.y = y;
+        SDL_Rect dst = { x, y, 0, 0 };
         //Query the texture to get its width and height to use
         if (SDL_QueryTexture(texture, nullptr, nullptr, &dst.w, &dst.h) != 0) {
-            throw std::runtime_error("WindowSDL::write_ - SDL_QueryTexture error");
+            throw std::runtime_error("WindowSDL::write - SDL_QueryTexture error");
         }
 
-        res = gui::Rectangle(x, y, x + dst.w, y + dst.h);
         if (SDL_RenderCopy(renderer_, texture, nullptr, &dst) != 0) {
-            throw std::runtime_error("WindowSDL::write_ - SDL_RenderCopy error");
+            throw std::runtime_error("WindowSDL::write - SDL_RenderCopy error");
         }
+        SDL_FreeSurface(surface);
+        TTF_CloseFont(font);
+        SDL_DestroyTexture(texture);
+        return dst;
     } catch (...) {
         //Clean up the surface and font
         if (surface != nullptr) {
@@ -174,24 +128,5 @@ gui::Rectangle WindowSDL::write_(const std::string& text,
         }
         throw;
     }
-    SDL_FreeSurface(surface);
-    TTF_CloseFont(font);
-    SDL_DestroyTexture(texture);
-    return res;
-}
-
-void WindowSDL::draw_(piece::SharedConstBoard board) {
-}
-
-void WindowSDL::draw_(const piece::Piece& piece, const piece::PiecePosition& piece_position) {
-}
-
-void WindowSDL::draw_next_(const piece::Piece& next_piece) {
-}
-
-void WindowSDL::draw_(const state::ScoreBoard& score_board) {
-}
-
-void WindowSDL::draw_(const piece::Board::EliminationList& elimination_list) {
 }
 }

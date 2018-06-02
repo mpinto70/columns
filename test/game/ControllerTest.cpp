@@ -1,6 +1,7 @@
 #include "ControllerTest.h"
 
 #include "../mck/game/utilgame.h"
+#include "../mck/piece/utilpiece.h"
 #include "../mck/state/utilstate.h"
 
 namespace game {
@@ -16,7 +17,8 @@ void ControllerTest::SetUp() {
     controller.reset(new Controller(CanvasPtr(canvas_mock),
           std::move(input_reader),
           board,
-          157));
+          157,
+          ::piece::mck::create_cycle_creator({ piece::mck::create_piece_ascending(0) }, { 1, 2, 3 })));
 }
 
 void ControllerTest::TearDown() {
@@ -24,8 +26,8 @@ void ControllerTest::TearDown() {
 }
 
 TEST_F(ControllerTest, initial_state) {
-    const state::StateInitial expected(std::make_shared<piece::Board>(8, 16),
-          state::ScoreBoard(state::Score(157)));
+    const state::State expected(std::make_shared<piece::Board>(8, 16),
+          std::make_shared<state::ScoreBoard>(state::Score(157)));
     EXPECT_EQ(controller->state(), expected);
 }
 

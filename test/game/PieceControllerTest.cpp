@@ -15,17 +15,15 @@ namespace game {
 namespace tst {
 
 PieceController PieceControllerTest::create_controller(size_t width,
-      size_t height,
-      size_t sub_row) {
+      size_t height) {
     board = std::make_shared<piece::Board>(width, height);
-    return PieceController(board, sub_row);
+    return PieceController(board);
 }
 
 PieceController PieceControllerTest::create_controller_with_piece(size_t column,
       size_t width,
-      size_t height,
-      size_t sub_row) {
-    PieceController controller = create_controller(width, height, sub_row);
+      size_t height) {
+    PieceController controller = create_controller(width, height);
     piece::Piece piece = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
     controller.add(piece, column);
     return controller;
@@ -42,11 +40,11 @@ void PieceControllerTest::fill_column(size_t column,
 TEST_F(PieceControllerTest, create_there_is_no_piece) {
     PieceController controller = create_controller();
     EXPECT_FALSE(controller.has_piece());
-    EXPECT_THROW(controller.position(), std::runtime_error);
-    EXPECT_THROW(controller.piece(), std::runtime_error);
-    EXPECT_THROW(controller.remove(), std::runtime_error);
-    EXPECT_THROW(controller.step(), std::runtime_error);
-    EXPECT_THROW(controller.process(EMessage::RollDown), std::runtime_error);
+    EXPECT_NO_THROW(controller.position());
+    EXPECT_NO_THROW(controller.piece());
+    EXPECT_NO_THROW(controller.remove());
+    EXPECT_NO_THROW(controller.step());
+    EXPECT_NO_THROW(controller.process(EMessage::RollDown));
 }
 
 TEST_F(PieceControllerTest, add_piece) {
@@ -58,14 +56,6 @@ TEST_F(PieceControllerTest, add_piece) {
     EXPECT_EQ(controller.position().sub_row(), 0u);
     EXPECT_EQ(controller.position().column(), 2u);
     EXPECT_EQ(controller.piece(), piece);
-}
-
-TEST_F(PieceControllerTest, add_piece_at_occupied_column_thows) {
-    PieceController controller = create_controller();
-    piece::Piece piece = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
-    fill_column(2, piece::PIECE_SIZE - 1, gui::Color::BLUE);
-    EXPECT_THROW(controller.add(piece, 2), std::runtime_error);
-    EXPECT_NO_THROW(controller.add(piece, 3));
 }
 
 TEST_F(PieceControllerTest, added_piece_move_left) {
@@ -103,7 +93,7 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_left_is_us
 }
 
 TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_below_left_is_used_and_piece_is_sub_stepped) {
-    PieceController controller = create_controller_with_piece(4, 8, 10, 3);
+    PieceController controller = create_controller_with_piece(4, 8, 10);
     fill_column(3, piece::PIECE_SIZE, gui::Color::BLUE);
 
     EXPECT_TRUE(controller.step());
@@ -173,7 +163,7 @@ TEST_F(PieceControllerTest, added_piece_roll_down) {
 }
 
 TEST_F(PieceControllerTest, added_piece_doesnt_move_right_when_tile_at_right_is_used_and_piece_is_sub_stepped) {
-    PieceController controller = create_controller_with_piece(4, 8, 10, 3);
+    PieceController controller = create_controller_with_piece(4, 8, 10);
     fill_column(5, piece::PIECE_SIZE, gui::Color::BLUE);
 
     EXPECT_TRUE(controller.step());
@@ -199,7 +189,7 @@ TEST_F(PieceControllerTest, added_piece_step_moves_down) {
 }
 
 TEST_F(PieceControllerTest, added_piece_step_doesnt_move_down_when_at_bottom) {
-    PieceController controller = create_controller_with_piece(4, 8, 10, 2);
+    PieceController controller = create_controller_with_piece(4, 8, 10);
     auto position = controller.position();
 
     size_t steps = 0;
@@ -215,7 +205,7 @@ TEST_F(PieceControllerTest, added_piece_step_doesnt_move_down_when_at_bottom) {
 }
 
 TEST_F(PieceControllerTest, added_piece_step_doesnt_move_down_when_over_used_tile) {
-    PieceController controller = create_controller_with_piece(4, 8, 10, 2);
+    PieceController controller = create_controller_with_piece(4, 8, 10);
     fill_column(4, piece::PIECE_SIZE);
     const auto position = controller.position();
 
@@ -269,7 +259,7 @@ TEST_F(PieceControllerTest, step_restore_to_original_for_new_piece) {
 }
 
 TEST_F(PieceControllerTest, accelerated_steps_does_not_overflow) {
-    PieceController controller = create_controller_with_piece(3, 6, 11, 2);
+    PieceController controller = create_controller_with_piece(3, 6, 11);
     auto position = controller.position();
 
     controller.process(EMessage::DropDown);
@@ -287,16 +277,10 @@ TEST_F(PieceControllerTest, accelerated_steps_does_not_overflow) {
     EXPECT_EQ(position.row(), 11u - piece::PIECE_SIZE);
 }
 
-TEST_F(PieceControllerTest, remove_without_added_piece_throws) {
-    PieceController controller = create_controller();
-    EXPECT_FALSE(controller.has_piece());
-    EXPECT_THROW(controller.remove(), std::runtime_error);
-}
-
 TEST_F(PieceControllerTest, remove_with_added_piece_removes) {
-    PieceController controller = create_controller(8, 16, 7);
+    PieceController controller = create_controller(8, 16);
     piece::Piece added = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
-    piece::PiecePosition position(*board, 3, 7);
+    piece::Position position(3);
     controller.add(added, 3);
     EXPECT_TRUE(controller.has_piece());
     EXPECT_EQ(controller.piece(), added);
@@ -317,7 +301,6 @@ TEST_F(PieceControllerTest, remove_with_added_piece_removes) {
     EXPECT_EQ(removed.first, added);
     EXPECT_EQ(removed.second, position);
     EXPECT_FALSE(controller.has_piece());
-    EXPECT_THROW(controller.remove(), std::runtime_error);
 }
 }
 }

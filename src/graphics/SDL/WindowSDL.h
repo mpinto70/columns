@@ -1,63 +1,53 @@
 #pragma once
 
-#include "graphics/Window.h"
-
 #include <SDL2/SDL.h>
+#include <string>
 #include <unistd.h>
 
 namespace graphics {
 
-class WindowSDL : public Window {
+using ColorTripletT = Uint8[3];
+
+class WindowSDL {
 public:
     WindowSDL(const std::string& name,
           size_t left,
           size_t top,
           size_t width,
           size_t height,
-          gui::Color color);
-    ~WindowSDL() override;
+          const ColorTripletT& color);
 
-    SDL_Window& window() const { return *window_; }
+    WindowSDL(const WindowSDL&) = delete;
+    WindowSDL& operator=(const WindowSDL&) = delete;
+    WindowSDL(WindowSDL&&) = delete;
+    WindowSDL& operator=(WindowSDL&&) = delete;
 
-    SDL_Renderer& renderer() { return *renderer_; }
+    void clear();
 
-    void clear() override;
+    void update();
 
-    void update() override;
+    void line(int x1,
+          int y1,
+          int x2,
+          int y2,
+          const ColorTripletT& color);
+
+    void rectangle(const SDL_Rect& rect, const ColorTripletT& color);
+
+    void fill(const SDL_Rect& rect, const ColorTripletT& color);
+
+    SDL_Rect write(const std::string& text,
+          int x,
+          int y,
+          const std::string& font_name,
+          int font_size,
+          const ColorTripletT& color);
 
 private:
+    size_t width_;
+    size_t height_;
     SDL_Window* window_;
     SDL_Renderer* renderer_;
-    gui::Color color_;
-
-    void line_(size_t x1,
-          size_t y1,
-          size_t x2,
-          size_t y2,
-          gui::Color color) override;
-
-    void rectangle_(size_t x1,
-          size_t y1,
-          size_t x2,
-          size_t y2,
-          gui::Color color) override;
-
-    void fill_(size_t x1,
-          size_t y1,
-          size_t x2,
-          size_t y2,
-          gui::Color color) override;
-
-    gui::Rectangle write_(const std::string& text,
-          size_t x,
-          size_t y,
-          const gui::Font& fonte,
-          gui::Color color) override;
-
-    void draw_(piece::SharedConstBoard board) override;
-    void draw_(const piece::Piece& piece, const piece::PiecePosition& piece_position) override;
-    void draw_next_(const piece::Piece& next_piece) override;
-    void draw_(const state::ScoreBoard& score_board) override;
-    void draw_(const piece::Board::EliminationList& elimination_list) override;
+    ColorTripletT color_;
 };
 }

@@ -15,110 +15,143 @@
 namespace state {
 namespace tst {
 
-TEST(StateTest, caracteristics) {
-    EXPECT_FALSE(std::is_move_assignable<State>::value);
-    EXPECT_FALSE(std::is_move_constructible<State>::value);
-    EXPECT_FALSE(std::is_copy_assignable<State>::value);
-    EXPECT_FALSE(std::is_copy_constructible<State>::value);
-}
-
-TEST(StateTest, create) {
+TEST(StateTest, create_puts_in_initial) {
     using namespace std::rel_ops;
     const piece::SharedConstBoard board1 = std::make_shared<piece::Board>(10, 20);
     const piece::SharedConstBoard board2 = std::make_shared<piece::Board>(11, 20);
-    const piece::SharedConstBoard board3 = std::make_shared<piece::Board>(10, 21);
-    const piece::SharedConstBoard board4 = std::make_shared<piece::Board>(10, 20);
-    const piece::SharedConstBoard board5 = std::make_shared<piece::Board>(12, 21);
-    const piece::SharedConstBoard board6 = std::make_shared<piece::Board>(13, 20);
-    const state::ScoreBoard score_board1(state::Score(25));
-    const state::ScoreBoard score_board2(state::Score(38), state::Score(34));
-    const state::ScoreBoard score_board3(state::Score(38), state::Score(35));
-    const state::ScoreBoard score_board4(state::Score(39), state::Score(34));
-    const state::ScoreBoard score_board5(state::Score(40), state::Score(35));
-    const state::ScoreBoard score_board6(state::Score(41), state::Score(34));
-    const piece::Piece piece3 = piece::mck::create_piece_ascending(12);
-    const piece::Piece piece4 = piece::mck::create_piece_ascending(15);
-    const piece::Piece next3 = piece::mck::create_piece_ascending(17);
-    const piece::Piece next4 = piece::mck::create_piece_ascending(23);
-    const piece::PiecePosition position3(*board3, 2, 4);
-    const piece::PiecePosition position4(*board4, 3, 4);
-    const piece::Board::EliminationList elim5 = { { 1, 2 }, { 3, 4 } };
-    const piece::Board::EliminationList elim6 = { { 5, 6 }, { 3, 4 } };
-    const piece::Piece next5 = piece::mck::create_piece_ascending(19);
-    const piece::Piece next6 = piece::mck::create_piece_ascending(21);
+    SharedScoreBoard score_board1 = std::make_shared<ScoreBoard>(Score(25));
+    SharedScoreBoard score_board2 = std::make_shared<ScoreBoard>(Score(38), Score(34));
 
-    const StatePtr state1 = mck::create_state(board1, score_board1);
-    EXPECT_EQ(state1->board(), board1);
-    EXPECT_EQ(state1->score_board(), score_board1);
-    EXPECT_FALSE(state1->has_piece_falling());
-    EXPECT_THROW(state1->piece(), std::logic_error);
-    EXPECT_THROW(state1->piece_position(), std::logic_error);
-    EXPECT_FALSE(state1->has_elimination_list());
-    EXPECT_THROW(state1->elimination_list(), std::logic_error);
-    EXPECT_FALSE(state1->has_next());
-    EXPECT_THROW(state1->next(), std::logic_error);
+    const State state1(board1, score_board1);
+    EXPECT_EQ(state1.state(), EState::CLEAN);
+    EXPECT_EQ(state1.board(), *board1);
+    EXPECT_EQ(state1.score_board(), *score_board1);
+    EXPECT_FALSE(state1.has_piece_falling());
+    EXPECT_THROW(state1.piece(), std::logic_error);
+    EXPECT_THROW(state1.piece_position(), std::logic_error);
+    EXPECT_FALSE(state1.has_elimination_list());
+    EXPECT_THROW(state1.elimination_list(), std::logic_error);
+    EXPECT_FALSE(state1.has_next());
+    EXPECT_THROW(state1.next(), std::logic_error);
 
-    const StatePtr state2 = mck::create_state(board2, score_board2);
-    EXPECT_EQ(state2->board(), board2);
-    EXPECT_EQ(state2->score_board(), score_board2);
-    EXPECT_FALSE(state2->has_piece_falling());
-    EXPECT_THROW(state2->piece(), std::logic_error);
-    EXPECT_THROW(state2->piece_position(), std::logic_error);
-    EXPECT_FALSE(state2->has_elimination_list());
-    EXPECT_THROW(state2->elimination_list(), std::logic_error);
-    EXPECT_FALSE(state2->has_next());
-    EXPECT_THROW(state2->next(), std::logic_error);
+    const State state2(board2, score_board2);
+    EXPECT_EQ(state2.state(), EState::CLEAN);
+    EXPECT_EQ(state2.board(), *board2);
+    EXPECT_EQ(state2.score_board(), *score_board2);
+    EXPECT_FALSE(state2.has_piece_falling());
+    EXPECT_THROW(state2.piece(), std::logic_error);
+    EXPECT_THROW(state2.piece_position(), std::logic_error);
+    EXPECT_FALSE(state2.has_elimination_list());
+    EXPECT_THROW(state2.elimination_list(), std::logic_error);
+    EXPECT_FALSE(state2.has_next());
+    EXPECT_THROW(state2.next(), std::logic_error);
+}
 
-    const StatePtr state3 = mck::create_state(board3, score_board3, next3, piece3, position3);
-    EXPECT_EQ(state3->board(), board3);
-    EXPECT_EQ(state3->score_board(), score_board3);
-    EXPECT_TRUE(state3->has_piece_falling());
-    EXPECT_EQ(state3->piece(), piece3);
-    EXPECT_EQ(state3->piece_position(), position3);
-    EXPECT_FALSE(state3->has_elimination_list());
-    EXPECT_THROW(state3->elimination_list(), std::logic_error);
-    EXPECT_TRUE(state3->has_next());
-    EXPECT_EQ(state3->next(), next3);
+TEST(StateTest, transition_to_falling) {
+    using namespace std::rel_ops;
+    const piece::SharedConstBoard board = std::make_shared<piece::Board>(10, 20);
+    SharedScoreBoard score_board = std::make_shared<ScoreBoard>(Score(25));
+    const piece::Piece next = piece::mck::create_piece_ascending(17);
+    const piece::Piece piece = piece::mck::create_piece_ascending(12);
+    const piece::Position position(2);
 
-    const StatePtr state4 = mck::create_state(board4, score_board4, next4, piece4, position4);
-    EXPECT_EQ(state4->board(), board4);
-    EXPECT_EQ(state4->score_board(), score_board4);
-    EXPECT_TRUE(state4->has_piece_falling());
-    EXPECT_EQ(state4->piece(), piece4);
-    EXPECT_EQ(state4->piece_position(), position4);
-    EXPECT_FALSE(state4->has_elimination_list());
-    EXPECT_THROW(state4->elimination_list(), std::logic_error);
-    EXPECT_TRUE(state4->has_next());
-    EXPECT_EQ(state4->next(), next4);
+    State state(board, score_board);
 
-    const StatePtr state5 = mck::create_state(board5, score_board5, next5, elim5);
-    EXPECT_EQ(state5->board(), board5);
-    EXPECT_EQ(state5->score_board(), score_board5);
-    EXPECT_FALSE(state5->has_piece_falling());
-    EXPECT_THROW(state5->piece(), std::logic_error);
-    EXPECT_THROW(state5->piece_position(), std::logic_error);
-    EXPECT_TRUE(state5->has_elimination_list());
-    EXPECT_EQ(state5->elimination_list(), elim5);
-    EXPECT_TRUE(state5->has_next());
-    EXPECT_EQ(state5->next(), next5);
+    state.to_falling(next, piece, position);
+    EXPECT_EQ(state.state(), EState::FALLING);
+    EXPECT_EQ(state.board(), *board);
+    EXPECT_EQ(state.score_board(), *score_board);
+    EXPECT_TRUE(state.has_piece_falling());
+    EXPECT_EQ(state.piece(), piece);
+    EXPECT_EQ(state.piece_position(), position);
+    EXPECT_FALSE(state.has_elimination_list());
+    EXPECT_THROW(state.elimination_list(), std::logic_error);
+    EXPECT_TRUE(state.has_next());
+    EXPECT_EQ(state.next(), next);
+}
 
-    const StatePtr state6 = mck::create_state(board6, score_board6, next6, elim6);
-    EXPECT_EQ(state6->board(), board6);
-    EXPECT_EQ(state6->score_board(), score_board6);
-    EXPECT_FALSE(state6->has_piece_falling());
-    EXPECT_THROW(state6->piece(), std::logic_error);
-    EXPECT_THROW(state6->piece_position(), std::logic_error);
-    EXPECT_TRUE(state6->has_elimination_list());
-    EXPECT_EQ(state6->elimination_list(), elim6);
-    EXPECT_TRUE(state6->has_next());
-    EXPECT_EQ(state6->next(), next6);
+TEST(StateTest, transition_still_falling) {
+    using namespace std::rel_ops;
+    const piece::SharedConstBoard board = std::make_shared<piece::Board>(10, 20);
+    SharedScoreBoard score_board = std::make_shared<ScoreBoard>(Score(25));
+    const piece::Piece next = piece::mck::create_piece_ascending(17);
+    const piece::Piece piece1 = piece::mck::create_piece_ascending(12);
+    const piece::Position position1(2);
+    const piece::Piece piece2 = piece::mck::create_piece_ascending(13);
+    const piece::Position position2(3);
 
-    auto p1 = mck::create_state(board1, score_board1);
-    auto p2 = mck::create_state(board2, score_board2);
-    EXPECT_EQ(*p1, *state1);
-    EXPECT_EQ(*p2, *state2);
-    EXPECT_NE(*p1, *state2);
-    EXPECT_NE(*p2, *state1);
+    State state(board, score_board);
+
+    state.to_falling(next, piece1, position1);
+
+    state.still_falling(piece2, position2);
+    EXPECT_EQ(state.state(), EState::FALLING);
+    EXPECT_EQ(state.score_board(), *score_board);
+    EXPECT_TRUE(state.has_piece_falling());
+    EXPECT_EQ(state.piece(), piece2);
+    EXPECT_EQ(state.piece_position(), position2);
+    EXPECT_FALSE(state.has_elimination_list());
+    EXPECT_THROW(state.elimination_list(), std::logic_error);
+    EXPECT_TRUE(state.has_next());
+    EXPECT_EQ(state.next(), next);
+}
+
+TEST(StateTest, transition_to_eliminating) {
+    using namespace std::rel_ops;
+    piece::SharedBoard board = std::make_shared<piece::Board>(10, 20);
+    SharedScoreBoard score_board = std::make_shared<ScoreBoard>(Score(25));
+    const piece::Piece next = piece::mck::create_piece_ascending(17);
+    const piece::Piece piece = piece::mck::create_piece_ascending(12);
+    const piece::Position position(2);
+
+    State state(board, score_board);
+    state.to_falling(next, piece, position);
+
+    board->at(9, 0) = gui::Color::BLUE;
+    board->at(9, 1) = gui::Color::BLUE;
+    board->at(9, 2) = gui::Color::BLUE;
+
+    EXPECT_FALSE(board->elimination_list().empty());
+
+    state.to_elimination();
+
+    EXPECT_EQ(state.state(), EState::ELIMINATING);
+    EXPECT_EQ(state.board(), *board);
+    EXPECT_EQ(state.score_board(), *score_board);
+    EXPECT_FALSE(state.has_piece_falling());
+    EXPECT_THROW(state.piece(), std::logic_error);
+    EXPECT_THROW(state.piece_position(), std::logic_error);
+    EXPECT_TRUE(state.has_elimination_list());
+    EXPECT_EQ(state.elimination_list(), board->elimination_list());
+    EXPECT_TRUE(state.has_next());
+    EXPECT_EQ(state.next(), next);
+}
+
+TEST(StateTest, transition_to_eliminated) {
+    using namespace std::rel_ops;
+    piece::SharedBoard board = std::make_shared<piece::Board>(10, 20);
+    SharedScoreBoard score_board = std::make_shared<ScoreBoard>(Score(25));
+    const piece::Piece next = piece::mck::create_piece_ascending(17);
+    const piece::Piece piece = piece::mck::create_piece_ascending(12);
+    const piece::Position position(2);
+
+    State state(board, score_board);
+    state.to_falling(next, piece, position);
+
+    EXPECT_TRUE(board->elimination_list().empty());
+
+    state.to_elimination();
+
+    EXPECT_EQ(state.state(), EState::ELIMINATED);
+    EXPECT_EQ(state.board(), *board);
+    EXPECT_EQ(state.score_board(), *score_board);
+    EXPECT_FALSE(state.has_piece_falling());
+    EXPECT_THROW(state.piece(), std::logic_error);
+    EXPECT_THROW(state.piece_position(), std::logic_error);
+    EXPECT_FALSE(state.has_elimination_list());
+    EXPECT_THROW(state.elimination_list(), std::logic_error);
+    EXPECT_TRUE(state.has_next());
+    EXPECT_EQ(state.next(), next);
 }
 }
 }

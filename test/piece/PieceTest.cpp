@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
+#include <array>
 #include <stdexcept>
 
 namespace piece {
@@ -21,7 +22,6 @@ TEST(PieceTest, create) {
         Color color = ::gui::mck::to_color(index_color);
         EXPECT_EQ(p1[i], color);
     }
-    EXPECT_THROW(p1[PIECE_SIZE], std::range_error);
 
     const Piece p2 = mck::create_piece_descending(15);
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
@@ -29,9 +29,15 @@ TEST(PieceTest, create) {
         Color color = ::gui::mck::to_color(index_color);
         EXPECT_EQ(p2[i], color);
     }
-    EXPECT_THROW(p2[PIECE_SIZE], std::range_error);
 
     ::mck::check_assignment(__FILE__, __LINE__, p1, p2);
+}
+
+TEST(PieceTest, create_constexpr) {
+    constexpr Piece piece(Color::RED, Color::GREEN, Color::BLUE);
+    EXPECT_EQ(piece[0], Color::RED);
+    EXPECT_EQ(piece[1], Color::GREEN);
+    EXPECT_EQ(piece[2], Color::BLUE);
 }
 
 TEST(PieceTest, swap) {
@@ -127,7 +133,7 @@ TEST(PieceTest, create_piece) {
 
     colors.emplace_back(gui::Color::LAVENDER);
     const auto p1 = Piece::create(colors);
-    EXPECT_EQ(p1, Piece(std::vector<gui::Color>(PIECE_SIZE, gui::Color::LAVENDER)));
+    EXPECT_EQ(p1, Piece(mck::create_piece_step(Color::LAVENDER, 0)));
 
     check_colors(__LINE__, colors);
 

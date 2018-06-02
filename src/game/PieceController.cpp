@@ -5,53 +5,37 @@
 #include <thread>
 
 namespace game {
-namespace {
-piece::Piece no_piece() {
-    return piece::Piece(std::vector<gui::Color>(piece::PIECE_SIZE, gui::Color::NONE));
-}
-}
-
-PieceController::PieceController(piece::SharedConstBoard board,
-      size_t max_sub_row)
+PieceController::PieceController(piece::SharedConstBoard board)
       : board_(board),
-        max_sub_row_(max_sub_row),
-        piece_(no_piece()),
-        position_(*board, 0, max_sub_row),
+        piece_(piece::NO_PIECE),
+        position_(0),
         steps_per_step_(1) {
 }
-const piece::PiecePosition& PieceController::position() const {
-    if (not has_piece())
-        throw std::runtime_error("PieceController::position - no piece falling");
+const piece::Position& PieceController::position() const {
     return position_;
 }
 
 const piece::Piece& PieceController::piece() const {
-    if (not has_piece())
-        throw std::runtime_error("PieceController::piece - no piece falling");
     return piece_;
 }
 
 void PieceController::add(const piece::Piece& piece, size_t column) {
     if (has_piece())
         throw std::runtime_error("PieceController::add - there is a piece falling");
-    if (board_->used(column, piece::PIECE_SIZE - 1))
-        throw std::runtime_error("PieceController::add - invalid column");
-    position_ = piece::PiecePosition(*board_, column, max_sub_row_);
+    position_ = piece::Position(column);
     piece_ = piece;
     steps_per_step_ = 1;
 }
 
-std::pair<piece::Piece, piece::PiecePosition> PieceController::remove() {
-    if (not has_piece())
-        throw std::runtime_error("PieceController::remove - no piece falling");
-    piece::Piece res = no_piece();
+std::pair<piece::Piece, piece::Position> PieceController::remove() {
+    piece::Piece res = piece::NO_PIECE;
     res.swap(piece_);
     return std::make_pair(res, position_);
 }
 
 void PieceController::process(EMessage message) {
     if (not has_piece())
-        throw std::runtime_error("PieceController::process - no piece falling");
+        return;
     switch (message) {
         case EMessage::MoveLeft:
             if (can_move_left())
@@ -77,7 +61,7 @@ void PieceController::process(EMessage message) {
 
 bool PieceController::step() {
     if (not has_piece())
-        throw std::runtime_error("PieceController::step - no piece falling");
+        return false;
     for (size_t i = 0; i < steps_per_step_; ++i) {
         if (not can_step_down())
             return false;

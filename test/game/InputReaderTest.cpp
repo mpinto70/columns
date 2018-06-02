@@ -1,7 +1,6 @@
 #include "InputReaderTest.h"
 
 #include "../mck/game/utilgame.h"
-#include "../mck/graphics/utilgraphics.h"
 
 #include <gmock/gmock.h>
 

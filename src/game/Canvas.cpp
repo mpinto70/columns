@@ -5,7 +5,7 @@
 namespace game {
 
 void Canvas::draw(const state::State& state) {
-    clear();
+    start();
     draw_(state.board());
     draw_(state.score_board());
     if (state.has_next()) {
@@ -17,5 +17,6 @@ void Canvas::draw(const state::State& state) {
     if (state.has_elimination_list()) {
         draw_(state.elimination_list());
     }
+    finish();
 }
 }

@@ -8,7 +8,7 @@ namespace mck {
 
 void prepare_state_draw(::testing::StrictMock<CanvasMock>& canvas_mock,
       const state::State& state) {
-    EXPECT_CALL(canvas_mock, clear()).Times(1);
+    EXPECT_CALL(canvas_mock, start()).Times(1);
     EXPECT_CALL(canvas_mock, draw_(state.board())).Times(1);
     EXPECT_CALL(canvas_mock, draw_(state.score_board())).Times(1);
     if (state.has_piece_falling()) {
@@ -20,6 +20,7 @@ void prepare_state_draw(::testing::StrictMock<CanvasMock>& canvas_mock,
     if (state.has_next()) {
         EXPECT_CALL(canvas_mock, draw_next_(state.next())).Times(1);
     }
+    EXPECT_CALL(canvas_mock, finish()).Times(1);
 }
 
 std::string to_string(EMessage input) {

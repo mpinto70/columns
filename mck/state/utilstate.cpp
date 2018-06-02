@@ -16,7 +16,10 @@ bool operator!=(const ScoreBoard& lhs, const ScoreBoard& rhs) {
 }
 
 bool operator==(const State& lhs, const State& rhs) {
-    if (*lhs.board() != *rhs.board()) {
+    if (lhs.state() != rhs.state()) {
+        return false;
+    }
+    if (lhs.board() != rhs.board()) {
         return false;
     }
     if (lhs.score_board() != rhs.score_board()) {
@@ -54,27 +57,12 @@ bool operator!=(const State& lhs, const State& rhs) {
 }
 
 namespace mck {
-StatePtr create_state(piece::SharedConstBoard board) {
-    return create_state(board, ScoreBoard{ Score{ 150 }, Score{ 20 } });
+State create_state_(piece::SharedConstBoard board, SharedConstScoreBoard score_board) {
+    return State(board, score_board);
 }
 
-StatePtr create_state(piece::SharedConstBoard board, const state::ScoreBoard& score_board) {
-    return std::make_unique<StateInitial>(board, score_board);
-}
-
-StatePtr create_state(piece::SharedConstBoard board,
-      const state::ScoreBoard& score_board,
-      const piece::Piece& next,
-      const piece::Piece& falling,
-      const piece::PiecePosition& position) {
-    return std::make_unique<StateFalling>(board, score_board, next, falling, position);
-}
-
-StatePtr create_state(piece::SharedConstBoard board,
-      const state::ScoreBoard& score_board,
-      const piece::Piece& next,
-      const piece::Board::EliminationList& elimination) {
-    return std::make_unique<StateElimination>(board, score_board, next, elimination);
+State create_state_(piece::SharedConstBoard board) {
+    return State(board, std::make_shared<ScoreBoard>(Score{ 150 }, Score{ 20 }));
 }
 }
 }

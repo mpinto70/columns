@@ -1,5 +1,4 @@
 set(game_srcs
-    BoardControllerTest.cpp
     CanvasTest.cpp
     ControllerTest.cpp
     InputReaderTest.cpp
@@ -10,13 +9,11 @@ set(game_srcs
 
 set(game_libs
     game_mck
-    graphics_mck
     state_mck
     piece_mck
     gui_mck
     util_mck
     game
-    graphics
     state
     piece
     gui

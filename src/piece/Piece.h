@@ -9,7 +9,7 @@ namespace piece {
 constexpr unsigned char PIECE_SIZE = 3; ///< number of tiles per piece
 /** Represents a piece of PIECE_SIZE colored tiles.
     \verbatim
-                                          Piece(gui::RED, gui::BLUE, gui:GREEN)
+                                          Piece(gui::RED, gui:GREEN, gui::BLUE)
      ___                                         ___
     |   |                                       |   |
     | 0 | <--- color 0                          | 0 | <--- RED
@@ -24,27 +24,35 @@ constexpr unsigned char PIECE_SIZE = 3; ///< number of tiles per piece
  */
 class Piece {
 public:
+    template <typename... T, std::enable_if_t<sizeof...(T) == PIECE_SIZE, int> = 0>
+    constexpr Piece(T&&... values)
+          : colors_{ std::forward<T>(values)... } {
+    }
+
     explicit Piece(const gui::Color (&colors)[PIECE_SIZE]);
-    explicit Piece(const std::vector<gui::Color>& colors);
 
     void swap(piece::Piece& other);
 
     /** @return color of the tile indexed by \p i.
-     * @param i index (0 <= i <= PIECE_SIZE)
-     * @throws std::invalid_argument if \p i is out of bounds
+     * @param i index (0 <= i < PIECE_SIZE)
      */
-    gui::Color operator[](unsigned char i) const;
+    constexpr gui::Color operator[](unsigned char i) const {
+        return colors_[i];
+    }
+
     void roll_up();
     void roll_down();
-    /** @return create a piece with random colors based on colors from \p possibles.
-     * @param possibles the allowed colors.
-     */
+
+    // TODO - remove this function
     static Piece create(const std::vector<gui::Color>& possibles);
 
+    friend bool operator==(const Piece& lhs, const Piece& rhs) {
+        return lhs.colors_ == rhs.colors_;
+    }
+
 private:
-    gui::Color colors_[PIECE_SIZE]; ///< the piece
-    friend bool operator==(const Piece& lhs, const Piece& rhs);
+    std::array<gui::Color, PIECE_SIZE> colors_; ///< the piece
 };
 
-typedef std::unique_ptr<Piece> PiecePtr;
+constexpr Piece NO_PIECE(gui::Color::NONE, gui::Color::NONE, gui::Color::NONE);
 }

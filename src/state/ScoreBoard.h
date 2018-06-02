@@ -2,6 +2,8 @@
 
 #include "state/Score.h"
 
+#include <memory>
+
 namespace state {
 /// Stores and processes score and record score
 class ScoreBoard {
@@ -20,4 +22,7 @@ private:
     Score record_;
     Score score_;
 };
+
+using SharedScoreBoard = std::shared_ptr<ScoreBoard>;
+using SharedConstScoreBoard = std::shared_ptr<const ScoreBoard>;
 }
