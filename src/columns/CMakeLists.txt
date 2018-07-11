@@ -1,4 +1,5 @@
 add_subdirectory (SDL)
+
 add_executable (
     columns
     columns.cpp
@@ -25,11 +26,11 @@ target_link_libraries (
     ${SDL2TTF_LIBRARIES}
     ${SDL2_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
-    graphics
     graphics_SDL
+    input_SDL
     gui
     game
     piece
-    score
+    state
     util
 )

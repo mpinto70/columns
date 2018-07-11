@@ -1,8 +1,15 @@
 #pragma once
 
-#include "game/State.h"
+#include "../mck/game/CanvasMock.h"
+
+#include "game/Messages.h"
 
 namespace game {
-bool operator==(const State& lhs, const State& rhs);
-bool operator!=(const State& lhs, const State& rhs);
+namespace mck {
+
+void prepare_state_draw(::testing::StrictMock<CanvasMock>& canvas_mock,
+      const state::State& state);
+
+std::string to_string(EMessage input);
+}
 }

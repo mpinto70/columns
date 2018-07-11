@@ -1,57 +1,53 @@
 #pragma once
 
-#include "graphics/Window.h"
-
 #include <SDL2/SDL.h>
+#include <string>
 #include <unistd.h>
 
 namespace graphics {
 
-class WindowSDL : public Window {
+using ColorTripletT = Uint8[3];
+
+class WindowSDL {
 public:
     WindowSDL(const std::string& name,
-          uint16_t left,
-          uint16_t top,
-          uint16_t width,
-          uint16_t height,
-          const gui::Color& color);
-    ~WindowSDL() override;
+          size_t left,
+          size_t top,
+          size_t width,
+          size_t height,
+          const ColorTripletT& color);
 
-    SDL_Window& window() const { return *window_; }
+    WindowSDL(const WindowSDL&) = delete;
+    WindowSDL& operator=(const WindowSDL&) = delete;
+    WindowSDL(WindowSDL&&) = delete;
+    WindowSDL& operator=(WindowSDL&&) = delete;
 
-    SDL_Renderer& renderer() { return *renderer_; }
+    void clear();
 
-    void clear() override;
+    void update();
 
-    void update() override;
+    void line(int x1,
+          int y1,
+          int x2,
+          int y2,
+          const ColorTripletT& color);
+
+    void rectangle(const SDL_Rect& rect, const ColorTripletT& color);
+
+    void fill(const SDL_Rect& rect, const ColorTripletT& color);
+
+    SDL_Rect write(const std::string& text,
+          int x,
+          int y,
+          const std::string& font_name,
+          int font_size,
+          const ColorTripletT& color);
 
 private:
+    size_t width_;
+    size_t height_;
     SDL_Window* window_;
     SDL_Renderer* renderer_;
-    gui::Color color_;
-
-    void line_(uint16_t x1,
-          uint16_t y1,
-          uint16_t x2,
-          uint16_t y2,
-          const gui::Color& color) override;
-
-    void rectangle_(uint16_t x1,
-          uint16_t y1,
-          uint16_t x2,
-          uint16_t y2,
-          const gui::Color& color) override;
-
-    void fill_(uint16_t x1,
-          uint16_t y1,
-          uint16_t x2,
-          uint16_t y2,
-          const gui::Color& color) override;
-
-    gui::Rectangle write_(const std::string& texto,
-          uint16_t x,
-          uint16_t y,
-          const gui::Font& fonte,
-          const gui::Color& color) override;
+    ColorTripletT color_;
 };
 }

@@ -1,10 +1,11 @@
-
 add_library(
     game
-    GameController.cpp
-    BoardController.cpp
-    Message.cpp
-    State.cpp
+    Canvas.cpp
+    Controller.cpp
+    InputReader.cpp
+    MatchController.cpp
+    PieceController.cpp
+    Messages.cpp
 )
 
 target_include_directories(

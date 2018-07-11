@@ -1,9 +1,9 @@
-
 add_library(
     piece
     Board.cpp
+    CreatorRandom.cpp
     Piece.cpp
-    PiecePosition.cpp
+    Position.cpp
 )
 
 target_include_directories(

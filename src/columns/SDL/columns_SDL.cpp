@@ -5,51 +5,11 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include <stdexcept>
+
 namespace columns {
 static std::string create_log_SDL(const std::string& preamble) {
     return preamble + " error: " + SDL_GetError();
-}
-
-graphics::SharedWindow create_window(const std::string& version,
-      size_t screen_width,
-      size_t screen_height) {
-    return std::make_shared<graphics::WindowSDL>("Columns " + version, 1000, 100, screen_width, screen_height, gui::GRAY);
-}
-
-InputResult process_input(game::MensagemPtr& messages) {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        //If user closes the window
-        if (event.type == SDL_QUIT) {
-            return InputResult::QUIT;
-        }
-        //If user presses any key
-        if (event.type == SDL_KEYDOWN) {
-            /* Check the SDLKey values and move change the coords */
-            switch (event.key.keysym.sym) {
-                case SDLK_LEFT:
-                    messages->add(game::EMessage::MoveLeft);
-                    break;
-                case SDLK_RIGHT:
-                    messages->add(game::EMessage::MoveRight);
-                    break;
-                case SDLK_UP:
-                    messages->add(game::EMessage::RollUp);
-                    break;
-                case SDLK_DOWN:
-                    messages->add(game::EMessage::RollDown);
-                    break;
-                case SDLK_SPACE:
-                    messages->add(game::EMessage::MoveDown);
-                    break;
-                case SDLK_ESCAPE:
-                    return InputResult::QUIT;
-                default:
-                    break;
-            }
-        }
-    }
-    return InputResult::CONTINUE;
 }
 
 void init_graphics() {

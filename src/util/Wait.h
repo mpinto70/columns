@@ -1,23 +1,22 @@
 #pragma once
 
-#include <cstdio>
-#include <sys/time.h>
+#include <chrono>
 
 namespace util {
 /// Responsible for assuring a certain time is elapsed.
 class Wait {
 public:
-    /// @param time_ns minimum time in milliseconds to wait
-    explicit Wait(size_t time_ms);
+    using Clock = std::chrono::high_resolution_clock;
+    /// @param wait_time the size of the wait
+    explicit Wait(Clock::duration wait_time);
     ~Wait() = default;
 
     void reset();
-    bool is_expired() const;
     void wait() const;
-    const timeval& end() const { return end_; }
+    Clock::time_point end() const { return end_; }
 
 private:
-    size_t wait_time_us_; ///< time to wait in microseconds
-    timeval end_;         ///< end time
+    Clock::duration wait_time_; ///< time to wait in microseconds
+    Clock::time_point end_;     ///< end time
 };
 }

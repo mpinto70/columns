@@ -1,7 +1,8 @@
 set(piece_srcs
     BoardTest.cpp
+    CreatorRandomTest.cpp
+    PositionTest.cpp
     PieceTest.cpp
-    PiecePositionTest.cpp
 )
 
 set(piece_libs

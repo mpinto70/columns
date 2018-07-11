@@ -1,4 +1,3 @@
-
 add_library(
     game_mck
     utilgame.cpp

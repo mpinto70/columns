@@ -1,10 +1,13 @@
+#include "../mck/gui/utilgui.h"
 #include "../mck/piece/utilpiece.h"
+#include "../mck/util/utiltest.h"
 
 #include "piece/Piece.h"
 
 #include <gtest/gtest.h>
 
 #include <algorithm>
+#include <array>
 #include <stdexcept>
 
 namespace piece {
@@ -15,37 +18,46 @@ using gui::Color;
 TEST(PieceTest, create) {
     const Piece p1 = mck::create_piece_ascending(0);
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        Color color(i, i, i);
+        size_t index_color = i % gui::mck::end_color();
+        Color color = ::gui::mck::to_color(index_color);
         EXPECT_EQ(p1[i], color);
     }
-    EXPECT_THROW(p1[PIECE_SIZE], std::range_error);
 
     const Piece p2 = mck::create_piece_descending(15);
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        Color color(15 - i, 15 - i, 15 - i);
+        size_t index_color = (15 - i) % gui::mck::end_color();
+        Color color = ::gui::mck::to_color(index_color);
         EXPECT_EQ(p2[i], color);
     }
-    EXPECT_THROW(p2[PIECE_SIZE], std::range_error);
 
-    Piece p3(p1);
-    for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        Color color(i, i, i);
-        EXPECT_EQ(p3[i], color);
-    }
-    EXPECT_THROW(p3[PIECE_SIZE], std::range_error);
-    EXPECT_EQ(p3, p1);
+    ::mck::check_assignment(__FILE__, __LINE__, p1, p2);
+}
 
-    p3 = p2;
-    for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        Color color(15 - i, 15 - i, 15 - i);
-        EXPECT_EQ(p3[i], color);
-    }
-    EXPECT_THROW(p3[PIECE_SIZE], std::range_error);
-    EXPECT_EQ(p3, p2);
+TEST(PieceTest, create_constexpr) {
+    constexpr Piece piece(Color::RED, Color::GREEN, Color::BLUE);
+    EXPECT_EQ(piece[0], Color::RED);
+    EXPECT_EQ(piece[1], Color::GREEN);
+    EXPECT_EQ(piece[2], Color::BLUE);
+}
 
-    Piece p4(p1);
-    EXPECT_EQ(p4, p1);
-    EXPECT_EQ(p3, p2);
+TEST(PieceTest, swap) {
+    Piece p1 = mck::create_piece_ascending(gui::mck::from_color(gui::Color::RED));
+    Piece p2 = mck::create_piece_descending(gui::mck::from_color(gui::Color::BLUE));
+    const Piece p1_backup = p1;
+    const Piece p2_backup = p2;
+
+    EXPECT_EQ(p1, p1_backup) << "precondition";
+    EXPECT_EQ(p2, p2_backup) << "precondition";
+
+    p1.swap(p2);
+
+    EXPECT_EQ(p1, p2_backup) << "there";
+    EXPECT_EQ(p2, p1_backup) << "there";
+
+    p1.swap(p2);
+
+    EXPECT_EQ(p1, p1_backup) << "and back again";
+    EXPECT_EQ(p2, p2_backup) << "and back again";
 }
 
 TEST(PieceTest, roll) {
@@ -56,18 +68,7 @@ TEST(PieceTest, roll) {
     }
 
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        const Color color(colors[i], colors[i], colors[i]);
-        EXPECT_EQ(p[i], color);
-        const Color color0(i, i, i);
-        EXPECT_EQ(p[i], color0);
-    }
-
-    p.roll_down();
-    for (unsigned char i = PIECE_SIZE - 1; i > 0; --i) { // rolling down
-        std::swap(colors[i], colors[i - 1]);
-    }
-    for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        const Color color(colors[i], colors[i], colors[i]);
+        const Color color = gui::mck::to_color(colors[i]);
         EXPECT_EQ(p[i], color);
     }
 
@@ -76,7 +77,16 @@ TEST(PieceTest, roll) {
         std::swap(colors[i], colors[i - 1]);
     }
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        const Color color(colors[i], colors[i], colors[i]);
+        const Color color = gui::mck::to_color(colors[i]);
+        EXPECT_EQ(p[i], color);
+    }
+
+    p.roll_down();
+    for (unsigned char i = PIECE_SIZE - 1; i > 0; --i) { // rolling down
+        std::swap(colors[i], colors[i - 1]);
+    }
+    for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
+        const Color color = gui::mck::to_color(colors[i]);
         EXPECT_EQ(p[i], color);
     }
 
@@ -85,7 +95,7 @@ TEST(PieceTest, roll) {
         std::swap(colors[i - 1], colors[i]);
     }
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        const Color color(colors[i], colors[i], colors[i]);
+        const Color color = gui::mck::to_color(colors[i]);
         EXPECT_EQ(p[i], color);
     }
 
@@ -95,10 +105,8 @@ TEST(PieceTest, roll) {
         std::swap(colors[i - 1], colors[i]);
     }
     for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        const Color color(colors[i], colors[i], colors[i]);
+        const Color color = gui::mck::to_color(colors[i]);
         EXPECT_EQ(p[i], color);
-        const Color color0(i, i, i);
-        EXPECT_EQ(p[i], color0);
     }
 }
 
@@ -123,20 +131,20 @@ void check_colors(const int line, const std::vector<gui::Color>& colors) {
 TEST(PieceTest, create_piece) {
     std::vector<gui::Color> colors;
 
-    colors.emplace_back(1, 2, 3);
+    colors.emplace_back(gui::Color::LAVENDER);
     const auto p1 = Piece::create(colors);
-    EXPECT_EQ(p1, Piece(std::vector<gui::Color>(PIECE_SIZE, { 1, 2, 3 })));
+    EXPECT_EQ(p1, Piece(mck::create_piece_step(Color::LAVENDER, 0)));
 
     check_colors(__LINE__, colors);
 
-    colors.emplace_back(1, 2, 3);
+    colors.emplace_back(gui::Color::LAVENDER);
     EXPECT_EQ(Piece::create(colors), p1);
     check_colors(__LINE__, colors);
 
-    colors.emplace_back(4, 5, 6);
+    colors.emplace_back(gui::Color::BLUE);
     check_colors(__LINE__, colors);
 
-    colors.emplace_back(10, 153, 12);
+    colors.emplace_back(gui::Color::GREEN);
     check_colors(__LINE__, colors);
 }
 }

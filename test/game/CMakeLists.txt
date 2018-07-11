@@ -1,16 +1,20 @@
 set(game_srcs
-    BoardControllerTest.cpp
-    MessageTest.cpp
-    StateTest.cpp
+    CanvasTest.cpp
+    ControllerTest.cpp
+    InputReaderTest.cpp
+    MatchControllerTest.cpp
+    PieceControllerTest.cpp
+    MessagesTest.cpp
 )
 
 set(game_libs
     game_mck
-    score_mck
+    state_mck
     piece_mck
     gui_mck
+    util_mck
     game
-    score
+    state
     piece
     gui
     util

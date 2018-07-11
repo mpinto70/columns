@@ -5,16 +5,18 @@
 #include <stdexcept>
 
 namespace graphics {
+
 WindowSDL::WindowSDL(const std::string& name,
-      const uint16_t left,
-      const uint16_t top,
-      const uint16_t width,
-      const uint16_t height,
-      const gui::Color& color)
-      : Window(name, width, height),
+      size_t left,
+      size_t top,
+      size_t width,
+      size_t height,
+      const ColorTripletT& color)
+      : width_(width),
+        height_(height),
         window_(nullptr),
         renderer_(nullptr),
-        color_(color) {
+        color_{ color[0], color[1], color[2] } {
     window_ = SDL_CreateWindow(name.c_str(), left, top, width, height, SDL_WINDOW_SHOWN);
     if (window_ == nullptr) {
         throw std::runtime_error("WindowSDL - error creating window: " + std::string(SDL_GetError()));
@@ -25,13 +27,8 @@ WindowSDL::WindowSDL(const std::string& name,
     }
 }
 
-WindowSDL::~WindowSDL() {
-    SDL_DestroyRenderer(renderer_);
-    SDL_DestroyWindow(window_);
-}
-
 void WindowSDL::clear() {
-    if (SDL_SetRenderDrawColor(renderer_, color_.R, color_.G, color_.B, SDL_ALPHA_OPAQUE) != 0) {
+    if (SDL_SetRenderDrawColor(renderer_, color_[0], color_[1], color_[2], SDL_ALPHA_OPAQUE) != 0) {
         throw std::runtime_error("WindowSDL::clear - SDL_SetRenderDrawColor error");
     }
     if (SDL_RenderClear(renderer_) != 0) {
@@ -43,89 +40,81 @@ void WindowSDL::update() {
     SDL_RenderPresent(renderer_);
 }
 
-void WindowSDL::line_(const uint16_t x1,
-      const uint16_t y1,
-      const uint16_t x2,
-      const uint16_t y2,
-      const gui::Color& color) {
-    if (SDL_SetRenderDrawColor(renderer_, color.R, color.G, color.B, SDL_ALPHA_OPAQUE) != 0) {
-        throw std::runtime_error("WindowSDL::linha_ - erro no SDL_SetRenderDrawColor");
+void WindowSDL::line(int x1,
+      int y1,
+      int x2,
+      int y2,
+      const ColorTripletT& sdl_color) {
+    if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
+        throw std::runtime_error("WindowSDL::line - error no SDL_SetRenderDrawColor");
     }
 
     if (SDL_RenderDrawLine(renderer_, x1, y1, x2, y2) != 0) {
-        throw std::runtime_error("WindowSDL::linha_ - erro no SDL_RenderDrawLine");
+        throw std::runtime_error("WindowSDL::line - error no SDL_RenderDrawLine");
     }
 }
 
-void WindowSDL::rectangle_(const uint16_t x1,
-      const uint16_t y1,
-      const uint16_t x2,
-      const uint16_t y2,
-      const gui::Color& color) {
-    const SDL_Rect rect = { x1, y1, x2 - x1 + 1, y2 - y1 + 1 };
-    if (SDL_SetRenderDrawColor(renderer_, color.R, color.G, color.B, SDL_ALPHA_OPAQUE) != 0) {
-        throw std::runtime_error("WindowSDL::retangulo_ - erro no SDL_SetRenderDrawColor");
+void WindowSDL::rectangle(const SDL_Rect& rect, const ColorTripletT& color) {
+    if (SDL_SetRenderDrawColor(renderer_, color[0], color[1], color[2], SDL_ALPHA_OPAQUE) != 0) {
+        throw std::runtime_error("WindowSDL::rectangle - error no SDL_SetRenderDrawColor");
     }
     if (SDL_RenderDrawRect(renderer_, &rect)) {
-        throw std::runtime_error("WindowSDL::retangulo_ - erro no SDL_RenderDrawRect");
+        throw std::runtime_error("WindowSDL::rectangle - error no SDL_RenderDrawRect");
     }
 }
 
-void WindowSDL::fill_(const uint16_t x1,
-      const uint16_t y1,
-      const uint16_t x2,
-      const uint16_t y2,
-      const gui::Color& color) {
-    const SDL_Rect rect = { x1, y1, x2 - x1 + 1, y2 - y1 + 1 };
-    if (SDL_SetRenderDrawColor(renderer_, color.R, color.G, color.B, SDL_ALPHA_OPAQUE) != 0) {
-        throw std::runtime_error("WindowSDL::preenche_ - erro no SDL_SetRenderDrawColor");
+void WindowSDL::fill(const SDL_Rect& rect, const ColorTripletT& color) {
+    if (SDL_SetRenderDrawColor(renderer_, color[0], color[1], color[2], SDL_ALPHA_OPAQUE) != 0) {
+        throw std::runtime_error("WindowSDL::fill - error no SDL_SetRenderDrawColor");
     }
     if (SDL_RenderFillRect(renderer_, &rect) != 0) {
-        throw std::runtime_error("WindowSDL::preenche_ - erro no SDL_RenderFillRect");
+        throw std::runtime_error("WindowSDL::fill - error no SDL_RenderFillRect");
     }
 }
 
-gui::Rectangle WindowSDL::write_(const std::string& texto,
-      const uint16_t x,
-      const uint16_t y,
-      const gui::Font& fonte,
-      const gui::Color& color) {
+SDL_Rect WindowSDL::write(const std::string& text,
+      int x,
+      int y,
+      const std::string& font_name,
+      int font_size,
+      const ColorTripletT& color) {
     TTF_Font* font = nullptr;
     SDL_Surface* surface = nullptr;
     SDL_Texture* texture = nullptr;
-    gui::Rectangle res(0, 0, 0, 0);
     try {
-        const SDL_Color sdl_color = { color.R, color.G, color.B };
-        font = TTF_OpenFont(fonte.name().c_str(), fonte.size());
+        const SDL_Color sdl_color = { color[0], color[1], color[2] };
+
+        font = TTF_OpenFont(font_name.c_str(), font_size);
         if (font == nullptr) {
-            throw std::runtime_error("WindowSDL::write_ - opening font " + fonte.name());
+            throw std::runtime_error("WindowSDL::write - opening font " + font_name);
         }
 
         //We need to first render to a surface as that's what TTF_RenderText
         //returns, then load that surface into a texture
-        surface = TTF_RenderText_Blended(font, texto.c_str(), sdl_color);
+        surface = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
         if (surface == nullptr) {
-            throw std::runtime_error("WindowSDL::write_ - getting the surface " + texto);
+            throw std::runtime_error("WindowSDL::write - getting the surface " + text);
         }
 
         texture = SDL_CreateTextureFromSurface(renderer_, surface);
         if (texture == nullptr) {
-            throw std::runtime_error("WindowSDL::write_ - getting the texture");
+            throw std::runtime_error("WindowSDL::write - getting the texture");
         }
 
         //Get the texture w/h so we can center it in the screen
-        SDL_Rect dst;
-        dst.x = x;
-        dst.y = y;
+        SDL_Rect dst = { x, y, 0, 0 };
         //Query the texture to get its width and height to use
         if (SDL_QueryTexture(texture, nullptr, nullptr, &dst.w, &dst.h) != 0) {
-            throw std::runtime_error("WindowSDL::write_ - SDL_QueryTexture error");
+            throw std::runtime_error("WindowSDL::write - SDL_QueryTexture error");
         }
 
-        res = gui::Rectangle(x, y, x + dst.w, y + dst.h);
-        if (SDL_RenderCopy(renderer_, texture, NULL, &dst) != 0) {
-            throw std::runtime_error("WindowSDL::write_ - SDL_RenderCopy error");
+        if (SDL_RenderCopy(renderer_, texture, nullptr, &dst) != 0) {
+            throw std::runtime_error("WindowSDL::write - SDL_RenderCopy error");
         }
+        SDL_FreeSurface(surface);
+        TTF_CloseFont(font);
+        SDL_DestroyTexture(texture);
+        return dst;
     } catch (...) {
         //Clean up the surface and font
         if (surface != nullptr) {
@@ -139,9 +128,5 @@ gui::Rectangle WindowSDL::write_(const std::string& texto,
         }
         throw;
     }
-    SDL_FreeSurface(surface);
-    TTF_CloseFont(font);
-    SDL_DestroyTexture(texture);
-    return res;
 }
 }

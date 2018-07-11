@@ -1,8 +1,6 @@
 set(gui_srcs
     ColorTest.cpp
     FontTest.cpp
-    PointTest.cpp
-    RectangleTest.cpp
 )
 
 set(gui_libs
