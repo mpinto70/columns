@@ -26,6 +26,7 @@ private:
     int board_width_;
     int board_height_;
     int score_left_;
+    int next_piece_heigt_;
 
     void start() override;
     void draw_(const piece::Board& board) override;

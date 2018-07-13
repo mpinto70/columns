@@ -54,10 +54,6 @@ const piece::Board::EliminationList& State::elimination_list() const {
     return elimination_list_;
 }
 
-void State::to_clean() {
-    state_ = EState::CLEAN;
-}
-
 void State::to_falling(const piece::Piece& next,
       const piece::Piece& falling,
       const piece::Position& position) {

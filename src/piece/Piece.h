@@ -43,9 +43,6 @@ public:
     void roll_up();
     void roll_down();
 
-    // TODO - remove this function
-    static Piece create(const std::vector<gui::Color>& possibles);
-
     friend bool operator==(const Piece& lhs, const Piece& rhs) {
         return lhs.colors_ == rhs.colors_;
     }

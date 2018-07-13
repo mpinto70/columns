@@ -39,7 +39,6 @@ public:
     /// @throw std::logic_error by default
     const piece::Board::EliminationList& elimination_list() const;
 
-    void to_clean();
     void to_falling(const piece::Piece& next,
           const piece::Piece& falling,
           const piece::Position& position);

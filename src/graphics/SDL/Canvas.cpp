@@ -69,8 +69,6 @@ void darken(ColorTripletT& out, const ColorTripletT& color, int percent) {
 constexpr int STEP_SIZE = 8;
 constexpr int TILE_SIZE = STEP_SIZE * (piece::Position::SUBDIVISIONS + 1);
 constexpr int BORDER_WIDTH = 5;
-constexpr int SCORE_WIDTH = 150;
-constexpr int SCORE_HEIGHT = 80;
 constexpr int INNER_SPACE = 10;
 constexpr int TOP_MARGIN = 50;
 constexpr int LEFT_MARGIN = 15;
@@ -79,6 +77,10 @@ constexpr int BOTTOM_MARGIN = 75;
 constexpr int BOARD_TOP = TOP_MARGIN + BORDER_WIDTH;
 constexpr int BOARD_LEFT = LEFT_MARGIN + BORDER_WIDTH;
 constexpr int SCORE_TOP = TOP_MARGIN + BORDER_WIDTH + 50;
+constexpr int SCORE_WIDTH = 150;
+constexpr int SCORE_HEIGHT = 80;
+constexpr int NEXT_PIECE_TOP = SCORE_TOP + SCORE_HEIGHT + 20;
+constexpr int NEXT_PIECE_WIDTH = SCORE_WIDTH;
 
 int score_left(const piece::Board& board) {
     return LEFT_MARGIN
@@ -129,6 +131,16 @@ void draw_tile(WindowSDL& window,
       const int y1) {
     const ColorTripletT& sdl_color = COLORS[static_cast<unsigned int>(color)];
     draw_tile(window, sdl_color, x1, y1);
+}
+
+void draw_piece(WindowSDL& window,
+      const piece::Piece& piece,
+      const int x1,
+      int y1) {
+    for (size_t t = 0; t < piece::PIECE_SIZE; ++t) {
+        draw_tile(window, piece[t], x1, y1);
+        y1 += TILE_SIZE;
+    }
 }
 
 void draw_frame(WindowSDL& window,
@@ -183,7 +195,8 @@ Canvas::Canvas(const piece::Board& board,
         font_score_(font_score),
         board_width_(board.width() * TILE_SIZE),
         board_height_(board.height() * TILE_SIZE),
-        score_left_(score_left(board)) {
+        score_left_(score_left(board)),
+        next_piece_heigt_(20 + piece::PIECE_SIZE * TILE_SIZE) {
 }
 
 Canvas::~Canvas() = default;
@@ -236,13 +249,25 @@ void Canvas::draw_(const piece::Board& board) {
 void Canvas::draw_(const piece::Piece& piece, const piece::Position& piece_position) {
     const int x1 = calculate_x(piece_position.column());
     int y1 = calculate_y(piece_position.row(), piece_position.sub_row());
-    for (size_t t = 0; t < piece::PIECE_SIZE; ++t) {
-        draw_tile(window_, piece[t], x1, y1);
-        y1 += TILE_SIZE;
-    }
+    draw_piece(window_, piece, x1, y1);
 }
 
 void Canvas::draw_next_(const piece::Piece& next_piece) {
+    const SDL_Rect rect = { score_left_, NEXT_PIECE_TOP, NEXT_PIECE_WIDTH, next_piece_heigt_ };
+    window_.fill(rect, WHITE);
+
+    draw_frame(window_,
+          score_left_,
+          NEXT_PIECE_TOP,
+          score_left_ + NEXT_PIECE_WIDTH,
+          NEXT_PIECE_TOP + next_piece_heigt_,
+          BORDER_WIDTH - 1,
+          GRAY_MEDIUM,
+          GRAY_BLACK);
+
+    const int x1 = score_left_ + (NEXT_PIECE_WIDTH - TILE_SIZE) / 2;
+    int y1 = NEXT_PIECE_TOP + 10;
+    draw_piece(window_, next_piece, x1, y1);
 }
 
 void Canvas::draw_(const state::ScoreBoard& score_board) {

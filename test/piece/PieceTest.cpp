@@ -109,43 +109,5 @@ TEST(PieceTest, roll) {
         EXPECT_EQ(p[i], color);
     }
 }
-
-namespace {
-void check_colors(const int line,
-      const Piece& p,
-      const std::vector<gui::Color>& colors) {
-    for (unsigned char i = 0; i < PIECE_SIZE; ++i) {
-        const auto& color = p[i];
-        EXPECT_TRUE(std::find(colors.cbegin(), colors.cend(), color) != colors.cend()) << line;
-    }
-}
-
-void check_colors(const int line, const std::vector<gui::Color>& colors) {
-    for (unsigned char i = 0; i < 100; ++i) {
-        const auto p = Piece::create(colors);
-        check_colors(line, p, colors);
-    }
-}
-}
-
-TEST(PieceTest, create_piece) {
-    std::vector<gui::Color> colors;
-
-    colors.emplace_back(gui::Color::LAVENDER);
-    const auto p1 = Piece::create(colors);
-    EXPECT_EQ(p1, Piece(mck::create_piece_step(Color::LAVENDER, 0)));
-
-    check_colors(__LINE__, colors);
-
-    colors.emplace_back(gui::Color::LAVENDER);
-    EXPECT_EQ(Piece::create(colors), p1);
-    check_colors(__LINE__, colors);
-
-    colors.emplace_back(gui::Color::BLUE);
-    check_colors(__LINE__, colors);
-
-    colors.emplace_back(gui::Color::GREEN);
-    check_colors(__LINE__, colors);
-}
 }
 }

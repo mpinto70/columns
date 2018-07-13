@@ -24,7 +24,7 @@ PieceController PieceControllerTest::create_controller_with_piece(size_t column,
       size_t width,
       size_t height) {
     PieceController controller = create_controller(width, height);
-    piece::Piece piece = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
+    piece::Piece piece = piece::mck::create_piece_ascending(2);
     controller.add(piece, column);
     return controller;
 }
@@ -49,7 +49,7 @@ TEST_F(PieceControllerTest, create_there_is_no_piece) {
 
 TEST_F(PieceControllerTest, add_piece) {
     PieceController controller = create_controller();
-    piece::Piece piece = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
+    piece::Piece piece = piece::mck::create_piece_ascending(3);
     controller.add(piece, 2);
     EXPECT_TRUE(controller.has_piece());
     EXPECT_EQ(controller.position().row(), 0u);
@@ -279,7 +279,7 @@ TEST_F(PieceControllerTest, accelerated_steps_does_not_overflow) {
 
 TEST_F(PieceControllerTest, remove_with_added_piece_removes) {
     PieceController controller = create_controller(8, 16);
-    piece::Piece added = piece::Piece::create({ gui::Color::YELLOW, gui::Color::BLUE, gui::Color::RED });
+    piece::Piece added = piece::mck::create_piece_ascending(4);
     piece::Position position(3);
     controller.add(added, 3);
     EXPECT_TRUE(controller.has_piece());
