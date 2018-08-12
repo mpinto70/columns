@@ -27,24 +27,16 @@ TEST(StateTest, create_puts_in_initial) {
     EXPECT_EQ(state1.board(), *board1);
     EXPECT_EQ(state1.score_board(), *score_board1);
     EXPECT_FALSE(state1.has_piece_falling());
-    EXPECT_THROW(state1.piece(), std::logic_error);
-    EXPECT_THROW(state1.piece_position(), std::logic_error);
     EXPECT_FALSE(state1.has_elimination_list());
-    EXPECT_THROW(state1.elimination_list(), std::logic_error);
     EXPECT_FALSE(state1.has_next());
-    EXPECT_THROW(state1.next(), std::logic_error);
 
     const State state2(board2, score_board2);
     EXPECT_EQ(state2.state(), EState::CLEAN);
     EXPECT_EQ(state2.board(), *board2);
     EXPECT_EQ(state2.score_board(), *score_board2);
     EXPECT_FALSE(state2.has_piece_falling());
-    EXPECT_THROW(state2.piece(), std::logic_error);
-    EXPECT_THROW(state2.piece_position(), std::logic_error);
     EXPECT_FALSE(state2.has_elimination_list());
-    EXPECT_THROW(state2.elimination_list(), std::logic_error);
     EXPECT_FALSE(state2.has_next());
-    EXPECT_THROW(state2.next(), std::logic_error);
 }
 
 TEST(StateTest, transition_to_falling) {
@@ -65,7 +57,6 @@ TEST(StateTest, transition_to_falling) {
     EXPECT_EQ(state.piece(), piece);
     EXPECT_EQ(state.piece_position(), position);
     EXPECT_FALSE(state.has_elimination_list());
-    EXPECT_THROW(state.elimination_list(), std::logic_error);
     EXPECT_TRUE(state.has_next());
     EXPECT_EQ(state.next(), next);
 }
@@ -91,7 +82,6 @@ TEST(StateTest, transition_still_falling) {
     EXPECT_EQ(state.piece(), piece2);
     EXPECT_EQ(state.piece_position(), position2);
     EXPECT_FALSE(state.has_elimination_list());
-    EXPECT_THROW(state.elimination_list(), std::logic_error);
     EXPECT_TRUE(state.has_next());
     EXPECT_EQ(state.next(), next);
 }
@@ -119,8 +109,6 @@ TEST(StateTest, transition_to_eliminating) {
     EXPECT_EQ(state.board(), *board);
     EXPECT_EQ(state.score_board(), *score_board);
     EXPECT_FALSE(state.has_piece_falling());
-    EXPECT_THROW(state.piece(), std::logic_error);
-    EXPECT_THROW(state.piece_position(), std::logic_error);
     EXPECT_TRUE(state.has_elimination_list());
     EXPECT_EQ(state.elimination_list(), board->elimination_list());
     EXPECT_TRUE(state.has_next());
@@ -146,10 +134,7 @@ TEST(StateTest, transition_to_eliminated) {
     EXPECT_EQ(state.board(), *board);
     EXPECT_EQ(state.score_board(), *score_board);
     EXPECT_FALSE(state.has_piece_falling());
-    EXPECT_THROW(state.piece(), std::logic_error);
-    EXPECT_THROW(state.piece_position(), std::logic_error);
     EXPECT_FALSE(state.has_elimination_list());
-    EXPECT_THROW(state.elimination_list(), std::logic_error);
     EXPECT_TRUE(state.has_next());
     EXPECT_EQ(state.next(), next);
 }

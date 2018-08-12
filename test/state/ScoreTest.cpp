@@ -56,14 +56,16 @@ TEST(ScoreTest, add_invalid) {
     EXPECT_EQ(p.total(), 9u);
 
     for (size_t i = 0; i < 3; ++i) {
-        EXPECT_THROW(p.add(i), std::invalid_argument) << i;
-        EXPECT_EQ(p.total(), 9u);
+        p.add(i); // won't add
+        EXPECT_EQ(p.total(), 9u) << i;
     }
 
-    EXPECT_NO_THROW(p.add(3));
+    p.add(3);
+    EXPECT_EQ(p.total(), 10u);
+
 
     p = Score(std::numeric_limits<size_t>::max());
-    EXPECT_THROW(p.add(3), std::invalid_argument);
+    p.add(3);
     EXPECT_EQ(p.total(), std::numeric_limits<size_t>::max());
 }
 
