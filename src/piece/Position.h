@@ -19,12 +19,9 @@ public:
     constexpr size_t row() const { return row_; }
     constexpr size_t sub_row() const { return sub_row_; }
 
-    /** step down.
-     * @throw std::logic_error if it is not possible to step down
-     */
     void step_down();
-    void move_left();
-    void move_right();
+    void move_left() { --column_; }
+    void move_right() { ++column_; }
 
 private:
     size_t column_;  ///< column where the piece is

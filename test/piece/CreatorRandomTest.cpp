@@ -56,9 +56,9 @@ TEST(CreatorRandomTest, column_specific) {
     CreatorPtr creator = std::make_unique<CreatorRandom>(board, possibles);
     piece::mck::fill_board(*board, piece::PIECE_SIZE - 1);
     for (size_t c = 0; c < board->width(); ++c) {
-        board->at(c, piece::PIECE_SIZE - 1) = gui::Color::NONE;
+        board->tile(c, piece::PIECE_SIZE - 1) = gui::Color::NONE;
         EXPECT_EQ(creator->column(), c);
-        board->at(c, piece::PIECE_SIZE - 1) = gui::Color::RED;
+        board->tile(c, piece::PIECE_SIZE - 1) = gui::Color::RED;
         EXPECT_THROW(creator->column(), std::runtime_error);
     }
 }

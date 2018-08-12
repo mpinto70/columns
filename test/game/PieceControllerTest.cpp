@@ -33,7 +33,7 @@ void PieceControllerTest::fill_column(size_t column,
       size_t initial_row,
       gui::Color color) {
     for (size_t r = initial_row; r < board->height(); ++r) {
-        board->at(column, r) = color;
+        board->tile(column, r) = color;
     }
 }
 

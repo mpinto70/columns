@@ -107,9 +107,9 @@ TEST(StateTest, transition_to_eliminating) {
     State state(board, score_board);
     state.to_falling(next, piece, position);
 
-    board->at(9, 0) = gui::Color::BLUE;
-    board->at(9, 1) = gui::Color::BLUE;
-    board->at(9, 2) = gui::Color::BLUE;
+    board->tile(9, 0) = gui::Color::BLUE;
+    board->tile(9, 1) = gui::Color::BLUE;
+    board->tile(9, 2) = gui::Color::BLUE;
 
     EXPECT_FALSE(board->elimination_list().empty());
 

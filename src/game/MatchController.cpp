@@ -25,7 +25,7 @@ void MatchController::tick() {
                 const auto& piece = removed.first;
                 const auto& position = removed.second;
                 for (size_t i = 0; i < piece::PIECE_SIZE; ++i) {
-                    board_->at(position.column(), position.row() + i) = piece[i];
+                    board_->tile(position.column(), position.row() + i) = piece[i];
                 }
                 state_.to_elimination();
             }

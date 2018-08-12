@@ -24,7 +24,7 @@ constexpr unsigned char PIECE_SIZE = 3; ///< number of tiles per piece
  */
 class Piece {
 public:
-    template <typename... T, std::enable_if_t<sizeof...(T) == PIECE_SIZE, int> = 0>
+    template <typename... T, std::enable_if_t<sizeof...(T) == PIECE_SIZE>* = nullptr>
     constexpr Piece(T&&... values)
           : colors_{ std::forward<T>(values)... } {
     }
@@ -36,9 +36,7 @@ public:
     /** @return color of the tile indexed by \p i.
      * @param i index (0 <= i < PIECE_SIZE)
      */
-    constexpr gui::Color operator[](unsigned char i) const {
-        return colors_[i];
-    }
+    constexpr gui::Color operator[](unsigned char i) const { return colors_[i]; }
 
     void roll_up();
     void roll_down();
