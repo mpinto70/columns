@@ -27,12 +27,12 @@ public:
      * @param c column index
      * @param r row index
      */
-    gui::Color at(size_t c, size_t r) const;
+    gui::Color tile(size_t c, size_t r) const { return tiles_[index(c, r)]; }
     /** @return writable square in position (c, r).
      * @param c column index
      * @param r row index
      */
-    gui::Color& at(size_t c, size_t r);
+    gui::Color& tile(size_t c, size_t r) { return tiles_[index(c, r)]; }
     /// @return board width
     size_t width() const { return width_; }
     /// @return board height
@@ -53,14 +53,9 @@ private:
     size_t width_;                  ///< board width
     size_t height_;                 ///< board height
 
-    void check_overflow(size_t c, size_t r) const;
-
     size_t index(size_t c, size_t r) const {
         return r * width_ + c;
     }
-
-    gui::Color tile(size_t c, size_t r) const;
-    gui::Color& tile(size_t c, size_t r);
 
     bool has_horizontal_triplet(size_t c,
           size_t r,

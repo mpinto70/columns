@@ -19,21 +19,11 @@ Board::Board(const size_t w,
     }
 }
 
-gui::Color Board::at(const size_t c, const size_t r) const {
-    check_overflow(c, r);
-    return tiles_[index(c, r)];
-}
-
-gui::Color& Board::at(const size_t c, const size_t r) {
-    check_overflow(c, r);
-    return tiles_[index(c, r)];
-}
-
 void Board::remove(const size_t c, const size_t r) {
     for (size_t j = r; j > 0; --j) {
-        at(c, j) = at(c, j - 1);
+        tile(c, j) = tile(c, j - 1);
     }
-    at(c, 0) = gui::Color::NONE;
+    tile(c, 0) = gui::Color::NONE;
 }
 
 void Board::remove(const EliminationList& elimination_list) {
@@ -43,7 +33,7 @@ void Board::remove(const EliminationList& elimination_list) {
 }
 
 bool Board::used(const size_t c, const size_t r) const {
-    return at(c, r) != gui::Color::NONE;
+    return tile(c, r) != gui::Color::NONE;
 }
 
 Board::EliminationList Board::elimination_list() const {
@@ -52,7 +42,7 @@ Board::EliminationList Board::elimination_list() const {
     for (size_t i = 0; i < width_; ++i) {
         for (size_t j = 0; j < height_; ++j) {
             if (used(i, j)) {
-                const auto color = at(i, j);
+                const auto color = tile(i, j);
                 if (has_horizontal_triplet(i, j, color)) {
                     add_horizontal_triplet(res, i, j);
                 }
@@ -72,23 +62,6 @@ Board::EliminationList Board::elimination_list() const {
     res.erase(std::unique(res.begin(), res.end()), res.end());
 
     return res;
-}
-
-void Board::check_overflow(size_t c, size_t r) const {
-    if (c >= width_) {
-        throw std::invalid_argument("Board::at - column overflow " + std::to_string(c));
-    }
-    if (r >= height_) {
-        throw std::invalid_argument("Board::at - row overflow " + std::to_string(r));
-    }
-}
-
-gui::Color Board::tile(const size_t c, const size_t r) const {
-    return tiles_[index(c, r)];
-}
-
-gui::Color& Board::tile(const size_t c, const size_t r) {
-    return tiles_[index(c, r)];
 }
 
 bool Board::has_horizontal_triplet(size_t c,

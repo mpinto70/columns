@@ -16,7 +16,6 @@ void Messages::clear() {
     List empty;
     auto lock = std::unique_lock<std::mutex>{ message_mutex_ };
     messages_.swap(empty);
-    lock.unlock();
 }
 
 Messages::List Messages::get() {

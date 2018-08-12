@@ -11,12 +11,4 @@ void Position::step_down() {
         ++row_;
     }
 }
-
-void Position::move_left() {
-    --column_;
-}
-
-void Position::move_right() {
-    ++column_;
-}
 }

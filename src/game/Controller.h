@@ -26,6 +26,5 @@ private:
     state::ScoreBoard score_board_;
 
     void process_inputs();
-    void process_input(EMessage input);
 };
 }

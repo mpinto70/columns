@@ -19,9 +19,6 @@ bool State::has_next() const {
 }
 
 const piece::Piece& State::next() const {
-    if (not has_next()) {
-        throw std::logic_error("State::next - no next");
-    }
     return next_;
 }
 
@@ -30,16 +27,10 @@ bool State::has_piece_falling() const {
 }
 
 const piece::Position& State::piece_position() const {
-    if (not has_piece_falling()) {
-        throw std::logic_error("State::piece_position - no piece falling");
-    }
     return piece_position_;
 }
 
 const piece::Piece& State::piece() const {
-    if (not has_piece_falling()) {
-        throw std::logic_error("State::piece - no piece falling");
-    }
     return piece_;
 }
 
@@ -48,18 +39,12 @@ bool State::has_elimination_list() const {
 }
 
 const piece::Board::EliminationList& State::elimination_list() const {
-    if (not has_elimination_list()) {
-        throw std::logic_error("State::elimination_list - no elimination list");
-    }
     return elimination_list_;
 }
 
 void State::to_falling(const piece::Piece& next,
       const piece::Piece& falling,
       const piece::Position& position) {
-    if (state_ == EState::FALLING) {
-        throw std::logic_error("State::to_falling - already falling");
-    }
     next_ = next;
     piece_ = falling;
     piece_position_ = position;
@@ -68,18 +53,12 @@ void State::to_falling(const piece::Piece& next,
 
 void State::still_falling(const piece::Piece& falling,
       const piece::Position& position) {
-    if (state_ != EState::FALLING) {
-        throw std::logic_error("State::still_falling - invalid source state");
-    }
     piece_ = falling;
     piece_position_ = position;
     state_ = EState::FALLING;
 }
 
 void State::to_elimination() {
-    if (state_ != EState::FALLING && state_ != EState::ELIMINATING) {
-        throw std::logic_error("State::to_eliminating - invalid source state");
-    }
     elimination_list_ = board_->elimination_list();
     if (elimination_list_.empty())
         state_ = EState::ELIMINATED;

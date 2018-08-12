@@ -240,7 +240,7 @@ void Canvas::draw_(const piece::Board& board) {
             if (board.used(c, r)) {
                 const int x1 = calculate_x(c);
                 const int y1 = calculate_y(r);
-                draw_tile(window_, board.at(c, r), x1, y1);
+                draw_tile(window_, board.tile(c, r), x1, y1);
             }
         }
     }

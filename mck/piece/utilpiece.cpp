@@ -71,7 +71,7 @@ std::unique_ptr<Board> dup(const Board& rhs) {
     auto other = std::make_unique<Board>(rhs.width(), rhs.height());
     for (size_t r = 0; r < rhs.height(); ++r) {
         for (size_t c = 0; c < rhs.width(); ++c) {
-            other->at(c, r) = rhs.at(c, r);
+            other->tile(c, r) = rhs.tile(c, r);
         }
     }
     return std::move(other);
@@ -80,7 +80,7 @@ std::unique_ptr<Board> dup(const Board& rhs) {
 void fix(Board& board, const Piece& piece, const Position& position) {
     const size_t column = position.column();
     for (size_t i = 0; i < piece::PIECE_SIZE; ++i) {
-        board.at(column, position.row() + i) = piece[i];
+        board.tile(column, position.row() + i) = piece[i];
     }
 }
 
@@ -88,7 +88,7 @@ void fill_column(Board& board, size_t column, size_t first_row) {
     if (column >= board.width())
         throw std::runtime_error("fill - invalid column");
     for (size_t r = first_row; r < board.height(); ++r) {
-        board.at(column, r) = gui::Color::BLUE;
+        board.tile(column, r) = gui::Color::BLUE;
     }
 }
 
@@ -120,7 +120,7 @@ void print_board(const std::string& file,
     printf("%s\n", separator.c_str());
     for (size_t l = 0; l < board.height(); ++l) {
         for (size_t c = 0; c < board.width(); ++c) {
-            gui::Color color = board.at(c, l);
+            gui::Color color = board.tile(c, l);
             gui::mck::print(color);
         }
         printf("\n");

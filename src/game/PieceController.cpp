@@ -20,8 +20,6 @@ const piece::Piece& PieceController::piece() const {
 }
 
 void PieceController::add(const piece::Piece& piece, size_t column) {
-    if (has_piece())
-        throw std::runtime_error("PieceController::add - there is a piece falling");
     position_ = piece::Position(column);
     piece_ = piece;
     steps_per_step_ = 1;
@@ -75,9 +73,7 @@ bool PieceController::can_move_left() const {
     const auto bottom_row = lower_row_to_check();
     if (column == 0)
         return false;
-    if (board_->used(column - 1, bottom_row))
-        return false;
-    return true;
+    return not board_->used(column - 1, bottom_row);
 }
 
 bool PieceController::can_move_right() const {
@@ -85,10 +81,7 @@ bool PieceController::can_move_right() const {
     const auto bottom_row = lower_row_to_check();
     if (column + 1 == board_->width())
         return false;
-    if (board_->used(column + 1, bottom_row))
-        return false;
-
-    return true;
+    return not board_->used(column + 1, bottom_row);
 }
 
 bool PieceController::can_step_down() const {

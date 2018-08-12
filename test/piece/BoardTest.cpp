@@ -24,13 +24,10 @@ static void check_empty_board(const std::string& msg,
 
     for (size_t i = 0; i < w; ++i) {
         for (size_t j = 0; j < h; ++j) {
-            EXPECT_EQ(board.at(i, j), gui::Color::NONE) << msg;
+            EXPECT_EQ(board.tile(i, j), gui::Color::NONE) << msg;
             EXPECT_FALSE(board.used(i, j)) << msg;
         }
     }
-
-    EXPECT_THROW(board.at(w, 0), std::invalid_argument) << msg;
-    EXPECT_THROW(board.at(0, h), std::invalid_argument) << msg;
 }
 
 } // unnamed namespace
@@ -66,10 +63,10 @@ void check_one_tile_colored(const Board& board,
     for (size_t i = 0; i < board.width(); ++i) {
         for (size_t j = 0; j < board.height(); ++j) {
             if (i == column && j == line) {
-                EXPECT_EQ(board.at(i, j), color) << msg;
+                EXPECT_EQ(board.tile(i, j), color) << msg;
                 EXPECT_TRUE(board.used(i, j)) << msg;
             } else {
-                EXPECT_EQ(board.at(i, j), gui::Color::NONE) << msg;
+                EXPECT_EQ(board.tile(i, j), gui::Color::NONE) << msg;
                 EXPECT_FALSE(board.used(i, j)) << msg;
             }
         }
@@ -87,11 +84,11 @@ TEST(BoardTest, change) {
 
     for (size_t i = 0; i < WIDTH; ++i) {
         for (size_t j = 0; j < HEIGHT; ++j) {
-            EXPECT_EQ(board.at(i, j), gui::Color::NONE);
+            EXPECT_EQ(board.tile(i, j), gui::Color::NONE);
             const gui::Color color = ::gui::mck::to_normalized_color(i * WIDTH + j);
-            board.at(i, j) = color;
+            board.tile(i, j) = color;
             check_one_tile_colored(board, i, j, color);
-            board.at(i, j) = gui::Color::NONE;
+            board.tile(i, j) = gui::Color::NONE;
         }
     }
     EXPECT_EQ(board.width(), WIDTH);
@@ -111,9 +108,9 @@ TEST(BoardTest, compare) {
     for (size_t i = 0; i < 10; ++i) {
         for (size_t j = 0; j < 10; ++j) {
             EXPECT_EQ(tab0, tab1);
-            tab1.at(i, j) = gui::Color::GREEN;
+            tab1.tile(i, j) = gui::Color::GREEN;
             EXPECT_NE(tab0, tab1);
-            tab1.at(i, j) = gui::Color::NONE;
+            tab1.tile(i, j) = gui::Color::NONE;
             EXPECT_EQ(tab0, tab1);
         }
     }
@@ -129,7 +126,7 @@ TEST(BoardTest, remove) {
 
     for (size_t i = 0; i < columns; ++i) {
         for (size_t j = 0; j < rows; ++j) {
-            tiles.at(j * columns + i) = board.at(i, j) = gui::mck::to_normalized_color(j * columns + i);
+            tiles.at(j * columns + i) = board.tile(i, j) = gui::mck::to_normalized_color(j * columns + i);
         }
     }
 
@@ -147,7 +144,7 @@ TEST(BoardTest, remove) {
 
     for (size_t i = 0; i < columns; ++i) {
         for (size_t j = 0; j < rows; ++j) {
-            tiles.at(j * columns + i) = board.at(i, j) = gui::Color::BLUE;
+            tiles.at(j * columns + i) = board.tile(i, j) = gui::Color::BLUE;
         }
     }
 
@@ -171,7 +168,7 @@ TEST(BoardTest, remove_list) {
 
     for (size_t i = 0; i < columns; ++i) {
         for (size_t j = 0; j < rows; ++j) {
-            board.at(i, j) = expected.at(i, j) = gui::mck::to_normalized_color(j * columns + i);
+            board.tile(i, j) = expected.tile(i, j) = gui::mck::to_normalized_color(j * columns + i);
         }
     }
 
@@ -205,7 +202,7 @@ TEST(BoardTest, elimination_list_of_a_full_board_is_the_full_board) {
     Board board(10, 20);
     for (size_t i = 0; i < 10; ++i) {
         for (size_t j = 0; j < 20; ++j) {
-            board.at(i, j) = gui::Color::BLUE;
+            board.tile(i, j) = gui::Color::BLUE;
         }
     }
     const auto list = board.elimination_list();
@@ -223,9 +220,9 @@ TEST(BoardTest, elimination_list_of_a_full_board_is_the_full_board) {
 
 TEST(BoardTest, elimination_list_with_three_in_horizontal) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(1, 0) = gui::Color::BLUE;
-    board.at(2, 0) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(1, 0) = gui::Color::BLUE;
+    board.tile(2, 0) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 3u);
@@ -239,10 +236,10 @@ TEST(BoardTest, elimination_list_with_three_in_horizontal) {
 
 TEST(BoardTest, elimination_list_with_four_in_horizontal) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::RED;
-    board.at(1, 0) = gui::Color::RED;
-    board.at(2, 0) = gui::Color::RED;
-    board.at(3, 0) = gui::Color::RED;
+    board.tile(0, 0) = gui::Color::RED;
+    board.tile(1, 0) = gui::Color::RED;
+    board.tile(2, 0) = gui::Color::RED;
+    board.tile(3, 0) = gui::Color::RED;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 4u);
@@ -257,12 +254,12 @@ TEST(BoardTest, elimination_list_with_four_in_horizontal) {
 
 TEST(BoardTest, elimination_list_with_two_horizontal_triplets) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::RED;
-    board.at(1, 0) = gui::Color::RED;
-    board.at(2, 0) = gui::Color::RED;
-    board.at(4, 7) = gui::Color::BLUE;
-    board.at(5, 7) = gui::Color::BLUE;
-    board.at(6, 7) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::RED;
+    board.tile(1, 0) = gui::Color::RED;
+    board.tile(2, 0) = gui::Color::RED;
+    board.tile(4, 7) = gui::Color::BLUE;
+    board.tile(5, 7) = gui::Color::BLUE;
+    board.tile(6, 7) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 6u);
@@ -279,27 +276,27 @@ TEST(BoardTest, elimination_list_with_two_horizontal_triplets) {
 
 TEST(BoardTest, elimination_list_is_empty_different_colors) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(1, 0) = gui::Color::RED;
-    board.at(2, 0) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(1, 0) = gui::Color::RED;
+    board.tile(2, 0) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_TRUE(list.empty());
 }
 
 TEST(BoardTest, elimination_list_is_empty_if_not_contiguos_horizontal) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(2, 0) = gui::Color::BLUE;
-    board.at(3, 0) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(2, 0) = gui::Color::BLUE;
+    board.tile(3, 0) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_TRUE(list.empty());
 }
 
 TEST(BoardTest, elimination_list_with_three_in_vertical) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(0, 1) = gui::Color::BLUE;
-    board.at(0, 2) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(0, 1) = gui::Color::BLUE;
+    board.tile(0, 2) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 3u);
@@ -313,10 +310,10 @@ TEST(BoardTest, elimination_list_with_three_in_vertical) {
 
 TEST(BoardTest, elimination_list_with_four_in_vertical) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::RED;
-    board.at(0, 1) = gui::Color::RED;
-    board.at(0, 2) = gui::Color::RED;
-    board.at(0, 3) = gui::Color::RED;
+    board.tile(0, 0) = gui::Color::RED;
+    board.tile(0, 1) = gui::Color::RED;
+    board.tile(0, 2) = gui::Color::RED;
+    board.tile(0, 3) = gui::Color::RED;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 4u);
@@ -331,12 +328,12 @@ TEST(BoardTest, elimination_list_with_four_in_vertical) {
 
 TEST(BoardTest, elimination_list_with_two_vertical_triplets) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::RED;
-    board.at(0, 1) = gui::Color::RED;
-    board.at(0, 2) = gui::Color::RED;
-    board.at(7, 4) = gui::Color::BLUE;
-    board.at(7, 5) = gui::Color::BLUE;
-    board.at(7, 6) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::RED;
+    board.tile(0, 1) = gui::Color::RED;
+    board.tile(0, 2) = gui::Color::RED;
+    board.tile(7, 4) = gui::Color::BLUE;
+    board.tile(7, 5) = gui::Color::BLUE;
+    board.tile(7, 6) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 6u);
@@ -353,18 +350,18 @@ TEST(BoardTest, elimination_list_with_two_vertical_triplets) {
 
 TEST(BoardTest, elimination_list_is_empty_different_colors_vertical) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(0, 1) = gui::Color::RED;
-    board.at(0, 2) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(0, 1) = gui::Color::RED;
+    board.tile(0, 2) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_TRUE(list.empty());
 }
 
 TEST(BoardTest, elimination_list_with_three_in_diagonal_descendent) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(1, 1) = gui::Color::BLUE;
-    board.at(2, 2) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(1, 1) = gui::Color::BLUE;
+    board.tile(2, 2) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 3u);
@@ -378,10 +375,10 @@ TEST(BoardTest, elimination_list_with_three_in_diagonal_descendent) {
 
 TEST(BoardTest, elimination_list_with_four_in_diagonal_descendent) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(1, 1) = gui::Color::BLUE;
-    board.at(2, 2) = gui::Color::BLUE;
-    board.at(3, 3) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(1, 1) = gui::Color::BLUE;
+    board.tile(2, 2) = gui::Color::BLUE;
+    board.tile(3, 3) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 4u);
@@ -396,12 +393,12 @@ TEST(BoardTest, elimination_list_with_four_in_diagonal_descendent) {
 
 TEST(BoardTest, elimination_list_with_two_triplets_in_diagonal_descendent) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(1, 1) = gui::Color::BLUE;
-    board.at(2, 2) = gui::Color::BLUE;
-    board.at(7, 4) = gui::Color::RED;
-    board.at(8, 5) = gui::Color::RED;
-    board.at(9, 6) = gui::Color::RED;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(1, 1) = gui::Color::BLUE;
+    board.tile(2, 2) = gui::Color::BLUE;
+    board.tile(7, 4) = gui::Color::RED;
+    board.tile(8, 5) = gui::Color::RED;
+    board.tile(9, 6) = gui::Color::RED;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 6u);
@@ -418,18 +415,18 @@ TEST(BoardTest, elimination_list_with_two_triplets_in_diagonal_descendent) {
 
 TEST(BoardTest, elimination_list_is_empty_different_colors_diagonal_descendent) {
     Board board(10, 20);
-    board.at(0, 0) = gui::Color::BLUE;
-    board.at(1, 1) = gui::Color::RED;
-    board.at(2, 2) = gui::Color::BLUE;
+    board.tile(0, 0) = gui::Color::BLUE;
+    board.tile(1, 1) = gui::Color::RED;
+    board.tile(2, 2) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_TRUE(list.empty());
 }
 
 TEST(BoardTest, elimination_list_with_three_in_diagonal_ascendent) {
     Board board(10, 20);
-    board.at(7, 3) = gui::Color::BLUE;
-    board.at(8, 2) = gui::Color::BLUE;
-    board.at(9, 1) = gui::Color::BLUE;
+    board.tile(7, 3) = gui::Color::BLUE;
+    board.tile(8, 2) = gui::Color::BLUE;
+    board.tile(9, 1) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 3u);
@@ -443,10 +440,10 @@ TEST(BoardTest, elimination_list_with_three_in_diagonal_ascendent) {
 
 TEST(BoardTest, elimination_list_with_four_in_diagonal_ascendent) {
     Board board(10, 20);
-    board.at(6, 3) = gui::Color::BLUE;
-    board.at(7, 2) = gui::Color::BLUE;
-    board.at(8, 1) = gui::Color::BLUE;
-    board.at(9, 0) = gui::Color::BLUE;
+    board.tile(6, 3) = gui::Color::BLUE;
+    board.tile(7, 2) = gui::Color::BLUE;
+    board.tile(8, 1) = gui::Color::BLUE;
+    board.tile(9, 0) = gui::Color::BLUE;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 4u);
@@ -461,12 +458,12 @@ TEST(BoardTest, elimination_list_with_four_in_diagonal_ascendent) {
 
 TEST(BoardTest, elimination_list_with_two_triplets_in_diagonal_ascendent) {
     Board board(10, 20);
-    board.at(7, 3) = gui::Color::BLUE;
-    board.at(8, 2) = gui::Color::BLUE;
-    board.at(9, 1) = gui::Color::BLUE;
-    board.at(3, 7) = gui::Color::RED;
-    board.at(4, 6) = gui::Color::RED;
-    board.at(5, 5) = gui::Color::RED;
+    board.tile(7, 3) = gui::Color::BLUE;
+    board.tile(8, 2) = gui::Color::BLUE;
+    board.tile(9, 1) = gui::Color::BLUE;
+    board.tile(3, 7) = gui::Color::RED;
+    board.tile(4, 6) = gui::Color::RED;
+    board.tile(5, 5) = gui::Color::RED;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     EXPECT_EQ(list.size(), 6u);
@@ -503,27 +500,27 @@ TEST(BoardTest, elimination_list_with_two_triplets_in_diagonal_ascendent) {
  */
 TEST(BoardTest, elimination_list_multiple_directions) {
     Board board(10, 15);
-    board.at(1, 11) = gui::Color::BLUE;
-    board.at(3, 11) = gui::Color::BLUE;
-    board.at(1, 12) = gui::Color::RED;
-    board.at(2, 12) = gui::Color::BLUE;
-    board.at(3, 12) = gui::Color::YELLOW;
-    board.at(6, 12) = gui::Color::GREEN;
-    board.at(0, 13) = gui::Color::YELLOW;
-    board.at(1, 13) = gui::Color::BLUE;
-    board.at(2, 13) = gui::Color::RED;
-    board.at(3, 13) = gui::Color::BLUE;
-    board.at(4, 13) = gui::Color::YELLOW;
-    board.at(6, 13) = gui::Color::GREEN;
-    board.at(0, 14) = gui::Color::BLUE;
-    board.at(1, 14) = gui::Color::YELLOW;
-    board.at(2, 14) = gui::Color::YELLOW;
-    board.at(3, 14) = gui::Color::RED;
-    board.at(4, 14) = gui::Color::RED;
-    board.at(5, 14) = gui::Color::RED;
-    board.at(6, 14) = gui::Color::GREEN;
-    board.at(7, 14) = gui::Color::GREEN;
-    board.at(8, 14) = gui::Color::GREEN;
+    board.tile(1, 11) = gui::Color::BLUE;
+    board.tile(3, 11) = gui::Color::BLUE;
+    board.tile(1, 12) = gui::Color::RED;
+    board.tile(2, 12) = gui::Color::BLUE;
+    board.tile(3, 12) = gui::Color::YELLOW;
+    board.tile(6, 12) = gui::Color::GREEN;
+    board.tile(0, 13) = gui::Color::YELLOW;
+    board.tile(1, 13) = gui::Color::BLUE;
+    board.tile(2, 13) = gui::Color::RED;
+    board.tile(3, 13) = gui::Color::BLUE;
+    board.tile(4, 13) = gui::Color::YELLOW;
+    board.tile(6, 13) = gui::Color::GREEN;
+    board.tile(0, 14) = gui::Color::BLUE;
+    board.tile(1, 14) = gui::Color::YELLOW;
+    board.tile(2, 14) = gui::Color::YELLOW;
+    board.tile(3, 14) = gui::Color::RED;
+    board.tile(4, 14) = gui::Color::RED;
+    board.tile(5, 14) = gui::Color::RED;
+    board.tile(6, 14) = gui::Color::GREEN;
+    board.tile(7, 14) = gui::Color::GREEN;
+    board.tile(8, 14) = gui::Color::GREEN;
     const auto list = board.elimination_list();
     EXPECT_FALSE(list.empty());
     const Board::EliminationList expected = {

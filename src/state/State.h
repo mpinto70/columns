@@ -26,13 +26,13 @@ public:
     const ScoreBoard& score_board() const { return *score_board_; }
 
     bool has_next() const;
-    /// @throw std::logic_error by default
+
     const piece::Piece& next() const;
 
     bool has_piece_falling() const;
-    /// @throw std::logic_error by default
+
     const piece::Position& piece_position() const;
-    /// @throw std::logic_error by default
+
     const piece::Piece& piece() const;
 
     bool has_elimination_list() const;
