@@ -41,9 +41,9 @@ void Controller::run() {
     std::this_thread::sleep_for(std::chrono::milliseconds{ 3 });
 
     util::Wait elimination_timer(ELIMINATION_SIZE);
-    util::Wait cicle_timer(CICLE_SIZE);
+    util::Wait cycle_timer(CICLE_SIZE);
     while (not quit) {
-        cicle_timer.reset();
+        cycle_timer.reset();
         match_controller_.tick();
         process_inputs();
         if (not quit) {
@@ -54,7 +54,7 @@ void Controller::run() {
                 elimination_timer.wait();
             }
         }
-        cicle_timer.wait();
+        cycle_timer.wait();
     }
 
     input_thread.join();

@@ -13,10 +13,6 @@ public:
 
     void read_input();
 
-    void clear_input() {
-        messages_.clear();
-    }
-
     Messages::List get_input() {
         return messages_.get();
     }
