@@ -36,8 +36,8 @@ elif [ "$1" = "distclean" ]; then
         build \
         bin \
         lib \
-        test/bin \
         gtest \
+        test/bin \
 
     echo "Done."
 elif [ "$1" = "test" ]; then
@@ -61,7 +61,8 @@ elif [ "$1" = "demo" ]; then
     bin/columns
 elif [ "$1" = "check" ]; then
     do_build
-    cppcheck --enable=warning,style,unusedFunction --error-exitcode=-1 src
+    cd build
+    make cppcheck
 else
     echo "Usage: `basename $0` [test|clean|distclean|demo|check]"
 fi
