@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Install tools
-          command: sudo apt update && sudo apt install -y g++ cmake libboost-all-dev cppcheck libsdl2-dev libsdl2-image-dev  libsdl2-ttf-dev
+          command: sudo apt update && sudo apt install -y g++ cmake cppcheck libsdl2-dev libsdl2-image-dev  libsdl2-ttf-dev
       - run:
           name: Build system
           command: ./runbuild
