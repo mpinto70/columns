@@ -63,7 +63,6 @@ TEST(ScoreTest, add_invalid) {
     p.add(3);
     EXPECT_EQ(p.total(), 10u);
 
-
     p = Score(std::numeric_limits<size_t>::max());
     p.add(3);
     EXPECT_EQ(p.total(), std::numeric_limits<size_t>::max());
