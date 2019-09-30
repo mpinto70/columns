@@ -14,7 +14,7 @@ public:
     void tick();
     void process(EMessage message);
 
-    const state::State& state() const {
+    [[nodiscard]] const state::State& state() const {
         return state_;
     }
 

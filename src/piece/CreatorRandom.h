@@ -6,11 +6,11 @@
 namespace piece {
 class CreatorRandom : public Creator {
 public:
-    explicit CreatorRandom(SharedConstBoard board, const std::vector<gui::Color>& possibles);
+    explicit CreatorRandom(const SharedConstBoard& board, std::vector<gui::Color> possibles);
     ~CreatorRandom() override = default;
 
-    Piece piece() const override;
-    size_t column() const override;
+    [[nodiscard]] Piece piece() const override;
+    [[nodiscard]] size_t column() const override;
 
 private:
     SharedConstBoard board_;

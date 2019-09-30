@@ -6,12 +6,14 @@
 #include "piece/CreatorRandom.h"
 
 #include <iostream>
+#include <string>
+#include <array>
 
 namespace {
-const std::string VERSION = "0.7";
+constexpr const char VERSION[] = "0.8";
 
 /// available colors
-const std::vector<gui::Color> POSSIBLES = {
+const std::array<gui::Color, 5> POSSIBLES = {
     gui::Color::GREEN,
     gui::Color::RED,
     gui::Color::BLUE,
@@ -31,13 +33,13 @@ int run() {
 
         auto board = std::make_shared<piece::Board>(BOARD_WIDTH, BOARD_HEIGHT);
         auto canvas = std::make_unique<graphics::sdl::Canvas>(*board,
-              "Columns " + VERSION,
+              "Columns " + std::string(VERSION),
               1000,
               100,
               font_name,
               font_score);
         auto input_reader = std::make_unique<input::sdl::InputReader>();
-        auto piece_creator = std::make_unique<piece::CreatorRandom>(board, POSSIBLES);
+        auto piece_creator = std::make_unique<piece::CreatorRandom>(board, std::vector<gui::Color>(POSSIBLES.begin(), POSSIBLES.end()));
 
         game::Controller controller(std::move(canvas),
               std::move(input_reader),

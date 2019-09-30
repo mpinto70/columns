@@ -16,7 +16,7 @@ public:
           size_t record,
           piece::CreatorPtr&& piece_creator);
     void run();
-    const state::State& state() const { return match_controller_.state(); }
+    [[nodiscard]] const state::State& state() const { return match_controller_.state(); }
 
 private:
     CanvasPtr canvas_;
