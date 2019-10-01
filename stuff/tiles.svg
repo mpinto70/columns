@@ -11,9 +11,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="120"
-   height="24"
-   viewBox="0 0 31.749999 6.3500002"
+   width="300"
+   height="60"
+   viewBox="0 0 79.374997 15.875001"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -96,7 +96,8 @@
        y1="292.76663"
        x2="8.4106379"
        y2="301.151"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.437502,0,0,2.4375013,0.13220779,-427.07007)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2349"
@@ -105,7 +106,8 @@
        y1="292.76663"
        x2="13.288307"
        y2="301.82755"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.4375015,0,0,2.4375011,0.39678843,-427.06994)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2357"
@@ -114,7 +116,8 @@
        y1="292.76663"
        x2="18.132566"
        y2="302.4122"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.4375015,0,0,2.4375011,0.66136777,-427.06993)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2365"
@@ -123,7 +126,8 @@
        y1="292.76663"
        x2="21.832579"
        y2="301.90271"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.4375015,0,0,2.4375011,0.92594527,-427.06993)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient852"
@@ -133,7 +137,7 @@
        x2="26.267584"
        y2="301.30136"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(0,0.7937465)" />
+       gradientTransform="matrix(2.4375015,0,0,2.437501,1.1906067,-425.1352)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -142,9 +146,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.4"
-     inkscape:cx="50.973831"
-     inkscape:cy="15.284835"
+     inkscape:zoom="7.919596"
+     inkscape:cx="119.52952"
+     inkscape:cy="8.7111256"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -162,7 +166,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -170,55 +174,55 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-290.64998)">
+     transform="translate(0,-281.12498)">
     <rect
-       style="fill:url(#linearGradient854);fill-opacity:1;stroke-width:0.17895009"
+       style="fill:url(#linearGradient854);fill-opacity:1;stroke:#4c2c92;stroke-width:0.26457933;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect10"
-       width="4.2333331"
-       height="4.2333331"
-       x="16.933332"
-       y="292.76663" />
+       width="10.318754"
+       height="10.318754"
+       x="42.465622"
+       y="286.54895" />
     <rect
-       style="fill:url(#linearGradient2343);fill-opacity:1;stroke:#60db40;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#linearGradient2343);fill-opacity:1;stroke:#981b1e;stroke-width:0.26457933;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        id="rect10-9"
-       width="4.2333322"
-       height="4.2333322"
-       x="5.2091701e-07"
-       y="292.76663" />
+       width="10.318754"
+       height="10.318754"
+       x="0.13220905"
+       y="286.54901" />
     <rect
-       style="fill:url(#linearGradient2351);fill-opacity:1;stroke-width:0.17895009"
+       style="fill:url(#linearGradient2351);fill-opacity:1;stroke:#2e8540;stroke-width:0.26457933;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        id="rect10-0"
-       width="4.2333331"
-       height="4.2333331"
-       x="4.2333331"
-       y="292.76663" />
+       width="10.318754"
+       height="10.318754"
+       x="10.715543"
+       y="286.54901" />
     <rect
-       style="fill:url(#linearGradient2359);fill-opacity:1;stroke-width:0.17895009"
+       style="fill:url(#linearGradient2359);fill-opacity:1;stroke:#02bfe7;stroke-width:0.26457933;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        id="rect10-06"
-       width="4.2333331"
-       height="4.2333331"
-       x="8.4666662"
-       y="292.76663" />
+       width="10.318754"
+       height="10.318754"
+       x="21.298874"
+       y="286.54901" />
     <rect
-       style="fill:url(#linearGradient2367);fill-opacity:1;stroke-width:0.17895009"
+       style="fill:url(#linearGradient2367);fill-opacity:1;stroke:#fdb81e;stroke-width:0.26457933;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        id="rect10-8"
-       width="4.2333331"
-       height="4.2333331"
-       x="12.699999"
-       y="292.76663" />
+       width="10.318754"
+       height="10.318754"
+       x="31.882208"
+       y="286.54901" />
     <rect
-       style="fill:#5b616b;fill-opacity:1;stroke-width:0.17895009"
+       style="fill:#5b616b;fill-opacity:1;stroke-width:0.44737521"
        id="rect10-5"
-       width="4.2333331"
-       height="4.2333331"
-       x="25.4"
-       y="292.76663" />
+       width="10.583333"
+       height="10.583333"
+       x="63.5"
+       y="286.41663" />
     <rect
-       style="fill:#f1f1f1;fill-opacity:0.94117647;stroke-width:0.17895009"
+       style="fill:#f1f1f1;fill-opacity:0.94117647;stroke-width:0.44737527"
        id="rect10-5-3"
-       width="4.2333331"
-       height="4.2333331"
-       x="21.166666"
-       y="292.76663" />
+       width="10.583333"
+       height="10.583333"
+       x="52.916668"
+       y="286.41663" />
   </g>
 </svg>
