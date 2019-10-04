@@ -100,7 +100,7 @@
        inkscape:collect="always"
        xlink:href="#linearGradient2341"
        id="linearGradient2343"
-       x1="5.2091701e-07"
+       x1="0"
        y1="292.76663"
        x2="8.4106379"
        y2="301.151"
@@ -155,8 +155,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.4246212"
-     inkscape:cx="161.99449"
-     inkscape:cy="19.586309"
+     inkscape:cx="-28.149584"
+     inkscape:cy="-1.6162441"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -182,74 +182,74 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-281.12498)">
+     transform="translate(0,0)">
     <rect
-       style="fill:url(#linearGradient2343);fill-opacity:1;stroke:#761416;stroke-width:0.9999997;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       style="fill:url(#linearGradient2343);fill-opacity:1;stroke:#761416;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="red-rect"
-       width="39"
-       height="39"
-       x="0.49999985"
-       y="301.62497">
+       width="38"
+       height="38"
+       x="1"
+       y="1">
       <title
          id="title843">Red tile</title>
     </rect>
     <rect
-       style="fill:url(#linearGradient2351);fill-opacity:1;stroke:#236531;stroke-width:0.9999997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       style="fill:url(#linearGradient2351);fill-opacity:1;stroke:#236531;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="green-rect"
-       width="39"
-       height="39"
-       x="40.5"
-       y="301.62497">
+       width="38"
+       height="38"
+       x="41"
+       y="1">
       <title
          id="title845">Green tile</title>
     </rect>
     <rect
-       style="fill:url(#linearGradient2359);fill-opacity:1;stroke:#007d79;stroke-width:0.9999997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       style="fill:url(#linearGradient2359);fill-opacity:1;stroke:#007d79;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="blue-rect"
-       width="39"
-       height="39"
-       x="80.5"
-       y="301.62497">
+       width="38"
+       height="38"
+       x="81"
+       y="1">
       <title
          id="title847">Blue tile</title>
     </rect>
     <rect
-       style="fill:url(#linearGradient2367);fill-opacity:1;stroke:#948615;stroke-width:0.9999997;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       style="fill:url(#linearGradient2367);fill-opacity:1;stroke:#948615;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="yellow-rect"
-       width="39"
-       height="39"
-       x="120.49999"
-       y="301.62497">
+       width="38"
+       height="38"
+       x="121"
+       y="1">
       <title
          id="title849">Yellow tile</title>
     </rect>
     <rect
-       style="fill:url(#linearGradient854);fill-opacity:1;stroke:#362067;stroke-width:0.9999848;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#linearGradient854);fill-opacity:1;stroke:#362067;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="purple-rect"
-       width="39.000015"
-       height="39.000015"
-       x="160.49998"
-       y="301.62497">
+       width="38"
+       height="38"
+       x="161"
+       y="1">
       <title
          id="title851">Purple tile</title>
     </rect>
     <rect
-       style="fill:#f1f1f1;fill-opacity:0.94117647;stroke-width:1.69086719"
+       style="fill:#f1f1f1;fill-opacity:1;stroke-width:1"
        id="white-rect"
        width="40"
        height="40"
        x="200"
-       y="301.125">
+       y="0">
       <title
          id="title853">White tile</title>
     </rect>
     <rect
-       style="fill:#5b616b;fill-opacity:1;stroke-width:1.69086695"
+       style="fill:#5b616b;fill-opacity:1;stroke-width:1"
        id="gray-rect"
        width="40"
        height="40"
        x="240"
-       y="301.125">
+       y="0">
       <title
          id="title855">Gray tile</title>
     </rect>
