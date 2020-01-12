@@ -5,9 +5,9 @@
 #include "input/SDL/InputReader.h"
 #include "piece/CreatorRandom.h"
 
+#include <array>
 #include <iostream>
 #include <string>
-#include <array>
 
 namespace {
 constexpr const char VERSION[] = "0.8";
