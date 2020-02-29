@@ -23,6 +23,34 @@ set(CMAKE_CXX_FLAGS " \
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
+include(ExternalProject)
+
+set(EXTERNAL_INSTALL_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/external)
+
+###################################
+# libbrasa - BEGIN ################
+###################################
+
+ExternalProject_Add(libbrasa
+    GIT_REPOSITORY https://github.com/mpinto70/libbrasa.git
+    GIT_TAG v0.5
+    PREFIX ${CMAKE_BINARY_DIR}/brasa
+    BUILD_COMMAND ""
+    INSTALL_COMMAND
+        make
+        DESTDIR=${EXTERNAL_INSTALL_LOCATION}
+        install
+    LOG_INSTALL ON
+    LOG_BUILD ON
+)
+
+include_directories(${EXTERNAL_INSTALL_LOCATION}/brasa/include)
+link_directories(${EXTERNAL_INSTALL_LOCATION}/brasa/lib)
+
+###################################
+# libbrasa - END   ################
+###################################
+
 include_directories(
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
