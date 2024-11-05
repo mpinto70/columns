@@ -1,10 +1,9 @@
-add_library(
-    piece_mck
+set(piece_mck_srcs
     utilpiece.cpp
     CreatorCycle.cpp
 )
 
-target_include_directories(
+add_mock_lib(
     piece_mck
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+    piece_mck_srcs
 )

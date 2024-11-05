@@ -18,8 +18,6 @@ set(game_libs
     piece
     gui
     util
-    ${Boost_SYSTEM_LIBRARY}
-    ${Boost_FILESYSTEM_LIBRARY}
 )
 
 add_unit_test(

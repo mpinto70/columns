@@ -1,9 +1,8 @@
-add_library(
-    util_mck
+set(util_mck_srcs
     utiltest.cpp
 )
 
-target_include_directories(
+add_mock_lib(
     util_mck
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+    util_mck_srcs
 )

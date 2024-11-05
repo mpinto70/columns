@@ -1,9 +1,8 @@
-add_library(
-    state_mck
+set(state_mck_srcs
     utilstate.cpp
 )
 
-target_include_directories(
+add_mock_lib(
     state_mck
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+    state_mck_srcs
 )

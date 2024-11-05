@@ -1,9 +1,8 @@
-add_library(
-    gui_mck
+set(gui_mck_srcs
     utilgui.cpp
 )
 
-target_include_directories(
+add_mock_lib(
     gui_mck
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+    gui_mck_srcs
 )
