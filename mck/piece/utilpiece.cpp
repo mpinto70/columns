@@ -74,7 +74,7 @@ std::unique_ptr<Board> dup(const Board& rhs) {
             other->tile(c, r) = rhs.tile(c, r);
         }
     }
-    return std::move(other);
+    return other;
 }
 
 void fix(Board& board, const Piece& piece, const Position& position) {

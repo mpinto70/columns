@@ -1,80 +1,39 @@
-################################################################################
-# Google Test Setup - BEGIN ####################################################
-################################################################################
-
-# We need thread support
-find_package(Threads REQUIRED)
-
-# Enable ExternalProject CMake module
-include(ExternalProject)
-
-# Download and install GoogleTest
-ExternalProject_Add(
-    gtest
-    URL https://github.com/google/googletest/archive/release-1.8.1.zip
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/gtest
-    # Disable install step
-    INSTALL_COMMAND ""
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
-
-# Get GTest source and binary directories from CMake project
-ExternalProject_Get_Property(gtest source_dir binary_dir)
-
-# Create a libgtest target to be used as a dependency by test programs
-add_library(libgtest IMPORTED STATIC GLOBAL)
-add_dependencies(libgtest gtest)
-
-# Set libgtest properties
-set_target_properties(
-    libgtest PROPERTIES
-    "IMPORTED_LOCATION" "${binary_dir}/googlemock/gtest/libgtest.a"
-    "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
-)
-
-# Create a libgmock target to be used as a dependency by test programs
-add_library(libgmock IMPORTED STATIC GLOBAL)
-add_dependencies(libgmock gtest)
-
-# Set libgmock properties
-set_target_properties(
-    libgmock PROPERTIES
-    "IMPORTED_LOCATION" "${binary_dir}/googlemock/libgmock.a"
-    "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
-)
-
-################################################################################
-# Google Test Setup - END ######################################################
-################################################################################
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
 function(add_unit_test test_name sources_var libs_var)
     set(unit_test_name unit_${test_name})
 
     add_executable(
         ${unit_test_name}
-        ${PROJECT_SOURCE_DIR}/test/gtest_main.cpp
         ${${sources_var}}
-    )
-
-    add_dependencies(${unit_test_name} libgtest)
-    add_dependencies(${unit_test_name} libgmock)
-
-    include_directories(
-        "${PROJECT_SOURCE_DIR}/gtest/src/gtest/googletest/include"
-        "${PROJECT_SOURCE_DIR}/gtest/src/gtest/googlemock/include"
-    )
-
-    set_target_properties(
-        ${unit_test_name}
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/test/bin
     )
 
     target_link_libraries(
         ${unit_test_name}
         ${${libs_var}}
-        libgtest
-        libgmock
+        GTest::gtest_main
+        GTest::gmock
     )
 
-    add_test(NAME unit_${testname} COMMAND ${PROJECT_SOURCE_DIR}/test/bin/unit_${testname})
+    include(GoogleTest)
+    gtest_discover_tests(${unit_test_name})
 endfunction(add_unit_test)
+
+function(add_mock_lib mock_lib_name sources_var)
+    add_library(
+        ${mock_lib_name}
+        ${${sources_var}}
+    )
+
+    target_link_libraries(
+        ${mock_lib_name}
+        GTest::gtest_main
+        GTest::gmock
+    )
+endfunction(add_mock_lib)

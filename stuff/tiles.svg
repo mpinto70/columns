@@ -11,15 +11,23 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="120"
-   height="24"
-   viewBox="0 0 31.749999 6.3500002"
+   width="300"
+   height="60"
+   viewBox="0 0 300 60"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="tiles.svg">
   <defs
      id="defs2">
+    <linearGradient
+       id="linearGradient885"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#c6b81e;stop-opacity:1;"
+         offset="0"
+         id="stop883" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient852">
@@ -92,11 +100,12 @@
        inkscape:collect="always"
        xlink:href="#linearGradient2341"
        id="linearGradient2343"
-       x1="5.2091701e-07"
+       x1="0"
        y1="292.76663"
        x2="8.4106379"
        y2="301.151"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(9.2126024,0,0,9.2125994,0.4999951,-2395.5168)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2349"
@@ -105,7 +114,8 @@
        y1="292.76663"
        x2="13.288307"
        y2="301.82755"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(9.2126005,0,0,9.2125987,1.5000065,-2395.5163)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2357"
@@ -114,7 +124,8 @@
        y1="292.76663"
        x2="18.132566"
        y2="302.4122"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(9.2126005,0,0,9.2125987,2.500004,-2395.5163)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2365"
@@ -123,7 +134,8 @@
        y1="292.76663"
        x2="21.832579"
        y2="301.90271"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(9.2126005,0,0,9.2125987,3.4999986,-2395.5163)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient852"
@@ -133,7 +145,7 @@
        x2="26.267584"
        y2="301.30136"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(0,0.7937465)" />
+       gradientTransform="matrix(9.2126039,0,0,9.2126023,4.4999067,-2388.205)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -142,9 +154,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.4"
-     inkscape:cx="50.973831"
-     inkscape:cy="15.284835"
+     inkscape:zoom="7.4246212"
+     inkscape:cx="-28.149584"
+     inkscape:cy="-1.6162441"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -162,7 +174,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -170,55 +182,76 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-290.64998)">
+     transform="translate(0,0)">
     <rect
-       style="fill:url(#linearGradient854);fill-opacity:1;stroke-width:0.17895009"
-       id="rect10"
-       width="4.2333331"
-       height="4.2333331"
-       x="16.933332"
-       y="292.76663" />
+       style="fill:url(#linearGradient2343);fill-opacity:1;stroke:#761416;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="red-rect"
+       width="38"
+       height="38"
+       x="1"
+       y="1">
+      <title
+         id="title843">Red tile</title>
+    </rect>
     <rect
-       style="fill:url(#linearGradient2343);fill-opacity:1;stroke:#60db40;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect10-9"
-       width="4.2333322"
-       height="4.2333322"
-       x="5.2091701e-07"
-       y="292.76663" />
+       style="fill:url(#linearGradient2351);fill-opacity:1;stroke:#236531;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="green-rect"
+       width="38"
+       height="38"
+       x="41"
+       y="1">
+      <title
+         id="title845">Green tile</title>
+    </rect>
     <rect
-       style="fill:url(#linearGradient2351);fill-opacity:1;stroke-width:0.17895009"
-       id="rect10-0"
-       width="4.2333331"
-       height="4.2333331"
-       x="4.2333331"
-       y="292.76663" />
+       style="fill:url(#linearGradient2359);fill-opacity:1;stroke:#007d79;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="blue-rect"
+       width="38"
+       height="38"
+       x="81"
+       y="1">
+      <title
+         id="title847">Blue tile</title>
+    </rect>
     <rect
-       style="fill:url(#linearGradient2359);fill-opacity:1;stroke-width:0.17895009"
-       id="rect10-06"
-       width="4.2333331"
-       height="4.2333331"
-       x="8.4666662"
-       y="292.76663" />
+       style="fill:url(#linearGradient2367);fill-opacity:1;stroke:#948615;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="yellow-rect"
+       width="38"
+       height="38"
+       x="121"
+       y="1">
+      <title
+         id="title849">Yellow tile</title>
+    </rect>
     <rect
-       style="fill:url(#linearGradient2367);fill-opacity:1;stroke-width:0.17895009"
-       id="rect10-8"
-       width="4.2333331"
-       height="4.2333331"
-       x="12.699999"
-       y="292.76663" />
+       style="fill:url(#linearGradient854);fill-opacity:1;stroke:#362067;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="purple-rect"
+       width="38"
+       height="38"
+       x="161"
+       y="1">
+      <title
+         id="title851">Purple tile</title>
+    </rect>
     <rect
-       style="fill:#5b616b;fill-opacity:1;stroke-width:0.17895009"
-       id="rect10-5"
-       width="4.2333331"
-       height="4.2333331"
-       x="25.4"
-       y="292.76663" />
+       style="fill:#f1f1f1;fill-opacity:1;stroke-width:1"
+       id="white-rect"
+       width="40"
+       height="40"
+       x="200"
+       y="0">
+      <title
+         id="title853">White tile</title>
+    </rect>
     <rect
-       style="fill:#f1f1f1;fill-opacity:0.94117647;stroke-width:0.17895009"
-       id="rect10-5-3"
-       width="4.2333331"
-       height="4.2333331"
-       x="21.166666"
-       y="292.76663" />
+       style="fill:#5b616b;fill-opacity:1;stroke-width:1"
+       id="gray-rect"
+       width="40"
+       height="40"
+       x="240"
+       y="0">
+      <title
+         id="title855">Gray tile</title>
+    </rect>
   </g>
 </svg>

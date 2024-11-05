@@ -18,8 +18,8 @@ void InputReaderTest::TearDown() {
     reader.reset();
 }
 
-using ::testing::Return;
 using ::testing::_;
+using ::testing::Return;
 
 TEST_F(InputReaderTest, get_input_no_message) {
     EXPECT_EQ(reader->get_input(), Messages::List());

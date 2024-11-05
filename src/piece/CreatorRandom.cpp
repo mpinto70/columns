@@ -2,11 +2,11 @@
 #include "util/Random.h"
 
 namespace piece {
-CreatorRandom::CreatorRandom(SharedConstBoard board, const std::vector<gui::Color>& possibles)
+CreatorRandom::CreatorRandom(const SharedConstBoard& board, std::vector<gui::Color> possibles)
       : board_(board),
-        possibles_(possibles),
+        possibles_(std::move(possibles)),
         max_column_(board->width() - 1) {
-    if (possibles.empty()) {
+    if (possibles_.empty()) {
         throw std::runtime_error("CreatorRandom - possibles was empty");
     }
 }

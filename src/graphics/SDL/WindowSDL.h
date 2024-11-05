@@ -1,12 +1,13 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <array>
 #include <string>
 #include <unistd.h>
 
 namespace graphics {
 
-using ColorTripletT = Uint8[3];
+using ColorTripletT = std::array<Uint8, 3>;
 
 class WindowSDL {
 public:

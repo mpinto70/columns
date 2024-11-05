@@ -1,9 +1,8 @@
-add_library(
-    game_mck
+set(game_mck_srcs
     utilgame.cpp
 )
 
-target_include_directories(
+add_mock_lib(
     game_mck
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+    game_mck_srcs
 )

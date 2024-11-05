@@ -4,14 +4,8 @@ namespace graphics {
 namespace sdl {
 namespace {
 
-constexpr ColorTripletT COLORS[] = {
-    { 0x98, 0x1b, 0x1e }, // RED
-    { 0x2e, 0x85, 0x40 }, // GREEN
-    { 0x02, 0xbf, 0xe7 }, // BLUE
-    { 0xfd, 0xb8, 0x1e }, // YELLOW
-    { 0x4c, 0x2c, 0x92 }, // LAVENDER
-    { 0xf1, 0xf1, 0xf1 }, // NONE
-};
+// colors based on: https://design.va.gov/design/color-palette
+// maybe look at: https://designsystem.digital.gov/utilities/color/#background-color
 
 constexpr ColorTripletT BLUE_LIGHT = { 0x00, 0x71, 0xbc };
 constexpr ColorTripletT BLUE_MEDIUM = { 0x20, 0x54, 0x93 };
@@ -57,6 +51,17 @@ constexpr ColorTripletT GREEN_DARK = { 0x2e, 0x85, 0x40 };
 constexpr ColorTripletT GREEN_MEDIUM = { 0x4a, 0xa5, 0x64 };
 constexpr ColorTripletT GREEN_LIGHT = { 0x94, 0xbf, 0xa2 };
 constexpr ColorTripletT GREEN_LIGHTEST = { 0xe7, 0xf4, 0xe4 };
+
+constexpr ColorTripletT PURPLE_DARK = { 0x4c, 0x2c, 0x92 };
+
+constexpr ColorTripletT COLORS[] = {
+    RED_DARKEST,   // RED
+    GREEN_DARK,    // GREEN
+    CYAN_DARK,     // BLUE
+    GOLD_DARK,     // YELLOW
+    PURPLE_DARK,   // LAVENDER
+    GRAY_LIGHTEST, // NONE
+};
 
 static_assert(sizeof(COLORS) / sizeof(COLORS[0]) == static_cast<size_t>(gui::Color::NONE) + 1, "wrong array size");
 

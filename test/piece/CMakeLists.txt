@@ -10,13 +10,9 @@ set(piece_libs
     util_mck
     piece_mck
     gui_mck
-    libgtest
-    libgmock
     piece
     gui
     util
-    ${Boost_SYSTEM_LIBRARY}
-    ${Boost_FILESYSTEM_LIBRARY}
 )
 
 add_unit_test(

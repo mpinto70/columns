@@ -28,9 +28,9 @@ private:
     piece::Position position_;
     size_t steps_per_step_; ///< normal == 1, accelerated == 5
 
-    bool can_move_left() const;
-    bool can_move_right() const;
-    bool can_step_down() const;
-    size_t lower_row_to_check() const;
+    [[nodiscard]] bool can_move_left() const;
+    [[nodiscard]] bool can_move_right() const;
+    [[nodiscard]] bool can_step_down() const;
+    [[nodiscard]] size_t lower_row_to_check() const;
 };
 }

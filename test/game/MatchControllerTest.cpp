@@ -99,7 +99,7 @@ std::unique_ptr<piece::Board> drop_piece_to_bottom(MatchController& controller,
 
     controller.tick(); // fix the piece in the board and remove it
 
-    return std::move(expected_board);
+    return expected_board;
 }
 }
 

@@ -13,10 +13,6 @@ set(state_libs
     gui
     state
     util
-    libgtest
-    libgmock
-    ${Boost_SYSTEM_LIBRARY}
-    ${Boost_FILESYSTEM_LIBRARY}
 )
 
 add_unit_test(
