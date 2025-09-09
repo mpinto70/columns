@@ -11,7 +11,7 @@ namespace game {
 namespace {
 std::atomic<bool> quit(false);
 constexpr auto INPUT_SLEEP = std::chrono::milliseconds{ 1 };
-constexpr auto CICLE_SIZE = std::chrono::milliseconds{ 20 };
+constexpr auto CICLE_SIZE = std::chrono::milliseconds{ 30 };
 constexpr auto ELIMINATION_SIZE = std::chrono::milliseconds{ 500 };
 
 void run_reader(InputReader* reader) {
