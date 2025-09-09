@@ -1,14 +1,12 @@
 #include "utilstate.h"
 
 #include "../mck/piece/utilpiece.h"
-
 #include "state/ScoreBoard.h"
 #include "state/State.h"
 
 namespace state {
 bool operator==(const ScoreBoard& lhs, const ScoreBoard& rhs) {
-    return lhs.record() == rhs.record()
-           && lhs.score() == rhs.score();
+    return lhs.record() == rhs.record() && lhs.score() == rhs.score();
 }
 
 bool operator!=(const ScoreBoard& lhs, const ScoreBoard& rhs) {
@@ -64,5 +62,5 @@ State create_state_(piece::SharedConstBoard board, SharedConstScoreBoard score_b
 State create_state_(piece::SharedConstBoard board) {
     return State(board, std::make_shared<ScoreBoard>(Score{ 150 }, Score{ 20 }));
 }
-}
-}
+} // namespace mck
+} // namespace state

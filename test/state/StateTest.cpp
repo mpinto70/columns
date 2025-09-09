@@ -1,11 +1,9 @@
 #include "../mck/piece/utilpiece.h"
 #include "../mck/state/utilstate.h"
 #include "../mck/util/utiltest.h"
-
-#include "state/State.h"
-
 #include "piece/Board.h"
 #include "state/ScoreBoard.h"
+#include "state/State.h"
 
 #include <gtest/gtest.h>
 
@@ -138,5 +136,5 @@ TEST(StateTest, transition_to_eliminated) {
     EXPECT_TRUE(state.has_next());
     EXPECT_EQ(state.next(), next);
 }
-}
-}
+} // namespace tst
+} // namespace state

@@ -2,7 +2,6 @@
 
 #include "../mck/game/CanvasMock.h"
 #include "../mck/game/InputReaderMock.h"
-
 #include "game/Controller.h"
 #include "game/Messages.h"
 
@@ -22,5 +21,5 @@ protected:
     StrictMock<mck::CanvasMock>* canvas_mock;
     piece::SharedBoard board;
 };
-}
-}
+} // namespace tst
+} // namespace game

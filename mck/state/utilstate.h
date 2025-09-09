@@ -11,5 +11,5 @@ bool operator!=(const State& lhs, const State& rhs);
 namespace mck {
 State create_state_(piece::SharedConstBoard board);
 State create_state_(piece::SharedConstBoard board, SharedConstScoreBoard score_board);
-}
-}
+} // namespace mck
+} // namespace state

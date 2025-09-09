@@ -20,9 +20,10 @@ void run_reader(InputReader* reader) {
         std::this_thread::sleep_for(INPUT_SLEEP);
     }
 }
-}
+} // namespace
 
-Controller::Controller(CanvasPtr&& canvas,
+Controller::Controller(
+      CanvasPtr&& canvas,
       InputReaderPtr&& input_reader,
       piece::SharedBoard& board,
       size_t record,
@@ -31,8 +32,7 @@ Controller::Controller(CanvasPtr&& canvas,
         input_reader_(std::move(input_reader)),
         match_controller_(board, record, std::move(piece_creator)),
         board_(board),
-        score_board_(state::Score(record)) {
-}
+        score_board_(state::Score(record)) {}
 
 void Controller::run() {
     quit = false;
@@ -71,4 +71,4 @@ void Controller::process_inputs() {
         }
     }
 }
-}
+} // namespace game

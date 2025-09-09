@@ -28,7 +28,7 @@ static void confereGeracao(const int line, const size_t N) {
 }
 
 TEST(RandomTest, get) {
-    for (size_t i = 0; i < 10000; ++i) {
+    for (size_t i = 0; i < 10'000; ++i) {
         confereGeracao(__LINE__, 1);
     }
 
@@ -36,11 +36,11 @@ TEST(RandomTest, get) {
     confereGeracao(__LINE__, 20);
     confereGeracao(__LINE__, 200);
     confereGeracao(__LINE__, 2000);
-    confereGeracao(__LINE__, 20000);
+    confereGeracao(__LINE__, 20'000);
 
     for (size_t i = 0; i < 200; ++i) {
         EXPECT_EQ(Random::get(0), 0u) << i;
     }
 }
-}
-}
+} // namespace tst
+} // namespace util

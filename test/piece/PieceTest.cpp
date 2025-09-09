@@ -1,7 +1,6 @@
 #include "../mck/gui/utilgui.h"
 #include "../mck/piece/utilpiece.h"
 #include "../mck/util/utiltest.h"
-
 #include "piece/Piece.h"
 
 #include <gtest/gtest.h>
@@ -109,5 +108,5 @@ TEST(PieceTest, roll) {
         EXPECT_EQ(p[i], color);
     }
 }
-}
-}
+} // namespace tst
+} // namespace piece

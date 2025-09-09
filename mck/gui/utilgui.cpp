@@ -6,8 +6,7 @@
 
 namespace gui {
 bool operator==(const Font& lhs, const Font& rhs) {
-    return lhs.name() == rhs.name()
-           && lhs.size() == rhs.size();
+    return lhs.name() == rhs.name() && lhs.size() == rhs.size();
 }
 
 bool operator!=(const Font& lhs, const Font& rhs) {
@@ -18,12 +17,18 @@ namespace mck {
 
 std::string to_string(gui::Color color) {
     switch (color) {
-        case Color::NONE: return "none";
-        case Color::RED: return "RED";
-        case Color::GREEN: return "GREEN";
-        case Color::BLUE: return "BLUE";
-        case Color::YELLOW: return "YELLOW";
-        case Color::LAVENDER: return "LAVENDER";
+        case Color::NONE:
+            return "none";
+        case Color::RED:
+            return "RED";
+        case Color::GREEN:
+            return "GREEN";
+        case Color::BLUE:
+            return "BLUE";
+        case Color::YELLOW:
+            return "YELLOW";
+        case Color::LAVENDER:
+            return "LAVENDER";
     }
     throw std::invalid_argument("invalid color " + std::to_string(static_cast<size_t>(color)));
 }
@@ -44,9 +49,7 @@ void print(gui::Color color) {
     printf("%s |", to_string(color).c_str());
 }
 
-void print(const std::string& file,
-      int line,
-      Color color) {
+void print(const std::string& file, int line, Color color) {
     printf("Printing color from %s(%d)\n", file.c_str(), line);
     const std::string separator(11, '-');
     printf("%s\n", separator.c_str());
@@ -54,5 +57,5 @@ void print(const std::string& file,
     printf("\n");
     printf("%s\n\n", separator.c_str());
 }
-}
-}
+} // namespace mck
+} // namespace gui

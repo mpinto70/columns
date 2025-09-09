@@ -19,4 +19,4 @@ private:
     Clock::duration wait_time_; ///< time to wait in microseconds
     Clock::time_point end_;     ///< end time
 };
-}
+} // namespace util

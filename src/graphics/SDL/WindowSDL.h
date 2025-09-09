@@ -1,9 +1,10 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <unistd.h>
+
 #include <array>
 #include <string>
-#include <unistd.h>
 
 namespace graphics {
 
@@ -11,7 +12,8 @@ using ColorTripletT = std::array<Uint8, 3>;
 
 class WindowSDL {
 public:
-    WindowSDL(const std::string& name,
+    WindowSDL(
+          const std::string& name,
           size_t left,
           size_t top,
           size_t width,
@@ -27,17 +29,14 @@ public:
 
     void update();
 
-    void line(int x1,
-          int y1,
-          int x2,
-          int y2,
-          const ColorTripletT& color);
+    void line(int x1, int y1, int x2, int y2, const ColorTripletT& color);
 
     void rectangle(const SDL_Rect& rect, const ColorTripletT& color);
 
     void fill(const SDL_Rect& rect, const ColorTripletT& color);
 
-    SDL_Rect write(const std::string& text,
+    SDL_Rect write(
+          const std::string& text,
           int x,
           int y,
           const std::string& font_name,
@@ -51,4 +50,4 @@ private:
     SDL_Renderer* renderer_;
     ColorTripletT color_;
 };
-}
+} // namespace graphics

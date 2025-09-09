@@ -11,4 +11,4 @@ size_t Random::get(const size_t N) {
     std::uniform_int_distribution<size_t> dist(0, N);
     return dist(engine);
 }
-}
+} // namespace util

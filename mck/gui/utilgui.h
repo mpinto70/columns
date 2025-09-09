@@ -19,8 +19,6 @@ constexpr size_t end_color() {
 }
 
 void print(Color color);
-void print(const std::string& file,
-      int line,
-      Color color);
-}
-}
+void print(const std::string& file, int line, Color color);
+} // namespace mck
+} // namespace gui

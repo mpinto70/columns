@@ -10,7 +10,8 @@ namespace graphics {
 namespace sdl {
 class Canvas : public game::Canvas {
 public:
-    Canvas(const piece::Board& board,
+    Canvas(
+          const piece::Board& board,
           const std::string& name,
           int left,
           int top,
@@ -36,5 +37,5 @@ private:
     void draw_(const piece::Board::EliminationList& elimination_list) override;
     void finish() override;
 };
-}
-}
+} // namespace sdl
+} // namespace graphics

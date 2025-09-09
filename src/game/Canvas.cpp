@@ -19,4 +19,4 @@ void Canvas::draw(const state::State& state) {
     }
     finish();
 }
-}
+} // namespace game

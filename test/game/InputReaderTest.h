@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../mck/game/InputReaderMock.h"
-
 #include "game/InputReader.h"
 #include "game/Messages.h"
 
@@ -18,5 +17,5 @@ protected:
 
     std::unique_ptr<mck::InputReaderMock> reader;
 };
-}
-}
+} // namespace tst
+} // namespace game

@@ -34,8 +34,7 @@ std::string build_msg(const Messages::List& inputs) {
     return res;
 }
 
-void expect_read_input(mck::InputReaderMock* reader,
-      const Messages::List& inputs) {
+void expect_read_input(mck::InputReaderMock* reader, const Messages::List& inputs) {
     const auto msg = build_msg(inputs);
     EXPECT_CALL(*reader, read_input_()).WillOnce(Return(inputs));
 
@@ -56,11 +55,11 @@ void expect_read_input(mck::InputReaderMock* reader,
     // the first call cleared the input
     EXPECT_EQ(reader->get_input(), Messages::List()) << msg;
 }
-}
+} // namespace
 
 TEST_F(InputReaderTest, get_input_with_messages) {
     expect_read_input(reader.get(), { EMessage::Stop });
     expect_read_input(reader.get(), { EMessage::MoveLeft, EMessage::DropDown });
 }
-}
-}
+} // namespace tst
+} // namespace game

@@ -53,34 +53,16 @@ private:
     size_t width_;                  ///< board width
     size_t height_;                 ///< board height
 
-    size_t index(size_t c, size_t r) const {
-        return r * width_ + c;
-    }
+    size_t index(size_t c, size_t r) const { return r * width_ + c; }
 
-    bool has_horizontal_triplet(size_t c,
-          size_t r,
-          gui::Color color) const;
-    bool has_vertical_triplet(size_t c,
-          size_t r,
-          gui::Color color) const;
-    bool has_diagonal_descending_triplet(size_t c,
-          size_t r,
-          gui::Color color) const;
-    bool has_diagonal_ascending_triplet(size_t c,
-          size_t r,
-          gui::Color color) const;
-    void add_horizontal_triplet(std::vector<Tile>& res,
-          size_t i,
-          size_t j) const;
-    void add_vertical_triplet(std::vector<Tile>& res,
-          size_t i,
-          size_t j) const;
-    void add_diagonal_descending_triplet(std::vector<Tile>& res,
-          size_t i,
-          size_t j) const;
-    void add_diagonal_ascending_triplet(std::vector<Tile>& res,
-          size_t i,
-          size_t j) const;
+    bool has_horizontal_triplet(size_t c, size_t r, gui::Color color) const;
+    bool has_vertical_triplet(size_t c, size_t r, gui::Color color) const;
+    bool has_diagonal_descending_triplet(size_t c, size_t r, gui::Color color) const;
+    bool has_diagonal_ascending_triplet(size_t c, size_t r, gui::Color color) const;
+    void add_horizontal_triplet(std::vector<Tile>& res, size_t i, size_t j) const;
+    void add_vertical_triplet(std::vector<Tile>& res, size_t i, size_t j) const;
+    void add_diagonal_descending_triplet(std::vector<Tile>& res, size_t i, size_t j) const;
+    void add_diagonal_ascending_triplet(std::vector<Tile>& res, size_t i, size_t j) const;
 };
 
 constexpr bool operator==(const Board::Tile& lhs, const Board::Tile& rhs) {
@@ -93,4 +75,4 @@ constexpr bool operator<(const Board::Tile& lhs, const Board::Tile& rhs) {
 
 using SharedBoard = std::shared_ptr<Board>;
 using SharedConstBoard = std::shared_ptr<const Board>;
-}
+} // namespace piece

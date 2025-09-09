@@ -11,4 +11,4 @@ void Position::step_down() {
         ++row_;
     }
 }
-}
+} // namespace piece

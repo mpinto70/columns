@@ -1,7 +1,6 @@
 #include "../mck/gui/utilgui.h"
 #include "../mck/piece/utilpiece.h"
 #include "../mck/util/utiltest.h"
-
 #include "piece/Board.h"
 
 #include <gtest/gtest.h>
@@ -13,9 +12,7 @@ namespace piece {
 namespace tst {
 namespace {
 
-static void check_empty_board(const std::string& msg,
-      size_t w,
-      size_t h) {
+static void check_empty_board(const std::string& msg, size_t w, size_t h) {
     EXPECT_TRUE(w > 0) << msg;
     EXPECT_TRUE(h > 0) << msg;
     const Board board(w, h);
@@ -52,12 +49,8 @@ TEST(BoardTest, invalid_create) {
 }
 
 namespace {
-void check_one_tile_colored(const Board& board,
-      size_t column,
-      size_t line,
-      gui::Color color) {
-    const std::string msg = "column=" + std::to_string(column)
-                            + " / line=" + std::to_string(line)
+void check_one_tile_colored(const Board& board, size_t column, size_t line, gui::Color color) {
+    const std::string msg = "column=" + std::to_string(column) + " / line=" + std::to_string(line)
                             + " / color=" + gui::mck::to_string(color)
                             + " / background=" + gui::mck::to_string(gui::Color::NONE);
     for (size_t i = 0; i < board.width(); ++i) {
@@ -72,7 +65,7 @@ void check_one_tile_colored(const Board& board,
         }
     }
 }
-}
+} // namespace
 
 TEST(BoardTest, change) {
     const size_t WIDTH = 35;
@@ -126,7 +119,8 @@ TEST(BoardTest, remove) {
 
     for (size_t i = 0; i < columns; ++i) {
         for (size_t j = 0; j < rows; ++j) {
-            tiles.at(j * columns + i) = board.tile(i, j) = gui::mck::to_normalized_color(j * columns + i);
+            tiles.at(j * columns + i) = board.tile(i, j) =
+                  gui::mck::to_normalized_color(j * columns + i);
         }
     }
 
@@ -174,8 +168,8 @@ TEST(BoardTest, remove_list) {
 
     const Board::EliminationList elimination_list = {
         { columns - 1, rows - 1 },
-        { 0, rows - 1 },
-        { 1, rows - 3 },
+        { 0,           rows - 1 },
+        { 1,           rows - 3 },
         { columns - 2, rows - 2 },
     };
 
@@ -543,5 +537,5 @@ TEST(BoardTest, elimination_list_multiple_directions) {
     };
     EXPECT_EQ(list, expected);
 }
-}
-}
+} // namespace tst
+} // namespace piece

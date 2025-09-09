@@ -1,7 +1,6 @@
 #include "PieceControllerTest.h"
 
 #include "../mck/piece/utilpiece.h"
-
 #include "game/Messages.h"
 #include "game/PieceController.h"
 #include "piece/Board.h"
@@ -14,13 +13,13 @@
 namespace game {
 namespace tst {
 
-PieceController PieceControllerTest::create_controller(size_t width,
-      size_t height) {
+PieceController PieceControllerTest::create_controller(size_t width, size_t height) {
     board = std::make_shared<piece::Board>(width, height);
     return PieceController(board);
 }
 
-PieceController PieceControllerTest::create_controller_with_piece(size_t column,
+PieceController PieceControllerTest::create_controller_with_piece(
+      size_t column,
       size_t width,
       size_t height) {
     PieceController controller = create_controller(width, height);
@@ -29,9 +28,7 @@ PieceController PieceControllerTest::create_controller_with_piece(size_t column,
     return controller;
 }
 
-void PieceControllerTest::fill_column(size_t column,
-      size_t initial_row,
-      gui::Color color) {
+void PieceControllerTest::fill_column(size_t column, size_t initial_row, gui::Color color) {
     for (size_t r = initial_row; r < board->height(); ++r) {
         board->tile(column, r) = color;
     }
@@ -92,7 +89,9 @@ TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_left_is_us
     EXPECT_EQ(controller.position(), position);
 }
 
-TEST_F(PieceControllerTest, added_piece_doesnt_move_left_when_tile_at_below_left_is_used_and_piece_is_sub_stepped) {
+TEST_F(
+      PieceControllerTest,
+      added_piece_doesnt_move_left_when_tile_at_below_left_is_used_and_piece_is_sub_stepped) {
     PieceController controller = create_controller_with_piece(4, 8, 10);
     fill_column(3, piece::PIECE_SIZE, gui::Color::BLUE);
 
@@ -162,7 +161,9 @@ TEST_F(PieceControllerTest, added_piece_roll_down) {
     EXPECT_EQ(controller.position(), position);
 }
 
-TEST_F(PieceControllerTest, added_piece_doesnt_move_right_when_tile_at_right_is_used_and_piece_is_sub_stepped) {
+TEST_F(
+      PieceControllerTest,
+      added_piece_doesnt_move_right_when_tile_at_right_is_used_and_piece_is_sub_stepped) {
     PieceController controller = create_controller_with_piece(4, 8, 10);
     fill_column(5, piece::PIECE_SIZE, gui::Color::BLUE);
 
@@ -302,5 +303,5 @@ TEST_F(PieceControllerTest, remove_with_added_piece_removes) {
     EXPECT_EQ(removed.second, position);
     EXPECT_FALSE(controller.has_piece());
 }
-}
-}
+} // namespace tst
+} // namespace game

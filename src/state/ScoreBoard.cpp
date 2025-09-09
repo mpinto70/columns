@@ -5,15 +5,12 @@
 
 namespace state {
 
-ScoreBoard::ScoreBoard(const Score& record, const Score& score)
-      : record_(record),
-        score_(score) {
-    if (record_ < score_)
-        throw std::invalid_argument("ScoreBoard - record ("
-                                    + std::to_string(record.total())
-                                    + ") is less than the score ("
-                                    + std::to_string(score.total())
-                                    + ")");
+ScoreBoard::ScoreBoard(const Score& record, const Score& score) : record_(record), score_(score) {
+    if (record_ < score_) {
+        throw std::invalid_argument(
+              "ScoreBoard - record (" + std::to_string(record.total())
+              + ") is less than the score (" + std::to_string(score.total()) + ")");
+    }
 }
 
 void ScoreBoard::add(const size_t n) {
@@ -26,4 +23,4 @@ void ScoreBoard::add(const size_t n) {
 void ScoreBoard::reset() {
     score_.reset();
 }
-}
+} // namespace state

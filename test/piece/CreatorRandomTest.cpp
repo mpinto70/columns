@@ -1,5 +1,4 @@
 #include "../mck/piece/utilpiece.h"
-
 #include "piece/CreatorRandom.h"
 
 #include <gtest/gtest.h>
@@ -62,5 +61,5 @@ TEST(CreatorRandomTest, column_specific) {
         EXPECT_THROW(creator->column(), std::runtime_error);
     }
 }
-}
-}
+} // namespace tst
+} // namespace piece

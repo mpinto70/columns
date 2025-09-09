@@ -9,8 +9,7 @@ PieceController::PieceController(piece::SharedConstBoard board)
       : board_(board),
         piece_(piece::NO_PIECE),
         position_(0),
-        steps_per_step_(1) {
-}
+        steps_per_step_(1) {}
 const piece::Position& PieceController::position() const {
     return position_;
 }
@@ -32,16 +31,19 @@ std::pair<piece::Piece, piece::Position> PieceController::remove() {
 }
 
 void PieceController::process(EMessage message) {
-    if (not has_piece())
+    if (not has_piece()) {
         return;
+    }
     switch (message) {
         case EMessage::MoveLeft:
-            if (can_move_left())
+            if (can_move_left()) {
                 position_.move_left();
+            }
             break;
         case EMessage::MoveRight:
-            if (can_move_right())
+            if (can_move_right()) {
                 position_.move_right();
+            }
             break;
         case EMessage::RollUp:
             piece_.roll_up();
@@ -58,11 +60,13 @@ void PieceController::process(EMessage message) {
 }
 
 bool PieceController::step() {
-    if (not has_piece())
+    if (not has_piece()) {
         return false;
+    }
     for (size_t i = 0; i < steps_per_step_; ++i) {
-        if (not can_step_down())
+        if (not can_step_down()) {
             return false;
+        }
         position_.step_down();
     }
     return true;
@@ -71,30 +75,34 @@ bool PieceController::step() {
 bool PieceController::can_move_left() const {
     const auto column = position_.column();
     const auto bottom_row = lower_row_to_check();
-    if (column == 0)
+    if (column == 0) {
         return false;
+    }
     return not board_->used(column - 1, bottom_row);
 }
 
 bool PieceController::can_move_right() const {
     const auto column = position_.column();
     const auto bottom_row = lower_row_to_check();
-    if (column + 1 == board_->width())
+    if (column + 1 == board_->width()) {
         return false;
+    }
     return not board_->used(column + 1, bottom_row);
 }
 
 bool PieceController::can_step_down() const {
     const auto column = position_.column();
     const auto row = position_.row();
-    if (row + piece::PIECE_SIZE == board_->height())
+    if (row + piece::PIECE_SIZE == board_->height()) {
         return false;
-    if (board_->used(column, row + piece::PIECE_SIZE))
+    }
+    if (board_->used(column, row + piece::PIECE_SIZE)) {
         return false;
+    }
     return position_.row() + piece::PIECE_SIZE < board_->height();
 }
 
 size_t PieceController::lower_row_to_check() const {
     return position_.row() + piece::PIECE_SIZE - (position_.sub_row() == 0 ? 1 : 0);
 }
-}
+} // namespace game

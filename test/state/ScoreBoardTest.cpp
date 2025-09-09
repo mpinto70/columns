@@ -1,13 +1,12 @@
 #include "../mck/state/utilstate.h"
 #include "../mck/util/utiltest.h"
-
 #include "state/Score.h"
 #include "state/ScoreBoard.h"
 
 #include <gtest/gtest.h>
+#include <stdio.h>
 
 #include <stdexcept>
-#include <stdio.h>
 
 namespace state {
 namespace tst {
@@ -86,5 +85,5 @@ TEST(ScoreBoardTest, reset) {
     EXPECT_EQ(sb.record(), Score(52));
     EXPECT_EQ(sb.score(), Score(0));
 }
-}
-}
+} // namespace tst
+} // namespace state

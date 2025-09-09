@@ -16,5 +16,5 @@ public:
     MOCK_METHOD1(draw_, void(const piece::Board::EliminationList&));
     MOCK_METHOD0(finish, void());
 };
-}
-}
+} // namespace mck
+} // namespace game

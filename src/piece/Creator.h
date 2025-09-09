@@ -14,4 +14,4 @@ public:
 };
 
 using CreatorPtr = std::unique_ptr<Creator>;
-}
+} // namespace piece

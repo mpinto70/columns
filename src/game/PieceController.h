@@ -3,6 +3,7 @@
 #include "game/Messages.h"
 #include "piece/Board.h"
 #include "piece/Position.h"
+
 #include <atomic>
 #include <utility>
 
@@ -33,4 +34,4 @@ private:
     [[nodiscard]] bool can_step_down() const;
     [[nodiscard]] size_t lower_row_to_check() const;
 };
-}
+} // namespace game

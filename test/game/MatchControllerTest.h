@@ -2,7 +2,6 @@
 
 #include "../mck/game/CanvasMock.h"
 #include "../mck/game/InputReaderMock.h"
-
 #include "game/MatchController.h"
 #include "game/Messages.h"
 
@@ -20,5 +19,5 @@ protected:
     mck::InputReaderMock* input_reader_mock;
     piece::SharedBoard board;
 };
-}
-}
+} // namespace tst
+} // namespace game

@@ -63,7 +63,9 @@ constexpr ColorTripletT COLORS[] = {
     GRAY_LIGHTEST, // NONE
 };
 
-static_assert(sizeof(COLORS) / sizeof(COLORS[0]) == static_cast<size_t>(gui::Color::NONE) + 1, "wrong array size");
+static_assert(
+      sizeof(COLORS) / sizeof(COLORS[0]) == static_cast<size_t>(gui::Color::NONE) + 1,
+      "wrong array size");
 
 void darken(ColorTripletT& out, const ColorTripletT& color, int percent) {
     out[0] = (int(color[0]) * percent) / 100;
@@ -88,27 +90,16 @@ constexpr int NEXT_PIECE_TOP = SCORE_TOP + SCORE_HEIGHT + 20;
 constexpr int NEXT_PIECE_WIDTH = SCORE_WIDTH;
 
 int score_left(const piece::Board& board) {
-    return LEFT_MARGIN
-           + BORDER_WIDTH
-           + board.width() * TILE_SIZE
-           + BORDER_WIDTH
-           + INNER_SPACE
+    return LEFT_MARGIN + BORDER_WIDTH + board.width() * TILE_SIZE + BORDER_WIDTH + INNER_SPACE
            + BORDER_WIDTH;
 }
 
 int screen_width(const piece::Board& board) {
-    return score_left(board)
-           + SCORE_WIDTH
-           + BORDER_WIDTH
-           + RIGHT_MARGIN;
+    return score_left(board) + SCORE_WIDTH + BORDER_WIDTH + RIGHT_MARGIN;
 }
 
 int screen_height(const piece::Board& board) {
-    return TOP_MARGIN
-           + BORDER_WIDTH
-           + board.height() * TILE_SIZE
-           + BORDER_WIDTH
-           + BOTTOM_MARGIN;
+    return TOP_MARGIN + BORDER_WIDTH + board.height() * TILE_SIZE + BORDER_WIDTH + BOTTOM_MARGIN;
 }
 
 constexpr int calculate_x(size_t column) {
@@ -119,10 +110,7 @@ constexpr int calculate_y(size_t row, size_t sub_row = 0) {
     return row * TILE_SIZE + BOARD_TOP + sub_row * STEP_SIZE;
 }
 
-void draw_tile(WindowSDL& window,
-      const ColorTripletT& color,
-      const int x1,
-      const int y1) {
+void draw_tile(WindowSDL& window, const ColorTripletT& color, const int x1, const int y1) {
     const SDL_Rect rect = { x1, y1, TILE_SIZE, TILE_SIZE };
     ColorTripletT darker;
     darken(darker, color, 40);
@@ -130,25 +118,20 @@ void draw_tile(WindowSDL& window,
     window.rectangle(rect, darker);
 }
 
-void draw_tile(WindowSDL& window,
-      gui::Color color,
-      const int x1,
-      const int y1) {
+void draw_tile(WindowSDL& window, gui::Color color, const int x1, const int y1) {
     const ColorTripletT& sdl_color = COLORS[static_cast<unsigned int>(color)];
     draw_tile(window, sdl_color, x1, y1);
 }
 
-void draw_piece(WindowSDL& window,
-      const piece::Piece& piece,
-      const int x1,
-      int y1) {
+void draw_piece(WindowSDL& window, const piece::Piece& piece, const int x1, int y1) {
     for (size_t t = 0; t < piece::PIECE_SIZE; ++t) {
         draw_tile(window, piece[t], x1, y1);
         y1 += TILE_SIZE;
     }
 }
 
-void draw_frame(WindowSDL& window,
+void draw_frame(
+      WindowSDL& window,
       int outer_left,
       int outer_top,
       int outer_right,
@@ -156,39 +139,28 @@ void draw_frame(WindowSDL& window,
       int width,
       const ColorTripletT& light_triplet,
       const ColorTripletT& dark_triplet) {
-    for (int l = outer_left,
-             t = outer_top,
-             r = outer_right;
-          l < outer_left + width;
-          ++l, ++t, --r) {
+    for (int l = outer_left, t = outer_top, r = outer_right; l < outer_left + width;
+         ++l, ++t, --r) {
         window.line(l, t, r, t, dark_triplet);
     }
-    for (int t = outer_top,
-             b = outer_bottom,
-             r = outer_right;
-          t < outer_top + width;
-          ++t, --b, --r) {
+    for (int t = outer_top, b = outer_bottom, r = outer_right; t < outer_top + width;
+         ++t, --b, --r) {
         window.line(r, t, r, b, dark_triplet);
     }
 
-    for (int l = outer_left,
-             b = outer_bottom,
-             r = outer_right;
-          l < outer_left + width;
-          ++l, --b, --r) {
+    for (int l = outer_left, b = outer_bottom, r = outer_right; l < outer_left + width;
+         ++l, --b, --r) {
         window.line(l, b, r, b, light_triplet);
     }
-    for (int t = outer_top,
-             b = outer_bottom,
-             l = outer_left;
-          t < outer_top + width;
-          ++t, --b, ++l) {
+    for (int t = outer_top, b = outer_bottom, l = outer_left; t < outer_top + width;
+         ++t, --b, ++l) {
         window.line(l, t, l, b, light_triplet);
     }
 }
-}
+} // namespace
 
-Canvas::Canvas(const piece::Board& board,
+Canvas::Canvas(
+      const piece::Board& board,
       const std::string& name,
       int left,
       int top,
@@ -201,8 +173,7 @@ Canvas::Canvas(const piece::Board& board,
         board_width_(board.width() * TILE_SIZE),
         board_height_(board.height() * TILE_SIZE),
         score_left_(score_left(board)),
-        next_piece_heigt_(20 + piece::PIECE_SIZE * TILE_SIZE) {
-}
+        next_piece_heigt_(20 + piece::PIECE_SIZE * TILE_SIZE) {}
 
 Canvas::~Canvas() = default;
 
@@ -215,7 +186,8 @@ void Canvas::start() {
     const int outer_top = BOARD_TOP - BORDER_WIDTH;
     const int outer_bottom = BOARD_TOP + board_height_ + BORDER_WIDTH - 1;
 
-    draw_frame(window_,
+    draw_frame(
+          window_,
           outer_left,
           outer_top,
           outer_right,
@@ -224,14 +196,10 @@ void Canvas::start() {
           GRAY_WARM_DARK,
           GRAY_BLACK);
 
-    window_.write(name_,
-          BOARD_LEFT + 10,
-          5,
-          font_name_.name(),
-          font_name_.size() + 5,
-          BLUE_DARK);
+    window_.write(name_, BOARD_LEFT + 10, 5, font_name_.name(), font_name_.size() + 5, BLUE_DARK);
 
-    window_.write("by mpinto70",
+    window_.write(
+          "by mpinto70",
           BOARD_LEFT + 10,
           BOARD_TOP + board_height_ + 5,
           font_name_.name(),
@@ -261,7 +229,8 @@ void Canvas::draw_next_(const piece::Piece& next_piece) {
     const SDL_Rect rect = { score_left_, NEXT_PIECE_TOP, NEXT_PIECE_WIDTH, next_piece_heigt_ };
     window_.fill(rect, WHITE);
 
-    draw_frame(window_,
+    draw_frame(
+          window_,
           score_left_,
           NEXT_PIECE_TOP,
           score_left_ + NEXT_PIECE_WIDTH,
@@ -279,7 +248,8 @@ void Canvas::draw_(const state::ScoreBoard& score_board) {
     const SDL_Rect rect = { score_left_, BOARD_TOP, SCORE_WIDTH, SCORE_HEIGHT };
     window_.fill(rect, WHITE);
 
-    draw_frame(window_,
+    draw_frame(
+          window_,
           score_left_,
           BOARD_TOP,
           score_left_ + SCORE_WIDTH,
@@ -288,26 +258,30 @@ void Canvas::draw_(const state::ScoreBoard& score_board) {
           GRAY_MEDIUM,
           GRAY_BLACK);
 
-    auto text_rect = window_.write("Score",
+    auto text_rect = window_.write(
+          "Score",
           score_left_ + 10,
           BOARD_TOP + BORDER_WIDTH + 2,
           font_name_.name(),
           font_name_.size(),
           BLUE_DARK);
-    window_.write(std::to_string(score_board.score().total()),
+    window_.write(
+          std::to_string(score_board.score().total()),
           text_rect.x + text_rect.w + 20,
           text_rect.y,
           font_score_.name(),
           font_score_.size(),
           BLUE_DARK);
 
-    text_rect = window_.write("Record",
+    text_rect = window_.write(
+          "Record",
           score_left_ + 10,
           text_rect.y + text_rect.h + 10,
           font_name_.name(),
           font_name_.size(),
           RED_DARKEST);
-    window_.write(std::to_string(score_board.record().total()),
+    window_.write(
+          std::to_string(score_board.record().total()),
           text_rect.x + text_rect.w + 20,
           text_rect.y,
           font_score_.name(),
@@ -326,5 +300,5 @@ void Canvas::draw_(const piece::Board::EliminationList& elimination_list) {
 void Canvas::finish() {
     window_.update();
 }
-}
-}
+} // namespace sdl
+} // namespace graphics

@@ -42,5 +42,5 @@ game::Messages::List InputReader::read_input_() {
     }
     return res;
 }
-}
-}
+} // namespace sdl
+} // namespace input

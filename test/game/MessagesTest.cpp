@@ -51,5 +51,5 @@ TEST(MessagesTest, clear) {
     msgs.clear();
     EXPECT_EQ(msgs.get(), Messages::List());
 }
-}
-}
+} // namespace tst
+} // namespace game

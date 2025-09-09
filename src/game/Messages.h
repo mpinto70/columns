@@ -7,14 +7,7 @@
 namespace game {
 
 /// Message identifiers
-enum class EMessage {
-    MoveLeft,
-    MoveRight,
-    DropDown,
-    RollUp,
-    RollDown,
-    Stop
-};
+enum class EMessage { MoveLeft, MoveRight, DropDown, RollUp, RollDown, Stop };
 
 /// Controls event messages
 class Messages {
@@ -34,4 +27,4 @@ private:
 };
 
 using SharedMessage = std::shared_ptr<Messages>;
-}
+} // namespace game

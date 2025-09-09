@@ -1,7 +1,6 @@
 #include "utilpiece.h"
 
 #include "../mck/gui/utilgui.h"
-
 #include "CreatorCycle.h"
 
 #include <cstdio>
@@ -13,9 +12,7 @@ bool operator!=(const Piece& lhs, const Piece& rhs) {
 }
 
 bool operator==(const Board& lhs, const Board& rhs) {
-    return lhs.height() == rhs.height()
-           && lhs.width() == rhs.width()
-           && lhs.tiles() == rhs.tiles();
+    return lhs.height() == rhs.height() && lhs.width() == rhs.width() && lhs.tiles() == rhs.tiles();
 }
 
 bool operator!=(const Board& lhs, const Board& rhs) {
@@ -27,9 +24,7 @@ bool operator!=(const Board::Tile& lhs, const Board::Tile& rhs) {
 }
 
 bool operator==(const Position& lhs, const Position& rhs) {
-    return lhs.column() == rhs.column()
-           && lhs.row() == rhs.row()
-           && lhs.sub_row() == rhs.sub_row();
+    return lhs.column() == rhs.column() && lhs.row() == rhs.row() && lhs.sub_row() == rhs.sub_row();
 }
 
 bool operator!=(const Position& lhs, const Position& rhs) {
@@ -62,7 +57,8 @@ Piece create_piece_descending(unsigned char color0) {
     return create_piece_step(color0, -1);
 }
 
-CreatorPtr create_cycle_creator(const std::vector<piece::Piece>& cycle,
+CreatorPtr create_cycle_creator(
+      const std::vector<piece::Piece>& cycle,
       const std::vector<size_t>& columns) {
     return std::make_unique<CreatorCycle>(cycle, columns);
 }
@@ -85,8 +81,9 @@ void fix(Board& board, const Piece& piece, const Position& position) {
 }
 
 void fill_column(Board& board, size_t column, size_t first_row) {
-    if (column >= board.width())
+    if (column >= board.width()) {
         throw std::runtime_error("fill - invalid column");
+    }
     for (size_t r = first_row; r < board.height(); ++r) {
         board.tile(column, r) = gui::Color::BLUE;
     }
@@ -98,9 +95,7 @@ void fill_board(Board& board, size_t first_row) {
     }
 }
 
-void print_piece(const std::string& file,
-      int line,
-      const Piece& piece) {
+void print_piece(const std::string& file, int line, const Piece& piece) {
     printf("Printing piece from %s(%d)\n", file.c_str(), line);
     const std::string separator(PIECE_SIZE * 11, '-');
     printf("%s\n", separator.c_str());
@@ -112,9 +107,7 @@ void print_piece(const std::string& file,
     printf("%s\n\n", separator.c_str());
 }
 
-void print_board(const std::string& file,
-      const int line,
-      const Board& board) {
+void print_board(const std::string& file, const int line, const Board& board) {
     printf("Printing board from %s(%d)\n", file.c_str(), line);
     const std::string separator(board.width() * 11, '-');
     printf("%s\n", separator.c_str());
@@ -127,5 +120,5 @@ void print_board(const std::string& file,
     }
     printf("%s\n\n", separator.c_str());
 }
-}
-}
+} // namespace mck
+} // namespace piece

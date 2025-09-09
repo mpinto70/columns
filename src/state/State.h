@@ -39,11 +39,11 @@ public:
     /// @throw std::logic_error by default
     const piece::Board::EliminationList& elimination_list() const;
 
-    void to_falling(const piece::Piece& next,
+    void to_falling(
+          const piece::Piece& next,
           const piece::Piece& falling,
           const piece::Position& position);
-    void still_falling(const piece::Piece& falling,
-          const piece::Position& position);
+    void still_falling(const piece::Piece& falling, const piece::Position& position);
     void to_elimination();
 
 private:
@@ -55,4 +55,4 @@ private:
     piece::Position piece_position_;
     piece::Board::EliminationList elimination_list_;
 };
-}
+} // namespace state

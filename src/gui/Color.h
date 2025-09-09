@@ -12,4 +12,4 @@ enum class Color {
     LAVENDER,
     NONE,
 };
-}
+} // namespace gui

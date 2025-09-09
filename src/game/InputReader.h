@@ -13,9 +13,7 @@ public:
 
     void read_input();
 
-    Messages::List get_input() {
-        return messages_.get();
-    }
+    Messages::List get_input() { return messages_.get(); }
 
 private:
     Messages messages_;
@@ -24,4 +22,4 @@ private:
 };
 
 using InputReaderPtr = std::unique_ptr<InputReader>;
-}
+} // namespace game

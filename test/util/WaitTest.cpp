@@ -25,7 +25,7 @@ void check_wait(const size_t mili) {
     after = Wait::Clock::now();
     EXPECT_LE(end, after) << mili;
 }
-}
+} // namespace
 
 TEST(WaitTest, wait) {
     for (size_t i = 0; i < 10; ++i) {
@@ -50,7 +50,7 @@ void check_end(const size_t mili) {
     EXPECT_LT(before, wait.end()) << mili;
     EXPECT_LE(end, wait.end()) << mili;
 }
-}
+} // namespace
 
 TEST(WaitTest, end) {
     for (size_t i = 0; i < 1000; ++i) {
@@ -60,5 +60,5 @@ TEST(WaitTest, end) {
         check_end(30);
     }
 }
-}
-}
+} // namespace tst
+} // namespace util

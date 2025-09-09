@@ -1,4 +1,5 @@
 #include "CreatorRandom.h"
+
 #include "util/Random.h"
 
 namespace piece {
@@ -24,12 +25,14 @@ size_t CreatorRandom::column() const {
     std::vector<size_t> columns_available;
     columns_available.reserve(board_->width());
     for (size_t i = 0; i < board_->width(); ++i) {
-        if (not board_->used(i, PIECE_SIZE - 1))
+        if (not board_->used(i, PIECE_SIZE - 1)) {
             columns_available.push_back(i);
+        }
     }
-    if (columns_available.empty())
+    if (columns_available.empty()) {
         throw std::runtime_error("CreatorRandom::column - no available column");
+    }
     const size_t index = util::Random::get(columns_available.size() - 1);
     return columns_available[index];
 }
-}
+} // namespace piece

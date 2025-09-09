@@ -17,4 +17,4 @@ private:
     std::vector<gui::Color> possibles_;
     size_t max_column_;
 };
-}
+} // namespace piece

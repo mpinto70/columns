@@ -27,4 +27,4 @@ private:
 };
 
 using CanvasPtr = std::unique_ptr<Canvas>;
-}
+} // namespace game

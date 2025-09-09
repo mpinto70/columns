@@ -15,4 +15,4 @@ public:
      */
     static size_t get(size_t N);
 };
-}
+} // namespace util

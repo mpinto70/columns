@@ -11,5 +11,5 @@ public:
 private:
     game::Messages::List read_input_() override;
 };
-}
-}
+} // namespace sdl
+} // namespace input

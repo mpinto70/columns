@@ -11,9 +11,7 @@ namespace mck {
 std::string create_message(const std::string& file, int line);
 
 template <typename T>
-void check_comparison(const std::string& file,
-      const int line,
-      const std::vector<T>& ts) {
+void check_comparison(const std::string& file, const int line, const std::vector<T>& ts) {
     const auto msg = create_message(file, line);
     EXPECT_NE(ts.size(), 0u) << msg;
     for (size_t i = 0; i < ts.size(); ++i) {
@@ -29,7 +27,8 @@ void check_comparison(const std::string& file,
 }
 
 template <typename T>
-void check_comparison(const std::string& file,
+void check_comparison(
+      const std::string& file,
       const int line,
       const std::vector<std::shared_ptr<const T>>& pts) {
     const auto msg = create_message(file, line);
@@ -47,7 +46,8 @@ void check_comparison(const std::string& file,
 }
 
 template <typename T>
-void check_comparison(const std::string& file,
+void check_comparison(
+      const std::string& file,
       const int line,
       const std::vector<std::shared_ptr<T>>& pts) {
     const auto msg = create_message(file, line);
@@ -65,9 +65,7 @@ void check_comparison(const std::string& file,
 }
 
 template <typename T>
-void check_total_ordering(const std::string& file,
-      const int line,
-      const std::vector<T>& ts) {
+void check_total_ordering(const std::string& file, const int line, const std::vector<T>& ts) {
     const auto msg = create_message(file, line);
     EXPECT_NE(ts.size(), 0u) << msg;
     for (size_t i = 0; i < ts.size(); ++i) {
@@ -85,10 +83,7 @@ void check_total_ordering(const std::string& file,
 }
 
 template <typename T>
-void check_assignment(const std::string& file,
-      const int line,
-      const T& t1,
-      const T& t2) {
+void check_assignment(const std::string& file, const int line, const T& t1, const T& t2) {
     const auto msg = create_message(file, line);
     EXPECT_TRUE(not(t1 == t2)) << msg;
 
@@ -110,4 +105,4 @@ void check_assignment(const std::string& file,
     EXPECT_NE(t1, r1) << msg;
     EXPECT_NE(t2, r2) << msg;
 }
-}
+} // namespace mck

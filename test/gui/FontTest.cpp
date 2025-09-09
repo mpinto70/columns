@@ -1,6 +1,5 @@
 #include "../mck/gui/utilgui.h"
 #include "../mck/util/utiltest.h"
-
 #include "gui/Font.h"
 
 #include <gtest/gtest.h>
@@ -21,5 +20,5 @@ TEST(FontTest, create) {
 
     ::mck::check_assignment(__FILE__, __LINE__, f1, f2);
 }
-}
-}
+} // namespace tst
+} // namespace gui

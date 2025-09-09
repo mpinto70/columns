@@ -19,5 +19,5 @@ private:
     mutable size_t current_piece_;
     mutable size_t current_column_;
 };
-}
-}
+} // namespace mck
+} // namespace piece

@@ -7,16 +7,12 @@
 namespace game {
 class MatchController {
 public:
-    MatchController(piece::SharedBoard& board,
-          size_t record,
-          piece::CreatorPtr piece_creator);
+    MatchController(piece::SharedBoard& board, size_t record, piece::CreatorPtr piece_creator);
 
     void tick();
     void process(EMessage message);
 
-    [[nodiscard]] const state::State& state() const {
-        return state_;
-    }
+    [[nodiscard]] const state::State& state() const { return state_; }
 
 private:
     piece::SharedBoard board_;
@@ -25,4 +21,4 @@ private:
     state::State state_;
     PieceController piece_controller_;
 };
-}
+} // namespace game

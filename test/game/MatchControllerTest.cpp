@@ -13,17 +13,17 @@ void MatchControllerTest::SetUp() {
     board = std::make_shared<piece::Board>(8, 16);
 }
 
-void MatchControllerTest::TearDown() {
-}
+void MatchControllerTest::TearDown() {}
 
 namespace {
 const piece::Piece DEFAULT_PIECE = piece::mck::create_piece_ascending(0);
 
-piece::CreatorPtr piece_creator(const std::vector<piece::Piece>& pieces = { DEFAULT_PIECE },
+piece::CreatorPtr piece_creator(
+      const std::vector<piece::Piece>& pieces = { DEFAULT_PIECE },
       const std::vector<size_t>& columns = { 1 }) {
     return piece::mck::create_cycle_creator(pieces, columns);
 }
-}
+} // namespace
 
 TEST_F(MatchControllerTest, initial_state) {
     const MatchController controller(board, 157, piece_creator());
@@ -85,15 +85,17 @@ TEST_F(MatchControllerTest, tick_roll_a_piece_falling) {
 }
 
 namespace {
-std::unique_ptr<piece::Board> drop_piece_to_bottom(MatchController& controller,
+std::unique_ptr<piece::Board> drop_piece_to_bottom(
+      MatchController& controller,
       const piece::Board& board,
       const piece::Piece& piece) {
     auto expected_board = piece::mck::dup(board);
     const size_t steps_to_bottom = (board.height() - piece::PIECE_SIZE) * 5;
     controller.tick();
 
-    for (size_t i = 0; i < steps_to_bottom; ++i)
+    for (size_t i = 0; i < steps_to_bottom; ++i) {
         controller.tick();
+    }
 
     piece::mck::fix(*expected_board, piece, controller.state().piece_position());
 
@@ -101,7 +103,7 @@ std::unique_ptr<piece::Board> drop_piece_to_bottom(MatchController& controller,
 
     return expected_board;
 }
-}
+} // namespace
 
 TEST_F(MatchControllerTest, tick_get_to_the_bottom_fixes_tiles_in_board) {
     std::vector<piece::Piece> pieces = {
@@ -158,5 +160,5 @@ TEST_F(MatchControllerTest, tick_after_elimination_list_eliminates) {
     EXPECT_EQ(state.board(), *board);
     EXPECT_EQ(state.next(), pieces[1]);
 }
-}
-}
+} // namespace tst
+} // namespace game

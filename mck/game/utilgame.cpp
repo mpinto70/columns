@@ -6,8 +6,7 @@
 namespace game {
 namespace mck {
 
-void prepare_state_draw(::testing::StrictMock<CanvasMock>& canvas_mock,
-      const state::State& state) {
+void prepare_state_draw(::testing::StrictMock<CanvasMock>& canvas_mock, const state::State& state) {
     EXPECT_CALL(canvas_mock, start()).Times(1);
     EXPECT_CALL(canvas_mock, draw_(state.board())).Times(1);
     EXPECT_CALL(canvas_mock, draw_(state.score_board())).Times(1);
@@ -40,5 +39,5 @@ std::string to_string(EMessage input) {
     }
     return "UNKNOWN EMessage";
 }
-}
-}
+} // namespace mck
+} // namespace game

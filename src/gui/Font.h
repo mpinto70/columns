@@ -19,4 +19,4 @@ private:
     std::string name_;   ///< font name (path to file, for example)
     unsigned char size_; ///< font size
 };
-}
+} // namespace gui

@@ -1,5 +1,4 @@
 #include "../mck/util/utiltest.h"
-
 #include "state/Score.h"
 
 #include <gtest/gtest.h>
@@ -69,12 +68,12 @@ TEST(ScoreTest, add_invalid) {
 }
 
 TEST(ScoreTest, reset) {
-    for (size_t i = 0; i < 5000000; i += 13) {
+    for (size_t i = 0; i < 5'000'000; i += 13) {
         Score s(i);
         EXPECT_EQ(s.total(), i) << i;
         s.reset();
         EXPECT_EQ(s.total(), 0u) << i;
     }
 }
-}
-}
+} // namespace tst
+} // namespace state

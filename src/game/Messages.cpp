@@ -25,4 +25,4 @@ Messages::List Messages::get() {
     lock.unlock();
     return res;
 }
-}
+} // namespace game

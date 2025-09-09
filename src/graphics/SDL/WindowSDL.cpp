@@ -6,7 +6,8 @@
 
 namespace graphics {
 
-WindowSDL::WindowSDL(const std::string& name,
+WindowSDL::WindowSDL(
+      const std::string& name,
       size_t left,
       size_t top,
       size_t width,
@@ -19,11 +20,14 @@ WindowSDL::WindowSDL(const std::string& name,
         color_{ color[0], color[1], color[2] } {
     window_ = SDL_CreateWindow(name.c_str(), left, top, width, height, SDL_WINDOW_SHOWN);
     if (window_ == nullptr) {
-        throw std::runtime_error("WindowSDL - error creating window: " + std::string(SDL_GetError()));
+        throw std::runtime_error(
+              "WindowSDL - error creating window: " + std::string(SDL_GetError()));
     }
-    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    renderer_ =
+          SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer_ == nullptr) {
-        throw std::runtime_error("WindowSDL - error creating renderer: " + std::string(SDL_GetError()));
+        throw std::runtime_error(
+              "WindowSDL - error creating renderer: " + std::string(SDL_GetError()));
     }
 }
 
@@ -40,12 +44,14 @@ void WindowSDL::update() {
     SDL_RenderPresent(renderer_);
 }
 
-void WindowSDL::line(int x1,
-      int y1,
-      int x2,
-      int y2,
-      const ColorTripletT& sdl_color) {
-    if (SDL_SetRenderDrawColor(renderer_, sdl_color[0], sdl_color[1], sdl_color[2], SDL_ALPHA_OPAQUE) != 0) {
+void WindowSDL::line(int x1, int y1, int x2, int y2, const ColorTripletT& sdl_color) {
+    if (SDL_SetRenderDrawColor(
+              renderer_,
+              sdl_color[0],
+              sdl_color[1],
+              sdl_color[2],
+              SDL_ALPHA_OPAQUE)
+        != 0) {
         throw std::runtime_error("WindowSDL::line - error no SDL_SetRenderDrawColor");
     }
 
@@ -72,7 +78,8 @@ void WindowSDL::fill(const SDL_Rect& rect, const ColorTripletT& color) {
     }
 }
 
-SDL_Rect WindowSDL::write(const std::string& text,
+SDL_Rect WindowSDL::write(
+      const std::string& text,
       int x,
       int y,
       const std::string& font_name,
@@ -89,8 +96,8 @@ SDL_Rect WindowSDL::write(const std::string& text,
             throw std::runtime_error("WindowSDL::write - opening font " + font_name);
         }
 
-        //We need to first render to a surface as that's what TTF_RenderText
-        //returns, then load that surface into a texture
+        // We need to first render to a surface as that's what TTF_RenderText
+        // returns, then load that surface into a texture
         surface = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
         if (surface == nullptr) {
             throw std::runtime_error("WindowSDL::write - getting the surface " + text);
@@ -101,9 +108,9 @@ SDL_Rect WindowSDL::write(const std::string& text,
             throw std::runtime_error("WindowSDL::write - getting the texture");
         }
 
-        //Get the texture w/h so we can center it in the screen
+        // Get the texture w/h so we can center it in the screen
         SDL_Rect dst = { x, y, 0, 0 };
-        //Query the texture to get its width and height to use
+        // Query the texture to get its width and height to use
         if (SDL_QueryTexture(texture, nullptr, nullptr, &dst.w, &dst.h) != 0) {
             throw std::runtime_error("WindowSDL::write - SDL_QueryTexture error");
         }
@@ -116,7 +123,7 @@ SDL_Rect WindowSDL::write(const std::string& text,
         SDL_DestroyTexture(texture);
         return dst;
     } catch (...) {
-        //Clean up the surface and font
+        // Clean up the surface and font
         if (surface != nullptr) {
             SDL_FreeSurface(surface);
         }
@@ -129,4 +136,4 @@ SDL_Rect WindowSDL::write(const std::string& text,
         throw;
     }
 }
-}
+} // namespace graphics

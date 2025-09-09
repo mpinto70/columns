@@ -1,6 +1,5 @@
 #include "../mck/piece/utilpiece.h"
 #include "../mck/util/utiltest.h"
-
 #include "piece/Position.h"
 
 #include <gtest/gtest.h>
@@ -109,5 +108,5 @@ TEST(PositionTest, comparison) {
 
     ::mck::check_comparison(__FILE__, __LINE__, posics);
 }
-}
-}
+} // namespace tst
+} // namespace piece

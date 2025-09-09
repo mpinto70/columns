@@ -25,4 +25,4 @@ void init_graphics() {
 void stop_graphics() {
     SDL_Quit();
 }
-}
+} // namespace columns

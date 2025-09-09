@@ -10,7 +10,8 @@ namespace game {
 
 class Controller {
 public:
-    Controller(CanvasPtr&& canvas,
+    Controller(
+          CanvasPtr&& canvas,
           InputReaderPtr&& input_reader,
           piece::SharedBoard& board,
           size_t record,
@@ -27,4 +28,4 @@ private:
 
     void process_inputs();
 };
-}
+} // namespace game

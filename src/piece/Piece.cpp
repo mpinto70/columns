@@ -23,4 +23,4 @@ void Piece::roll_up() {
 void Piece::roll_down() {
     std::rotate(&colors_[0], &colors_[PIECE_SIZE - 1], &colors_[PIECE_SIZE]);
 }
-}
+} // namespace piece

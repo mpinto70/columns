@@ -6,8 +6,7 @@
 
 namespace piece {
 
-Board::Board(const size_t w,
-      const size_t h)
+Board::Board(const size_t w, const size_t h)
       : tiles_(w * h, gui::Color::NONE),
         width_(w),
         height_(h) {
@@ -64,62 +63,44 @@ Board::EliminationList Board::elimination_list() const {
     return res;
 }
 
-bool Board::has_horizontal_triplet(size_t c,
-      size_t r,
-      gui::Color color) const {
+bool Board::has_horizontal_triplet(size_t c, size_t r, gui::Color color) const {
     return c + 2 < width_ && tile(c + 1, r) == color && tile(c + 2, r) == color;
 }
 
-bool Board::has_vertical_triplet(
-      size_t c,
-      size_t r,
-      gui::Color color) const {
+bool Board::has_vertical_triplet(size_t c, size_t r, gui::Color color) const {
     return r + 2 < height_ && tile(c, r + 1) == color && tile(c, r + 2) == color;
 }
 
-bool Board::has_diagonal_descending_triplet(size_t c,
-      size_t r,
-      gui::Color color) const {
+bool Board::has_diagonal_descending_triplet(size_t c, size_t r, gui::Color color) const {
     return c + 2 < width_ && r + 2 < height_ && tile(c + 1, r + 1) == color
            && tile(c + 2, r + 2) == color;
 }
 
-bool Board::has_diagonal_ascending_triplet(size_t c,
-      size_t r,
-      gui::Color color) const {
-    return c + 2 < width_ && r >= 2 && tile(c + 1, r - 1) == color
-           && tile(c + 2, r - 2) == color;
+bool Board::has_diagonal_ascending_triplet(size_t c, size_t r, gui::Color color) const {
+    return c + 2 < width_ && r >= 2 && tile(c + 1, r - 1) == color && tile(c + 2, r - 2) == color;
 }
 
-void Board::add_horizontal_triplet(std::vector<Tile>& res,
-      size_t i,
-      size_t j) const {
+void Board::add_horizontal_triplet(std::vector<Tile>& res, size_t i, size_t j) const {
     res.push_back({ i + 0, j });
     res.push_back({ i + 1, j });
     res.push_back({ i + 2, j });
 }
 
-void Board::add_vertical_triplet(std::vector<Tile>& res,
-      size_t i,
-      size_t j) const {
+void Board::add_vertical_triplet(std::vector<Tile>& res, size_t i, size_t j) const {
     res.push_back({ i, j + 0 });
     res.push_back({ i, j + 1 });
     res.push_back({ i, j + 2 });
 }
 
-void Board::add_diagonal_descending_triplet(std::vector<Tile>& res,
-      size_t i,
-      size_t j) const {
+void Board::add_diagonal_descending_triplet(std::vector<Tile>& res, size_t i, size_t j) const {
     res.push_back({ i + 0, j + 0 });
     res.push_back({ i + 1, j + 1 });
     res.push_back({ i + 2, j + 2 });
 }
 
-void Board::add_diagonal_ascending_triplet(std::vector<Tile>& res,
-      size_t i,
-      size_t j) const {
+void Board::add_diagonal_ascending_triplet(std::vector<Tile>& res, size_t i, size_t j) const {
     res.push_back({ i + 0, j - 0 });
     res.push_back({ i + 1, j - 1 });
     res.push_back({ i + 2, j - 2 });
 }
-}
+} // namespace piece
