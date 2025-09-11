@@ -17,6 +17,7 @@ public:
           size_t record,
           piece::CreatorPtr&& piece_creator);
     void run();
+
     [[nodiscard]] const state::State& state() const { return match_controller_.state(); }
 
 private:

@@ -9,10 +9,12 @@ public:
     constexpr explicit Score(size_t initial_score = 0) : total_(initial_score) {}
 
     constexpr size_t total() const { return total_; }
+
     /** Increases score due to \p n tiles being destroyed.
      * @param n number of tiles that disappeared
      */
     void add(size_t n);
+
     void reset() { total_ = 0; }
 
 private:

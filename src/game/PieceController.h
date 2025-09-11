@@ -11,6 +11,7 @@ namespace game {
 class PieceController {
 public:
     explicit PieceController(piece::SharedConstBoard board);
+
     bool has_piece() const { return piece_[0] != gui::Color::NONE; }
 
     const piece::Position& position() const;

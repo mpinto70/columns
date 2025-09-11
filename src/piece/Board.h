@@ -14,6 +14,7 @@ public:
         size_t column;
         size_t row;
     };
+
     using EliminationList = std::vector<Tile>;
     /** Creates an empty board with dimensions \p w X \p h.
      * @param w board width in tile squares
@@ -23,20 +24,25 @@ public:
 
     /// @return the colors of the board squares
     const std::vector<gui::Color>& tiles() const { return tiles_; }
+
     /** @return square in position (c, r).
      * @param c column index
      * @param r row index
      */
     gui::Color tile(size_t c, size_t r) const { return tiles_[index(c, r)]; }
+
     /** @return writable square in position (c, r).
      * @param c column index
      * @param r row index
      */
     gui::Color& tile(size_t c, size_t r) { return tiles_[index(c, r)]; }
+
     /// @return board width
     size_t width() const { return width_; }
+
     /// @return board height
     size_t height() const { return height_; }
+
     /** Removes the square at position (c, r) and the squares above it fall.
      * @param c column index
      * @param r row index

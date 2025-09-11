@@ -1,13 +1,17 @@
 ---
 Language:        Cpp
-BasedOnStyle:    Google
+BasedOnStyle:  Google
 AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
 AlignArrayOfStructures: Left
 AlignConsecutiveBitFields:
   Enabled:         true
+  AcrossEmptyLines: true
+  AcrossComments:  true
 AlignConsecutiveMacros:
   Enabled:         true
+  AcrossEmptyLines: true
+  AcrossComments:  true
 AlignEscapedNewlines: Right
 AllowAllArgumentsOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
@@ -18,6 +22,7 @@ AllowShortLoopsOnASingleLine: false
 AlwaysBreakBeforeMultilineStrings: false
 BinPackArguments: false
 BinPackParameters: false
+BitFieldColonSpacing: Before
 BraceWrapping:
   AfterCaseLabel:  false
   AfterClass:      false
@@ -58,6 +63,7 @@ IncludeCategories:
     Priority:        900
   - Regex:           '.*'
     Priority:        200
+IndentGotoLabels: false
 IndentWidth:     4
 IndentWrappedFunctionNames: true
 InsertBraces:    true
@@ -71,6 +77,8 @@ IntegerLiteralSeparator:
   HexMinDigits:    0
 LineEnding:      LF
 PackConstructorInitializers: CurrentLine
+RemoveSemicolon: true
+SeparateDefinitionBlocks: Always
 ShortNamespaceLines: 0
 SortUsingDeclarations: Lexicographic
 SpaceAfterCStyleCast: true

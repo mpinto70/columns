@@ -10,6 +10,7 @@ PieceController::PieceController(piece::SharedConstBoard board)
         piece_(piece::NO_PIECE),
         position_(0),
         steps_per_step_(1) {}
+
 const piece::Position& PieceController::position() const {
     return position_;
 }

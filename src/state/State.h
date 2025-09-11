@@ -22,7 +22,9 @@ public:
     State(piece::SharedConstBoard board, SharedConstScoreBoard score_board);
 
     EState state() const { return state_; }
+
     const piece::Board& board() const { return *board_; }
+
     const ScoreBoard& score_board() const { return *score_board_; }
 
     bool has_next() const;

@@ -12,7 +12,9 @@ public:
      * @param size  font size
      */
     Font(const std::string& name, unsigned char size);
+
     const std::string& name() const { return name_; }
+
     unsigned char size() const { return size_; }
 
 private:

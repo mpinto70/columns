@@ -13,6 +13,7 @@ public:
 
     void reset();
     void wait() const;
+
     Clock::time_point end() const { return end_; }
 
 private:
